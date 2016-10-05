@@ -13,14 +13,6 @@ def generic_slide_shape_doc(k):
 
 class ParseSynth(object):
     
-    states = ['start', 'skip', 'proc_arg_info', 'each_class', 'proc_arg_defaults', 'done']
-    #              trigger, source, destination
-    #['skip_to', '*', 'skip', 'after="skip"'],
-    transitions = [ 
-        ['start', 'start', 'skip'], 
-        ['do_end', '*', 'done'],
-    ]    
-    
     
     def __init__(self, lines):
         self.lines = lines # all lines
@@ -32,16 +24,6 @@ class ParseSynth(object):
         
         self._debug = False
         
-        self.machine = Machine(model = self, states = ParseSynth.states, transitions = ParseSynth.transitions, initial='start')
-        
-        self.machine.add_transition('skip_to', '*', 'skip', after='skip_m')
-        self.machine.add_transition('do_arg_info', 'skip', 'proc_arg_info', after='proc_arg_info')
-        #self.machine.add_transition('do_class', '*', 'each_class', after='proc_class')
-        #self.machine.add_transition('do_arg_info', 'skip', 'proc_arg_info', after='proc_arg_info')
-        #self.machine.on_enter_skip('skip')
-        #self.machine.on_enter_each_class('proc_class')
-        self.machine.on_enter_done('do_end')
-
     def next_line(self):
         self.l += 1
         self.line = self.lines[self.l]
@@ -145,7 +127,7 @@ class ParseSynth(object):
         
         return True
         
-    def skip_m(self, match):        
+    def skip_to(self, match):        
         print("skip>", match)
         if not match: return True
         for s in self.lines[self.l:]:
@@ -155,7 +137,6 @@ class ParseSynth(object):
                 return True
 
     def proc_arg_info(self):
-        print("state=", self.state)
         arg_dict = {}
         lines = self.lines[self.l+1:]
         doc = False
@@ -197,12 +178,11 @@ class ParseSynth(object):
 def parseSynth():
     const_file = open('synthinfo.rb').readlines()
     ps = ParseSynth(const_file)
-    ps.start()
     ps.skip_to("class BaseInfo")
     ps.skip_to("def default_arg_info")    
-    arg_base = ps.do_arg_info()
-    print(arg_base)
-    ps.synths['__BaseInfo__'] = {'arg_info':arg_base}
+    arg_base = ps.proc_arg_info()
+    #print(arg_base)
+    #ps.synths['__BaseInfo__'] = {'arg_info':arg_base}
     
     ps.skip_to("class SoundIn < SonicPiSynth")
     stop_class_line = '    class BaseInfo\n'
