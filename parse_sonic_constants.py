@@ -51,8 +51,12 @@ class ParseSynth(object):
             calframe = inspect.getouterframes(curframe, 2)
             print('next line call from :', calframe[1][3], calframe[1][2])
         '''
+    def goNext(self):
+        self.next_line()
+        self.empty_skip()
+        
     def proc_class(self):
-        print("proc_class> ", (self.line, self.l))
+        print("> ", (self.line, self.l))
         
         class_match = re.match( r'.* class (.*) < (.*)\n', self.line)
         try:            
@@ -62,28 +66,20 @@ class ParseSynth(object):
             self.next_line()
             return False
         c_name , c_parent = (class_match.group(1), class_match.group(2))
-        #print(c_name, c_parent)
-        baseClass = ["SonicPiSynth","FXInfo", "Pitchless", "BaseInfo", "StudioInfo",  "BaseMixer"]
-        user_facing = baseClass[:3] 
-        # no "BaseInfo", "StudioInfo", "BaseMixer",
         
         end_class = "    end\n"
-        if c_parent not in user_facing:
-            self.skip_m(end_class)
-            return True
-        if c_parent in baseClass:
-            inherit = False
-        else:
-            inherit = True
+
         #self.next_line()        
         synth_name = ""
         synth_descr = ""
         arg_def = {}
+        '''
         if "SoundIn <" in self.line:
             self._debug = True
             print("="*30)
         else:
             self._debug = False        
+        '''            
         while self.line != end_class:            
             s = self.line            
             #if self._debug: print(self.line)
@@ -118,24 +114,34 @@ class ParseSynth(object):
         synth_name = ":" + synth_name
         self.class_name_dict[c_name] = synth_name
         
-        if inherit:
-            parent_synt_name = self.class_name_dict[c_parent] # take the ref by class
-            parent_synt = self.synths[parent_synt_name]
+        baseClass = ["SonicPiSynth","Pitchless", "FXInfo", 
+                     "BaseInfo", "StudioInfo",  "BaseMixer"]
+        user_facing = baseClass[:3] 
+        # no "BaseInfo", "StudioInfo", "BaseMixer",
+
+        hiden = 0
+        def inherit_super(parent):
+            parent_synt_name = self.class_name_dict[parent] # take the ref by class
+            parent_synt = self.synths[parent_synt_name]            
             if parent_synt:
-                arg_def.update(parent_synt["arg_defaults"])                
-                #print(parent_synt["arg_defaults"])
-            else:
-                return False
-            
+                arg_def.update(parent_synt["arg_defaults"])
+                return parent_synt['inherit_base']
+        
+        super_c = c_parent        
+        while super_c not in baseClass:
+            super_c = inherit_super(super_c)
+        if super_c not in user_facing:
+            print("/ ", super_c)
+            hiden = 1
+
         self.synths[synth_name] = {
             "descr": synth_descr, 
             "arg_defaults": arg_def,
             "class_name": c_name,
-            "inherit_base": c_parent 
-                                   }
-        
-        self.next_line()
-        self.empty_skip()
+            "inherit_base": c_parent,
+            "hiden": hiden,
+        }
+        self.goNext()
         
         return True
         
