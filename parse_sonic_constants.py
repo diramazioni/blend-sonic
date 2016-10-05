@@ -194,20 +194,9 @@ class ParseSynth(object):
         print("END")
         
     
-def init():
+def parseSynth():
     const_file = open('synthinfo.rb').readlines()
     ps = ParseSynth(const_file)
-    return ps
-
-def js_dump(const):
-    import json
-    with open('synths.json', 'w') as outfile:
-        json.dump(const, outfile, sort_keys = True, indent = 2)    
-        
-if __name__ == '__main__':
-        
-    ps = init()
-    
     ps.start()
     ps.skip_to("class BaseInfo")
     ps.skip_to("def default_arg_info")    
@@ -224,9 +213,14 @@ if __name__ == '__main__':
             print("ops")
             break        
     js_dump(ps.synths)
-    #js_dump(ps.class_name_dict)
-    '''
-    for k,v in ps.synths.items():
-        print(k,v)
-        print("-"*80)
-    '''
+    return ps
+
+def js_dump(const):
+    import json
+    with open('synths.json', 'w') as outfile:
+        json.dump(const, outfile, sort_keys = True, indent = 2)    
+        
+if __name__ == '__main__':
+        
+    ps = parseSynth()
+    
