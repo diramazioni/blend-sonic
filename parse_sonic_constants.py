@@ -52,7 +52,8 @@ class ParseSynth(object):
             print('next line call from :', calframe[1][3], calframe[1][2])
         '''
     def proc_class(self):
-        print("proc_class> ", (self.line, self.l))        
+        print("proc_class> ", (self.line, self.l))
+        
         class_match = re.match( r'.* class (.*) < (.*)\n', self.line)
         try:            
             m = class_match.group(1)
@@ -62,11 +63,18 @@ class ParseSynth(object):
             return False
         c_name , c_parent = (class_match.group(1), class_match.group(2))
         #print(c_name, c_parent)
-        baseClass = ["SonicPiSynth","BaseInfo", "StudioInfo", "Pitchless", "BaseMixer", "FXInfo"]
-        if c_parent not in baseClass:
-            inherit = True
-        else:
+        baseClass = ["SonicPiSynth","FXInfo", "Pitchless", "BaseInfo", "StudioInfo",  "BaseMixer"]
+        user_facing = baseClass[:3] 
+        # no "BaseInfo", "StudioInfo", "BaseMixer",
+        
+        end_class = "    end\n"
+        if c_parent not in user_facing:
+            self.skip_m(end_class)
+            return True
+        if c_parent in baseClass:
             inherit = False
+        else:
+            inherit = True
         #self.next_line()        
         synth_name = ""
         synth_descr = ""
@@ -76,7 +84,7 @@ class ParseSynth(object):
             print("="*30)
         else:
             self._debug = False        
-        while self.line != "    end\n":            
+        while self.line != end_class:            
             s = self.line            
             #if self._debug: print(self.line)
             if "def name" in s:                
