@@ -178,11 +178,11 @@ class ParseSynth(object):
         while len(self.line.strip()) >0:
             k = self.line.split(":")[0].strip()
             if k:
-                arg_def[":"+k] = 0
+                arg_def[":"+k] = 1
             self.next_line()
-        # Guess the defaults non zero arg.... if someone knows tell me
-        for k in [":amp", ":sustain", ":release", ":attack_level", ":decay_level", ":sustain_level", ":env_curve"]:
-            arg_def[k] = 1        
+        # Guess the defaults zero arg.... if someone knows tell me
+        for k in [":pan", ":slide", ":pitch"]:
+            arg_def[k] = 0       
         return arg_def
         
         
