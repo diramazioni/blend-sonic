@@ -1,7 +1,8 @@
 from transitions import Machine
 import re
 
-import sys
+import inspect
+
 
 def generic_slide_doc(k):
     return "Amount of time (in beats) for the {0} value to change. A long {0}_slide value means that the {0} takes a long time to slide from the previous value to the new value. A {0}_slide of 0 means that the {0} instantly changes to the new value.".format(k)
@@ -29,6 +30,8 @@ class ParseSynth(object):
         self.class_name_dict = {}
         self.synths = {}
         
+        self._debug = False
+        
         self.machine = Machine(model = self, states = ParseSynth.states, transitions = ParseSynth.transitions, initial='start')
         
         self.machine.add_transition('skip_to', '*', 'skip', after='skip_m')
@@ -42,7 +45,12 @@ class ParseSynth(object):
     def next_line(self):
         self.l += 1
         self.line = self.lines[self.l]
-
+        '''
+        if self._debug:
+            curframe = inspect.currentframe()
+            calframe = inspect.getouterframes(curframe, 2)
+            print('next line call from :', calframe[1][3], calframe[1][2])
+        '''
     def proc_class(self):
         print("proc_class> ", (self.line, self.l))        
         class_match = re.match( r'.* class (.*) < (.*)\n', self.line)
@@ -54,7 +62,8 @@ class ParseSynth(object):
             return False
         c_name , c_parent = (class_match.group(1), class_match.group(2))
         #print(c_name, c_parent)
-        if c_parent not in ["SonicPiSynth","BaseInfo", "StudioInfo", "Pitchless", "BaseMixer", "FXInfo"]:
+        baseClass = ["SonicPiSynth","BaseInfo", "StudioInfo", "Pitchless", "BaseMixer", "FXInfo"]
+        if c_parent not in baseClass:
             inherit = True
         else:
             inherit = False
@@ -62,12 +71,17 @@ class ParseSynth(object):
         synth_name = ""
         synth_descr = ""
         arg_def = {}
-        while self.line != "    end\n":
-            #print("while", self.line)
-            s = self.line
-            if "def name" in s:                    
+        if "SoundIn <" in self.line:
+            self._debug = True
+            print("="*30)
+        else:
+            self._debug = False        
+        while self.line != "    end\n":            
+            s = self.line            
+            #if self._debug: print(self.line)
+            if "def name" in s:                
                 self.next_line()
-                synth_descr = self.line.strip().strip('"')
+                synth_descr = self.line.strip().strip('"')                
             elif "def synth_name" in s:
                 self.next_line()
                 synth_name = self.line.strip().strip('"')
@@ -84,11 +98,12 @@ class ParseSynth(object):
                     if v[0] == ":":
                         ref = arg_def[v]
                         arg_def[k] = ref
-            else: 
+            else:                 
                 self.next_line()
+                #if self._debug: print("NEXT2", self.line)
         #print(synth_name, synth_slang)
         if not len(synth_name): 
-            print("EMPTY"); 
+            #print("EMPTY"); 
             self.next_line()
             self.empty_skip()
             return True
@@ -185,7 +200,8 @@ if __name__ == '__main__':
     arg_base = ps.do_arg_info()
     print(arg_base)
     ps.synths['__BaseInfo__'] = {'arg_info':arg_base}
-    ps.skip_to("class DullBell < SonicPiSynth")
+    
+    ps.skip_to("class SoundIn < SonicPiSynth")
     stop_class_line = '    class BaseInfo\n'
     while(ps.line != stop_class_line):
         #ps.empty_skip()
@@ -193,10 +209,10 @@ if __name__ == '__main__':
         if not op:
             print("ops")
             break        
-        js_dump(ps.synths)
-        #js_dump(ps.class_name_dict)
-        '''
-        for k,v in ps.synths.items():
-            print(k,v)
-            print("-"*80)
-        '''
+    js_dump(ps.synths)
+    #js_dump(ps.class_name_dict)
+    '''
+    for k,v in ps.synths.items():
+        print(k,v)
+        print("-"*80)
+    '''
