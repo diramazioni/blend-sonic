@@ -171,12 +171,24 @@ class ParseSynth(object):
         while self.line == '\n':
             self.next_line()
 
-    def do_end(self):        
-        print("END")
+    def parse_play_opts(self):
+        arg_def = {}
+        self.skip_to("DEFAULT_PLAY_OPTS")
+        self.next_line()
+        while len(self.line.strip()) >0:
+            k = self.line.split(":")[0].strip()
+            if k:
+                arg_def[":"+k] = 0
+            self.next_line()
+        # Guess the defaults non zero arg.... if someone knows tell me
+        for k in [":amp", ":sustain", ":release", ":attack_level", ":decay_level", ":sustain_level", ":env_curve"]:
+            arg_def[k] = 1        
+        return arg_def
+        
         
     
 def parseSynth():
-    const_file = open('synthinfo.rb').readlines()
+    const_file = open('sonicpi/synths/synthinfo.rb').readlines()
     ps = ParseSynth(const_file)
     ps.skip_to("class BaseInfo")
     ps.skip_to("def default_arg_info")    
@@ -192,7 +204,14 @@ def parseSynth():
         if not op:
             print("ops")
             break        
+
+    const_file = open('sonicpi/lang/sound.rb').readlines()
+    play_opts = ParseSynth(const_file)
+    arg_defaults = play_opts.parse_play_opts()
+    print(arg_defaults)
+    ps.synths['play'] = {"arg_defaults":arg_defaults, "descr": "play notes"}
     js_dump(ps.synths)
+    
     return ps
 
 def js_dump(const):
