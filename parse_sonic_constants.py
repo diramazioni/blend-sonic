@@ -3,16 +3,47 @@ import re
 
 import inspect
 
-
+'''
 def generic_slide_doc(k):
     return "Amount of time (in beats) for the {0} value to change. A long {0}_slide value means that the {0} takes a long time to slide from the previous value to the new value. A {0}_slide of 0 means that the {0} instantly changes to the new value.".format(k)
 def generic_slide_curve_doc(k):
     return "Shape of the slide curve (only honoured if slide shape is 5). 0 means linear and positive and negative numbers curve the segment up and down respectively."
 def generic_slide_shape_doc(k):
     return "Shape of curve. 0: step, 1: linear, 3: sine, 4: welch, 5: custom (use *_slide_curve: opt e.g. amp_slide_curve:), 6: squared, 7: cubed. "
-
+'''
 class ParseSynth(object):
     
+    '''
+    def proc_arg_info(self):
+        arg_dict = {}
+        lines = self.lines[self.l+1:]
+        doc = False
+        k = ""
+        for s in lines:
+            self.l += 1
+            if "end" in s: break
+            if doc == False and "=>" in s:
+                k = s.split("=>")[0].strip()
+                continue
+            elif "{" in s: 
+                doc = True
+                continue
+            elif "}" in s: 
+                doc = False
+                continue
+            elif ":doc =>" in s and doc: 
+                d = s.split("=>")[1]
+                if "generic_slide_doc" in d:
+                    d = generic_slide_doc(k)
+                elif "generic_slide_curve_doc" in d:
+                    d = generic_slide_curve_doc(k)
+                if "generic_slide_shape_doc" in d:
+                    d = generic_slide_shape_doc(k)
+                arg_dict[k] = d
+                continue
+        #print(arg_dict)
+        return arg_dict
+    '''
     
     def __init__(self, lines):
         self.lines = lines # all lines
@@ -83,7 +114,9 @@ class ParseSynth(object):
                 for k, v in arg_def.items(): # fix value reference
                     if v[0] == ":":
                         ref = arg_def[v]
-                        arg_def[k] = ref
+                        print(k,v,ref)
+                        arg_def[k] = eval(str(ref))
+                    else: arg_def[k] = eval(v)
             else:                 
                 self.next_line()
                 #if self._debug: print("NEXT2", self.line)
@@ -135,37 +168,6 @@ class ParseSynth(object):
             if match in s:
                 self.line = s
                 return True
-
-    def proc_arg_info(self):
-        arg_dict = {}
-        lines = self.lines[self.l+1:]
-        doc = False
-        k = ""
-        for s in lines:
-            self.l += 1
-            if "end" in s: break
-            if doc == False and "=>" in s:
-                k = s.split("=>")[0].strip()
-                continue
-            elif "{" in s: 
-                doc = True
-                continue
-            elif "}" in s: 
-                doc = False
-                continue
-            elif ":doc =>" in s and doc: 
-                d = s.split("=>")[1]
-                if "generic_slide_doc" in d:
-                    d = generic_slide_doc(k)
-                elif "generic_slide_curve_doc" in d:
-                    d = generic_slide_curve_doc(k)
-                if "generic_slide_shape_doc" in d:
-                    d = generic_slide_shape_doc(k)
-                arg_dict[k] = d
-                continue
-        #print(arg_dict)
-        return arg_dict
-    
     
     def empty_skip(self):
         while self.line == '\n':
@@ -190,12 +192,13 @@ class ParseSynth(object):
 def parseSynth():
     const_file = open('sonicpi/synths/synthinfo.rb').readlines()
     ps = ParseSynth(const_file)
+    '''
     ps.skip_to("class BaseInfo")
     ps.skip_to("def default_arg_info")    
     arg_base = ps.proc_arg_info()
-    #print(arg_base)
-    #ps.synths['__BaseInfo__'] = {'arg_info':arg_base}
-    
+    print(arg_base)
+    ps.synths['__BaseInfo__'] = {'arg_info':arg_base}
+    '''
     ps.skip_to("class SoundIn < SonicPiSynth")
     stop_class_line = '    class BaseInfo\n'
     while(ps.line != stop_class_line):
@@ -209,7 +212,7 @@ def parseSynth():
     play_opts = ParseSynth(const_file)
     arg_defaults = play_opts.parse_play_opts()
     print(arg_defaults)
-    ps.synths['play'] = {"arg_defaults":arg_defaults, "descr": "play notes"}
+    ps.synths['#play'] = {"arg_defaults":arg_defaults, "descr": "play notes", "hiden": 1, "class_name": "Play"}
     js_dump(ps.synths)
     
     return ps
@@ -218,8 +221,12 @@ def js_dump(const):
     import json
     with open('synths.json', 'w') as outfile:
         json.dump(const, outfile, sort_keys = True, indent = 2)    
-        
+
+    
 if __name__ == '__main__':
         
     ps = parseSynth()
+
+    from gen_template import *
+    do_jinja(ps.synths)
     
