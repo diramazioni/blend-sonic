@@ -44,30 +44,19 @@ class ParseSynth(object):
         #print(arg_dict)
         return arg_dict
     '''
-    
+    line = ""
     def __init__(self, lines):
         self.lines = lines # all lines
-        self.line = "" # current line
         self.l = 0  # cursor of current line
+        self.line = lines[self.l]
+        #self.line = "" # current line
+        
         
         self.class_name_dict = {}
         self.synths = {}
         
         self._debug = False
-        
-    def next_line(self):
-        self.l += 1
-        self.line = self.lines[self.l]
-        '''
-        if self._debug:
-            curframe = inspect.currentframe()
-            calframe = inspect.getouterframes(curframe, 2)
-            print('next line call from :', calframe[1][3], calframe[1][2])
-        '''
-    def goNext(self):
-        self.next_line()
-        self.empty_skip()
-        
+                
     def proc_class(self):
         print("> ", (self.line, self.l))
         
@@ -86,16 +75,9 @@ class ParseSynth(object):
         synth_name = ""
         synth_descr = ""
         arg_def = {}
-        '''
-        if "SoundIn <" in self.line:
-            self._debug = True
-            print("="*30)
-        else:
-            self._debug = False        
-        '''            
+
         while self.line != end_class:            
             s = self.line            
-            #if self._debug: print(self.line)
             if "def name" in s:                
                 self.next_line()
                 synth_descr = self.line.strip().strip('"')                
@@ -119,8 +101,7 @@ class ParseSynth(object):
                     else: arg_def[k] = eval(v)
             else:                 
                 self.next_line()
-                #if self._debug: print("NEXT2", self.line)
-        #print(synth_name, synth_slang)
+
         if not len(synth_name): 
             #print("EMPTY"); 
             self.next_line()
@@ -159,19 +140,35 @@ class ParseSynth(object):
         self.goNext()
         
         return True
-        
-    def skip_to(self, match):        
-        print("skip>", match)
-        if not match: return True
-        for s in self.lines[self.l:]:
-            self.l += 1
-            if match in s:
-                self.line = s
-                return True
-    
+
     def empty_skip(self):
         while self.line == '\n':
             self.next_line()
+        
+    def next_line(self):
+        self.l = self.l + 1
+        self.line = self.lines[self.l]
+        '''
+        if self._debug:
+            curframe = inspect.currentframe()
+            calframe = inspect.getouterframes(curframe, 2)
+            print('next line call from :', calframe[1][3], calframe[1][2])
+        '''
+    def skip_to(self, match):        
+        #print("skip>", match)
+        while match not in self.line:
+            self.next_line()
+        '''
+        if not match: return True
+        for s in self.lines[self.l:]:
+            self.l = self.l + 1
+            if match in s:
+                self.line = s
+                return True
+        '''                
+    def goNext(self):
+        self.next_line()
+        self.empty_skip()
 
     def parse_play_opts(self):
         arg_def = {}
@@ -186,11 +183,11 @@ class ParseSynth(object):
         for k in [":pan", ":slide", ":pitch"]:
             arg_def[k] = 0       
         return arg_def
-        
-        
+       
     
 def parseSynth():
-    const_file = open('sonicpi/synths/synthinfo.rb').readlines()
+    with open('sonicpi/synths/synthinfo.rb') as infile:
+        const_file = infile.readlines()
     ps = ParseSynth(const_file)
     '''
     ps.skip_to("class BaseInfo")
@@ -208,9 +205,10 @@ def parseSynth():
             print("ops")
             break        
 
-    const_file = open('sonicpi/lang/sound.rb').readlines()
-    play_opts = ParseSynth(const_file)
-    arg_defaults = play_opts.parse_play_opts()
+    with open('sonicpi/lang/sound.rb') as infile:
+        const_file = infile.readlines()
+    po = ParseSynth(const_file)
+    arg_defaults = po.parse_play_opts()
     print(arg_defaults)
     ps.synths['#play'] = {"arg_defaults":arg_defaults, "descr": "play notes", "hiden": 1, "class_name": "Play"}
     js_dump(ps.synths)
@@ -222,11 +220,9 @@ def js_dump(const):
     with open('synths.json', 'w') as outfile:
         json.dump(const, outfile, sort_keys = True, indent = 2)    
 
-    
 if __name__ == '__main__':
-        
+
     ps = parseSynth()
 
     from gen_template import *
     do_jinja(ps.synths)
-    
