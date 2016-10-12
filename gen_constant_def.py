@@ -11,7 +11,7 @@ def generic_slide_curve_doc(k):
 def generic_slide_shape_doc(k):
     return "Shape of curve. 0: step, 1: linear, 3: sine, 4: welch, 5: custom (use *_slide_curve: opt e.g. amp_slide_curve:), 6: squared, 7: cubed. "
 '''
-class ParseSynth(object):
+class ParseConst(object):
     
     '''
     def proc_arg_info(self):
@@ -53,7 +53,11 @@ class ParseSynth(object):
         
         
         self.class_name_dict = {}
-        self.synths = {}
+        self.consts = {}
+        self.args_types = {}
+        
+        self.funct_doc = {}
+        self.opts_doc = {}
         
         self._debug = False
                 
@@ -120,7 +124,7 @@ class ParseSynth(object):
         hiden = 0
         def inherit_super(parent):
             parent_synt_name = self.class_name_dict[parent] # take the ref by class
-            parent_synt = self.synths[parent_synt_name]            
+            parent_synt = self.consts[parent_synt_name]            
             if parent_synt:
                 arg_def.update(parent_synt["arg_defaults"])
                 return parent_synt['inherit_base']
@@ -132,7 +136,7 @@ class ParseSynth(object):
             print("/ ", super_c)
             hiden = 1
 
-        self.synths[synth_name] = {
+        self.consts[synth_name] = {
             "descr": synth_descr, 
             "arg_defaults": arg_def,
             "class_name": c_name,
@@ -143,6 +147,104 @@ class ParseSynth(object):
         
         return True
 
+    def eval_val(self, val):
+        if val.isdigit():
+            return eval(val)
+        else:
+            return str(val)
+    
+    def parse_lang(self, opts_defaults, do_doc):
+                
+        print("> ", (self.line.strip(), self.l))
+        end_class = "      end\n"
+        
+        
+        func_simple_re = re.compile(r'\s*def (\w*[\?!]?)\n')
+        func_with_arg_re = re.compile(r'\s*def (\w*[\?!]?)\((.*)\)')
+        func_simple = func_simple_re.match(self.line)
+        func_with_arg = func_with_arg_re.match(self.line)
+        f_name, argu, arg_def = None, None, None
+        if func_with_arg:
+            args = {}
+            f_name , argu = (func_with_arg.group(1), func_with_arg.group(2))
+            argu_l = argu.split(', ')
+            for arg in argu_l:                
+                if '=' in arg:  
+                    arg_def, arg_val = arg.split('=')                                            
+                    args[arg_def] = self.eval_val(arg_val)
+                else:
+                    args[arg] = None
+            self.skip_ex(end_class)
+            self.consts[f_name] = {'args': args}
+        elif func_simple:
+            f_name = func_simple.group(1)
+            self.skip_ex(end_class)
+            self.consts[f_name] = {}
+        else:
+            raise Exception("bailout not a func", (self.line, self.l))
+        
+        self.next_line()
+        if self.line.strip().startswith('doc name:'):
+            name = self.line.strip().split(':')[2][:-1]
+            if name != f_name: return False            
+            self.skip_to('summary:')
+            summary = self.line.split('"')[1]
+            self.consts[f_name]['summary'] = summary
+            self.skip_to('doc:')
+            doc = self.line.split('"')[1]
+            self.funct_doc[f_name] = doc
+            self.skip_to('args:')                        
+            args_type_line_re = re.match(r'\s*args:\s*\[(.*)\],?.*', self.line).group(1)                     
+            #print("args_re:   ", args_type_line_re ) #split
+            args_type_iter = re.compile('\[(:\w*), (:\w*)\]') 
+            args = {}#[]    
+            for ar_match in args_type_iter.finditer(args_type_line_re):                
+                arg_ref, arg_type = ar_match.group(1), ar_match.group(2)
+                arg_ref = arg_ref[1:] # remove initial :                                
+                #d = {v: k for (k, v) in ar.split(',')}
+                '''
+                else:
+                    an_type = self.args_types[arg_type]
+                    self.consts[f_name].setdefault('args_types':{arg_ref: an_type}) 
+                '''
+                args[arg_ref] = arg_type
+            ########################    
+            self.consts[f_name]['args_types'] = args                
+            self.skip_to('opts:')
+            #print(self.line)
+            opts = []
+            opt_line = re.match(r'\s*opts:\s*(.*),?.*', self.line).group(1)
+            opt_with_arg_re = re.compile(r'{:?(\w*):? *(?:=>)? *\"(.*)\"}?,')
+            opt_arg = opt_with_arg_re.match(opt_line)
+            
+            #opt_line = l.split['opts:'][1].strip()
+            if "nil," in opt_line:
+                opt_line = None
+            elif 'DEFAULT_PLAY_OPTS' in opt_line:
+                 opt_line = opts_defaults
+                #if arg_type not in self.args_types: 
+            elif '{},' in opt_line:
+                opt_line = {}
+            elif opt_arg:                
+                opt, doc =  opt_arg.group(1), opt_arg.group(2)                
+                self.opts_doc[opt] = doc                                
+                opt_line = {opt: doc}
+            else:
+                print("no opt match in", opt_line)
+                return False
+            '''
+            elif 
+                opts_type_line_re = re.match(r'\s*opts:\s*\"(.*)\".*', self.line).group(1)
+            else: 
+            '''
+            self.consts[f_name]['opts'] = opt_line
+            print('args:', self.line )
+        
+        #self.next_line()
+        #print(self.consts)
+        return True
+        
+        
     def parse_play_opts(self):
         arg_def = {}
         self.skip_to("DEFAULT_PLAY_OPTS")
@@ -171,8 +273,11 @@ class ParseSynth(object):
             print('next line call from :', calframe[1][3], calframe[1][2])
         '''
     def skip_to(self, match):        
-        #print("skip>", match)
         while match not in self.line:
+            self.next_line()
+            
+    def skip_ex(self, match):        
+        while self.line != match:
             self.next_line()
               
     def goNext(self):
@@ -184,13 +289,13 @@ class ParseSynth(object):
 def parseSynth():
     with open('sonicpi/synths/synthinfo.rb') as infile:
         const_file = infile.readlines()
-    ps = ParseSynth(const_file)
+    ps = ParseConst(const_file)
     '''
     ps.skip_to("class BaseInfo")
     ps.skip_to("def default_arg_info")    
     arg_base = ps.proc_arg_info()
     print(arg_base)
-    ps.synths['__BaseInfo__'] = {'arg_info':arg_base}
+    ps.consts['__BaseInfo__'] = {'arg_info':arg_base}
     '''
     ps.skip_to("class SoundIn < SonicPiSynth")
     stop_class_line = '    class BaseInfo\n'
@@ -202,19 +307,33 @@ def parseSynth():
             break
     return ps
 
-def parseSound()
+def parseSound():
     with open('sonicpi/lang/sound.rb') as infile:
         const_file = infile.readlines()
-    ps = ParseSynth(const_file)
-    arg_defaults = ps.parse_play_opts()
-    print(arg_defaults)
-    ps.synths['#play'] = {"arg_defaults":arg_defaults, "descr": "play notes", "hiden": 1, "class_name": "Play"}
+    ps = ParseConst(const_file)
+    opts_defaults = ps.parse_play_opts()
+    ps.skip_to("def octs(")
+    stop_class_line = '      private'
+    while not ps.line.startswith(stop_class_line):
+        if ps.line.startswith('      def'):
+            #print(ps.line)
+            op = ps.parse_lang(opts_defaults, True)
+            if not op:
+                print("ops")
+                break                
+        elif 'private' in ps.line: break
+        else:        ps.goNext()
+        
+    print("="*80)
     
     return ps
+    '''
+    ps.consts['#play'] = {"arg_defaults":arg_defaults, "descr": "play notes", "hiden": 1, "class_name": "Play"}
+    '''
+    return ps
 
-def dump_dict(synths):
-    import json
-    helper_func = '''
+def gen_helper_func():
+    return '''
 def all_def():
     return { key: value for key, value in synths.items() if value['hiden'] != True }
 all_def = all_def()
@@ -231,11 +350,16 @@ def generators():
     return { key: value for key, value in synths.items() if key.startswith('#') }
 generators = generators()
 
+
 if __name__ == '__main__':
     print("synth: ", len(all_synth))
     print("fx: ",len(all_fx))
     print("gen: ",len(generators))
     '''
+
+def dump_dict(constant_def, out_file_name, out_mode, helper_func):
+    import json
+
     def dict2var(dictionary):
         text = []
         for k, v in dictionary.items():   # split json in separate k = val        
@@ -243,28 +367,33 @@ if __name__ == '__main__':
             text.append(k+" = " + d + "\n")
         return ('\n').join(text)
     
-    with open('sonic_constants.json') as infile:
-        const = json.load(infile)
-    
-    with open('constant_def.py', 'w') as outfile:
+    with open(out_file_name, out_mode) as outfile:
         
-        outfile.write(dict2var(const))
-        
-        d = json.dumps(synths, sort_keys = True, indent = 2) 
-        outfile.write("synths = " + d)
+        if out_mode == "w":
+            outfile.write('null = None\n')
+        outfile.write("#\#/"*10+'\n\n')
+        for const in constant_def:
+            outfile.write(dict2var(const))
         outfile.write(helper_func)
-        
+    print("wrote", out_file_name) 
     '''
     with open('synths.json', 'w') as outfile:
         json.dump(const, outfile, sort_keys = True, indent = 2) )
     '''
 if __name__ == '__main__':
 
-    ps = parseSynth()
-    dump_dict(ps.synths)
+    #ps = parseSynth()
+    #dump_dict(ps.consts, 'constant_def.py', "synths", gen_helper_func() )
+    
+    ps = parseSound()
+    dump_dict([{"lang_sound":ps.consts }],'lang_def.py', 'w', "" )
+    #ps = parseSynth()
+    #dump_dict([{"synths":ps.consts }],'lang_def.py', 'a', "" )
+    dump_dict([{"funct_doc":ps.funct_doc }],'lang_doc.py', 'w', "" )
+    dump_dict([{"opts_doc":ps.opts_doc }],'lang_doc.py', 'a', "" )
     
     print("DONE")
     '''
     from gen_template import *
-    do_jinja(ps.synths)
+    do_jinja(ps.consts)
     '''
