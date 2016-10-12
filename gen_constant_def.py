@@ -155,7 +155,23 @@ class ParseConst(object):
             return str(val)
     
     def parse_lang(self, defaults_opts, do_doc):
-                
+        def catch_multiline(first_line, stop_line):                
+            doc = []
+            while stop_line not in self.line.strip():
+                l = self.line
+                if first_line in l: 
+                    doc.append(l.split(first_line)[1].strip().strip('\" ,').strip('['))
+                else: doc.append(l.strip().strip('\" ,').strip(']'))
+                self.next_line()
+            return '\n'.join(doc)
+        
+        def catch_val(key):
+            return re.match(r'\s*'+key+'\s*(.*),.*', self.line).group(1) 
+            #return self.line.split(':')[1].strip().strip(',')
+        
+        def catch_val2(key):
+            return re.match(r'\s*'+key+'\s*\[(.*)\],?.*', self.line).group(1) 
+            
         print("> ", (self.line.strip(), self.l))
         end_class = "      end\n"
         
@@ -176,7 +192,7 @@ class ParseConst(object):
                 else:
                     args[arg] = None
             self.skip_ex(end_class)
-            self.consts[f_name] = {'args': args}
+            self.consts[f_name] = {'args_in': args}
         elif func_simple:
             f_name = func_simple.group(1)
             self.skip_ex(end_class)
@@ -186,26 +202,11 @@ class ParseConst(object):
         
         self.next_line()
         if self.line.strip().startswith('doc name:'):
-            def catch_multiline(first_line, stop_line):                
-                doc = []
-                while stop_line not in self.line.strip():
-                    l = self.line
-                    if first_line in l: 
-                        doc.append(l.split(first_line)[1].strip().strip('\" ,').strip('['))
-                    else: doc.append(l.strip().strip('\" ,').strip(']'))
-                    self.next_line()
-                return '\n'.join(doc)
-            
-            def catch_val(key):
-                return re.match(r'\s*'+key+'\s*(.*),.*', self.line).group(1) 
-                #return self.line.split(':')[1].strip().strip(',')
-            
-            def catch_val2(key):
-                return re.match(r'\s*'+key+'\s*\[(.*)\],?.*', self.line).group(1) 
 
             self.funct_doc[f_name] = {}
             name = catch_val('doc name:') #self.line.strip().split(':')[2][:-1]
-            if name[1:] != f_name: print("name %s != f_name %s" % (name, f_name)); return False            
+            if name[1:] != f_name: 
+                raise Exception("name %s != f_name %s %s %s" % (name, f_name, self.line, self.l))
             self.skip_to('summary:')
             summary = self.line.split('"')[1]
             self.consts[f_name]['summary'] = summary
