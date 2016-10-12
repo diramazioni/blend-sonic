@@ -1,6 +1,8 @@
-from transitions import Machine
+from constant_def import opts_default_val
+
 import re
 
+import sys
 import inspect
 
 '''
@@ -53,12 +55,11 @@ class ParseConst(object):
         
         
         self.class_name_dict = {}
-        self.consts = {}
-        self.args_types = {}
-        
+        self.consts = {}            
         self.funct_doc = {}
         self.opts_doc = {}
         
+        self.warn = []
         self._debug = False
                 
     def proc_class(self):
@@ -153,7 +154,7 @@ class ParseConst(object):
         else:
             return str(val)
     
-    def parse_lang(self, opts_defaults, do_doc):
+    def parse_lang(self, defaults_opts, do_doc):
                 
         print("> ", (self.line.strip(), self.l))
         end_class = "      end\n"
@@ -185,60 +186,86 @@ class ParseConst(object):
         
         self.next_line()
         if self.line.strip().startswith('doc name:'):
-            name = self.line.strip().split(':')[2][:-1]
-            if name != f_name: return False            
+            def catch_multiline(first_line, stop_line):                
+                doc = []
+                while stop_line not in self.line.strip():
+                    l = self.line
+                    if first_line in l: 
+                        doc.append(l.split(first_line)[1].strip().strip('\" ,').strip('['))
+                    else: doc.append(l.strip().strip('\" ,').strip(']'))
+                    self.next_line()
+                return '\n'.join(doc)
+            
+            def catch_val(key):
+                return re.match(r'\s*'+key+'\s*(.*),.*', self.line).group(1) 
+                #return self.line.split(':')[1].strip().strip(',')
+            
+            def catch_val2(key):
+                return re.match(r'\s*'+key+'\s*\[(.*)\],?.*', self.line).group(1) 
+
+            self.funct_doc[f_name] = {}
+            name = catch_val('doc name:') #self.line.strip().split(':')[2][:-1]
+            if name[1:] != f_name: print("name %s != f_name %s" % (name, f_name)); return False            
             self.skip_to('summary:')
             summary = self.line.split('"')[1]
             self.consts[f_name]['summary'] = summary
+            self.funct_doc[f_name]['summary'] = summary
             self.skip_to('doc:')
-            doc = self.line.split('"')[1]
-            self.funct_doc[f_name] = doc
-            self.skip_to('args:')                        
-            args_type_line_re = re.match(r'\s*args:\s*\[(.*)\],?.*', self.line).group(1)                     
+            
+            doc = catch_multiline('doc:', 'args:')
+            self.funct_doc[f_name]['doc'] = doc
+            
+            #self.skip_to('args:')                        
+            args_type_line_re = catch_val2('args:') #re.match(r'\s*args:\s*\[(.*)\],?.*', self.line).group(1)                     
             #print("args_re:   ", args_type_line_re ) #split
             args_type_iter = re.compile('\[(:\w*), (:\w*)\]') 
             args = {}#[]    
             for ar_match in args_type_iter.finditer(args_type_line_re):                
                 arg_ref, arg_type = ar_match.group(1), ar_match.group(2)
                 arg_ref = arg_ref[1:] # remove initial :                                
-                #d = {v: k for (k, v) in ar.split(',')}
-                '''
-                else:
-                    an_type = self.args_types[arg_type]
-                    self.consts[f_name].setdefault('args_types':{arg_ref: an_type}) 
-                '''
                 args[arg_ref] = arg_type
-            ########################    
             self.consts[f_name]['args_types'] = args                
             self.skip_to('opts:')
             #print(self.line)
             opts = []
-            opt_line = re.match(r'\s*opts:\s*(.*),?.*', self.line).group(1)
-            opt_with_arg_re = re.compile(r'{:?(\w*):? *(?:=>)? *\"(.*)\"}?,')
-            opt_arg = opt_with_arg_re.match(opt_line)
-            
+            opt_line = catch_val('opts:') 
+            #re.match(r'\s*opts:\s*(.*),?.*', self.line).group(1)
+                        
             #opt_line = l.split['opts:'][1].strip()
-            if "nil," in opt_line:
+            if "nil" in opt_line:
                 opt_line = None
             elif 'DEFAULT_PLAY_OPTS' in opt_line:
-                 opt_line = opts_defaults
+                 opt_line = defaults_opts
                 #if arg_type not in self.args_types: 
-            elif '{},' in opt_line:
+            elif '{}' in opt_line:
                 opt_line = {}
-            elif opt_arg:                
-                opt, doc =  opt_arg.group(1), opt_arg.group(2)                
-                self.opts_doc[opt] = doc                                
-                opt_line = {opt: doc}
             else:
-                print("no opt match in", opt_line)
-                return False
-            '''
-            elif 
-                opts_type_line_re = re.match(r'\s*opts:\s*\"(.*)\".*', self.line).group(1)
-            else: 
-            '''
+                opt_with_arg_re = re.compile(r'{:?(\w*):? *(?:=>)? *\"(.*)\"}?')
+                opt_arg = opt_with_arg_re.match(opt_line)                
+                if opt_arg:                
+                    opt, doc =  opt_arg.group(1), opt_arg.group(2)                
+                    self.opts_doc[opt] = doc
+                    opt_line = {opt: opts_default_val[opt]}
+                else:
+                    print("no opt match in", opt_line)
+                    return False
+                
             self.consts[f_name]['opts'] = opt_line
-            print('args:', self.line )
+            self.skip_to('accepts_block:')
+            ab = catch_val('accepts_block:')
+            ab = True if ab == "true" else False
+            self.consts[f_name]['accepts_block'] = ab            
+            self.skip_to('examples:')
+            examples = catch_multiline('examples:', ']')            
+            self.funct_doc[f_name]['examples'] = examples
+            
+            # ["intro_fn", "memoize"]
+        else:
+            self.warn.append({"no_doc": f_name})
+
+        mandatory_keys = ["args", "args_types", "opts", "summary", "accepts_block"]
+        warn = [{"no_mandatory_keys":(k,f_name)} for k in mandatory_keys if k not in self.consts[f_name]]
+        if len(warn)>0: self.warn += warn
         
         #self.next_line()
         #print(self.consts)
@@ -250,13 +277,15 @@ class ParseConst(object):
         self.skip_to("DEFAULT_PLAY_OPTS")
         self.next_line()
         while len(self.line.strip()) >0:
-            k = self.line.split(":")[0].strip()
-            if k:
-                arg_def[k+":"] = 1
+            opt = self.line.split(":")[0].strip()
+            if opt:
+                arg_def[opt] = 1
+            doc = self.line.split('"')[1]
+            self.opts_doc[opt] = doc            
             self.next_line()
         # Guess the defaults zero arg.... if someone knows tell me
-        for k in ["pan:", "slide:", "pitch:"]:
-            arg_def[k] = 0       
+        for opt in ["pan", "slide", "pitch", "attack", "decay", "release"]:
+            arg_def[opt] = 0       
         return arg_def
 
     def empty_skip(self):
@@ -311,21 +340,25 @@ def parseSound():
     with open('sonicpi/lang/sound.rb') as infile:
         const_file = infile.readlines()
     ps = ParseConst(const_file)
-    opts_defaults = ps.parse_play_opts()
+    defaults_opts = ps.parse_play_opts()
+    #dump_dict([{"opts_default_val":defaults_opts }],'lang_def.py', 'w', "" )
     ps.skip_to("def octs(")
     stop_class_line = '      private'
     while not ps.line.startswith(stop_class_line):
         if ps.line.startswith('      def'):
             #print(ps.line)
-            op = ps.parse_lang(opts_defaults, True)
+            op = ps.parse_lang(defaults_opts, True)
             if not op:
                 print("ops")
                 break                
         elif 'private' in ps.line: break
         else:        ps.goNext()
-        
-    print("="*80)
     
+    func_off = ["use_fx", "use_timing_warnings"]
+    ##########################################
+    print("="*80)
+    print("TOT lang_sound", len(ps.consts))
+    print("TOT funct_doc", len(ps.funct_doc))
     return ps
     '''
     ps.consts['#play'] = {"arg_defaults":arg_defaults, "descr": "play notes", "hiden": 1, "class_name": "Play"}
@@ -357,7 +390,7 @@ if __name__ == '__main__':
     print("gen: ",len(generators))
     '''
 
-def dump_dict(constant_def, out_file_name, out_mode, helper_func):
+def dump_dict(dict_def, out_file_name, out_mode, helper_func):
     import json
 
     def dict2var(dictionary):
@@ -372,7 +405,7 @@ def dump_dict(constant_def, out_file_name, out_mode, helper_func):
         if out_mode == "w":
             outfile.write('null = None\n')
         outfile.write("#\#/"*10+'\n\n')
-        for const in constant_def:
+        for const in dict_def:
             outfile.write(dict2var(const))
         outfile.write(helper_func)
     print("wrote", out_file_name) 
@@ -383,14 +416,26 @@ def dump_dict(constant_def, out_file_name, out_mode, helper_func):
 if __name__ == '__main__':
 
     #ps = parseSynth()
-    #dump_dict(ps.consts, 'constant_def.py', "synths", gen_helper_func() )
+    #dump_dict(ps.consts, 'lang_def.py', "synths", gen_helper_func() )
     
     ps = parseSound()
     dump_dict([{"lang_sound":ps.consts }],'lang_def.py', 'w', "" )
+    
     #ps = parseSynth()
     #dump_dict([{"synths":ps.consts }],'lang_def.py', 'a', "" )
     dump_dict([{"funct_doc":ps.funct_doc }],'lang_doc.py', 'w', "" )
+    
     dump_dict([{"opts_doc":ps.opts_doc }],'lang_doc.py', 'a', "" )
+    
+    for k in ps.consts.keys():
+        if k not in ps.funct_doc: print("no DOC", k)
+    
+    #opts_default_val = {k:"" for k in ps.opts_doc.keys()}
+    if len(ps.warn):
+        print("---WARN---"*20)    
+        print(ps.warn)
+        
+    
     
     print("DONE")
     '''

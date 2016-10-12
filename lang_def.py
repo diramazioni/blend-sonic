@@ -3,11 +3,13 @@ null = None
 
 lang_sound = {
   "all_sample_names": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Get all sample names"
   },
   "chord": {
+    "accepts_block": false,
     "args": {
       "*opts": null,
       "tonic_or_name": null
@@ -17,11 +19,12 @@ lang_sound = {
       "tonic": ":symbol"
     },
     "opts": {
-      "invert": "Apply the specified num inversions to chord. See the fn `chord_invert`."
+      "invert": 0
     },
     "summary": "Create chord"
   },
   "chord_degree": {
+    "accepts_block": false,
     "args": {
       "*opts": null,
       "degree": null,
@@ -39,6 +42,7 @@ lang_sound = {
     "summary": "Construct chords of stacked thirds, based on scale degrees"
   },
   "chord_invert": {
+    "accepts_block": false,
     "args": {
       "notes": null,
       "shift": null
@@ -51,11 +55,13 @@ lang_sound = {
     "summary": "Chord inversion"
   },
   "chord_names": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "All chord names"
   },
   "control": {
+    "accepts_block": false,
     "args": {
       "*args": null
     },
@@ -66,56 +72,67 @@ lang_sound = {
     "summary": "Control running synth"
   },
   "current_arg_checks": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Get current arg checking status"
   },
   "current_cent_tuning": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Get current cent shift"
   },
   "current_debug": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Get current debug status"
   },
   "current_octave": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Get current octave shift"
   },
   "current_sample_defaults": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Get current sample defaults"
   },
   "current_sched_ahead_time": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Get current sched ahead time"
   },
   "current_synth": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Get current synth"
   },
   "current_synth_defaults": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Get current synth defaults"
   },
   "current_transpose": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Get current transposition"
   },
   "current_volume": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Get current volume"
   },
   "degree": {
+    "accepts_block": false,
     "args": {
       "degree": null,
       "scale": null,
@@ -127,16 +144,18 @@ lang_sound = {
       "tonic": ":symbol"
     },
     "opts": {
-      "num_octaves": "The number of octaves you'd like the scale to consist of. More octaves means a larger scale. Default is 1."
+      "num_octaves": 1
     },
     "summary": "Convert a degree into a note"
   },
   "fx_names": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Get all FX names"
   },
   "hz_to_midi": {
+    "accepts_block": false,
     "args": {
       "freq": null
     },
@@ -152,6 +171,7 @@ lang_sound = {
     }
   },
   "kill": {
+    "accepts_block": false,
     "args": {
       "node": null
     },
@@ -162,6 +182,7 @@ lang_sound = {
     "summary": "Kill synth"
   },
   "load_sample": {
+    "accepts_block": false,
     "args": {
       "*args": null
     },
@@ -177,6 +198,7 @@ lang_sound = {
     }
   },
   "load_samples": {
+    "accepts_block": false,
     "args": {
       "*args": null
     },
@@ -187,6 +209,7 @@ lang_sound = {
     "summary": "Pre-load all matching samples"
   },
   "load_synthdefs": {
+    "accepts_block": false,
     "args": {
       "path": "synthdef_path"
     },
@@ -197,6 +220,7 @@ lang_sound = {
     "summary": "Load external synthdefs"
   },
   "midi_to_hz": {
+    "accepts_block": false,
     "args": {
       "n": null
     },
@@ -207,6 +231,7 @@ lang_sound = {
     "summary": "MIDI to Hz conversion"
   },
   "note": {
+    "accepts_block": false,
     "args": {
       "*args": null,
       "n": null
@@ -215,11 +240,12 @@ lang_sound = {
       "note": ":symbol_or_number"
     },
     "opts": {
-      "octave": "The octave of the note. Overrides any octave declaration in the note symbol such as :c2. Default is 4"
+      "octave": 4
     },
     "summary": "Describe note"
   },
   "note_range": {
+    "accepts_block": false,
     "args": {
       "*opts": null,
       "high_note": null,
@@ -229,11 +255,12 @@ lang_sound = {
       "note": ":symbol_or_number"
     },
     "opts": {
-      "octave": "The octave of the note. Overrides any octave declaration in the note symbol such as :c2. Default is 4"
+      "octave": 4
     },
     "summary": "Get a range of notes"
   },
   "octs": {
+    "accepts_block": false,
     "args": {
       "num_octs": 1,
       "start": null
@@ -250,6 +277,7 @@ lang_sound = {
     }
   },
   "pitch_to_ratio": {
+    "accepts_block": false,
     "args": {
       "m": null
     },
@@ -260,6 +288,7 @@ lang_sound = {
     "summary": "relative MIDI pitch to frequency ratio"
   },
   "play": {
+    "accepts_block": true,
     "args": {
       "&blk": null,
       "*args": null,
@@ -269,25 +298,26 @@ lang_sound = {
       "note": ":symbol_or_number"
     },
     "opts": {
-      "amp:": 1,
-      "amp_slide:": 1,
-      "attack:": 1,
-      "attack_level:": 1,
-      "decay:": 1,
-      "decay_level:": 1,
-      "env_curve:": 1,
-      "on:": 1,
-      "pan:": 0,
-      "pan_slide:": 1,
-      "pitch:": 0,
-      "release:": 1,
-      "slide:": 0,
-      "sustain:": 1,
-      "sustain_level:": 1
+      "amp": 1,
+      "amp_slide": 1,
+      "attack": 0,
+      "attack_level": 1,
+      "decay": 0,
+      "decay_level": 1,
+      "env_curve": 1,
+      "on": 1,
+      "pan": 0,
+      "pan_slide": 1,
+      "pitch": 0,
+      "release": 0,
+      "slide": 0,
+      "sustain": 1,
+      "sustain_level": 1
     },
     "summary": "Play current synth"
   },
   "play_chord": {
+    "accepts_block": false,
     "args": {
       "*args": null,
       "notes": null
@@ -296,25 +326,26 @@ lang_sound = {
       "notes": ":list"
     },
     "opts": {
-      "amp:": 1,
-      "amp_slide:": 1,
-      "attack:": 1,
-      "attack_level:": 1,
-      "decay:": 1,
-      "decay_level:": 1,
-      "env_curve:": 1,
-      "on:": 1,
-      "pan:": 0,
-      "pan_slide:": 1,
-      "pitch:": 0,
-      "release:": 1,
-      "slide:": 0,
-      "sustain:": 1,
-      "sustain_level:": 1
+      "amp": 1,
+      "amp_slide": 1,
+      "attack": 0,
+      "attack_level": 1,
+      "decay": 0,
+      "decay_level": 1,
+      "env_curve": 1,
+      "on": 1,
+      "pan": 0,
+      "pan_slide": 1,
+      "pitch": 0,
+      "release": 0,
+      "slide": 0,
+      "sustain": 1,
+      "sustain_level": 1
     },
     "summary": "Play notes simultaneously"
   },
   "play_pattern": {
+    "accepts_block": false,
     "args": {
       "*args": null,
       "notes": null
@@ -326,6 +357,7 @@ lang_sound = {
     "summary": "Play pattern of notes"
   },
   "play_pattern_timed": {
+    "accepts_block": false,
     "args": {
       "*args": null,
       "notes": null,
@@ -336,25 +368,26 @@ lang_sound = {
       "times": ":list_or_number"
     },
     "opts": {
-      "amp:": 1,
-      "amp_slide:": 1,
-      "attack:": 1,
-      "attack_level:": 1,
-      "decay:": 1,
-      "decay_level:": 1,
-      "env_curve:": 1,
-      "on:": 1,
-      "pan:": 0,
-      "pan_slide:": 1,
-      "pitch:": 0,
-      "release:": 1,
-      "slide:": 0,
-      "sustain:": 1,
-      "sustain_level:": 1
+      "amp": 1,
+      "amp_slide": 1,
+      "attack": 0,
+      "attack_level": 1,
+      "decay": 0,
+      "decay_level": 1,
+      "env_curve": 1,
+      "on": 1,
+      "pan": 0,
+      "pan_slide": 1,
+      "pitch": 0,
+      "release": 0,
+      "slide": 0,
+      "sustain": 1,
+      "sustain_level": 1
     },
     "summary": "Play pattern of notes with specific times"
   },
   "ratio_to_pitch": {
+    "accepts_block": false,
     "args": {
       "r": null
     },
@@ -365,11 +398,13 @@ lang_sound = {
     "summary": "relative frequency ratio to MIDI pitch"
   },
   "recording_delete": {
+    "accepts_block": false,
     "args_types": {},
     "opts": {},
     "summary": "Reset master mixer"
   },
   "recording_save": {
+    "accepts_block": false,
     "args": {
       "filename": null
     },
@@ -380,11 +415,13 @@ lang_sound = {
     "summary": "Save recording"
   },
   "recording_start": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Start recording"
   },
   "recording_stop": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Stop recording"
@@ -400,6 +437,7 @@ lang_sound = {
     }
   },
   "rest?": {
+    "accepts_block": true,
     "args": {
       "n": null
     },
@@ -416,6 +454,7 @@ lang_sound = {
     }
   },
   "sample_buffer": {
+    "accepts_block": false,
     "args": {
       "*args": null
     },
@@ -431,6 +470,7 @@ lang_sound = {
     }
   },
   "sample_free_all": {
+    "accepts_block": false,
     "args_types": {
       "list": ":array"
     },
@@ -438,11 +478,13 @@ lang_sound = {
     "summary": "Free all loaded samples on the synth server"
   },
   "sample_groups": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Get all sample groups"
   },
   "sample_info": {
+    "accepts_block": false,
     "args": {
       "*args": null
     },
@@ -458,6 +500,7 @@ lang_sound = {
     }
   },
   "sample_names": {
+    "accepts_block": false,
     "args": {
       "group": null
     },
@@ -468,6 +511,7 @@ lang_sound = {
     "summary": "Get sample names"
   },
   "sample_paths": {
+    "accepts_block": false,
     "args": {
       "*args": null
     },
@@ -483,11 +527,13 @@ lang_sound = {
     }
   },
   "scale_names": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "All scale names"
   },
   "set_cent_tuning!": {
+    "accepts_block": false,
     "args": {
       "shift": null
     },
@@ -498,6 +544,7 @@ lang_sound = {
     "summary": "Global Cent tuning"
   },
   "set_control_delta!": {
+    "accepts_block": false,
     "args": {
       "t": null
     },
@@ -508,12 +555,13 @@ lang_sound = {
     "summary": "Set control delta globally"
   },
   "set_mixer_control!": {
+    "accepts_block": false,
     "args": {
       "opts": null
     },
     "args_types": {},
     "opts": {
-      "pre_amp": "Controls the amplitude of the signal prior to the FX stage of the mixer (prior to lpf/hpf stages). Has slide opts. Default 1."
+      "pre_amp": 1
     },
     "summary": "Control master mixer"
   },
@@ -522,6 +570,7 @@ lang_sound = {
   "set_mixer_standard_stereo!": {},
   "set_mixer_stereo_mode!": {},
   "set_sched_ahead_time!": {
+    "accepts_block": false,
     "args": {
       "t": null
     },
@@ -532,6 +581,7 @@ lang_sound = {
     "summary": "Set sched ahead time globally"
   },
   "set_volume!": {
+    "accepts_block": false,
     "args": {
       "vol": null
     },
@@ -542,11 +592,13 @@ lang_sound = {
     "summary": "Set Volume globally"
   },
   "status": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Get server status"
   },
   "synth": {
+    "accepts_block": true,
     "args": {
       "&blk": null,
       "*args": null,
@@ -556,30 +608,32 @@ lang_sound = {
       "synth_name": ":symbol"
     },
     "opts": {
-      "amp:": 1,
-      "amp_slide:": 1,
-      "attack:": 1,
-      "attack_level:": 1,
-      "decay:": 1,
-      "decay_level:": 1,
-      "env_curve:": 1,
-      "on:": 1,
-      "pan:": 0,
-      "pan_slide:": 1,
-      "pitch:": 0,
-      "release:": 1,
-      "slide:": 0,
-      "sustain:": 1,
-      "sustain_level:": 1
+      "amp": 1,
+      "amp_slide": 1,
+      "attack": 0,
+      "attack_level": 1,
+      "decay": 0,
+      "decay_level": 1,
+      "env_curve": 1,
+      "on": 1,
+      "pan": 0,
+      "pan_slide": 1,
+      "pitch": 0,
+      "release": 0,
+      "slide": 0,
+      "sustain": 1,
+      "sustain_level": 1
     },
     "summary": "Trigger specific synth"
   },
   "synth_names": {
+    "accepts_block": false,
     "args_types": {},
     "opts": null,
     "summary": "Get all synth names"
   },
   "use_arg_bpm_scaling": {
+    "accepts_block": false,
     "args": {
       "&block": null,
       "bool": null
@@ -591,6 +645,7 @@ lang_sound = {
     "summary": "Enable and disable BPM scaling"
   },
   "use_arg_checks": {
+    "accepts_block": false,
     "args": {
       "&block": null,
       "v": null
@@ -602,6 +657,7 @@ lang_sound = {
     "summary": "Enable and disable arg checks"
   },
   "use_cent_tuning": {
+    "accepts_block": false,
     "args": {
       "&block": null,
       "shift": null
@@ -613,6 +669,7 @@ lang_sound = {
     "summary": "Cent tuning"
   },
   "use_debug": {
+    "accepts_block": false,
     "args": {
       "&block": null,
       "v": null
@@ -636,6 +693,7 @@ lang_sound = {
     }
   },
   "use_merged_sample_defaults": {
+    "accepts_block": false,
     "args": {
       "&block": null,
       "*args": null
@@ -645,6 +703,7 @@ lang_sound = {
     "summary": "Merge new sample defaults"
   },
   "use_merged_synth_defaults": {
+    "accepts_block": false,
     "args": {
       "&block": null,
       "*args": null
@@ -654,6 +713,7 @@ lang_sound = {
     "summary": "Merge synth defaults"
   },
   "use_octave": {
+    "accepts_block": false,
     "args": {
       "&block": null,
       "shift": null
@@ -665,6 +725,7 @@ lang_sound = {
     "summary": "Note octave transposition"
   },
   "use_sample_bpm": {
+    "accepts_block": false,
     "args": {
       "*args": null,
       "sample_name": null
@@ -673,11 +734,12 @@ lang_sound = {
       "string_or_number": ":sample_name_or_duration"
     },
     "opts": {
-      "num_beats": "The number of beats within the sample. By default this is 1."
+      "num_beats": 1
     },
     "summary": "Sample-duration-based bpm modification"
   },
   "use_sample_defaults": {
+    "accepts_block": false,
     "args": {
       "&block": null,
       "*args": null
@@ -687,6 +749,7 @@ lang_sound = {
     "summary": "Use new sample defaults"
   },
   "use_synth": {
+    "accepts_block": false,
     "args": {
       "&block": null,
       "*args": null,
@@ -699,6 +762,7 @@ lang_sound = {
     "summary": "Switch current synth"
   },
   "use_synth_defaults": {
+    "accepts_block": false,
     "args": {
       "&block": null,
       "*args": null
@@ -714,6 +778,7 @@ lang_sound = {
     }
   },
   "use_transpose": {
+    "accepts_block": false,
     "args": {
       "&block": null,
       "shift": null
@@ -725,6 +790,7 @@ lang_sound = {
     "summary": "Note transposition"
   },
   "use_tuning": {
+    "accepts_block": false,
     "args": {
       "&block": null,
       "fundamental_note ": " :c",
@@ -745,6 +811,7 @@ lang_sound = {
     }
   },
   "with_arg_bpm_scaling": {
+    "accepts_block": true,
     "args": {
       "&block": null,
       "bool": null
@@ -754,6 +821,7 @@ lang_sound = {
     "summary": "Block-level enable and disable BPM scaling"
   },
   "with_arg_checks": {
+    "accepts_block": true,
     "args": {
       "&block": null,
       "v": null
@@ -765,6 +833,7 @@ lang_sound = {
     "summary": "Block-level enable and disable arg checks"
   },
   "with_cent_tuning": {
+    "accepts_block": true,
     "args": {
       "&block": null,
       "shift": null
@@ -776,6 +845,7 @@ lang_sound = {
     "summary": "Block-level cent tuning"
   },
   "with_debug": {
+    "accepts_block": true,
     "args": {
       "&block": null,
       "v": null
@@ -787,6 +857,7 @@ lang_sound = {
     "summary": "Block-level enable and disable debug"
   },
   "with_fx": {
+    "accepts_block": true,
     "args": {
       "&block": null,
       "*args": null,
@@ -796,11 +867,12 @@ lang_sound = {
       "fx_name": ":symbol"
     },
     "opts": {
-      "reps": "Number of times to repeat the block in an iteration."
+      "reps": 1
     },
     "summary": "Use Studio FX"
   },
   "with_merged_sample_defaults": {
+    "accepts_block": false,
     "args": {
       "&block": null,
       "*args": null
@@ -810,6 +882,7 @@ lang_sound = {
     "summary": "Block-level use merged sample defaults"
   },
   "with_merged_synth_defaults": {
+    "accepts_block": true,
     "args": {
       "&block": null,
       "*args": null
@@ -819,6 +892,7 @@ lang_sound = {
     "summary": "Block-level merge synth defaults"
   },
   "with_octave": {
+    "accepts_block": true,
     "args": {
       "&block": null,
       "shift": null
@@ -830,6 +904,7 @@ lang_sound = {
     "summary": "Block level octave transposition"
   },
   "with_sample_bpm": {
+    "accepts_block": true,
     "args": {
       "&block": null,
       "*args": null,
@@ -839,11 +914,12 @@ lang_sound = {
       "string_or_number": ":sample_name_or_duration"
     },
     "opts": {
-      "num_beats": "The number of beats within the sample. By default this is 1."
+      "num_beats": 1
     },
     "summary": "Block-scoped sample-duration-based bpm modification"
   },
   "with_sample_defaults": {
+    "accepts_block": false,
     "args": {
       "&block": null,
       "*args": null
@@ -853,6 +929,7 @@ lang_sound = {
     "summary": "Block-level use new sample defaults"
   },
   "with_synth": {
+    "accepts_block": true,
     "args": {
       "&block": null,
       "*args": null,
@@ -865,6 +942,7 @@ lang_sound = {
     "summary": "Block-level synth switching"
   },
   "with_synth_defaults": {
+    "accepts_block": true,
     "args": {
       "&block": null,
       "*args": null
@@ -874,6 +952,7 @@ lang_sound = {
     "summary": "Block-level use new synth defaults"
   },
   "with_timing_guarantees": {
+    "accepts_block": true,
     "args": {
       "&block": null,
       "v": null
@@ -891,6 +970,7 @@ lang_sound = {
     }
   },
   "with_transpose": {
+    "accepts_block": true,
     "args": {
       "&block": null,
       "shift": null
@@ -902,6 +982,7 @@ lang_sound = {
     "summary": "Block-level note transposition"
   },
   "with_tuning": {
+    "accepts_block": true,
     "args": {
       "&block": null,
       "fundamental_note ": " :c",

@@ -1,4 +1,53 @@
 null = None
+
+opts_default_val = {
+  "amp": 1, # Float
+  "amp_slide": 1, # Float 
+  "attack": 0, # Float 
+  "attack_level": 1, # Float
+  "decay": 0, # Float 
+  "decay_level": 1, # Float
+  "env_curve": 1, # Integer
+  "on": 1, # Boolean
+  "pan": 0, # Float
+  "pan_slide": 1, # Float
+  "pitch": 0, # Float
+  "release": 0, # Float 
+  "slide": 0, # Float
+  "sustain": 1, # Float
+  "sustain_level": 1,    
+  "invert": 0, # Integer
+  "num_beats": 1, # Integer
+  "num_octaves": 1, # Integer
+  "octave": 4, # Integer
+  "pre_amp": 1, # Float
+  "reps": 1 # Integer
+}
+
+opts_types_conversion = {
+  "amp": "Float",
+  "amp_slide": "Float",
+  "attack": "Float", 
+  "attack_level": "Float",
+  "decay": "Float",
+  "decay_level": "Float",
+  "env_curve": "Integer",
+  "on": "Boolean",
+  "pan": "Float",
+  "pan_slide": "Float",
+  "pitch": "Float",
+  "release": "Float",
+  "slide": "Float",
+  "sustain": "Float",
+  "sustain_level": "Float",    
+  "invert": "Integer",
+  "num_beats": "Integer",
+  "num_octaves": "Integer",
+  "octave": "Integer",
+  "pre_amp": "Float",
+  "reps": "Integer"
+}
+
 args_types_conversion = {
   ":array": "String List", # notes (ring) :A3, :B4, :C4 
   ":boolean": "Boolean", 
@@ -17,9 +66,9 @@ args_types_conversion = {
   ":synth_node": "String", # reference to var = 
   ":true_or_false": "String" # true or false (lowercase)
 }
-
+'''
 simple_sampler_args = [':amp', ':amp_slide', ':amp_slide_shape', ':amp_slide_curve', ':pan', ':pan_slide', ':pan_slide_shape', ':pan_slide_curve', ':cutoff', ':cutoff_slide', ':cutoff_slide_shape', ':cutoff_slide_curve', ':lpf', ':lpf_slide', ':lpf_slide_shape', ':lpf_slide_curve', ':hpf', ':hpf_slide', ':hpf_slide_shape', ':hpf_slide_curve', ':rate', ':slide', ':beat_stretch', ':rpitch', ':attack', ':decay', ':sustain', ':release', ':attack_level', ':decay_level', ':sustain_level', ':env_curve']
-
+'''
 
 notes = {
   "A2": 45,
@@ -92,7 +141,7 @@ notes = {
   "Gs5": 80,
   ":rest": ":rest"
 }
-
+'''
 synthezier = {
   "BEEP": "beep",
   "BLADE": "blade",
@@ -130,7 +179,7 @@ synthezier = {
   "TRI": "tri",
   "ZAWA": "zawa"
 }
-
+'''
 samples = {
   "AMBI_CHOIR": "ambi_choir",
   "AMBI_DARK_WOOSH": "ambi_dark_woosh",
