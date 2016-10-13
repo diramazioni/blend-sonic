@@ -1,9 +1,10 @@
 from constant_def import opts_default_val
 
+from collections import defaultdict
 import re
 
-import sys
-import inspect
+#import sys
+#import inspect
 
 '''
 def generic_slide_doc(k):
@@ -46,7 +47,7 @@ class ParseConst(object):
         #print(arg_dict)
         return arg_dict
     '''
-    line = ""
+    #line = ""
     def __init__(self, lines):
         self.lines = lines # all lines
         self.l = 0  # cursor of current line
@@ -59,7 +60,7 @@ class ParseConst(object):
         self.funct_doc = {}
         self.opts_doc = {}
         
-        self.warn = []
+        self.warn = defaultdict(list)
         self._debug = False
                 
     def proc_class(self):
@@ -157,25 +158,25 @@ class ParseConst(object):
     def parse_lang(self, defaults_opts, do_doc):
         def catch_multiline(first_line, stop_line):                
             doc = []
-            while stop_line not in self.line.strip():
+            while stop_line not in self.line.strip(): # and len(self.line.strip(']').strip())
                 l = self.line
                 if first_line in l: 
-                    doc.append(l.split(first_line)[1].strip().strip('\" ,').strip('['))
-                else: doc.append(l.strip().strip('\" ,').strip(']'))
-                self.next_line()
+                    doc.append(catch_val(first_line).strip('\" ,').strip('['))
+                else: 
+                    
+                    doc.append(l.strip().strip('\" ,').strip(']'))
+                self.next_line()            
             return '\n'.join(doc)
-        
+        def catch_key():
+            return re.match(r'^\s*(?:doc )?([^:]*):\s*.*', self.line).group(1)+':'
         def catch_val(key):
             return re.match(r'\s*'+key+'\s*(.*),.*', self.line).group(1) 
-            #return self.line.split(':')[1].strip().strip(',')
-        
+            #return self.line.split(':')[1].strip().strip(',')        
         def catch_val2(key):
             return re.match(r'\s*'+key+'\s*\[(.*)\],?.*', self.line).group(1) 
             
         print("> ", (self.line.strip(), self.l))
         end_class = "      end\n"
-        
-        
         func_simple_re = re.compile(r'\s*def (\w*[\?!]?)\n')
         func_with_arg_re = re.compile(r'\s*def (\w*[\?!]?)\((.*)\)')
         func_simple = func_simple_re.match(self.line)
@@ -199,77 +200,80 @@ class ParseConst(object):
             self.consts[f_name] = {}
         else:
             raise Exception("bailout not a func", (self.line, self.l))
-        
         self.next_line()
-        if self.line.strip().startswith('doc name:'):
-
-            self.funct_doc[f_name] = {}
-            name = catch_val('doc name:') #self.line.strip().split(':')[2][:-1]
-            if name[1:] != f_name: 
-                raise Exception("name %s != f_name %s %s %s" % (name, f_name, self.line, self.l))
-            self.skip_to('summary:')
-            summary = self.line.split('"')[1]
-            self.consts[f_name]['summary'] = summary
-            self.funct_doc[f_name]['summary'] = summary
-            self.skip_to('doc:')
+        if not self.line.strip().startswith('doc name:'):            
+            self.warn["no_doc"].append((f_name))
             
-            doc = catch_multiline('doc:', 'args:')
-            self.funct_doc[f_name]['doc'] = doc
+            return True
+       
+        self.funct_doc[f_name] = {}       
+        while self.line.strip() != "":
+            print("####", self.line.strip())
+            if 'doc:' in self.line:
+                doc = catch_multiline(key, '",')
+                self.funct_doc[f_name][key[:-1]] = doc
+                self.next_line() ; continue
+            elif 'examples:' in self.line:
+                examples = catch_multiline(key, '\"]')            
+                self.funct_doc[f_name][key[:-1]] = examples
+                self.next_line() ; continue
             
-            #self.skip_to('args:')                        
-            args_type_line_re = catch_val2('args:') #re.match(r'\s*args:\s*\[(.*)\],?.*', self.line).group(1)                     
-            #print("args_re:   ", args_type_line_re ) #split
-            args_type_iter = re.compile('\[(:\w*), (:\w*)\]') 
-            args = {}#[]    
-            for ar_match in args_type_iter.finditer(args_type_line_re):                
-                arg_ref, arg_type = ar_match.group(1), ar_match.group(2)
-                arg_ref = arg_ref[1:] # remove initial :                                
-                args[arg_ref] = arg_type
-            self.consts[f_name]['args_types'] = args                
-            self.skip_to('opts:')
-            #print(self.line)
-            opts = []
-            opt_line = catch_val('opts:') 
-            #re.match(r'\s*opts:\s*(.*),?.*', self.line).group(1)
-                        
-            #opt_line = l.split['opts:'][1].strip()
-            if "nil" in opt_line:
-                opt_line = None
-            elif 'DEFAULT_PLAY_OPTS' in opt_line:
-                 opt_line = defaults_opts
-                #if arg_type not in self.args_types: 
-            elif '{}' in opt_line:
-                opt_line = {}
-            else:
-                opt_with_arg_re = re.compile(r'{:?(\w*):? *(?:=>)? *\"(.*)\"}?')
-                opt_arg = opt_with_arg_re.match(opt_line)                
-                if opt_arg:                
-                    opt, doc =  opt_arg.group(1), opt_arg.group(2)                
-                    self.opts_doc[opt] = doc
-                    opt_line = {opt: opts_default_val[opt]}
+            key = catch_key()            
+            if key == 'name:':
+                name = catch_val('doc name:') #self.line.strip().split(':')[2][:-1]
+                if name[1:] != f_name: 
+                    raise Exception("name %s != f_name %s %s %s" % 
+                                    (name, f_name, self.line, self.l))
+            elif key == 'summary:':
+                summary = catch_val(key).strip('\"') #self.line.split('"')[1]
+                self.consts[f_name][key[:-1]] = summary
+                self.funct_doc[f_name][key[:-1]] = summary
+            elif key == 'args:':
+                args_type_line_re = catch_val2(key)
+                args_type_iter = re.compile('\[(:\w*), (:\w*)\]') 
+                args = {}
+                for ar_match in args_type_iter.finditer(args_type_line_re):                
+                    arg_ref, arg_type = ar_match.group(1), ar_match.group(2)
+                    arg_ref = arg_ref[1:] # remove initial :                                
+                    args[arg_ref] = arg_type
+                self.consts[f_name]['args_types'] = args                
+            elif key == 'opts:':
+                opts = []
+                opt_line = catch_val(key) 
+                if "nil" in opt_line:
+                    opt_line = None
+                elif 'DEFAULT_PLAY_OPTS' in opt_line:
+                    opt_line = defaults_opts
+                    #if arg_type not in self.args_types: 
+                elif '{}' in opt_line:
+                    opt_line = {}
                 else:
-                    print("no opt match in", opt_line)
-                    return False
-                
-            self.consts[f_name]['opts'] = opt_line
-            self.skip_to('accepts_block:')
-            ab = catch_val('accepts_block:')
-            ab = True if ab == "true" else False
-            self.consts[f_name]['accepts_block'] = ab            
-            self.skip_to('examples:')
-            examples = catch_multiline('examples:', ']')            
-            self.funct_doc[f_name]['examples'] = examples
-            
-            # ["intro_fn", "memoize"]
-        else:
-            self.warn.append({"no_doc": f_name})
+                    opt_with_arg_re = re.compile(r'{:?(\w*):? *(?:=>)? *\"(.*)\"}?')
+                    opt_arg = opt_with_arg_re.match(opt_line)                
+                    if opt_arg:                
+                        opt, doc =  opt_arg.group(1), opt_arg.group(2)                
+                        self.opts_doc[opt] = doc
+                        if opt in opts_default_val:
+                            opt_line = {opt: opts_default_val[opt]}
+                        else:
+                            self.warn["no default value for opt"].append((opt, f_name))
+                    else:
+                        print("no opt match in", opt_line)
+                        return False
+                self.consts[f_name][key[:-1]] = opt_line
+            elif key == 'accepts_block:':
+                ab = catch_val(key)
+                ab = True if ab == "true" else False
+                self.consts[f_name][key[:-1]] = ab 
+            else:
+                self.warn["no_catch %s"% key].append(f_name)
+            self.next_line()
 
         mandatory_keys = ["args", "args_types", "opts", "summary", "accepts_block"]
-        warn = [{"no_mandatory_keys":(k,f_name)} for k in mandatory_keys if k not in self.consts[f_name]]
-        if len(warn)>0: self.warn += warn
-        
-        #self.next_line()
-        #print(self.consts)
+        for key in mandatory_keys:
+            if key not in self.consts[f_name]:
+                self.warn["no_mandatory_keys %s"% key].append(f_name)
+
         return True
         
         
@@ -433,8 +437,9 @@ if __name__ == '__main__':
     
     #opts_default_val = {k:"" for k in ps.opts_doc.keys()}
     if len(ps.warn):
-        print("---WARN---"*20)    
-        print(ps.warn)
+        print("---WARN---"*20)
+        for k,v in sorted(ps.warn.items()):            
+            print(k,v)
         
     
     

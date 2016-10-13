@@ -687,7 +687,7 @@ end"
           opts:          nil,
           accepts_block: false,
           examples:      ["hz_to_midi(261.63) #=> 60.0003"]
-!
+
 
 
 
