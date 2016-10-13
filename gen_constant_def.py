@@ -158,14 +158,37 @@ class ParseConst(object):
     def parse_lang(self, defaults_opts, do_doc):
         def catch_multiline(first_line, stop_line):                
             doc = []
-            while stop_line not in self.line.strip(): # and len(self.line.strip(']').strip())
-                l = self.line
-                if first_line in l: 
-                    doc.append(catch_val(first_line).strip('\" ,').strip('['))
-                else: 
-                    
-                    doc.append(l.strip().strip('\" ,').strip(']'))
+            #stop_line 
+            while True:                
+                c = 0
+                l = self.line.strip()
+                #print(l)
+                if c == 0:
+                    print(">>>>>", (first_line, self.line))
+                    if 'examples:' == first_line:
+                        if 'examples:' in l:
+                            val = self.line.split('[')[1].strip('[')
+                        else:
+                            val = l
+                    else:
+                        if 'doc:' in l:
+                            val = catch_val(first_line).strip('\" ,')
+                        else:
+                            val = l
+                    doc.append(val)
+                else:
+                    print("=====", (first_line, self.line))
+                    val = l.strip('\" ,').strip(']')
+                    if val: doc.append(val)
+                if l.endswith(']') and 'examples:' in first_line:
+                    print('examples -END:')
+                    break
+                elif l.endswith('",') and 'doc:' in first_line:
+                    print('doc -END:')
+                    break
+                c += 1    
                 self.next_line()            
+            print("DOC:", doc)            
             return '\n'.join(doc)
         def catch_key():
             return re.match(r'^\s*(?:doc )?([^:]*):\s*.*', self.line).group(1)+':'
@@ -174,10 +197,10 @@ class ParseConst(object):
             #return self.line.split(':')[1].strip().strip(',')        
         def catch_val2(key):
             return re.match(r'\s*'+key+'\s*\[(.*)\],?.*', self.line).group(1) 
-            
+        self.empty_skip()
         print("> ", (self.line.strip(), self.l))
         end_class = "      end\n"
-        func_simple_re = re.compile(r'\s*def (\w*[\?!]?)\n')
+        func_simple_re = re.compile(r'\s*def (\w*[\?!]?).*')
         func_with_arg_re = re.compile(r'\s*def (\w*[\?!]?)\((.*)\)')
         func_simple = func_simple_re.match(self.line)
         func_with_arg = func_with_arg_re.match(self.line)
@@ -189,7 +212,7 @@ class ParseConst(object):
             for arg in argu_l:                
                 if '=' in arg:  
                     arg_def, arg_val = arg.split('=')                                            
-                    args[arg_def] = self.eval_val(arg_val)
+                    args[arg_def.strip()] = self.eval_val(arg_val.strip())
                 else:
                     args[arg] = None
             self.skip_ex(end_class)
@@ -207,18 +230,19 @@ class ParseConst(object):
             return True
        
         self.funct_doc[f_name] = {}       
-        while self.line.strip() != "":
+        
+        while not self.line.strip() == "": #not func_simple_re.match(self.line):                        
             print("####", self.line.strip())
-            if 'doc:' in self.line:
-                doc = catch_multiline(key, '",')
+            key = catch_key()
+            if key == 'doc:':
+                doc = catch_multiline('doc:', '",')
                 self.funct_doc[f_name][key[:-1]] = doc
                 self.next_line() ; continue
-            elif 'examples:' in self.line:
-                examples = catch_multiline(key, '\"]')            
+            elif key == 'examples:':
+                examples = catch_multiline('examples:', '\"]')            
                 self.funct_doc[f_name][key[:-1]] = examples
                 self.next_line() ; continue
             
-            key = catch_key()            
             if key == 'name:':
                 name = catch_val('doc name:') #self.line.strip().split(':')[2][:-1]
                 if name[1:] != f_name: 
@@ -262,19 +286,18 @@ class ParseConst(object):
                         return False
                 self.consts[f_name][key[:-1]] = opt_line
             elif key == 'introduced:':
-                val = catch_val(key)
-                print(val)
-                return False
+                val = catch_val(key)                
+                val = val.split('new')[1].strip("()")                
                 self.consts[f_name][key[:-1]] = val
-            elif key == 'accepts_block:':
-                ab = catch_val(key)
-                ab = True if ab == "true" else False
-                self.consts[f_name][key[:-1]] = ab 
+            elif key in ['accepts_block:', 'requires_block:']:
+                val = catch_val(key)
+                val = True if val == "true" else False
+                self.consts[f_name][key[:-1]] = val 
             else:
                 self.warn["no_catch %s"% key].append(f_name)
             self.next_line()
 
-        mandatory_keys = ["args", "args_types", "opts", "summary", "accepts_block", "introduced"]
+        mandatory_keys = ["args_in", "args_types", "opts", "summary", "accepts_block", "introduced"]
         for key in mandatory_keys:
             if key not in self.consts[f_name]:
                 self.warn["no_mandatory_keys %s"% key].append(f_name)
@@ -413,7 +436,7 @@ def dump_dict(dict_def, out_file_name, out_mode, helper_func):
     with open(out_file_name, out_mode) as outfile:
         
         if out_mode == "w":
-            outfile.write('null = None\n')
+            outfile.write('null = None; true = True; false = False;\n')
         outfile.write("#\#/"*10+'\n\n')
         for const in dict_def:
             outfile.write(dict2var(const))
@@ -437,12 +460,12 @@ if __name__ == '__main__':
     
     dump_dict([{"opts_doc":ps.opts_doc }],'lang_doc.py', 'a', "" )
     
-    for k in ps.consts.keys():
-        if k not in ps.funct_doc: print("no DOC", k)
+    #for k in ps.consts.keys():
+        #if k not in ps.funct_doc: print("no DOC", k)
     
     #opts_default_val = {k:"" for k in ps.opts_doc.keys()}
     if len(ps.warn):
-        print("---WARN---"*20)
+        print("---WARN---"*16)
         for k,v in sorted(ps.warn.items()):            
             print(k,v)
         
