@@ -261,6 +261,11 @@ class ParseConst(object):
                         print("no opt match in", opt_line)
                         return False
                 self.consts[f_name][key[:-1]] = opt_line
+            elif key == 'introduced:':
+                val = catch_val(key)
+                print(val)
+                return False
+                self.consts[f_name][key[:-1]] = val
             elif key == 'accepts_block:':
                 ab = catch_val(key)
                 ab = True if ab == "true" else False
@@ -269,7 +274,7 @@ class ParseConst(object):
                 self.warn["no_catch %s"% key].append(f_name)
             self.next_line()
 
-        mandatory_keys = ["args", "args_types", "opts", "summary", "accepts_block"]
+        mandatory_keys = ["args", "args_types", "opts", "summary", "accepts_block", "introduced"]
         for key in mandatory_keys:
             if key not in self.consts[f_name]:
                 self.warn["no_mandatory_keys %s"% key].append(f_name)
