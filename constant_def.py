@@ -23,8 +23,6 @@ opts_default_val = {
   "pre_amp": 1, 
   "reps": 1,
   "pitches": [],
-  "hpf": 0,
-  "hpf_bypass": 0,
   "kill_delay": 1,
   "leak_dc_bypass": 0,
   "limiter_bypass": 0,
@@ -35,7 +33,43 @@ opts_default_val = {
   "pitch_stretch": 1,  #from 0 to 1
   "rate": 1,
   "rpitch": 0,
-  "start": 0  #from 0 to 1
+  "start": 0,  #from 0 to 1
+  "clamp_time": 0, # ?
+  "compress": 0,  # Boolean
+  "hpf": 0,
+  "hpf_bypass": 0,
+  "hpf_attack": 0,
+  "hpf_attack_level": 0 ,
+  "hpf_decay": 0 ,
+  "hpf_decay_level": 0,
+  "hpf_env_curve": 1,
+  "hpf_init_level": 130,
+  "hpf_max": 200,
+  "hpf_release": 0 ,
+  "hpf_release_level": 0,
+  "hpf_sustain": 0 ,
+  "hpf_sustain_level": 0,
+  "lpf_attack": 0 ,
+  "lpf_attack_level": 0 ,
+  "lpf_decay": 0 ,
+  "lpf_decay_level": 0 ,
+  "lpf_env_curve": 1,
+  "lpf_init_level": 30,
+  "lpf_min": 30,
+  "lpf_release": 0 ,
+  "lpf_release_level": 0 ,
+  "lpf_sustain": 0 ,
+  "lpf_sustain_level": 0 ,
+  "norm": 0, #?
+  "onset": 0,
+  "path": "String",
+  "pitch_dis": 0,
+  "relax_time": 0, # ?
+  "slope_above": 1,
+  "slope_below": 1,
+  "threshold": 0, #?
+  "time_dis": 0, #?
+  "window_size": 0 #?
 }
 
 opts_types_conversion = {
@@ -61,8 +95,6 @@ opts_types_conversion = {
   "pitches": "String List", # notes [ :A, :B4, :C4 ]
   "pre_amp": "Float",
   "reps": "Integer",
-  "hpf": "Float",
-  "hpf_bypass": "Boolean",
   "kill_delay": "Float",
   "leak_dc_bypass": "Boolean",
   "limiter_bypass": "Boolean",
@@ -73,7 +105,43 @@ opts_types_conversion = {
   "pitch_stretch": "Float",
   "rate": "Float",
   "rpitch": "Float",
-  "start": "Float"  
+  "start": "Float",
+  "clamp_time": "Float", # ?
+  "compress": "Boolean",
+  "hpf": "Float",
+  "hpf_bypass": "Boolean",
+  "hpf_attack": "Float",
+  "hpf_attack_level": "Float",
+  "hpf_decay": "Float",
+  "hpf_decay_level": "Float",
+  "hpf_env_curve": "Integer",
+  "hpf_init_level": "Integer",
+  "hpf_max": "Integer",
+  "hpf_release": "Float",
+  "hpf_release_level": "Float",
+  "hpf_sustain": "Float",
+  "hpf_sustain_level": "Float",
+  "lpf_attack": "Float",
+  "lpf_attack_level": "Float",
+  "lpf_decay": "Float",
+  "lpf_decay_level": "__to_do__",
+  "lpf_env_curve": "Integer",
+  "lpf_init_level": "Integer",
+  "lpf_min": "Integer",
+  "lpf_release": "Float",
+  "lpf_release_level": "Float",
+  "lpf_sustain": "Float",
+  "lpf_sustain_level": "Float",
+  "norm": "Float", #?
+  "onset": "Integer", 
+  "path": "String",
+  "pitch_dis": "Float",
+  "relax_time": "Float", # ?
+  "slope_above": "Float",
+  "slope_below": "Float",
+  "threshold": "Float",
+  "time_dis": "Float",
+  "window_size": "Float"  
 }
 
 args_types_conversion = {
