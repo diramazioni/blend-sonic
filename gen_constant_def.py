@@ -159,41 +159,47 @@ class ParseConst(object):
         def catch_multiline(first_line, stop_line):                
             doc = []
             #stop_line 
-            while True:                
-                c = 0
+            c = 0
+            while True:    # wtf so many special cases
                 l = self.line.strip()
                 #print(l)
-                if c == 0:
+                if c < 1:
                     print(">>>>>", (first_line, self.line))
-                    if 'examples:' == first_line:
-                        if 'examples:' in l:
-                            val = self.line.split('[')[1].strip('[')
-                        else:
-                            val = l
+                    if 'examples' in first_line:
+                        val = self.line.split('[')[1].strip('[')
                     else:
-                        if 'doc:' in l:
+                        print("::::", l)
+                        if l.endswith(','):
                             val = catch_val(first_line).strip('\" ,')
                         else:
-                            val = l
+                            val = catch_val1(first_line).strip('\"')
                     doc.append(val)
                 else:
                     print("=====", (first_line, self.line))
                     val = l.strip('\" ,').strip(']')
                     if val: doc.append(val)
+                
+                nextL = self.lines[self.l+1].strip()    
                 if l.endswith(']') and 'examples:' in first_line:
-                    print('examples -END:')
+                    print('[[]] END:')
                     break
-                elif l.endswith('",') and 'doc:' in first_line:
-                    print('doc -END:')
-                    break
+                elif 'args:' in nextL:
+                    break           
+                elif l.endswith('",'):                    
+                    if nextL == ']':
+                        print(']]]] END:')
+                    elif not nextL.startswith('\"'):
+                        print('---- END:')
+                        break           
                 c += 1    
-                self.next_line()            
-            print("DOC:", doc)            
+                self.next_line()                        
             return '\n'.join(doc)
         def catch_key():
             return re.match(r'^\s*(?:doc )?([^:]*):\s*.*', self.line).group(1)+':'
         def catch_val(key):
             return re.match(r'\s*'+key+'\s*(.*),.*', self.line).group(1) 
+        def catch_val1(key):
+            return re.match(r'\s*'+key+'\s*(.*).*', self.line).group(1) 
             #return self.line.split(':')[1].strip().strip(',')        
         def catch_val2(key):
             return re.match(r'\s*'+key+'\s*\[(.*)\],?.*', self.line).group(1) 
@@ -289,7 +295,7 @@ class ParseConst(object):
                 val = catch_val(key)                
                 val = val.split('new')[1].strip("()")                
                 self.consts[f_name][key[:-1]] = val
-            elif key in ['accepts_block:', 'requires_block:']:
+            elif key in ['accepts_block:', 'requires_block:', 'modifies_env:', 'memoize:', 'intro_fn:']:
                 val = catch_val(key)
                 val = True if val == "true" else False
                 self.consts[f_name][key[:-1]] = val 
