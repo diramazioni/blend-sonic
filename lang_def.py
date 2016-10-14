@@ -24,8 +24,9 @@ lang_sound = {
     "introduced": "2,0,0",
     "memoize": true,
     "opts": {
-      "invert": 0
+      "num_octaves": 1
     },
+    "returns": ":ring",
     "summary": "Create chord"
   },
   "chord_degree": {
@@ -46,6 +47,7 @@ lang_sound = {
     "introduced": "2,1,0",
     "memoize": true,
     "opts": null,
+    "returns": ":ring",
     "summary": "Construct chords of stacked thirds, based on scale degrees"
   },
   "chord_invert": {
@@ -60,6 +62,7 @@ lang_sound = {
     },
     "introduced": "2,6,0",
     "opts": null,
+    "returns": ":ring",
     "summary": "Chord inversion"
   },
   "chord_names": {
@@ -82,7 +85,6 @@ lang_sound = {
     "opts": {},
     "summary": "Control running synth"
   },
-  "current_amp": {},
   "current_arg_checks": {
     "accepts_block": false,
     "args_types": {},
@@ -188,11 +190,6 @@ lang_sound = {
     "opts": null,
     "summary": "Hz to MIDI conversion"
   },
-  "invert_chord": {
-    "args_in": {
-      "*args": null
-    }
-  },
   "kill": {
     "accepts_block": false,
     "args_in": {
@@ -257,6 +254,7 @@ lang_sound = {
     "introduced": "2,7,0",
     "memoize": true,
     "opts": null,
+    "returns": ":ring",
     "summary": "Create a ring buffer of midi note numbers"
   },
   "midi_to_hz": {
@@ -313,7 +311,10 @@ lang_sound = {
       "low_note": ":note"
     },
     "introduced": "2,6,0",
-    "opts": "{:pitches => \"An array of notes (symbols or ints) to filter on. Octave information is ignored.\"}",
+    "opts": {
+      "pitches": []
+    },
+    "returns": ":ring",
     "summary": "Get a range of notes"
   },
   "octs": {
@@ -328,24 +329,13 @@ lang_sound = {
     },
     "introduced": "2,8,0",
     "opts": null,
+    "returns": ":ring",
     "summary": "Create a ring of octaves"
   },
   "pitch_ratio": {
     "args_in": {
       "*args": null
     }
-  },
-  "pitch_to_ratio": {
-    "accepts_block": false,
-    "args_in": {
-      "m": null
-    },
-    "args_types": {
-      "pitch": ":midi_number"
-    },
-    "introduced": "2,5,0",
-    "opts": null,
-    "summary": "relative MIDI pitch to frequency ratio"
   },
   "play": {
     "accepts_block": true,
@@ -463,19 +453,48 @@ lang_sound = {
     "opts": null,
     "summary": "relative frequency ratio to MIDI pitch"
   },
+  "recording_delete": {
+    "accepts_block": false,
+    "args_types": {},
+    "opts": null
+  },
+  "recording_save": {
+    "accepts_block": false,
+    "args_in": {
+      "filename": null
+    },
+    "args_types": {
+      "path": ":string"
+    },
+    "introduced": "2,0,0",
+    "opts": null,
+    "summary": "Save recording"
+  },
   "recording_start": {
     "accepts_block": false,
     "args_types": {},
     "introduced": "2,0,0",
-    "opts": {},
+    "opts": null,
     "summary": "Start recording"
   },
-  "resolve_sample_path": {
-    "args_in": {
-      "filts_and_sources": null
-    }
+  "recording_stop": {
+    "accepts_block": false,
+    "args_types": {},
+    "introduced": "2,0,0",
+    "opts": null,
+    "summary": "Stop recording"
   },
-  "resolve_sample_paths": {
+  "reset_mixer!": {
+    "accepts_block": false,
+    "args_in": {
+      "": null
+    },
+    "args_types": {},
+    "introduced": "2,9,0",
+    "opts": {},
+    "summary": "Reset master mixer"
+  },
+  "resolve_sample_path": {
     "args_in": {
       "filts_and_sources": null
     }
@@ -492,10 +511,18 @@ lang_sound = {
     "summary": "Determine if note or args is a rest"
   },
   "sample": {
+    "accepts_block": true,
     "args_in": {
       "&blk": null,
       "*args": null
-    }
+    },
+    "args_types": {
+      "name_or_path": ":symbol_or_string"
+    },
+    "intro_fn": true,
+    "introduced": "2,0,0",
+    "opts": ":path       => \"Path of the sample to play. Typically this opt is rarely used instead of the more powerful source/filter system. However it can be useful when working with pre-made opt maps.\"}",
+    "summary": "Trigger sample"
   },
   "sample_buffer": {
     "accepts_block": false,
@@ -510,9 +537,18 @@ lang_sound = {
     "summary": "Get sample data"
   },
   "sample_duration": {
+    "accepts_block": false,
     "args_in": {
       "*args": null
-    }
+    },
+    "args_types": {
+      "path": ":string"
+    },
+    "introduced": "2,0,0",
+    "opts": {
+      "rpitch": 0
+    },
+    "summary": "Get duration of sample in beats"
   },
   "sample_free": {
     "accepts_block": false,
@@ -524,6 +560,7 @@ lang_sound = {
     },
     "introduced": "2,9,0",
     "opts": null,
+    "returns": null,
     "summary": "Free a sample on the synth server"
   },
   "sample_free_all": {
@@ -531,6 +568,7 @@ lang_sound = {
     "args_types": {},
     "introduced": "2,9,0",
     "opts": null,
+    "returns": null,
     "summary": "Free all loaded samples on the synth server"
   },
   "sample_groups": {
@@ -541,7 +579,7 @@ lang_sound = {
     "opts": null,
     "summary": "Get all sample groups"
   },
-  "sample_info": {
+  "sample_loaded?": {
     "accepts_block": false,
     "args_in": {
       "*args": null
@@ -549,14 +587,9 @@ lang_sound = {
     "args_types": {
       "path": ":string"
     },
-    "introduced": "2,0,0",
+    "introduced": "2,2,0",
     "opts": null,
-    "summary": "Get sample information"
-  },
-  "sample_loaded?": {
-    "args_in": {
-      "*args": null
-    }
+    "summary": "Test if sample was pre-loaded"
   },
   "sample_names": {
     "accepts_block": false,
@@ -569,19 +602,8 @@ lang_sound = {
     "introduced": "2,0,0",
     "memoize": true,
     "opts": null,
+    "returns": ":ring",
     "summary": "Get sample names"
-  },
-  "sample_paths": {
-    "accepts_block": false,
-    "args_in": {
-      "*args": null
-    },
-    "args_types": {
-      "pre_args": ":source_and_filter_types"
-    },
-    "introduced": "2,10,0",
-    "opts": null,
-    "summary": "Sample Pack Filter Resolution"
   },
   "sample_split_filts_and_opts": {
     "args_in": {
@@ -604,6 +626,7 @@ lang_sound = {
     "opts": {
       "num_octaves": 1
     },
+    "returns": ":ring",
     "summary": "Create scale"
   },
   "scale_names": {
@@ -648,13 +671,11 @@ lang_sound = {
     "args_types": {},
     "introduced": "2,7,0",
     "opts": {
-      "pre_amp": 1
+      "leak_dc_bypass": 0
     },
     "summary": "Control master mixer"
   },
   "set_mixer_invert_stereo!": {},
-  "set_mixer_mono_mode!": {},
-  "set_mixer_standard_stereo!": {},
   "set_mixer_stereo_mode!": {},
   "set_sched_ahead_time!": {
     "accepts_block": false,
@@ -681,11 +702,6 @@ lang_sound = {
     "modifies_env": true,
     "opts": null,
     "summary": "Set Volume globally"
-  },
-  "should_trigger?": {
-    "args_in": {
-      "args_h": null
-    }
   },
   "start_amp_monitor": {},
   "status": {
@@ -839,21 +855,6 @@ lang_sound = {
     "opts": null,
     "summary": "Note octave transposition"
   },
-  "use_sample_bpm": {
-    "accepts_block": false,
-    "args_in": {
-      "*args": null,
-      "sample_name": null
-    },
-    "args_types": {
-      "string_or_number": ":sample_name_or_duration"
-    },
-    "introduced": "2,1,0",
-    "opts": {
-      "num_beats": 1
-    },
-    "summary": "Sample-duration-based bpm modification"
-  },
   "use_sample_defaults": {
     "accepts_block": false,
     "args_in": {
@@ -904,12 +905,6 @@ lang_sound = {
     "opts": null,
     "summary": "Inhibit synth triggers if too late"
   },
-  "use_timing_warnings": {
-    "args_in": {
-      "&block": null,
-      "v": null
-    }
-  },
   "use_transpose": {
     "accepts_block": false,
     "args_in": {
@@ -938,13 +933,6 @@ lang_sound = {
     "introduced": "2,6,0",
     "opts": null,
     "summary": "Use alternative tuning systems"
-  },
-  "with_afx": {
-    "args_in": {
-      "&block": null,
-      "*args": null,
-      "fx_name": null
-    }
   },
   "with_arg_bpm_scaling": {
     "accepts_block": true,
@@ -1013,7 +1001,7 @@ lang_sound = {
     "intro_fn": true,
     "introduced": "2,0,0",
     "opts": {
-      "reps": 1
+      "kill_delay": 1
     },
     "requires_block": true,
     "summary": "Use Studio FX"
@@ -1160,4 +1148,47 @@ lang_sound = {
     "opts": null,
     "summary": "Block-level tuning modification"
   }
+}
+#\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/
+
+new_args_types_conversion = {
+  ":symbol_or_string": "__to_do__"
+}
+#\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/
+
+new_opts_types_conversion = {
+  "clamp_time": "__to_do__",
+  "compress": "__to_do__",
+  "hpf_attack": "__to_do__",
+  "hpf_attack_level": "__to_do__",
+  "hpf_decay": "__to_do__",
+  "hpf_decay_level": "__to_do__",
+  "hpf_env_curve": "__to_do__",
+  "hpf_init_level": "__to_do__",
+  "hpf_max": "__to_do__",
+  "hpf_release": "__to_do__",
+  "hpf_release_level": "__to_do__",
+  "hpf_sustain": "__to_do__",
+  "hpf_sustain_level": "__to_do__",
+  "lpf_attack": "__to_do__",
+  "lpf_attack_level": "__to_do__",
+  "lpf_decay": "__to_do__",
+  "lpf_decay_level": "__to_do__",
+  "lpf_env_curve": "__to_do__",
+  "lpf_init_level": "__to_do__",
+  "lpf_min": "__to_do__",
+  "lpf_release": "__to_do__",
+  "lpf_release_level": "__to_do__",
+  "lpf_sustain": "__to_do__",
+  "lpf_sustain_level": "__to_do__",
+  "norm": "__to_do__",
+  "onset": "__to_do__",
+  "path": "__to_do__",
+  "pitch_dis": "__to_do__",
+  "relax_time": "__to_do__",
+  "slope_above": "__to_do__",
+  "slope_below": "__to_do__",
+  "threshold": "__to_do__",
+  "time_dis": "__to_do__",
+  "window_size": "__to_do__"
 }

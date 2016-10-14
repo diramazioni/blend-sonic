@@ -1,9 +1,9 @@
-from constant_def import opts_default_val
+from constant_def import opts_default_val, opts_types_conversion, args_types_conversion
 
 from collections import defaultdict
 import re
 
-#import sys
+import sys
 #import inspect
 
 '''
@@ -55,10 +55,14 @@ class ParseConst(object):
         #self.line = "" # current line
         
         
-        self.class_name_dict = {}
+        self.tmp_dict = {}
         self.consts = {}            
         self.funct_doc = {}
         self.opts_doc = {}
+        self.new_arg = {}
+        self.new_opt = {}
+        
+        
         
         self.warn = defaultdict(list)
         self._debug = False
@@ -71,7 +75,6 @@ class ParseConst(object):
             m = class_match.group(1)
         except AttributeError:
             print("bailout not a class", (self.line, self.l))
-            self.next_line()
             return False
         c_name , c_parent = (class_match.group(1), class_match.group(2))
         
@@ -116,7 +119,7 @@ class ParseConst(object):
             self.empty_skip()
             return True
         synth_name = ":" + synth_name
-        self.class_name_dict[c_name] = synth_name
+        self.tmp_dict[c_name] = synth_name
         
         baseClass = ["SonicPiSynth","Pitchless", "FXInfo", 
                      "BaseInfo", "StudioInfo",  "BaseMixer"]
@@ -125,7 +128,7 @@ class ParseConst(object):
 
         hiden = 0
         def inherit_super(parent):
-            parent_synt_name = self.class_name_dict[parent] # take the ref by class
+            parent_synt_name = self.tmp_dict[parent] # take the ref by class
             parent_synt = self.consts[parent_synt_name]            
             if parent_synt:
                 arg_def.update(parent_synt["arg_defaults"])
@@ -154,46 +157,80 @@ class ParseConst(object):
             return eval(val)
         else:
             return str(val)
-    
+        
+    def next_has(self, val):
+        l = self.l+1
+        nextL = self.lines[l].strip('\"').strip()
+        while not len(nextL):
+            l += 1
+            nextL = self.lines[l].strip('\"').strip()
+        if nextL.startswith(val):   return True
+        else: return False
+        
     def parse_lang(self, defaults_opts, do_doc):
-        def catch_multiline(first_line, stop_line):                
+        def catch_multiline(first_line):                
             doc = []
-            #stop_line 
             c = 0
             while True:    # wtf so many special cases
                 l = self.line.strip()
                 #print(l)
                 if c < 1:
                     print(">>>>>", (first_line, self.line))
-                    if 'examples' in first_line:
-                        val = self.line.split('[')[1].strip('[')
+                    if 'examples:' in first_line:
+                        val = self.line.split('[')[1].strip('][\"').strip()
+                    elif 'opts:' in first_line:
+                        val = self.line.split('{')[1].strip('{\"').strip()
                     else:
                         print("::::", l)
                         if l.endswith(','):
-                            val = catch_val(first_line).strip('\" ,')
+                            val = catch_val(first_line).strip('\" ,').strip()
                         else:
-                            val = catch_val1(first_line).strip('\"')
-                    doc.append(val)
+                            val = catch_val1(first_line).strip('\"').strip()
+                    if val: doc.append(val)
                 else:
                     print("=====", (first_line, self.line))
-                    val = l.strip('\" ,').strip(']')
+                    val = l.strip(',]')
                     if val: doc.append(val)
                 
-                nextL = self.lines[self.l+1].strip()    
-                if l.endswith(']') and 'examples:' in first_line:
-                    print('[[]] END:')
-                    break
+                nextL = ""#self.lines[self.l+1].strip()                
+                c = self.l+1
+                while not len(nextL):
+                    nextL = self.lines[c].strip('"').strip()
+                    c += 1
+                #print('@@@@ ', nextL)
+                if not len(l):
+                    pass
+                
+                elif 'examples:' in first_line:
+                    if 'def ' in nextL:
+                        print('[[]] examples END found def:')
+                        break
+                    
+                    elif nextL == ']':
+                        pass
+                        #print('NNN] END:')                    
+                    
+                    elif (l.endswith('\"]') or l.endswith('],') ):
+                        print('[[]] examples END:')
+                        break
+                    
+                elif l.endswith('},') and 'opts:' in first_line:
+                    print('[[]] opts END:')
+                    break                    
                 elif 'args:' in nextL:
                     break           
-                elif l.endswith('",'):                    
-                    if nextL == ']':
-                        print(']]]] END:')
+                elif l.endswith('",'):
+                    if 'opts:' in first_line: 
+                        print('&&&&:')                                            
                     elif not nextL.startswith('\"'):
                         print('---- END:')
                         break           
                 c += 1    
-                self.next_line()                        
-            return '\n'.join(doc)
+                self.next_line()
+            if 'opts:' in first_line:
+                return doc
+            else:
+                return '\n'.join(doc)
         def catch_key():
             return re.match(r'^\s*(?:doc )?([^:]*):\s*.*', self.line).group(1)+':'
         def catch_val(key):
@@ -204,9 +241,10 @@ class ParseConst(object):
         def catch_val2(key):
             return re.match(r'\s*'+key+'\s*\[(.*)\],?.*', self.line).group(1) 
         self.empty_skip()
-        print("> ", (self.line.strip(), self.l))
+        print()
+        print("******* ", (self.line.strip(), self.l))
         end_class = "      end\n"
-        func_simple_re = re.compile(r'\s*def (\w*[\?!]?).*')
+        func_simple_re =   re.compile(r'\s*def (\w*[\?!]?).*')
         func_with_arg_re = re.compile(r'\s*def (\w*[\?!]?)\((.*)\)')
         func_simple = func_simple_re.match(self.line)
         func_with_arg = func_with_arg_re.match(self.line)
@@ -217,10 +255,13 @@ class ParseConst(object):
             argu_l = argu.split(', ')
             for arg in argu_l:                
                 if '=' in arg:  
-                    arg_def, arg_val = arg.split('=')                                            
-                    args[arg_def.strip()] = self.eval_val(arg_val.strip())
+                    arg_name, arg_val = arg.split('=')
+                    arg_name, arg_val = arg_name.strip(), arg_val.strip() 
+                    args[arg_name] = self.eval_val(arg_val.strip())
                 else:
-                    args[arg] = None
+                    arg_name = arg.strip()
+                    args[arg_name] = None
+                    
             self.skip_ex(end_class)
             self.consts[f_name] = {'args_in': args}
         elif func_simple:
@@ -229,23 +270,37 @@ class ParseConst(object):
             self.consts[f_name] = {}
         else:
             raise Exception("bailout not a func", (self.line, self.l))
+
         self.next_line()
-        if not self.line.strip().startswith('doc name:'):            
-            self.warn["no_doc"].append((f_name))
-            
-            return True
+        if not len(self.line.strip()):
+            self.empty_skip()
+        if not self.line.strip().startswith('doc name:'):
+            if self.line.strip().startswith('def'):
+                #self.warn["no_doc"].append(f_name)       
+                return True
+            else:
+                self.warn["unexpected end of def"].append(f_name)            
+                return False
        
         self.funct_doc[f_name] = {}       
-        
-        while not self.line.strip() == "": #not func_simple_re.match(self.line):                        
-            print("####", self.line.strip())
+        while not self.next_has('def '): #not func_simple_re.match(self.line): 
+            
+            if not len(self.line.strip()):
+                self.empty_skip()
+            l = self.line.strip()
+            if l.startswith('private'):
+                break
+            if l.startswith('#'): 
+                self.next_line()
+                return True
+            print("####", l)
             key = catch_key()
             if key == 'doc:':
-                doc = catch_multiline('doc:', '",')
+                doc = catch_multiline('doc:')
                 self.funct_doc[f_name][key[:-1]] = doc
                 self.next_line() ; continue
             elif key == 'examples:':
-                examples = catch_multiline('examples:', '\"]')            
+                examples = catch_multiline('examples:')            
                 self.funct_doc[f_name][key[:-1]] = examples
                 self.next_line() ; continue
             
@@ -261,12 +316,17 @@ class ParseConst(object):
             elif key == 'args:':
                 args_type_line_re = catch_val2(key)
                 args_type_iter = re.compile('\[(:\w*), (:\w*)\]') 
-                args = {}
+                arg_dict = {}
                 for ar_match in args_type_iter.finditer(args_type_line_re):                
                     arg_ref, arg_type = ar_match.group(1), ar_match.group(2)
                     arg_ref = arg_ref[1:] # remove initial :                                
-                    args[arg_ref] = arg_type
-                self.consts[f_name]['args_types'] = args                
+                    arg_dict[arg_ref] = arg_type
+                    
+                    if arg_type not in args_types_conversion:
+                        self.warn["new arg %s" % arg_type].append(f_name)
+                        self.new_arg[arg_type] = "__to_do__"
+    
+                self.consts[f_name]['args_types'] = arg_dict                
             elif key == 'opts:':
                 opts = []
                 opt_line = catch_val(key) 
@@ -278,18 +338,25 @@ class ParseConst(object):
                 elif '{}' in opt_line:
                     opt_line = {}
                 else:
-                    opt_with_arg_re = re.compile(r'{:?(\w*):? *(?:=>)? *\"(.*)\"}?')
-                    opt_arg = opt_with_arg_re.match(opt_line)                
-                    if opt_arg:                
-                        opt, doc =  opt_arg.group(1), opt_arg.group(2)                
-                        self.opts_doc[opt] = doc
-                        if opt in opts_default_val:
-                            opt_line = {opt: opts_default_val[opt]}
+                    opt_line = ""
+                    opt_lines = catch_multiline('opts:')
+                    for opt_line in opt_lines:                        
+                        opt_with_arg_re = re.compile(r':?(\w*):? *(?:=>)? *\"(.*)\"}?')
+                        opt_arg = opt_with_arg_re.match(opt_line)                
+                        if opt_arg:                
+                            opt, doc =  opt_arg.group(1), opt_arg.group(2)                
+                            self.opts_doc[opt] = doc
+                            if opt in opts_default_val:
+                                opt_line = {opt: opts_default_val[opt]}
+                                self.consts[f_name][key[:-1]] = opt_line
+                            else:
+                                self.warn["no default value for opt %s" % opt].append(f_name)
+                                self.new_opt[opt] = "__to_do__"
+
                         else:
-                            self.warn["no default value for opt"].append((opt, f_name))
-                    else:
-                        print("no opt match in", opt_line)
-                        return False
+                            print("no opt match in", opt_line)
+                            return False
+                        
                 self.consts[f_name][key[:-1]] = opt_line
             elif key == 'introduced:':
                 val = catch_val(key)                
@@ -299,11 +366,25 @@ class ParseConst(object):
                 val = catch_val(key)
                 val = True if val == "true" else False
                 self.consts[f_name][key[:-1]] = val 
+            elif key == 'returns:':
+                val = catch_val(key)
+                if "nil" in val:
+                    val = None
+                if val and val not in args_types_conversion:
+                    self.warn["new returns %s" % val].append(f_name)
+                    self.new_arg[val] = "__to_do__"                    
+                    
+                self.consts[f_name][key[:-1]] = val
+                #self.warn["return types %s"% val].append(f_name)
+            #['amp:', 'hpf:', 'hpf_bypass:', 'kill_delay:', 'leak_dc_bypass:','limiter_bypass:', 'lpf:','lpf_bypass:', 'num_octaves:']
+            #elif key in ['kill_delay:'] : # handle special cases
+                
+                
             else:
                 self.warn["no_catch %s"% key].append(f_name)
             self.next_line()
 
-        mandatory_keys = ["args_in", "args_types", "opts", "summary", "accepts_block", "introduced"]
+        mandatory_keys = ["args_types", "opts", "summary", "accepts_block", "introduced"] #"args_in",
         for key in mandatory_keys:
             if key not in self.consts[f_name]:
                 self.warn["no_mandatory_keys %s"% key].append(f_name)
@@ -390,7 +471,7 @@ def parseSound():
             if not op:
                 print("ops")
                 break                
-        elif 'private' in ps.line: break
+        if ps.line.startswith(stop_class_line): break
         else:        ps.goNext()
     
     func_off = ["use_fx", "use_timing_warnings"]
@@ -459,7 +540,10 @@ if __name__ == '__main__':
     
     ps = parseSound()
     dump_dict([{"lang_sound":ps.consts }],'lang_def.py', 'w', "" )
-    
+    if len(ps.new_arg):
+        dump_dict([{"new_args_types_conversion":ps.new_arg }],'lang_def.py', 'a', "" )
+    if len(ps.new_opt):
+        dump_dict([{"new_opts_types_conversion":ps.new_opt }],'lang_def.py', 'a', "" )
     #ps = parseSynth()
     #dump_dict([{"synths":ps.consts }],'lang_def.py', 'a', "" )
     dump_dict([{"funct_doc":ps.funct_doc }],'lang_doc.py', 'w', "" )

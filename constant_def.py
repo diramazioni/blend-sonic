@@ -1,27 +1,41 @@
 null = None
 
 opts_default_val = {
-  "amp": 1, # Float
-  "amp_slide": 1, # Float 
-  "attack": 0, # Float 
-  "attack_level": 1, # Float
-  "decay": 0, # Float 
-  "decay_level": 1, # Float
-  "env_curve": 1, # Integer
+  "amp": 1, 
+  "amp_slide": 1,  
+  "attack": 0,  
+  "attack_level": 1, 
+  "decay": 0,  
+  "decay_level": 1, 
+  "env_curve": 1, 
   "on": 1, # Boolean
-  "pan": 0, # Float
-  "pan_slide": 1, # Float
-  "pitch": 0, # Float
-  "release": 0, # Float 
-  "slide": 0, # Float
-  "sustain": 1, # Float
+  "pan": 0, 
+  "pan_slide": 1, 
+  "pitch": 0, 
+  "release": 0, 
+  "slide": 0, 
+  "sustain": 1, 
   "sustain_level": 1,    
-  "invert": 0, # Integer
-  "num_beats": 1, # Integer
-  "num_octaves": 1, # Integer
-  "octave": 4, # Integer
-  "pre_amp": 1, # Float
-  "reps": 1 # Integer
+  "invert": 0, 
+  "num_beats": 1, 
+  "num_octaves": 1, 
+  "octave": 4, 
+  "pre_amp": 1, 
+  "reps": 1,
+  "pitches": [],
+  "hpf": 0,
+  "hpf_bypass": 0,
+  "kill_delay": 1,
+  "leak_dc_bypass": 0,
+  "limiter_bypass": 0,
+  "lpf": 135.5,
+  "lpf_bypass": 0,
+  "beat_stretch": 1,
+  "finish": 1, #from 0 to 1
+  "pitch_stretch": 1,  #from 0 to 1
+  "rate": 1,
+  "rpitch": 0,
+  "start": 0  #from 0 to 1
 }
 
 opts_types_conversion = {
@@ -43,9 +57,23 @@ opts_types_conversion = {
   "invert": "Integer",
   "num_beats": "Integer",
   "num_octaves": "Integer",
-  "octave": "Integer",
+  "octave": "Integer", 
+  "pitches": "String List", # notes [ :A, :B4, :C4 ]
   "pre_amp": "Float",
-  "reps": "Integer"
+  "reps": "Integer",
+  "hpf": "Float",
+  "hpf_bypass": "Boolean",
+  "kill_delay": "Float",
+  "leak_dc_bypass": "Boolean",
+  "limiter_bypass": "Boolean",
+  "lpf": "Float",
+  "lpf_bypass": "Boolean",
+  "beat_stretch": "Float", # positive
+  "finish": "Float",
+  "pitch_stretch": "Float",
+  "rate": "Float",
+  "rpitch": "Float",
+  "start": "Float"  
 }
 
 args_types_conversion = {
@@ -64,7 +92,8 @@ args_types_conversion = {
   ":symbol": "String", # note/reference with :
   ":symbol_or_number": "String", # note/reference: :A or 60
   ":synth_node": "String", # reference to var = 
-  ":true_or_false": "String" # true or false (lowercase)
+  ":true_or_false": "String", # true or false (lowercase)
+  ":ring": "String List" # only used as return value for array of notes (ring)    
 }
 '''
 simple_sampler_args = [':amp', ':amp_slide', ':amp_slide_shape', ':amp_slide_curve', ':pan', ':pan_slide', ':pan_slide_shape', ':pan_slide_curve', ':cutoff', ':cutoff_slide', ':cutoff_slide_shape', ':cutoff_slide_curve', ':lpf', ':lpf_slide', ':lpf_slide_shape', ':lpf_slide_curve', ':hpf', ':hpf_slide', ':hpf_slide_shape', ':hpf_slide_curve', ':rate', ':slide', ':beat_stretch', ':rpitch', ':attack', ':decay', ':sustain', ':release', ':attack_level', ':decay_level', ':sustain_level', ':env_curve']
