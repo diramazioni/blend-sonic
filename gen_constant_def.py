@@ -3,21 +3,19 @@ from constant_def import opts_default_val, opts_types_conversion, args_types_con
 from collections import defaultdict
 import re
 
-import sys
-#import inspect
 
-'''
-def generic_slide_doc(k):
-    return "Amount of time (in beats) for the {0} value to change. A long {0}_slide value means that the {0} takes a long time to slide from the previous value to the new value. A {0}_slide of 0 means that the {0} instantly changes to the new value.".format(k)
-def generic_slide_curve_doc(k):
-    return "Shape of the slide curve (only honoured if slide shape is 5). 0 means linear and positive and negative numbers curve the segment up and down respectively."
-def generic_slide_shape_doc(k):
-    return "Shape of curve. 0: step, 1: linear, 3: sine, 4: welch, 5: custom (use *_slide_curve: opt e.g. amp_slide_curve:), 6: squared, 7: cubed. "
-'''
 class ParseConst(object):
     
     '''
     def proc_arg_info(self):
+
+        def generic_slide_doc(k):
+            return "Amount of time (in beats) for the {0} value to change. A long {0}_slide value means that the {0} takes a long time to slide from the previous value to the new value. A {0}_slide of 0 means that the {0} instantly changes to the new value.".format(k)
+        def generic_slide_curve_doc(k):
+            return "Shape of the slide curve (only honoured if slide shape is 5). 0 means linear and positive and negative numbers curve the segment up and down respectively."
+        def generic_slide_shape_doc(k):
+            return "Shape of curve. 0: step, 1: linear, 3: sine, 4: welch, 5: custom (use *_slide_curve: opt e.g. amp_slide_curve:), 6: squared, 7: cubed. "
+
         arg_dict = {}
         lines = self.lines[self.l+1:]
         doc = False
@@ -48,109 +46,42 @@ class ParseConst(object):
         return arg_dict
     '''
     #line = ""
-    def __init__(self, lines):
+    def __init__(self, lines, stop_line):
         self.lines = lines # all lines
         self.l = 0  # cursor of current line
         self.line = lines[self.l]
-        #self.line = "" # current line
-        
-        
+
         self.tmp_dict = {}
         self.consts = {}            
         self.funct_doc = {}
         self.opts_doc = {}
         self.new_arg = {}
         self.new_opt = {}
-        
-        
-        
+
+        self.stop_line = stop_line
+
         self.warn = defaultdict(list)
         self._debug = False
-                
-    def proc_class(self):
-        print("> ", (self.line, self.l))
-        
-        class_match = re.match( r'.* class (.*) < (.*)\n', self.line)
-        try:            
-            m = class_match.group(1)
-        except AttributeError:
-            print("bailout not a class", (self.line, self.l))
-            return False
-        c_name , c_parent = (class_match.group(1), class_match.group(2))
-        
-        end_class = "    end\n"
 
-        #self.next_line()        
-        synth_name = ""
-        synth_descr = ""
-        arg_def = {}
-
-        while self.line != end_class:            
-            s = self.line            
-            if "def name" in s:                
-                self.next_line()
-                synth_descr = self.line.strip().strip('"')                
-            elif "def synth_name" in s:
-                self.next_line()
-                synth_name = self.line.strip().strip('"')
-            elif "def arg_defaults" in s:
-                self.next_line(); self.next_line()                
-                while "}" not in self.line:
-                    l = self.line.strip()
-                    if not l: self.next_line(); continue
-                    arg, v = l.split('=>')                   
-                    v = v.strip(',').strip()
-                    arg = arg.strip()[1:] + ":" # remove : and add @end
-                    arg_def[arg.strip()] = v
-                    self.next_line()
-                for k, v in arg_def.items(): # fix value reference
-                    if v[0] == ":":
-                        v = v[1:]+ ":" 
-                        ref = arg_def[v]
-                        print(k,v,ref)
-                        arg_def[k] = eval(str(ref))
-                    else: arg_def[k] = eval(v)
-            else:                 
-                self.next_line()
-
-        if not len(synth_name): 
-            #print("EMPTY"); 
+    def empty_skip(self):
+        while self.line == '\n':
             self.next_line()
-            self.empty_skip()
-            return True
-        synth_name = ":" + synth_name
-        self.tmp_dict[c_name] = synth_name
-        
-        baseClass = ["SonicPiSynth","Pitchless", "FXInfo", 
-                     "BaseInfo", "StudioInfo",  "BaseMixer"]
-        user_facing = baseClass[:3] 
-        # no "BaseInfo", "StudioInfo", "BaseMixer",
 
-        hiden = 0
-        def inherit_super(parent):
-            parent_synt_name = self.tmp_dict[parent] # take the ref by class
-            parent_synt = self.consts[parent_synt_name]            
-            if parent_synt:
-                arg_def.update(parent_synt["arg_defaults"])
-                return parent_synt['inherit_base']
-        
-        super_c = c_parent        
-        while super_c not in baseClass:
-            super_c = inherit_super(super_c)
-        if super_c not in user_facing:
-            print("/ ", super_c)
-            hiden = 1
+    def next_line(self):
+        self.l = self.l + 1
+        self.line = self.lines[self.l]
 
-        self.consts[synth_name] = {
-            "descr": synth_descr, 
-            "arg_defaults": arg_def,
-            "class_name": c_name,
-            "inherit_base": c_parent,
-            "hiden": hiden,
-        }
-        self.goNext()
-        
-        return True
+    def skip_to(self, match):
+        while match not in self.line:
+            self.next_line()
+
+    def skip_ex(self, match):
+        while self.line != match:
+            self.next_line()
+
+    def goNext(self):
+        self.next_line()
+        self.empty_skip()
 
     def eval_val(self, val):
         if val.isdigit():
@@ -159,109 +90,45 @@ class ParseConst(object):
             return str(val)
         
     def next_has(self, val):
+        if self.line.startswith(self.stop_line) or self.line.strip().startswith(val):
+            return True
+        elif self.line.strip().startswith('#'):
+            self.next_line()
+        elif len(self.line.strip()):
+            # self.next_line()
+            return False
         l = self.l+1
         nextL = self.lines[l].strip('\"').strip()
         while not len(nextL):
             l += 1
             nextL = self.lines[l].strip('\"').strip()
-        if nextL.startswith(val):   return True
+        if nextL.startswith(val):
+            return True # exit the loop
         else: return False
-        
-    def parse_lang(self, defaults_opts, do_doc):
-        def catch_multiline(first_line):                
-            doc = []
-            c = 0
-            while True:    # wtf so many special cases
-                l = self.line.strip()
-                #print(l)
-                if c < 1:
-                    print(">>>>>", (first_line, self.line))
-                    if 'examples:' in first_line:
-                        val = self.line.split('[')[1].strip('][\"').strip()
-                    elif 'opts:' in first_line:
-                        val = self.line.split('{')[1].strip('{\"').strip()
-                    else:
-                        print("::::", l)
-                        if l.endswith(','):
-                            val = catch_val(first_line).strip('\" ,').strip()
-                        else:
-                            val = catch_val1(first_line).strip('\"').strip()
-                    if val: doc.append(val)
-                else:
-                    print("=====", (first_line, self.line))
-                    val = l.strip(',]')
-                    if val: doc.append(val)
-                
-                nextL = ""#self.lines[self.l+1].strip()                
-                c = self.l+1
-                while not len(nextL):
-                    nextL = self.lines[c].strip('"').strip()
-                    c += 1
-                #print('@@@@ ', nextL)
-                if not len(l):
-                    pass
-                
-                elif 'examples:' in first_line:
-                    if 'def ' in nextL:
-                        print('[[]] examples END found def:')
-                        break
-                    
-                    elif nextL == ']':
-                        pass
-                        #print('NNN] END:')                    
-                    
-                    elif (l.endswith('\"]') or l.endswith('],') ):
-                        print('[[]] examples END:')
-                        break
-                    
-                elif l.endswith('},') and 'opts:' in first_line:
-                    print('[[]] opts END:')
-                    break                    
-                elif 'args:' in nextL:
-                    break           
-                elif l.endswith('",'):
-                    if 'opts:' in first_line: 
-                        print('&&&&:')                                            
-                    elif not nextL.startswith('\"'):
-                        print('---- END:')
-                        break           
-                c += 1    
-                self.next_line()
-            if 'opts:' in first_line:
-                return doc
-            else:
-                return '\n'.join(doc)
-        def catch_key():
-            return re.match(r'^\s*(?:doc )?([^:]*):\s*.*', self.line).group(1)+':'
-        def catch_val(key):
-            return re.match(r'\s*'+key+'\s*(.*),.*', self.line).group(1) 
-        def catch_val1(key):
-            return re.match(r'\s*'+key+'\s*(.*).*', self.line).group(1) 
-            #return self.line.split(':')[1].strip().strip(',')        
-        def catch_val2(key):
-            return re.match(r'\s*'+key+'\s*\[(.*)\],?.*', self.line).group(1) 
+
+    def parse_def(self):
         self.empty_skip()
         print()
         print("******* ", (self.line.strip(), self.l))
         end_class = "      end\n"
-        func_simple_re =   re.compile(r'\s*def (\w*[\?!]?).*')
+        func_simple_re = re.compile(r'\s*def (\w*[\?!]?).*')
         func_with_arg_re = re.compile(r'\s*def (\w*[\?!]?)\((.*)\)')
         func_simple = func_simple_re.match(self.line)
         func_with_arg = func_with_arg_re.match(self.line)
         f_name, argu, arg_def = None, None, None
         if func_with_arg:
             args = {}
-            f_name , argu = (func_with_arg.group(1), func_with_arg.group(2))
+            f_name, argu = (func_with_arg.group(1), func_with_arg.group(2))
             argu_l = argu.split(', ')
-            for arg in argu_l:                
-                if '=' in arg:  
+            for arg in argu_l:
+                if '=' in arg:
                     arg_name, arg_val = arg.split('=')
-                    arg_name, arg_val = arg_name.strip(), arg_val.strip() 
+                    arg_name, arg_val = arg_name.strip(), arg_val.strip()
                     args[arg_name] = self.eval_val(arg_val.strip())
                 else:
                     arg_name = arg.strip()
                     args[arg_name] = None
-                    
+
             self.skip_ex(end_class)
             self.consts[f_name] = {'args_in': args}
         elif func_simple:
@@ -274,37 +141,110 @@ class ParseConst(object):
         self.next_line()
         if not len(self.line.strip()):
             self.empty_skip()
-        if not self.line.strip().startswith('doc name:'):
-            if self.line.strip().startswith('def'):
-                #self.warn["no_doc"].append(f_name)       
-                return True
+        return f_name
+
+    def parse_doc(self, f_name, defaults_opts):
+        def catch_multiline(key):
+            doc = []
+            c = 0
+            while True:    # wtf so many special cases
+                l = self.line.strip()
+                #print(l)
+                if c < 1:
+                    print(">>>>>", (key, self.line))
+                    if 'examples:' in key:
+                        val = self.line.split('[')[1].strip('][\"').strip()
+                    elif 'opts:' in key:
+                        val = self.line.split('{')[1].strip('{\"').strip()
+                    else:
+                        print("::::", l)
+                        if l.endswith(','):
+                            val = catch_val(key).strip('\" ,').strip()
+                        else:
+                            val = catch_val1(key).strip('\" ').strip()
+                    if val: doc.append(val)
+                else:
+                    print("=====", (key, self.line))
+                    val = l.strip(',]')
+                    if val: doc.append(val)
+                
+                nextL = ""#self.lines[self.l+1].strip()                
+                c = self.l+1
+                while not len(nextL):
+                    nextL = self.lines[c].strip()
+                    c += 1
+                #print('@@@@ ', nextL)
+                if not len(l):
+                    pass
+                
+                elif 'examples:' in key:
+                    if nextL == ']':
+                        print('[[]] examples END found ]:')
+                        self.l = c+1
+                        self.line = self.lines[c+1]
+                        break
+                        #print('NNN] END:')                    
+                    
+                    elif (l.endswith('\"]') or l.endswith('\"     ]') or l.endswith('],')):
+                        print('[[]] examples END:')
+                        self.l = c-1
+                        self.line = self.lines[c-1]
+                        break
+                    
+                elif l.endswith('},') and 'opts:' in key:
+                    print('[[]] opts END:')
+                    break                    
+                elif 'args:' in nextL:
+                    break           
+                elif l.endswith('",'):
+                    if 'opts:' in key:
+                        print('&&&&:')                                            
+                    elif not nextL.startswith('\"'):
+                        print('---- END:')
+                        break           
+                c += 1    
+                self.next_line()
+            if 'opts:' in key:
+                return doc
             else:
-                self.warn["unexpected end of def"].append(f_name)            
-                return False
-       
-        self.funct_doc[f_name] = {}       
-        while not self.next_has('def '): #not func_simple_re.match(self.line): 
-            
+                return '\n'.join(doc)
+        def catch_key():
+            return re.match(r'^\s*(?:doc )?([^:]*):\s*.*', self.line).group(1)+':'
+        def catch_val(key):
+            return re.match(r'\s*'+key+'\s*(.*),.*', self.line).group(1)
+        def catch_val1(key):
+            return re.match(r'\s*'+key+'\s*(.*)$', self.line).group(1)
+            #return self.line.split(':')[1].strip().strip(',')        
+        def catch_val2(key):
+            return re.match(r'\s*'+key+'\s*\[(.*)\],?.*', self.line).group(1) 
+        self.funct_doc[f_name] = {}
+        while not self.next_has('def '):
+            if f_name == "sample_free_all":
+                print("TTTTT")
             if not len(self.line.strip()):
                 self.empty_skip()
             l = self.line.strip()
-            if l.startswith('private'):
-                break
-            if l.startswith('#'): 
-                self.next_line()
+            if l.startswith('def ') :
                 return True
-            print("####", l)
+            elif l.startswith('#'):
+                self.next_line()
+                continue
+            elif l.startswith('private'):
+                break
+            print(self.l, " ####", l)
             key = catch_key()
             if key == 'doc:':
                 doc = catch_multiline('doc:')
-                self.funct_doc[f_name][key[:-1]] = doc
-                self.next_line() ; continue
+                self.funct_doc[f_name][key[:-1]] = doc.strip('\"')
+                self.next_line()
+                continue
             elif key == 'examples:':
                 examples = catch_multiline('examples:')            
-                self.funct_doc[f_name][key[:-1]] = examples
-                self.next_line() ; continue
-            
-            if key == 'name:':
+                self.funct_doc[f_name][key[:-1]] = examples.strip('\"]')
+                #self.next_line()
+                continue
+
+            elif key == 'name:':
                 name = catch_val('doc name:') #self.line.strip().split(':')[2][:-1]
                 if name[1:] != f_name: 
                     raise Exception("name %s != f_name %s %s %s" % 
@@ -352,11 +292,8 @@ class ParseConst(object):
                             else:
                                 self.warn["no default value for opt %s" % opt].append(f_name)
                                 self.new_opt[opt] = "__to_do__"
-
                         else:
-                            print("no opt match in", opt_line)
-                            return False
-                        
+                            raise Exception("no opt match in", (opt_line, self.l))
                 self.consts[f_name][key[:-1]] = opt_line
             elif key == 'introduced:':
                 val = catch_val(key)                
@@ -365,7 +302,11 @@ class ParseConst(object):
             elif key in ['accepts_block:', 'requires_block:', 'modifies_env:', 'memoize:', 'intro_fn:']:
                 val = catch_val(key)
                 val = True if val == "true" else False
-                self.consts[f_name][key[:-1]] = val 
+                self.consts[f_name][key[:-1]] = val
+            elif key == 'hide:':
+                val = catch_val1(key)
+                val = True if val == "true" else False
+                self.consts[f_name][key[:-1]] = val
             elif key == 'returns:':
                 val = catch_val(key)
                 if "nil" in val:
@@ -382,14 +323,19 @@ class ParseConst(object):
                 
             else:
                 self.warn["no_catch %s"% key].append(f_name)
+            print("[**] END")
+            #self.next_line()
             self.next_line()
-
+        if not len(self.line.strip()):
+            self.empty_skip()
+        return True
+        '''
         mandatory_keys = ["args_types", "opts", "summary", "accepts_block", "introduced"] #"args_in",
         for key in mandatory_keys:
             if key not in self.consts[f_name]:
                 self.warn["no_mandatory_keys %s"% key].append(f_name)
+        '''
 
-        return True
         
         
     def parse_play_opts(self):
@@ -408,33 +354,97 @@ class ParseConst(object):
             arg_def[opt] = 0       
         return arg_def
 
-    def empty_skip(self):
-        while self.line == '\n':
-            self.next_line()
-        
-    def next_line(self):
-        self.l = self.l + 1
-        self.line = self.lines[self.l]
-        '''
-        if self._debug:
-            curframe = inspect.currentframe()
-            calframe = inspect.getouterframes(curframe, 2)
-            print('next line call from :', calframe[1][3], calframe[1][2])
-        '''
-    def skip_to(self, match):        
-        while match not in self.line:
-            self.next_line()
-            
-    def skip_ex(self, match):        
-        while self.line != match:
-            self.next_line()
-              
-    def goNext(self):
-        self.next_line()
-        self.empty_skip()
 
-       
-    
+    def proc_class(self):
+        print("> ", (self.line, self.l))
+
+        class_match = re.match(r'.* class (.*) < (.*)\n', self.line)
+        try:
+            m = class_match.group(1)
+        except AttributeError:
+            print("bailout not a class", (self.line, self.l))
+            return False
+        c_name, c_parent = (class_match.group(1), class_match.group(2))
+
+        end_class = "    end\n"
+
+        # self.next_line()
+        synth_name = ""
+        synth_descr = ""
+        arg_def = {}
+
+        while self.line != end_class:
+            s = self.line
+            if "def name" in s:
+                self.next_line()
+                synth_descr = self.line.strip().strip('"')
+            elif "def synth_name" in s:
+                self.next_line()
+                synth_name = self.line.strip().strip('"')
+            elif "def arg_defaults" in s:
+                self.next_line();
+                self.next_line()
+                while "}" not in self.line:
+                    l = self.line.strip()
+                    if not l: self.next_line(); continue
+                    arg, v = l.split('=>')
+                    v = v.strip(',').strip()
+                    arg = arg.strip()[1:] + ":"  # remove : and add @end
+                    arg_def[arg.strip()] = v
+                    self.next_line()
+                for k, v in arg_def.items():  # fix value reference
+                    if v[0] == ":":
+                        v = v[1:] + ":"
+                        ref = arg_def[v]
+                        print(k, v, ref)
+                        arg_def[k] = eval(str(ref))
+                    else:
+                        arg_def[k] = eval(v)
+            else:
+                self.next_line()
+
+        if not len(synth_name):
+            # print("EMPTY");
+            self.next_line()
+            self.empty_skip()
+            return True
+        synth_name = ":" + synth_name
+        self.tmp_dict[c_name] = synth_name
+
+        baseClass = ["SonicPiSynth", "Pitchless", "FXInfo",
+                     "BaseInfo", "StudioInfo", "BaseMixer"]
+        user_facing = baseClass[:3]
+        # no "BaseInfo", "StudioInfo", "BaseMixer",
+
+        hiden = 0
+
+        def inherit_super(parent):
+            parent_synt_name = self.tmp_dict[parent]  # take the ref by class
+            parent_synt = self.consts[parent_synt_name]
+            if parent_synt:
+                arg_def.update(parent_synt["arg_defaults"])
+                return parent_synt['inherit_base']
+
+        super_c = c_parent
+        while super_c not in baseClass:
+            super_c = inherit_super(super_c)
+        if super_c not in user_facing:
+            print("/ ", super_c)
+            hiden = 1
+
+        self.consts[synth_name] = {
+            "descr": synth_descr,
+            "arg_defaults": arg_def,
+            "class_name": c_name,
+            "inherit_base": c_parent,
+            "hiden": hiden,
+        }
+        self.goNext()
+
+        return True
+
+
+####################### class end
 def parseSynth():
     with open('sonicpi/synths/synthinfo.rb') as infile:
         const_file = infile.readlines()
@@ -459,30 +469,50 @@ def parseSynth():
 def parseSound():
     with open('sonicpi/lang/sound.rb') as infile:
         const_file = infile.readlines()
-    ps = ParseConst(const_file)
+    stop_class_line = '      private'
+    ps = ParseConst(const_file, stop_class_line)
     defaults_opts = ps.parse_play_opts()
     #dump_dict([{"opts_default_val":defaults_opts }],'lang_def.py', 'w', "" )
     ps.skip_to("def octs(")
-    stop_class_line = '      private'
+    f_name = ""
     while not ps.line.startswith(stop_class_line):
-        if ps.line.startswith('      def'):
+        if ps.line.startswith(stop_class_line): break
+        elif ps.line.startswith('      def'):
+            f_name = ps.parse_def()
             #print(ps.line)
-            op = ps.parse_lang(defaults_opts, True)
+        else:
+            op = ps.parse_doc(f_name, defaults_opts)
             if not op:
                 print("ops")
-                break                
-        if ps.line.startswith(stop_class_line): break
-        else:        ps.goNext()
-    
-    func_off = ["use_fx", "use_timing_warnings"]
-    ##########################################
+                break
     print("="*80)
     print("TOT lang_sound", len(ps.consts))
     print("TOT funct_doc", len(ps.funct_doc))
     return ps
-    '''
-    ps.consts['#play'] = {"arg_defaults":arg_defaults, "descr": "play notes", "hiden": 1, "class_name": "Play"}
-    '''
+
+def parseCore():
+    with open('sonicpi/lang/core.rb') as infile:
+        const_file = infile.readlines()
+    stop_class_line = '      def __on_thread_death'
+    ps = ParseConst(const_file, stop_class_line)
+    defaults_opts = ps.parse_play_opts()
+    #dump_dict([{"opts_default_val":defaults_opts }],'lang_def.py', 'w', "" )
+    ps.skip_to("THREAD_RAND_SEED_MAX")
+    ps.next_line()
+    f_name = ""
+    while not ps.line.startswith(stop_class_line):
+        if ps.line.startswith(stop_class_line): break
+        elif ps.line.startswith('      def'):
+            f_name = ps.parse_def()
+            #print(ps.line)
+        else:
+            op = ps.parse_doc(f_name, defaults_opts)
+            if not op:
+                print("ops")
+                break
+    print("="*80)
+    print("TOT lang_core", len(ps.consts))
+    print("TOT funct_doc", len(ps.funct_doc))
     return ps
 
 def gen_helper_func():

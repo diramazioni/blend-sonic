@@ -159,6 +159,7 @@ args_types_conversion = {
   ":string": "String",
   ":symbol": "String", # note/reference with :
   ":symbol_or_number": "String", # note/reference: :A or 60
+  ":symbol_or_string": "String", # note/reference: :A or 60
   ":synth_node": "String", # reference to var = 
   ":true_or_false": "String", # true or false (lowercase)
   ":ring": "String List" # only used as return value for array of notes (ring)    
