@@ -2,7 +2,7 @@ from constant_def import opts_default_val, opts_types_conversion, args_types_con
 
 from collections import defaultdict
 import re
-
+import json
 
 class ParseConst(object):
     
@@ -67,9 +67,10 @@ class ParseConst(object):
         while self.line == '\n':
             self.next_line()
 
-    def next_line(self):
-        self.l = self.l + 1
-        self.line = self.lines[self.l]
+    def next_line(self, times=1):
+        for i in range(times):
+            self.l = self.l + 1
+            self.line = self.lines[self.l]
 
     def skip_to(self, match):
         while match not in self.line:
@@ -130,7 +131,7 @@ class ParseConst(object):
                     args[arg_name] = None
 
             self.skip_ex(end_class)
-            self.consts[f_name] = {'args_in': args}
+            self.consts[f_name] = {'signature': args}
         elif func_simple:
             f_name = func_simple.group(1)
             self.skip_ex(end_class)
@@ -143,7 +144,72 @@ class ParseConst(object):
             self.empty_skip()
         return f_name
 
-    def parse_doc(self, f_name, defaults_opts):
+    def parse_doc(self, f_name, defaults_opts={}):
+        def nextLines():
+            nextL = ""  # self.lines[self.l+1].strip()
+            start, end = (self.l+1,self.l)
+            re_key= re.compile(r'^\s*[\w^:]*:\s*.*')
+            re_end_line = re.compile(r'.*\n*\"[\n, ]*\],?\n*$')
+            while True:
+                end += 1
+                nextL = self.lines[end].strip()
+                if not len(nextL):
+                    continue
+                elif nextL.startswith(key): break
+                elif nextL.startswith('def '): break
+                elif nextL == ']':
+                    end += 1
+                    break
+                elif re.match(re_end_line, nextL):
+                    end += 1
+                    break
+                elif re.match(re_key, nextL):
+                    break
+                else:
+                    continue
+            to_eval = self.lines[start: end]
+            self.l = end
+            self.line = self.lines[end]
+            return to_eval
+
+        def catch_multiline2(start_key='examples:'):
+            sl = catch_val1(start_key)
+            re_sl = re.compile('\[ *\"(.*)\"[\n, ]*\],?\n*$', re.DOTALL)
+            sl_m = re.match(re_sl, sl)
+            re_split = re.compile('\",(?:\n)? *\"')
+            if sl.strip(',') == '[]':
+                self.next_line()
+                return None
+                #elif (sl.endswith('\"]') or sl.endswith('\"     ]') or sl.endswith('"],')):
+            elif sl_m:
+                jn = re.split(re_split, sl)
+                jn = '\n'.join(jn)
+                # jn = re.sub('\\\"', "'", jn)
+                #jn = jn.replace('\"', "'")
+                jn_m = re.match(re_sl, jn)
+                jn = jn_m.group(1)
+                self.next_line()
+                return jn
+            else:
+                nl = nextLines()
+                nl = [n for n in nl if len(n.strip())]
+
+
+                nl[0] = sl + nl[0]
+                if len(nl) > 1:
+                    jn = '\n'.join(nl)
+                    jn = re.split(re_split, jn)
+                    jn = '\n'.join(jn)
+                else :
+                    jn = '\n'.join(nl)
+
+                jn_m = re.match(re_sl, jn)
+                if jn_m:
+                    jn = jn_m.group(1)
+                else:
+                    jn = re.match('\[([^\]]*)\]$', jn, re.DOTALL).group(1)
+                return jn
+
         def catch_multiline(key):
             doc = []
             c = 0
@@ -154,6 +220,8 @@ class ParseConst(object):
                     print(">>>>>", (key, self.line))
                     if 'examples:' in key:
                         val = self.line.split('[')[1].strip('][\"').strip()
+                    elif 'args:' in key:
+                        val = '['+self.line.split('[')[2].strip().strip(',')
                     elif 'opts:' in key:
                         val = self.line.split('{')[1].strip('{\"').strip()
                     else:
@@ -165,7 +233,8 @@ class ParseConst(object):
                     if val: doc.append(val)
                 else:
                     print("=====", (key, self.line))
-                    val = l.strip(',]')
+                    if key != 'args:': val = l.strip(',]')
+                    else: val = l.strip(',')[:-1]
                     if val: doc.append(val)
                 
                 nextL = ""#self.lines[self.l+1].strip()                
@@ -176,23 +245,27 @@ class ParseConst(object):
                 #print('@@@@ ', nextL)
                 if not len(l):
                     pass
-                
-                elif 'examples:' in key:
+                if key == 'args:':
+                    if l.endswith(']],'):
+                        print('[[]] END args')
+                        break
+
+                elif key == 'examples:':
                     if nextL == ']':
-                        print('[[]] examples END found ]:')
+                        print('[[]] END ex ]')
                         self.l = c+1
                         self.line = self.lines[c+1]
                         break
                         #print('NNN] END:')                    
                     
                     elif (l.endswith('\"]') or l.endswith('\"     ]') or l.endswith('],')):
-                        print('[[]] examples END:')
+                        print('[[]] END ex')
                         self.l = c-1
                         self.line = self.lines[c-1]
                         break
                     
                 elif l.endswith('},') and 'opts:' in key:
-                    print('[[]] opts END:')
+                    print('[[]] END opts')
                     break                    
                 elif 'args:' in nextL:
                     break           
@@ -202,9 +275,9 @@ class ParseConst(object):
                     elif not nextL.startswith('\"'):
                         print('---- END:')
                         break           
-                c += 1    
+                c += 1
                 self.next_line()
-            if 'opts:' in key:
+            if key in ['opts:', 'args:']:
                 return doc
             else:
                 return '\n'.join(doc)
@@ -219,8 +292,8 @@ class ParseConst(object):
             return re.match(r'\s*'+key+'\s*\[(.*)\],?.*', self.line).group(1) 
         self.funct_doc[f_name] = {}
         while not self.next_has('def '):
-            if f_name == "sample_free_all":
-                print("TTTTT")
+            if f_name == "define":
+                print("######## PROBE")
             if not len(self.line.strip()):
                 self.empty_skip()
             l = self.line.strip()
@@ -231,17 +304,20 @@ class ParseConst(object):
                 continue
             elif l.startswith('private'):
                 break
-            print(self.l, " ####", l)
+            print(self.l, " ####", l, end="")
             key = catch_key()
             if key == 'doc:':
                 doc = catch_multiline('doc:')
                 self.funct_doc[f_name][key[:-1]] = doc.strip('\"')
                 self.next_line()
+                printDone()
                 continue
             elif key == 'examples:':
-                examples = catch_multiline('examples:')            
-                self.funct_doc[f_name][key[:-1]] = examples.strip('\"]')
+                examples = catch_multiline2('examples:')
+                if examples:
+                    self.funct_doc[f_name][key[:-1]] = examples
                 #self.next_line()
+                printDone()
                 continue
 
             elif key == 'name:':
@@ -249,24 +325,47 @@ class ParseConst(object):
                 if name[1:] != f_name: 
                     raise Exception("name %s != f_name %s %s %s" % 
                                     (name, f_name, self.line, self.l))
+                printDone()
             elif key == 'summary:':
                 summary = catch_val(key).strip('\"') #self.line.split('"')[1]
                 self.consts[f_name][key[:-1]] = summary
                 self.funct_doc[f_name][key[:-1]] = summary
-            elif key == 'args:':
-                args_type_line_re = catch_val2(key)
-                args_type_iter = re.compile('\[(:\w*), (:\w*)\]') 
-                arg_dict = {}
-                for ar_match in args_type_iter.finditer(args_type_line_re):                
-                    arg_ref, arg_type = ar_match.group(1), ar_match.group(2)
-                    arg_ref = arg_ref[1:] # remove initial :                                
-                    arg_dict[arg_ref] = arg_type
-                    
-                    if arg_type not in args_types_conversion:
-                        self.warn["new arg %s" % arg_type].append(f_name)
-                        self.new_arg[arg_type] = "__to_do__"
-    
-                self.consts[f_name]['args_types'] = arg_dict                
+                printDone()
+            elif key in ['args:', 'alt_args:']:
+                def parse_arg(val):
+                    arg_dict = {}
+                    args_type_iter = re.compile('\[(:\w*), (:\w*)\]')
+                    for ar_match in args_type_iter.finditer(val):
+                        arg_ref, arg_type = ar_match.group(1), ar_match.group(2)
+                        arg_ref = arg_ref[1:]  # remove initial :
+                        arg_dict[arg_ref] = arg_type
+
+                        if arg_type not in args_types_conversion:
+                            self.warn["new arg %s" % arg_type].append(f_name)
+                            self.new_arg[arg_type] = "__to_do__"
+                    return arg_dict
+
+                args_d = {}
+                line = catch_val(key)
+                if line == '[]':
+                    print('empty')
+                    self.next_line()
+                    continue
+                elif line.endswith(']]'):
+                    line = catch_val2(key)
+                    args_d = parse_arg(line)
+                elif line.endswith(']]]'):
+                    line = line[1:-1]
+                    #line = catch_val2(key)
+                    args_d = parse_arg(line)
+                else:
+                    lines = catch_multiline(key)
+                    line = '|'.join(lines)
+                    args_d.update(parse_arg(line))
+                    #for line in lines:
+
+                self.consts[f_name][key[:-1]] = args_d
+                printDone()
             elif key == 'opts:':
                 opts = []
                 opt_line = catch_val(key) 
@@ -279,8 +378,9 @@ class ParseConst(object):
                     opt_line = {}
                 else:
                     opt_line = ""
-                    opt_lines = catch_multiline('opts:')
-                    for opt_line in opt_lines:                        
+                    opt_lines = catch_multiline(key)
+                    for opt_line in opt_lines:
+                        if opt_line == '}': break
                         opt_with_arg_re = re.compile(r':?(\w*):? *(?:=>)? *\"(.*)\"}?')
                         opt_arg = opt_with_arg_re.match(opt_line)                
                         if opt_arg:                
@@ -295,18 +395,21 @@ class ParseConst(object):
                         else:
                             raise Exception("no opt match in", (opt_line, self.l))
                 self.consts[f_name][key[:-1]] = opt_line
+                printDone()
             elif key == 'introduced:':
                 val = catch_val(key)                
                 val = val.split('new')[1].strip("()")                
                 self.consts[f_name][key[:-1]] = val
-            elif key in ['accepts_block:', 'requires_block:', 'modifies_env:', 'memoize:', 'intro_fn:']:
+            elif key in ['accepts_block:', 'requires_block:', 'modifies_env:', 'memoize:', 'intro_fn:', 'async_block:', 'advances_time:']:
                 val = catch_val(key)
                 val = True if val == "true" else False
                 self.consts[f_name][key[:-1]] = val
+                printDone()
             elif key == 'hide:':
                 val = catch_val1(key)
                 val = True if val == "true" else False
                 self.consts[f_name][key[:-1]] = val
+                printDone()
             elif key == 'returns:':
                 val = catch_val(key)
                 if "nil" in val:
@@ -314,17 +417,19 @@ class ParseConst(object):
                 if val and val not in args_types_conversion:
                     self.warn["new returns %s" % val].append(f_name)
                     self.new_arg[val] = "__to_do__"                    
-                    
+
                 self.consts[f_name][key[:-1]] = val
                 #self.warn["return types %s"% val].append(f_name)
+                printDone()
             #['amp:', 'hpf:', 'hpf_bypass:', 'kill_delay:', 'leak_dc_bypass:','limiter_bypass:', 'lpf:','lpf_bypass:', 'num_octaves:']
             #elif key in ['kill_delay:'] : # handle special cases
                 
                 
             else:
                 self.warn["no_catch %s"% key].append(f_name)
-            print("[**] END")
-            #self.next_line()
+                print("\n[ERROR]", (f_name, self.line))
+                return False # bailout gracefully ! WATCH OUT  !
+            #print("[**] END")
             self.next_line()
         if not len(self.line.strip()):
             self.empty_skip()
@@ -347,7 +452,7 @@ class ParseConst(object):
             if opt:
                 arg_def[opt] = 1
             doc = self.line.split('"')[1]
-            self.opts_doc[opt] = doc            
+            self.opts_doc[opt] = doc
             self.next_line()
         # Guess the defaults zero arg.... if someone knows tell me
         for opt in ["pan", "slide", "pitch", "attack", "decay", "release"]:
@@ -386,7 +491,9 @@ class ParseConst(object):
                 self.next_line()
                 while "}" not in self.line:
                     l = self.line.strip()
-                    if not l: self.next_line(); continue
+                    if not l:
+                        self.next_line()
+                        continue
                     arg, v = l.split('=>')
                     v = v.strip(',').strip()
                     arg = arg.strip()[1:] + ":"  # remove : and add @end
@@ -397,7 +504,7 @@ class ParseConst(object):
                         v = v[1:] + ":"
                         ref = arg_def[v]
                         print(k, v, ref)
-                        arg_def[k] = eval(str(ref))
+                        arg_def[k] = str(ref)
                     else:
                         arg_def[k] = eval(v)
             else:
@@ -448,7 +555,7 @@ class ParseConst(object):
 def parseSynth():
     with open('sonicpi/synths/synthinfo.rb') as infile:
         const_file = infile.readlines()
-    ps = ParseConst(const_file)
+
     '''
     ps.skip_to("class BaseInfo")
     ps.skip_to("def default_arg_info")    
@@ -456,13 +563,15 @@ def parseSynth():
     print(arg_base)
     ps.consts['__BaseInfo__'] = {'arg_info':arg_base}
     '''
-    ps.skip_to("class SoundIn < SonicPiSynth")
+
     stop_class_line = '    class BaseInfo\n'
+    ps = ParseConst(const_file, stop_class_line)
+    ps.skip_to("class SoundIn < SonicPiSynth")
     while(ps.line != stop_class_line):
         #ps.empty_skip()
         op = ps.proc_class()
         if not op:
-            print("ops")
+            print("ops went WRONG")
             break
     return ps
 
@@ -483,7 +592,7 @@ def parseSound():
         else:
             op = ps.parse_doc(f_name, defaults_opts)
             if not op:
-                print("ops")
+                print("ops went WRONG")
                 break
     print("="*80)
     print("TOT lang_sound", len(ps.consts))
@@ -495,20 +604,17 @@ def parseCore():
         const_file = infile.readlines()
     stop_class_line = '      def __on_thread_death'
     ps = ParseConst(const_file, stop_class_line)
-    defaults_opts = ps.parse_play_opts()
-    #dump_dict([{"opts_default_val":defaults_opts }],'lang_def.py', 'w', "" )
     ps.skip_to("THREAD_RAND_SEED_MAX")
-    ps.next_line()
+    ps.next_line(2)
     f_name = ""
     while not ps.line.startswith(stop_class_line):
         if ps.line.startswith(stop_class_line): break
         elif ps.line.startswith('      def'):
             f_name = ps.parse_def()
-            #print(ps.line)
         else:
-            op = ps.parse_doc(f_name, defaults_opts)
+            op = ps.parse_doc(f_name)
             if not op:
-                print("ops")
+                print("ops went WRONG")
                 break
     print("="*80)
     print("TOT lang_core", len(ps.consts))
@@ -539,15 +645,26 @@ if __name__ == '__main__':
     print("fx: ",len(all_fx))
     print("gen: ",len(generators))
     '''
+def printDone():
+    print(' ==> OK')
+
+def printWarning(ps):
+    # for k in ps.consts.keys():
+    # if k not in ps.funct_doc: print("no DOC", k)
+    if len(ps.warn):
+        print("---WARN---" * 16)
+        for k, v in sorted(ps.warn.items()):
+            print(k, v)
+
 
 def dump_dict(dict_def, out_file_name, out_mode, helper_func):
-    import json
 
     def dict2var(dictionary):
         text = []
         for k, v in dictionary.items():   # split json in separate k = val        
-            d = json.dumps(v, sort_keys = True, indent = 2) 
+            d = json.dumps(v, sort_keys = True, ensure_ascii = False, indent = 2)
             text.append(k+" = " + d + "\n")
+            print("writing %s in %s" % (k,out_file_name))
         return ('\n').join(text)
     
     with open(out_file_name, out_mode) as outfile:
@@ -558,40 +675,52 @@ def dump_dict(dict_def, out_file_name, out_mode, helper_func):
         for const in dict_def:
             outfile.write(dict2var(const))
         outfile.write(helper_func)
-    print("wrote", out_file_name) 
+
     '''
     with open('synths.json', 'w') as outfile:
         json.dump(const, outfile, sort_keys = True, indent = 2) )
     '''
+
 if __name__ == '__main__':
 
-    #ps = parseSynth()
-    #dump_dict(ps.consts, 'lang_def.py', "synths", gen_helper_func() )
-    
+    '''
+    ## core
+    ps = parseCore()
+    dump_dict([{"lang_core":ps.consts }],'lang_def.py', 'w', "" )
+    printWarning(ps)
+    if len(ps.new_arg):
+        dump_dict([{"core_args_types_conversion":ps.new_arg }],'lang_def.py', 'a', "" )
+    if len(ps.new_opt):
+        dump_dict([{"core_opts_types_conversion":ps.new_opt }],'lang_def.py', 'a', "" )
+    dump_dict([{"funct_doc":ps.funct_doc }],'lang_doc.py', 'w', "" )
+    dump_dict([{"opts_doc":ps.opts_doc }],'lang_doc.py', 'a', "" )
+    '''
+    ## sound
+    # '''
     ps = parseSound()
     dump_dict([{"lang_sound":ps.consts }],'lang_def.py', 'w', "" )
+    printWarning(ps)
     if len(ps.new_arg):
-        dump_dict([{"new_args_types_conversion":ps.new_arg }],'lang_def.py', 'a', "" )
+        dump_dict([{"sound_args_types_conversion":ps.new_arg }],'lang_def.py', 'a', "" )
     if len(ps.new_opt):
-        dump_dict([{"new_opts_types_conversion":ps.new_opt }],'lang_def.py', 'a', "" )
-    #ps = parseSynth()
-    #dump_dict([{"synths":ps.consts }],'lang_def.py', 'a', "" )
+        dump_dict([{"sound_opts_types_conversion":ps.new_opt }],'lang_def.py', 'a', "" )
     dump_dict([{"funct_doc":ps.funct_doc }],'lang_doc.py', 'w', "" )
-    
     dump_dict([{"opts_doc":ps.opts_doc }],'lang_doc.py', 'a', "" )
-    
-    #for k in ps.consts.keys():
-        #if k not in ps.funct_doc: print("no DOC", k)
-    
-    #opts_default_val = {k:"" for k in ps.opts_doc.keys()}
-    if len(ps.warn):
-        print("---WARN---"*16)
-        for k,v in sorted(ps.warn.items()):            
-            print(k,v)
-        
-    
-    
+    '''
+    ## synth
+    ps = parseSynth()
+    dump_dict([{"synths":ps.consts }],'lang_def.py', 'a', "" )
+    printWarning(ps)
+
+    dump_dict([{"funct_doc":ps.funct_doc }],'lang_doc.py', 'w', "" )
+    dump_dict([{"opts_doc":ps.opts_doc }],'lang_doc.py', 'a', "" )
+    printWarning(ps)
+    '''
+
     print("DONE")
+
+
+
     '''
     from gen_template import *
     do_jinja(ps.consts)
