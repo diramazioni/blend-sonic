@@ -1,10 +1,14 @@
 null = None
 
 opts_default_val = {
+  "another_key": "foo: 64",  #only used in cue Numbers, Symbols, Booleans and Nil, or Vectors/Rings of immutable types"
   "amp": 1, 
   "amp_slide": 1,  
   "attack": 0,  
   "attack_level": 1, 
+  "auto_cue": True,  
+  "bpm_sync": False,  
+  "delay": 0,  
   "decay": 0,  
   "decay_level": 1, 
   "env_curve": 1, 
@@ -26,7 +30,7 @@ opts_default_val = {
   "kill_delay": 1,
   "leak_dc_bypass": 0,
   "limiter_bypass": 0,
-  "lpf": 135.5,
+  "lpf": 131, # max 131
   "lpf_bypass": 0,
   "beat_stretch": 1,
   "finish": 1, #from 0 to 1
@@ -36,6 +40,7 @@ opts_default_val = {
   "start": 0,  #from 0 to 1
   "clamp_time": 0, # ?
   "compress": 0,  # Boolean
+  "key": "foo: 64", #only used in cue
   "hpf": 0,
   "hpf_bypass": 0,
   "hpf_attack": 0,
@@ -49,6 +54,8 @@ opts_default_val = {
   "hpf_release_level": 0,
   "hpf_sustain": 0 ,
   "hpf_sustain_level": 0,
+  "inclusive": False,
+  "init": "",  
   "lpf_attack": 0 ,
   "lpf_attack_level": 0 ,
   "lpf_decay": 0 ,
@@ -60,9 +67,20 @@ opts_default_val = {
   "lpf_release_level": 0 ,
   "lpf_sustain": 0 ,
   "lpf_sustain_level": 0 ,
+  "name": ":foo", # symbol
   "norm": 0, #?
   "onset": 0,
-  "path": "String",
+  "offset": 0,  
+  "override": False,
+  "rotate": False,
+  "seed": 0, #? not sure if it expect the seed or a boolean
+  "skip": 0,
+  "step": 1,
+  "steps": 1,
+  "sync": ":foo", # symbol
+  "sync_bpm": ":foo", # symbol
+  "your_key": ":bar",
+  "path": "/path/to/file",
   "pitch_dis": 0,
   "relax_time": 0, # ?
   "slope_above": 1,
@@ -73,12 +91,16 @@ opts_default_val = {
 }
 
 opts_types_conversion = {
+  "another_key": "String",  # immutable  
   "amp": "Float",
   "amp_slide": "Float",
   "attack": "Float", 
   "attack_level": "Float",
+  "auto_cue": "Boolean",  
+  "bpm_sync": "Boolean",
   "decay": "Float",
   "decay_level": "Float",
+  "delay": "Float",  # beats
   "env_curve": "Integer",
   "on": "Boolean",
   "pan": "Float",
@@ -88,7 +110,9 @@ opts_types_conversion = {
   "slide": "Float",
   "sustain": "Float",
   "sustain_level": "Float",    
-  "invert": "Integer",
+  "inclusive": "Boolean",
+  "init": "String", # ? there are no examples...
+  "invert": "Integer",  
   "num_beats": "Integer",
   "num_octaves": "Integer",
   "octave": "Integer", 
@@ -108,6 +132,7 @@ opts_types_conversion = {
   "start": "Float",
   "clamp_time": "Float", # ?
   "compress": "Boolean",
+  "key": "String", # notes etc immutable
   "hpf": "Float",
   "hpf_bypass": "Boolean",
   "hpf_attack": "Float",
@@ -124,7 +149,7 @@ opts_types_conversion = {
   "lpf_attack": "Float",
   "lpf_attack_level": "Float",
   "lpf_decay": "Float",
-  "lpf_decay_level": "__to_do__",
+  "lpf_decay_level": "Float",
   "lpf_env_curve": "Integer",
   "lpf_init_level": "Integer",
   "lpf_min": "Integer",
@@ -132,8 +157,19 @@ opts_types_conversion = {
   "lpf_release_level": "Float",
   "lpf_sustain": "Float",
   "lpf_sustain_level": "Float",
+  "name": "String",  
   "norm": "Float", #?
   "onset": "Integer", 
+  "offset": "Integer",  
+  "override": "Boolean",
+  "rotate": "Boolean",
+  "seed": "Integer",
+  "skip": "Integer",
+  "step": "Float",
+  "steps": "Integer", # positive
+  "sync": "String", # symbol
+  "sync_bpm": "String", # symbol
+  "your_key": "String",  # symbol
   "path": "String",
   "pitch_dis": "Float",
   "relax_time": "Float", # ?
@@ -145,15 +181,23 @@ opts_types_conversion = {
 }
 
 args_types_conversion = {
+  ":anything": "String", 
   ":array": "String List", # notes (ring) :A3, :B4, :C4 
   ":boolean": "Boolean", 
+  ":density": "Integer",  # positive Int 
+  ":int": "Integer",  
   ":list": "String List", # notes [ :A, :B4, :C4 ]
   ":list_or_number": "String List", # notes AND int_List [ :A, :B4, :C4 ], [ 1,2,3 ]
   ":midi_number": "Integer", # note (only used in pitch_to_ratio)
   ":note": "Integer", # note (ring) # :A3 or 60
   ":number": "Float",
+  ":number_or_nil": "Integer", # posiyive int, can be null
+  ":number_or_range": "String", # int or (range 1, 5)  
   ":number_symbol_or_map": "Integer", # note (only used in :rest?)
+  ":path": "String",  # escaped with \"
   ":pos_int": "Integer", # note (ring)
+  ":positive_number": "Float",  
+  ":ramp": "Integer",  # only used in ramp as return value
   ":sample_name_or_duration": "String", # string_or_number (only used in :use_sample_bpm :with_sample_bpm)
   ":source_and_filter_types": "String", # same as symbol_or_string sample (only used in :sample_paths)
   ":string": "String",
@@ -161,8 +205,10 @@ args_types_conversion = {
   ":symbol_or_number": "String", # note/reference: :A or 60
   ":symbol_or_string": "String", # note/reference: :A or 60
   ":synth_node": "String", # reference to var = 
+  ":truthy": "Boolean", # true except for: false, nil and 0
   ":true_or_false": "String", # true or false (lowercase)
-  ":ring": "String List" # only used as return value for array of notes (ring)    
+  ":ring": "String List", # only used as return value for array of notes (ring)
+  ":vector": "Integer List" # only used as return value for vector
 }
 '''
 simple_sampler_args = [':amp', ':amp_slide', ':amp_slide_shape', ':amp_slide_curve', ':pan', ':pan_slide', ':pan_slide_shape', ':pan_slide_curve', ':cutoff', ':cutoff_slide', ':cutoff_slide_shape', ':cutoff_slide_curve', ':lpf', ':lpf_slide', ':lpf_slide_shape', ':lpf_slide_curve', ':hpf', ':hpf_slide', ':hpf_slide_shape', ':hpf_slide_curve', ':rate', ':slide', ':beat_stretch', ':rpitch', ':attack', ':decay', ':sustain', ':release', ':attack_level', ':decay_level', ':sustain_level', ':env_curve']

@@ -53,7 +53,7 @@ class ParseConst(object):
 
         self.tmp_dict = {}
         self.consts = {}            
-        self.funct_doc = {}
+        self.func_doc = {}
         self.opts_doc = {}
         self.new_arg = {}
         self.new_opt = {}
@@ -290,7 +290,7 @@ class ParseConst(object):
             #return self.line.split(':')[1].strip().strip(',')        
         def catch_val2(key):
             return re.match(r'\s*'+key+'\s*\[(.*)\],?.*', self.line).group(1) 
-        self.funct_doc[f_name] = {}
+        self.func_doc[f_name] = {}
         while not self.next_has('def '):
             if f_name == "define":
                 print("######## PROBE")
@@ -308,14 +308,14 @@ class ParseConst(object):
             key = catch_key()
             if key == 'doc:':
                 doc = catch_multiline('doc:')
-                self.funct_doc[f_name][key[:-1]] = doc.strip('\"')
+                self.func_doc[f_name][key[:-1]] = doc.strip('\"')
                 self.next_line()
                 printDone()
                 continue
             elif key == 'examples:':
                 examples = catch_multiline2('examples:')
                 if examples:
-                    self.funct_doc[f_name][key[:-1]] = examples
+                    self.func_doc[f_name][key[:-1]] = examples
                 #self.next_line()
                 printDone()
                 continue
@@ -329,7 +329,7 @@ class ParseConst(object):
             elif key == 'summary:':
                 summary = catch_val(key).strip('\"') #self.line.split('"')[1]
                 self.consts[f_name][key[:-1]] = summary
-                self.funct_doc[f_name][key[:-1]] = summary
+                self.func_doc[f_name][key[:-1]] = summary
                 printDone()
             elif key in ['args:', 'alt_args:']:
                 def parse_arg(val):
@@ -564,7 +564,7 @@ def parseSynth():
     ps.consts['__BaseInfo__'] = {'arg_info':arg_base}
     '''
 
-    stop_class_line = '    class BaseInfo\n'
+    stop_class_line = '    class BaseInfo'
     ps = ParseConst(const_file, stop_class_line)
     ps.skip_to("class SoundIn < SonicPiSynth")
     while(ps.line != stop_class_line):
@@ -596,7 +596,7 @@ def parseSound():
                 break
     print("="*80)
     print("TOT lang_sound", len(ps.consts))
-    print("TOT funct_doc", len(ps.funct_doc))
+    print("TOT funct_doc", len(ps.func_doc))
     return ps
 
 def parseCore():
@@ -618,7 +618,7 @@ def parseCore():
                 break
     print("="*80)
     print("TOT lang_core", len(ps.consts))
-    print("TOT funct_doc", len(ps.funct_doc))
+    print("TOT funct_doc", len(ps.func_doc))
     return ps
 
 def gen_helper_func():
@@ -683,39 +683,40 @@ def dump_dict(dict_def, out_file_name, out_mode, helper_func):
 
 if __name__ == '__main__':
 
-    '''
+    pC = parseCore()
+    pS = parseSound()
+    pSy = parseSynth()
     ## core
-    ps = parseCore()
-    dump_dict([{"lang_core":ps.consts }],'lang_def.py', 'w', "" )
-    printWarning(ps)
-    if len(ps.new_arg):
-        dump_dict([{"core_args_types_conversion":ps.new_arg }],'lang_def.py', 'a', "" )
-    if len(ps.new_opt):
-        dump_dict([{"core_opts_types_conversion":ps.new_opt }],'lang_def.py', 'a', "" )
-    dump_dict([{"funct_doc":ps.funct_doc }],'lang_doc.py', 'w', "" )
-    dump_dict([{"opts_doc":ps.opts_doc }],'lang_doc.py', 'a', "" )
-    '''
+    dump_dict([{"lang_core":pC.consts },
+               {"core_args_types_conversion": pC.new_arg},
+               {"core_opts_types_conversion": pC.new_opt}
+               ],'lang_def.py', 'w', "" )
     ## sound
-    # '''
-    ps = parseSound()
-    dump_dict([{"lang_sound":ps.consts }],'lang_def.py', 'w', "" )
-    printWarning(ps)
-    if len(ps.new_arg):
-        dump_dict([{"sound_args_types_conversion":ps.new_arg }],'lang_def.py', 'a', "" )
-    if len(ps.new_opt):
-        dump_dict([{"sound_opts_types_conversion":ps.new_opt }],'lang_def.py', 'a', "" )
-    dump_dict([{"funct_doc":ps.funct_doc }],'lang_doc.py', 'w', "" )
-    dump_dict([{"opts_doc":ps.opts_doc }],'lang_doc.py', 'a', "" )
-    '''
+    dump_dict([
+        {"lang_sound":pS.consts },
+        {"sound_args_types_conversion":pS.new_arg },
+        {"sound_opts_types_conversion": pS.new_opt}
+    ],'lang_def.py', 'a', "" )
     ## synth
-    ps = parseSynth()
-    dump_dict([{"synths":ps.consts }],'lang_def.py', 'a', "" )
-    printWarning(ps)
+    dump_dict([{"synths":pSy.consts }],'lang_def.py', 'a', "" )
 
-    dump_dict([{"funct_doc":ps.funct_doc }],'lang_doc.py', 'w', "" )
-    dump_dict([{"opts_doc":ps.opts_doc }],'lang_doc.py', 'a', "" )
-    printWarning(ps)
-    '''
+    func_doc = pC.func_doc
+    opts_doc = pC.opts_doc
+
+    func_doc.update(pS.func_doc)
+    opts_doc.update(pS.opts_doc)
+
+    func_doc.update(pSy.func_doc)
+    opts_doc.update(pSy.opts_doc)
+
+    dump_dict([
+        {"funct_doc": func_doc},
+        {"opts_doc": opts_doc}
+    ],'lang_doc.py', 'w', "" )
+
+    printWarning(pC)
+    printWarning(pS)
+    printWarning(pSy)
 
     print("DONE")
 
