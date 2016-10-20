@@ -46,20 +46,20 @@ class ParseConst(object):
         return arg_dict
     '''
     #line = ""
-    def __init__(self, lines, stop_line):
+    def __init__(self, lines):
         self.lines = lines # all lines
         self.l = 0  # cursor of current line
         self.line = lines[self.l]
 
-        self.tmp_dict = {}
-        self.consts = {}            
+        self.consts = {}
+        self.fx = {}
+        self.samples = {}
         self.func_doc = {}
         self.opts_doc = {}
         self.new_arg = {}
         self.new_opt = {}
 
-        self.stop_line = stop_line
-
+        self.tmp_dict = {}
         self.warn = defaultdict(list)
         self._debug = False
 
@@ -80,18 +80,24 @@ class ParseConst(object):
         while self.line != match:
             self.next_line()
 
-    def goNext(self):
-        self.next_line()
+    def goNext(self, times=1):
+        self.next_line(times)
         self.empty_skip()
 
     def eval_val(self, val):
-        if val.isdigit():
-            return eval(val)
-        else:
-            return str(val)
-        
-    def next_has(self, val):
-        if self.line.startswith(self.stop_line) or self.line.strip().startswith(val):
+        try:
+            result = int(val)
+            return result
+        except ValueError:
+            try:
+                result = float(val)
+                return result
+            except ValueError:
+                result = str(val)
+                return result
+
+    def next_has(self, val, stop_line):
+        if self.line.startswith(stop_line) or self.line.strip().startswith(val):
             return True
         elif self.line.strip().startswith('#'):
             self.next_line()
@@ -144,7 +150,7 @@ class ParseConst(object):
             self.empty_skip()
         return f_name
 
-    def parse_doc(self, f_name, defaults_opts={}):
+    def parse_doc(self, f_name, stop_line, defaults_opts={}):
         def nextLines():
             nextL = ""  # self.lines[self.l+1].strip()
             start, end = (self.l+1,self.l)
@@ -291,9 +297,9 @@ class ParseConst(object):
         def catch_val2(key):
             return re.match(r'\s*'+key+'\s*\[(.*)\],?.*', self.line).group(1) 
         self.func_doc[f_name] = {}
-        while not self.next_has('def '):
-            if f_name == "define":
-                print("######## PROBE")
+        while not self.next_has('def ', stop_line):
+            # if f_name == "define":
+            #     print("######## PROBE")
             if not len(self.line.strip()):
                 self.empty_skip()
             l = self.line.strip()
@@ -434,14 +440,7 @@ class ParseConst(object):
         if not len(self.line.strip()):
             self.empty_skip()
         return True
-        '''
-        mandatory_keys = ["args_types", "opts", "summary", "accepts_block", "introduced"] #"args_in",
-        for key in mandatory_keys:
-            if key not in self.consts[f_name]:
-                self.warn["no_mandatory_keys %s"% key].append(f_name)
-        '''
 
-        
         
     def parse_play_opts(self):
         arg_def = {}
@@ -460,37 +459,42 @@ class ParseConst(object):
         return arg_def
 
 
-    def proc_class(self):
+    def parse_class(self, stop_line):
         print("> ", (self.line, self.l))
 
-        class_match = re.match(r'.* class (.*) < (.*)\n', self.line)
+        class_match = re.match(r'.* class (.*) < (.*)$', self.line)
         try:
             m = class_match.group(1)
         except AttributeError:
             print("bailout not a class", (self.line, self.l))
             return False
         c_name, c_parent = (class_match.group(1), class_match.group(2))
+        self.next_line()
 
-        end_class = "    end\n"
 
-        # self.next_line()
         synth_name = ""
         synth_descr = ""
         arg_def = {}
-
-        while self.line != end_class:
+        super_merge = False
+        while self.line != stop_line:
             s = self.line
             if "def name" in s:
                 self.next_line()
                 synth_descr = self.line.strip().strip('"')
+                self.goNext(2)
             elif "def synth_name" in s:
                 self.next_line()
                 synth_name = self.line.strip().strip('"')
+                self.goNext(2)
             elif "def arg_defaults" in s:
-                self.next_line();
                 self.next_line()
+                if self.line.strip() == '{':
+                    self.next_line()
+                elif self.line.strip() == 'super.merge({':
+                    super_merge = True
+                    self.next_line()
                 while "}" not in self.line:
-                    l = self.line.strip()
+                    l = self.line.strip().strip('{')
                     if not l:
                         self.next_line()
                         continue
@@ -503,52 +507,92 @@ class ParseConst(object):
                     if v[0] == ":":
                         v = v[1:] + ":"
                         ref = arg_def[v]
-                        print(k, v, ref)
-                        arg_def[k] = str(ref)
+                        arg_def[k] = self.eval_val(ref)
                     else:
-                        arg_def[k] = eval(v)
+                        arg_def[k] = self.eval_val(v)
+                self.empty_skip()
             else:
                 self.next_line()
-
+        '''
         if not len(synth_name):
             # print("EMPTY");
             self.next_line()
             self.empty_skip()
             return True
+        '''
         synth_name = ":" + synth_name
         self.tmp_dict[c_name] = synth_name
 
-        baseClass = ["SonicPiSynth", "Pitchless", "FXInfo",
+        baseClass = ["FXInfo", "SonicPiSynth", "Pitchless",
                      "BaseInfo", "StudioInfo", "BaseMixer"]
         user_facing = baseClass[:3]
+
         # no "BaseInfo", "StudioInfo", "BaseMixer",
 
-        hiden = 0
 
         def inherit_super(parent):
             parent_synt_name = self.tmp_dict[parent]  # take the ref by class
-            parent_synt = self.consts[parent_synt_name]
+            if 'FXInfo' in parent:
+                parent_synt = self.fx[parent_synt_name]
+            else:
+                parent_synt = self.consts[parent_synt_name]
             if parent_synt:
                 arg_def.update(parent_synt["arg_defaults"])
                 return parent_synt['inherit_base']
 
         super_c = c_parent
-        while super_c not in baseClass:
-            super_c = inherit_super(super_c)
+        hiden = 0
+        if super_merge:
+            while True:
+                super_c = inherit_super(super_c)
+                if super_c not in self.tmp_dict:
+                    # self.warn["super_c %s in" % super_c].append(synth_name)
+                    break
+                # parent_synt_name = self.tmp_dict[super_c]
+                if super_c in baseClass[1:]:
+                    break
+                # elif self.consts[parent_synt_name]["inherit_arg"]:
+                #     continue
         if super_c not in user_facing:
-            print("/ ", super_c)
             hiden = 1
 
-        self.consts[synth_name] = {
+        synth = {
             "descr": synth_descr,
             "arg_defaults": arg_def,
             "class_name": c_name,
             "inherit_base": c_parent,
+            "inherit_arg": super_merge,
             "hiden": hiden,
         }
+        if 'FXInfo' in [c_parent, super_c] :
+            self.fx[synth_name] = synth
+        else:
+            self.consts[synth_name] = synth
         self.goNext()
 
         return True
+
+    def parse_samples(self):
+        self.skip_to('@@grouped_samples')
+        self.next_line()
+        category = ''
+        while not '@@all_samples' in self.line:
+            l = self.line.strip()
+            if l == '{' or l == '}' or not len(l):
+                pass
+            elif 'desc' in l:
+                category = l.split('=>')[1].strip().strip(',"')
+                self.samples[category] = []
+            elif 'samples' in l:
+                self.next_line()
+                while True:
+                    l = self.line.strip()
+                    s = l.strip(',]}')
+                    self.samples[category].append(s)
+
+                    self.next_line()
+                    if ']}' in l: break
+            self.next_line()
 
 
 ####################### class end
@@ -564,22 +608,30 @@ def parseSynth():
     ps.consts['__BaseInfo__'] = {'arg_info':arg_base}
     '''
 
-    stop_class_line = '    class BaseInfo'
-    ps = ParseConst(const_file, stop_class_line)
+    stop_class_line = 'class BaseInfo'
+    end_class = "    end\n"
+    ps = ParseConst(const_file)
     ps.skip_to("class SoundIn < SonicPiSynth")
-    while(ps.line != stop_class_line):
+    while(stop_class_line not in ps.line):
         #ps.empty_skip()
-        op = ps.proc_class()
+        op = ps.parse_class(end_class)
         if not op:
             print("ops went WRONG")
             break
+    ps.parse_samples()
+
+    print("="*80)
+    print("TOT synths", len(ps.consts))
+    print("TOT fx", len(ps.fx))
+    print("TOT samples", len(ps.samples))
+    print("TOT funct_doc", len(ps.func_doc))
     return ps
 
 def parseSound():
     with open('sonicpi/lang/sound.rb') as infile:
         const_file = infile.readlines()
     stop_class_line = '      private'
-    ps = ParseConst(const_file, stop_class_line)
+    ps = ParseConst(const_file)
     defaults_opts = ps.parse_play_opts()
     #dump_dict([{"opts_default_val":defaults_opts }],'lang_def.py', 'w', "" )
     ps.skip_to("def octs(")
@@ -590,7 +642,7 @@ def parseSound():
             f_name = ps.parse_def()
             #print(ps.line)
         else:
-            op = ps.parse_doc(f_name, defaults_opts)
+            op = ps.parse_doc(f_name, stop_class_line, defaults_opts)
             if not op:
                 print("ops went WRONG")
                 break
@@ -603,7 +655,7 @@ def parseCore():
     with open('sonicpi/lang/core.rb') as infile:
         const_file = infile.readlines()
     stop_class_line = '      def __on_thread_death'
-    ps = ParseConst(const_file, stop_class_line)
+    ps = ParseConst(const_file)
     ps.skip_to("THREAD_RAND_SEED_MAX")
     ps.next_line(2)
     f_name = ""
@@ -612,7 +664,7 @@ def parseCore():
         elif ps.line.startswith('      def'):
             f_name = ps.parse_def()
         else:
-            op = ps.parse_doc(f_name)
+            op = ps.parse_doc(f_name, stop_class_line)
             if not op:
                 print("ops went WRONG")
                 break
@@ -681,8 +733,7 @@ def dump_dict(dict_def, out_file_name, out_mode, helper_func):
         json.dump(const, outfile, sort_keys = True, indent = 2) )
     '''
 
-if __name__ == '__main__':
-
+def run():
     pC = parseCore()
     pS = parseSound()
     pSy = parseSynth()
@@ -691,21 +742,21 @@ if __name__ == '__main__':
                {"core_args_types_conversion": pC.new_arg},
                {"core_opts_types_conversion": pC.new_opt}
                ],'lang_def.py', 'w', "" )
+    func_doc = pC.func_doc
+    opts_doc = pC.opts_doc
     ## sound
     dump_dict([
         {"lang_sound":pS.consts },
         {"sound_args_types_conversion":pS.new_arg },
         {"sound_opts_types_conversion": pS.new_opt}
     ],'lang_def.py', 'a', "" )
-    ## synth
-    dump_dict([{"synths":pSy.consts }],'lang_def.py', 'a', "" )
-
-    func_doc = pC.func_doc
-    opts_doc = pC.opts_doc
-
     func_doc.update(pS.func_doc)
     opts_doc.update(pS.opts_doc)
-
+    ## synth
+    dump_dict([{"synths":pSy.consts },
+               {"fx": pSy.fx},
+               {"samples": pSy.samples},
+               ],'lang_def.py', 'a', "" )
     func_doc.update(pSy.func_doc)
     opts_doc.update(pSy.opts_doc)
 
@@ -726,3 +777,6 @@ if __name__ == '__main__':
     from gen_template import *
     do_jinja(ps.consts)
     '''
+
+if __name__ == '__main__':
+    run()

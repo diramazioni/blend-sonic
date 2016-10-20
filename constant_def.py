@@ -1,7 +1,7 @@
 null = None
 
 opts_default_val = {
-  "another_key": "foo: 64",  #only used in cue Numbers, Symbols, Booleans and Nil, or Vectors/Rings of immutable types"
+  "another_key": "foo: 64",  #only used in cue accepts: Numbers, Symbols, Booleans and Nil, or Vectors/Rings of immutable types"
   "amp": 1, 
   "amp_slide": 1,  
   "attack": 0,  
