@@ -527,27 +527,32 @@ class ParseConst(object):
         user_facing = baseClass[:3]
 
         def inherit_super(parent, arg_def):
+            # start_arg = arg_def
+            while True:
+                if 'FX' in parent:
+                    parent_synt = self.fx[parent]
+                else:
+                    parent_synt = self.consts[parent]
+                tmp = parent_synt["arg_defaults"]
+                tmp.update(arg_def)
+                arg_def = tmp
+                parent = parent_synt['inherit_base']
+                if not parent or parent in baseClass[1:]:
+                    break
+                elif parent_synt['inherit_arg']:
+                    continue
+                else:
+                    break
+            return arg_def
+
             # parent_synt_name = self.tmp_dict[parent]  # take the ref by class
-            if 'FX' in parent:
-                parent_synt = self.fx[parent]
-            else:
-                parent_synt = self.consts[parent]
-            tmp = parent_synt["arg_defaults"]
-            tmp.update(arg_def)
-            arg_def.update(tmp)
-            if parent_synt['inherit_arg']:
-                return parent_synt['inherit_base']
-            return False
 
         if c_name == 'FXNRBPF' or c_name == 'FXRBPF':
             print('d')
         super_c = c_parent
         if super_merge is None: super_merge = True
-        if super_merge and c_parent != 'BaseInfo':
-            while True:
-                super_c = inherit_super(super_c, arg_def)
-                if not super_c or super_c in baseClass[1:]:
-                    break
+        if super_merge and c_parent not in baseClass[1:]:
+            arg_def = inherit_super(super_c, arg_def)
 
         synth = {
             "arg_defaults": arg_def,
