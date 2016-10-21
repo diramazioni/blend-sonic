@@ -54,12 +54,13 @@ class ParseConst(object):
         self.consts = {}
         self.fx = {}
         self.samples = {}
+        self.active = {}
         self.func_doc = {}
         self.opts_doc = {}
         self.new_arg = {}
         self.new_opt = {}
 
-        self.tmp_dict = {}
+
         self.warn = defaultdict(list)
         self._debug = False
 
@@ -460,6 +461,8 @@ class ParseConst(object):
 
 
     def parse_class(self, stop_line):
+
+
         print("> ", (self.line, self.l))
 
         class_match = re.match(r'.* class (.*) < (.*)$', self.line)
@@ -475,7 +478,8 @@ class ParseConst(object):
         synth_name = ""
         synth_descr = ""
         arg_def = {}
-        super_merge = False
+
+        super_merge = None
         while self.line != stop_line:
             s = self.line
             if "def name" in s:
@@ -489,10 +493,14 @@ class ParseConst(object):
             elif "def arg_defaults" in s:
                 self.next_line()
                 if self.line.strip() == '{':
+                    super_merge = False
                     self.next_line()
                 elif self.line.strip() == 'super.merge({':
                     super_merge = True
                     self.next_line()
+                elif '{' in self.line and len(self.line.strip()) > 1 :
+                    super_merge = False
+
                 while "}" not in self.line:
                     l = self.line.strip().strip('{')
                     if not l:
@@ -513,61 +521,49 @@ class ParseConst(object):
                 self.empty_skip()
             else:
                 self.next_line()
-        '''
-        if not len(synth_name):
-            # print("EMPTY");
-            self.next_line()
-            self.empty_skip()
-            return True
-        '''
-        synth_name = ":" + synth_name
-        self.tmp_dict[c_name] = synth_name
 
         baseClass = ["FXInfo", "SonicPiSynth", "Pitchless",
                      "BaseInfo", "StudioInfo", "BaseMixer"]
         user_facing = baseClass[:3]
 
-        # no "BaseInfo", "StudioInfo", "BaseMixer",
-
-
-        def inherit_super(parent):
-            parent_synt_name = self.tmp_dict[parent]  # take the ref by class
-            if 'FXInfo' in parent:
-                parent_synt = self.fx[parent_synt_name]
+        def inherit_super(parent, arg_def):
+            # parent_synt_name = self.tmp_dict[parent]  # take the ref by class
+            if 'FX' in parent:
+                parent_synt = self.fx[parent]
             else:
-                parent_synt = self.consts[parent_synt_name]
-            if parent_synt:
-                arg_def.update(parent_synt["arg_defaults"])
+                parent_synt = self.consts[parent]
+            tmp = parent_synt["arg_defaults"]
+            tmp.update(arg_def)
+            arg_def.update(tmp)
+            if parent_synt['inherit_arg']:
                 return parent_synt['inherit_base']
+            return False
 
+        if c_name == 'FXNRBPF' or c_name == 'FXRBPF':
+            print('d')
         super_c = c_parent
-        hiden = 0
-        if super_merge:
+        if super_merge is None: super_merge = True
+        if super_merge and c_parent != 'BaseInfo':
             while True:
-                super_c = inherit_super(super_c)
-                if super_c not in self.tmp_dict:
-                    # self.warn["super_c %s in" % super_c].append(synth_name)
+                super_c = inherit_super(super_c, arg_def)
+                if not super_c or super_c in baseClass[1:]:
                     break
-                # parent_synt_name = self.tmp_dict[super_c]
-                if super_c in baseClass[1:]:
-                    break
-                # elif self.consts[parent_synt_name]["inherit_arg"]:
-                #     continue
-        if super_c not in user_facing:
-            hiden = 1
 
         synth = {
-            "descr": synth_descr,
             "arg_defaults": arg_def,
-            "class_name": c_name,
             "inherit_base": c_parent,
             "inherit_arg": super_merge,
-            "hiden": hiden,
         }
-        if 'FXInfo' in [c_parent, super_c] :
-            self.fx[synth_name] = synth
-        else:
-            self.consts[synth_name] = synth
+        if len(synth_name):
+            synth['name'] = ":"+synth_name
+            hiden = False
+        else: hiden = True
+        if len(synth_descr):    synth['descr'] = synth_descr
+        if c_parent not in user_facing:  hiden = True
+        synth['hiden'] = hiden
+        if 'FX' in c_name:
+            self.fx[c_name] = synth
+        else:   self.consts[c_name] = synth
         self.goNext()
 
         return True
@@ -581,7 +577,7 @@ class ParseConst(object):
             if l == '{' or l == '}' or not len(l):
                 pass
             elif 'desc' in l:
-                category = l.split('=>')[1].strip().strip(',"')
+                category = l.split(' => ')[1].strip().strip(',"')
                 self.samples[category] = []
             elif 'samples' in l:
                 self.next_line()
@@ -593,6 +589,20 @@ class ParseConst(object):
                     self.next_line()
                     if ']}' in l: break
             self.next_line()
+
+
+        self.skip_to('@@synth_infos')
+        self.next_line(2)
+        while not '}' in self.line:
+            l = self.line.strip()
+            if not len(l) or l.startswith('#'):
+                pass
+            else:
+                synth_name, c_name = l.split(' => ')
+                c_name = c_name.split('.')[0]
+                self.active[synth_name] = c_name
+            self.next_line()
+
 
 
 ####################### class end
@@ -611,7 +621,7 @@ def parseSynth():
     stop_class_line = 'class BaseInfo'
     end_class = "    end\n"
     ps = ParseConst(const_file)
-    ps.skip_to("class SoundIn < SonicPiSynth")
+    ps.skip_to("class SynthInfo < BaseInfo")
     while(stop_class_line not in ps.line):
         #ps.empty_skip()
         op = ps.parse_class(end_class)
@@ -619,6 +629,17 @@ def parseSynth():
             print("ops went WRONG")
             break
     ps.parse_samples()
+    for synth_name, val in ps.consts.items():
+        if synth_name not in ps.active.values():
+            if not val['hiden']:
+                val['hiden'] = True
+                ps.warn["hiding synth" ].append(synth_name)
+    for synth_name, val in ps.fx.items():
+        if synth_name not in ps.active.values():
+            if not val['hiden']:
+                val['hiden'] = True
+                ps.warn["hiding fx" ].append(synth_name)
+
 
     print("="*80)
     print("TOT synths", len(ps.consts))
@@ -715,7 +736,7 @@ def dump_dict(dict_def, out_file_name, out_mode, helper_func):
         text = []
         for k, v in dictionary.items():   # split json in separate k = val        
             d = json.dumps(v, sort_keys = True, ensure_ascii = False, indent = 2)
-            text.append(k+" = " + d + "\n")
+            text.append(k+" = " + d + "\n\n")
             print("writing %s in %s" % (k,out_file_name))
         return ('\n').join(text)
     
@@ -754,15 +775,18 @@ def run():
     opts_doc.update(pS.opts_doc)
     ## synth
     dump_dict([{"synths":pSy.consts },
+               {"synth_nodes": pSy.active},
                {"fx": pSy.fx},
                {"samples": pSy.samples},
                ],'lang_def.py', 'a', "" )
-    func_doc.update(pSy.func_doc)
-    opts_doc.update(pSy.opts_doc)
-
+    synth_doc = pSy.func_doc
+    synth_opts_doc = pSy.opts_doc
+    ## doc
     dump_dict([
         {"funct_doc": func_doc},
-        {"opts_doc": opts_doc}
+        {"opts_doc": opts_doc},
+        {"synth_doc": synth_doc},
+        {"synth_opts_doc": synth_opts_doc}
     ],'lang_doc.py', 'w', "" )
 
     printWarning(pC)
@@ -771,8 +795,6 @@ def run():
 
     print("DONE")
 
-
-
     '''
     from gen_template import *
     do_jinja(ps.consts)
@@ -780,3 +802,19 @@ def run():
 
 if __name__ == '__main__':
     run()
+
+'''
+
+synth_nodes = pSy.active
+synths = pSy.consts
+fx = pSy.fx
+
+{ key: value for key, value in synths.items() if value['hiden'] != True  if value['inherit_base'] in ["SonicPiSynth", "Pitchless"]}
+
+{ key: value for key, value in fx.items() if value['hiden'] != True  if value['inherit_base'] == "FXInfo"}
+
+for key, value in synths.items():
+    if value['hiden'] != True:
+        if value['inherit_base'] == "FXInfo":
+            print(key, value)
+'''

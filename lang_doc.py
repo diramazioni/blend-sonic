@@ -847,6 +847,7 @@ funct_doc = {
     "summary": "Block-level tuning modification"
   }
 }
+
 opts_doc = {
   "amp": "Amplitude of playback.",
   "amp_slide": "The duration in beats for amplitude changes to take place",
@@ -936,3 +937,8 @@ opts_doc = {
   "window_size": "Pitch shift-specific opt - only honoured if the `pitch:` opt is used. Pitch shift works by chopping the input into tiny slices, then playing these slices at a higher or lower rate. If we make the slices small enough and overlap them, it sounds like the original sound with the pitch changed. The window_size is the length of the slices and is measured in seconds. It needs to be around 0.2 (200ms) or greater for pitched sounds like guitar or bass, and needs to be around 0.02 (20ms) or lower for percussive sounds like drum loops. You can experiment with this to get the best sound for your input.",
   "your_key": "Your value"
 }
+
+synth_doc = {}
+
+synth_opts_doc = {}
+
