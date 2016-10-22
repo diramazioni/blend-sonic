@@ -547,12 +547,18 @@ class ParseConst(object):
 
             # parent_synt_name = self.tmp_dict[parent]  # take the ref by class
 
-        if c_name == 'FXNRBPF' or c_name == 'FXRBPF':
+        if c_name == 'FXInfo':
             print('d')
-        super_c = c_parent
         if super_merge is None: super_merge = True
         if super_merge and c_parent not in baseClass[1:]:
-            arg_def = inherit_super(super_c, arg_def)
+            # arg_def = inherit_super(super_c, arg_def)
+            if 'FX' in c_parent:
+                parent_synt = self.fx[c_parent]
+            else:
+                parent_synt = self.consts[c_parent]
+            tmp = parent_synt["arg_defaults"].copy()
+            tmp.update(arg_def)
+            arg_def = tmp
 
         synth = {
             "arg_defaults": arg_def,
@@ -697,31 +703,47 @@ def parseCore():
     print("="*80)
     print("TOT lang_core", len(ps.consts))
     print("TOT funct_doc", len(ps.func_doc))
+
     return ps
+
 
 def gen_helper_func():
     return '''
-def all_def():
-    return { key: value for key, value in synths.items() if value['hiden'] != True }
-all_def = all_def()
 
-def all_synth():
-    return { key: value for key, value in synths.items() if value['hiden'] != True  if value['inherit_base'] in ["SonicPiSynth", "Pitchless"]}
-all_synth = all_synth()
+def all_synth_names():
+    for key, value in synths.items():
+        if value['hiden'] != True and key != 'SoundIn' and value['name'] in synth_nodes:
+            yield value['name']
 
-def all_fx():
-    return { key: value for key, value in synths.items() if value['hiden'] != True  if value['inherit_base'] == "FXInfo"}
-all_fx = all_fx()
+all_synth = [ synths[synth_nodes[s]] for s in all_synth_names()]
 
-def generators():
-    return { key: value for key, value in synths.items() if key.startswith('#') }
-generators = generators()
+def all_fx_names():
+    for key, value in fx.items():
+        if value['hiden'] != True and value['name'] in synth_nodes:
+            yield value['name']
+
+all_fx = [ fx[synth_nodes[s]] for s in all_fx_names()]
+
+def all_sample_names():
+    all = []
+    for key, value in samples.items():
+        yield all
+        all += value
+
+all_sample = [ s for s in all_sample_names()][0]
+
+def sn(ref):
+    c_name = synth_nodes[ref]
+    if 'FX' in c_name:
+        return fx[c_name]
+    else:
+        return synths[c_name]
 
 
 if __name__ == '__main__':
     print("synth: ", len(all_synth))
     print("fx: ",len(all_fx))
-    print("gen: ",len(generators))
+    print("samples: ",len(all_sample))
     '''
 def printDone():
     print(' ==> OK')
@@ -783,7 +805,7 @@ def run():
                {"synth_nodes": pSy.active},
                {"fx": pSy.fx},
                {"samples": pSy.samples},
-               ],'lang_def.py', 'a', "" )
+               ],'lang_def.py', 'a', gen_helper_func() )
     synth_doc = pSy.func_doc
     synth_opts_doc = pSy.opts_doc
     ## doc
@@ -813,6 +835,21 @@ if __name__ == '__main__':
 synth_nodes = pSy.active
 synths = pSy.consts
 fx = pSy.fx
+samples =  pSy.samples
+
+## synths
+[ value['name'] for key, value in synths.items() if value['hiden'] != True if key != 'SoundIn']
+## fx
+[ value['name'] for key, value in fx.items() if value['hiden'] != True ]
+
+
+def sn(ref):
+    c_name = synth_nodes[ref]
+    if 'FX' in c_name:
+        yield fx[c_name]
+    else:
+        yield synths[c_name]
+
 
 { key: value for key, value in synths.items() if value['hiden'] != True  if value['inherit_base'] in ["SonicPiSynth", "Pitchless"]}
 
