@@ -296,7 +296,8 @@ class ParseConst(object):
             return re.match(r'\s*'+key+'\s*(.*)$', self.line).group(1)
             #return self.line.split(':')[1].strip().strip(',')        
         def catch_val2(key):
-            return re.match(r'\s*'+key+'\s*\[(.*)\],?.*', self.line).group(1) 
+            return re.match(r'\s*'+key+'\s*\[(.*)\],?.*', self.line).group(1)
+
         self.func_doc[f_name] = {}
         while not self.next_has('def ', stop_line):
             # if f_name == "define":
@@ -374,34 +375,34 @@ class ParseConst(object):
                 self.consts[f_name][key[:-1]] = args_d
                 printDone()
             elif key == 'opts:':
-                opts = []
-                opt_line = catch_val(key) 
-                if "nil" in opt_line:
-                    opt_line = None
-                elif 'DEFAULT_PLAY_OPTS' in opt_line:
-                    opt_line = defaults_opts
+                opt_dict = catch_val(key) 
+                if "nil" in opt_dict:
+                    opt_dict = None
+                elif 'DEFAULT_PLAY_OPTS' in opt_dict:
+                    opt_dict = defaults_opts
                     #if arg_type not in self.args_types: 
-                elif '{}' in opt_line:
-                    opt_line = {}
+                elif '{}' in opt_dict:
+                    opt_dict = {}
                 else:
-                    opt_line = ""
+                    opt_dict = {}
                     opt_lines = catch_multiline(key)
-                    for opt_line in opt_lines:
-                        if opt_line == '}': break
+                    for o in opt_lines:
+                        if o == '}': break
                         opt_with_arg_re = re.compile(r':?(\w*):? *(?:=>)? *\"(.*)\"}?')
-                        opt_arg = opt_with_arg_re.match(opt_line)                
+                        opt_arg = opt_with_arg_re.match(o)
                         if opt_arg:                
                             opt, doc =  opt_arg.group(1), opt_arg.group(2)                
                             self.opts_doc[opt] = doc
                             if opt in opts_default_val:
-                                opt_line = {opt: opts_default_val[opt]}
-                                self.consts[f_name][key[:-1]] = opt_line
+                                opt_dict[opt] = opts_default_val[opt]
+                                print(opt_dict)
                             else:
                                 self.warn["no default value for opt %s" % opt].append(f_name)
                                 self.new_opt[opt] = "__to_do__"
                         else:
-                            raise Exception("no opt match in", (opt_line, self.l))
-                self.consts[f_name][key[:-1]] = opt_line
+                            raise Exception("no opt match in", (opt_dict, self.l))
+                if opt_dict is not None:
+                    self.consts[f_name][key[:-1]] = opt_dict
                 printDone()
             elif key == 'introduced:':
                 val = catch_val(key)                
@@ -415,7 +416,7 @@ class ParseConst(object):
             elif key == 'hide:':
                 val = catch_val1(key)
                 val = True if val == "true" else False
-                self.consts[f_name][key[:-1]] = val
+                self.consts[f_name]['hiden'] = val
                 printDone()
             elif key == 'returns:':
                 val = catch_val(key)
@@ -640,6 +641,8 @@ def parseSynth():
             print("ops went WRONG")
             break
     ps.parse_samples()
+    ########
+    ## hide not active synth
     for synth_name, val in ps.consts.items():
         if synth_name not in ps.active.values():
             if not val['hiden']:
@@ -678,6 +681,13 @@ def parseSound():
             if not op:
                 print("ops went WRONG")
                 break
+    ########
+    ## set hide to false if not set
+    for synth_name, val in ps.consts.items():
+        if 'hiden' not in val:
+            val['hiden'] = False
+
+
     print("="*80)
     print("TOT lang_sound", len(ps.consts))
     print("TOT funct_doc", len(ps.func_doc))
@@ -700,6 +710,13 @@ def parseCore():
             if not op:
                 print("ops went WRONG")
                 break
+
+    ########
+    ## set hide to false if not set
+    for synth_name, val in ps.consts.items():
+        if 'hiden' not in val:
+            val['hiden'] = False
+
     print("="*80)
     print("TOT lang_core", len(ps.consts))
     print("TOT funct_doc", len(ps.func_doc))
@@ -707,44 +724,8 @@ def parseCore():
     return ps
 
 
-def gen_helper_func():
-    return '''
-
-def all_synth_names():
-    for key, value in synths.items():
-        if value['hiden'] != True and key != 'SoundIn' and value['name'] in synth_nodes:
-            yield value['name']
-
-all_synth = [ synths[synth_nodes[s]] for s in all_synth_names()]
-
-def all_fx_names():
-    for key, value in fx.items():
-        if value['hiden'] != True and value['name'] in synth_nodes:
-            yield value['name']
-
-all_fx = [ fx[synth_nodes[s]] for s in all_fx_names()]
-
-def all_sample_names():
-    all = []
-    for key, value in samples.items():
-        yield all
-        all += value
-
-all_sample = [ s for s in all_sample_names()][0]
-
-def sn(ref):
-    c_name = synth_nodes[ref]
-    if 'FX' in c_name:
-        return fx[c_name]
-    else:
-        return synths[c_name]
 
 
-if __name__ == '__main__':
-    print("synth: ", len(all_synth))
-    print("fx: ",len(all_fx))
-    print("samples: ",len(all_sample))
-    '''
 def printDone():
     print(' ==> OK')
 
@@ -827,36 +808,211 @@ def run():
     do_jinja(ps.consts)
     '''
 
-if __name__ == '__main__':
-    run()
 
-'''
 
-synth_nodes = pSy.active
-synths = pSy.consts
-fx = pSy.fx
-samples =  pSy.samples
+def gen_helper_func():
+    return '''
 
-## synths
-[ value['name'] for key, value in synths.items() if value['hiden'] != True if key != 'SoundIn']
-## fx
-[ value['name'] for key, value in fx.items() if value['hiden'] != True ]
 
+all_lang_ref = list(lang_core.keys()) + list(lang_sound.keys())
+
+def all_synth_names():
+    for key, value in synths.items():
+        if value['hiden'] != True and key != 'SoundIn' and value['name'] in synth_nodes:
+            yield value['name']
+
+all_synth = [ synths[synth_nodes[s]] for s in all_synth_names()]
+
+def all_fx_names():
+    for key, value in fx.items():
+        if value['hiden'] != True and value['name'] in synth_nodes:
+            yield value['name']
+
+all_fx = [ fx[synth_nodes[s]] for s in all_fx_names()]
+
+def all_sample_names():
+    all = []
+    for key, value in samples.items():
+        yield all
+        all += value
+
+all_sample = [ s for s in all_sample_names()][0]
 
 def sn(ref):
     c_name = synth_nodes[ref]
     if 'FX' in c_name:
-        yield fx[c_name]
+        return fx[c_name]
     else:
-        yield synths[c_name]
+        return synths[c_name]
+
+opt_c = {key: value for key, value in lang_core.items()
+        if value['hiden'] != True
+        if 'opts' in value and value['opts'] is not None
+        if len(value['opts']) > 0 }
+
+opt_s = {key: value for key, value in lang_sound.items()
+        if value['hiden'] != True
+        if 'opts' in value and value['opts'] is not None
+        if len(value['opts'].keys()) > 0 }
+
+intro_fn_c = {key: value for key, value in lang_core.items()
+          if value['hiden'] is False
+          if 'intro_fn' in value and value['intro_fn'] is not False
+               }
+intro_fn_s = {key: value for key, value in lang_sound.items()
+          if value['hiden'] is False
+          if 'intro_fn' in value and value['intro_fn'] is not False
+               }
+
+accepts_block_c = {key: value for key, value in lang_core.items()
+              if value['hiden'] is False
+              if 'accepts_block' in value and value['accepts_block'] is not False
+              }
+accepts_block_s = {key: value for key, value in lang_sound.items()
+              if value['hiden'] is False
+              if 'accepts_block' in value and value['accepts_block'] is not False
+              }
+requires_block_c = {key: value for key, value in lang_core.items()
+                   if value['hiden'] is False
+                   if 'requires_block' in value and value['requires_block'] is not False
+                   }
+requires_block_s = {key: value for key, value in lang_sound.items()
+                   if value['hiden'] is False
+                   if 'requires_block' in value and value['requires_block'] is not False
+                   }
+modifies_env_c = {key: value for key, value in lang_core.items()
+                    if value['hiden'] is False
+                    if 'modifies_env' in value and value['modifies_env'] is not False
+                    }
+modifies_env_s = {key: value for key, value in lang_sound.items()
+                    if value['hiden'] is False
+                    if 'modifies_env' in value and value['modifies_env'] is not False
+                    }
+memoize_c = {key: value for key, value in lang_core.items()
+                  if value['hiden'] is False
+                  if 'memoize' in value and value['memoize'] is not False
+                  }
+memoize_s = {key: value for key, value in lang_sound.items()
+                  if value['hiden'] is False
+                  if 'memoize' in value and value['memoize'] is not False
+                  }
+async_block_c = {key: value for key, value in lang_core.items()
+                  if value['hiden'] is False
+                  if 'async_block' in value and value['async_block'] is not False
+                  }
+async_block_s = {key: value for key, value in lang_sound.items()
+                  if value['hiden'] is False
+                  if 'async_block' in value and value['async_block'] is not False
+                  }
+advances_time_c = {key: value for key, value in lang_core.items()
+                  if value['hiden'] is False
+                  if 'advances_time' in value and value['advances_time'] is not False
+                  }
+advances_time_s = {key: value for key, value in lang_sound.items()
+                  if value['hiden'] is False
+                  if 'advances_time' in value and value['advances_time'] is not False
+                  }
+returns_c = {key: value for key, value in lang_core.items()
+                  if value['hiden'] is False
+                  if 'returns' in value and value['returns'] is not False
+                  }
+returns_s = {key: value for key, value in lang_sound.items()
+                  if value['hiden'] is False
+                  if 'returns' in value and value['returns'] is not False
+                  }
+accepts_block_sign_c = {key: value for key, value in lang_core.items()
+                   if value['hiden'] is False
+                   if 'accepts_block' in value and value['accepts_block'] is not False and '&block' in value['signature']
+                   }
+accepts_block_sign_s = {key: value for key, value in lang_sound.items()
+                   if value['hiden'] is False
+                   if 'accepts_block' in value and value['accepts_block'] is not False and '&block' in value['signature']
+                   }
 
 
-{ key: value for key, value in synths.items() if value['hiden'] != True  if value['inherit_base'] in ["SonicPiSynth", "Pitchless"]}
+if __name__ == '__main__':
+    print("synth: ", len(all_synth))
+    print("fx: ",len(all_fx))
+    print("samples: ",len(all_sample))
+    '''
 
-{ key: value for key, value in fx.items() if value['hiden'] != True  if value['inherit_base'] == "FXInfo"}
+from lang_def import *
 
-for key, value in synths.items():
-    if value['hiden'] != True:
-        if value['inherit_base'] == "FXInfo":
-            print(key, value)
-'''
+
+def report():
+    # sign_args_c = {key: value for key, value in lang_core.items()
+    #                    if value['hiden'] is False
+    #                     if 'signature' in value if '*args' in value['signature']
+    #                    }
+    # sign_args_s = {key: value for key, value in lang_sound.items() if value['hiden'] is False if 'signature' in value if '*args' in value['signature']
+    #                    }
+
+
+
+    print('\nlang_core with opt:')
+    print(list(opt_c.keys()))
+    print('\nlang_sound with opt:')
+    print(list(opt_s.keys()))
+    print('\nlang_core with intro_fn:')
+    print(list(intro_fn_c.keys()))
+    print('\nlang_sound with intro_fn:')
+    print(list(intro_fn_s.keys()))
+
+    print('\nlang_core with requires_block:')
+    print(list(requires_block_c.keys()))
+    print('\nlang_core with accepts_block:')
+    print(list(accepts_block_c.keys()))
+    print('\nlang_core with accepts_block in sign:')
+    print(list(accepts_block_sign_c.keys()))
+
+    print('\n DIFF core accept - req ')
+    print(list(set(accepts_block_c.keys()) - set(requires_block_c.keys())))
+    print(list(set(accepts_block_c.keys()) - set(accepts_block_sign_c.keys()) ))
+
+
+    print('\nlang_sound with requires_block:')
+    print(list(requires_block_s.keys()))
+    print('\nlang_sound with accepts_block:')
+    print(list(accepts_block_s.keys()))
+    print('\nlang_sound with accepts_block in sign:')
+    print(list(accepts_block_sign_s.keys()))
+
+    print('\n DIFF sound accept - req ')
+    print(list(set(accepts_block_s.keys()) - set(requires_block_s.keys())))
+    print(list(set(accepts_block_s.keys()) - set(accepts_block_sign_s.keys()) ))
+
+    print('\nlang_core with modifies_env:')
+    print(list(modifies_env_c.keys()))
+    print('\nlang_sound with modifies_env:')
+    print(list(modifies_env_s.keys()))
+    print('\nlang_core with memoize:')
+    print(list(memoize_c.keys()))
+    print('\nlang_sound with memoize:')
+    print(list(memoize_s.keys()))
+    print('\nlang_core with async_block:')
+    print(list(async_block_c.keys()))
+    print('\nlang_sound with async_block:')
+    print(list(async_block_s.keys()))
+    print('\nlang_core with advances_time:')
+    print(list(advances_time_c.keys()))
+    print('\nlang_sound with advances_time:')
+    print(list(advances_time_s.keys()))
+    print('\nlang_core with returns:')
+    print(list(returns_c.keys()))
+    print('\nlang_sound with returns:')
+    print(list(returns_s.keys()))
+    print('\nlang_core & lang_sound:')
+    print(all_lang_ref)
+
+    # print('\nlang_core with args in sign:')
+    # print(list(sign_args_c.keys()))
+    # print('\nlang_sound with args in sign:')
+    # print(list(sign_args_s.keys()))
+
+
+if __name__ == '__main__':
+    run()
+
+    report()
+
+

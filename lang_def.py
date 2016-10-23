@@ -11,8 +11,8 @@ lang_core = {
     "args": {
       "arg": ":anything"
     },
+    "hiden": false,
     "introduced": "2,8,0",
-    "opts": null,
     "signature": {
       "arg": null,
       "msg": "nil"
@@ -30,8 +30,8 @@ lang_core = {
       "arg1": ":anything",
       "arg2": ":anything"
     },
+    "hiden": false,
     "introduced": "2,8,0",
-    "opts": null,
     "signature": {
       "arg1": null,
       "arg2": null,
@@ -46,8 +46,8 @@ lang_core = {
       "times": ":list"
     },
     "async_block": true,
+    "hiden": false,
     "introduced": "2,1,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -59,16 +59,16 @@ lang_core = {
   "beat": {
     "accepts_block": false,
     "args": {},
+    "hiden": false,
     "introduced": "2,10,0",
-    "opts": null,
     "summary": "Get current beat"
   },
   "block_duration": {
     "accepts_block": true,
     "args": {},
     "async_block": false,
+    "hiden": false,
     "introduced": "2,9,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null
@@ -79,8 +79,8 @@ lang_core = {
     "accepts_block": true,
     "args": {},
     "async_block": false,
+    "hiden": false,
     "introduced": "2,9,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null
@@ -92,8 +92,8 @@ lang_core = {
     "args": {
       "list": ":array"
     },
+    "hiden": false,
     "introduced": "2,2,0",
-    "opts": null,
     "returns": ":ring",
     "signature": {
       "*args": null
@@ -105,8 +105,8 @@ lang_core = {
     "args": {
       "seconds": ":number"
     },
+    "hiden": false,
     "introduced": "2,8,0",
-    "opts": null,
     "signature": {
       "t": null
     },
@@ -117,8 +117,8 @@ lang_core = {
     "args": {
       "list": ":array"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "args": null
     },
@@ -127,15 +127,15 @@ lang_core = {
   "clear": {
     "accepts_block": false,
     "args": {},
+    "hiden": false,
     "introduced": "2,11,0",
-    "opts": null,
     "returns": null,
     "summary": "Clear all thread locals to defaults"
   },
   "comment": {
     "accepts_block": true,
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -148,9 +148,12 @@ lang_core = {
     "args": {
       "cue_id": ":symbol"
     },
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {
-      "key": "foo: 64"
+      "another_key": "foo: 64",
+      "key": "foo: 64",
+      "your_key": ":bar"
     },
     "signature": {
       "*opts": null,
@@ -160,20 +163,20 @@ lang_core = {
   },
   "current_beat_duration": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,6,0",
-    "opts": null,
     "summary": "Duration of current beat"
   },
   "current_bpm": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "summary": "Get current tempo"
   },
   "current_random_seed": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,10,0",
-    "opts": null,
     "summary": "Get current random seed"
   },
   "dec": {
@@ -181,6 +184,7 @@ lang_core = {
     "args": {
       "n": ":number"
     },
+    "hiden": false,
     "introduced": "2, 1, 0",
     "opts": {},
     "signature": {
@@ -193,9 +197,9 @@ lang_core = {
     "args": {
       "name": ":symbol"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -208,6 +212,7 @@ lang_core = {
     "args": {
       "name": ":symbol"
     },
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {
       "override": false
@@ -225,8 +230,8 @@ lang_core = {
     "args": {
       "d": ":density"
     },
+    "hiden": false,
     "introduced": "2,3,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "d": null
@@ -238,8 +243,8 @@ lang_core = {
     "args": {
       "num_sides": ":number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "num_sides": 6
     },
@@ -251,9 +256,9 @@ lang_core = {
       "num_doubles": ":int",
       "start": ":number"
     },
+    "hiden": false,
     "introduced": "2,10,0",
     "memoize": true,
-    "opts": null,
     "returns": ":ring",
     "signature": {
       "num_doubles": 1,
@@ -267,8 +272,8 @@ lang_core = {
       "factor": ":number",
       "val": ":number"
     },
+    "hiden": false,
     "introduced": "2,1,0",
-    "opts": null,
     "signature": {
       "factor": null,
       "val": null
@@ -281,9 +286,9 @@ lang_core = {
       "num_halves": ":int",
       "start": ":number"
     },
+    "hiden": false,
     "introduced": "2,10,0",
     "memoize": true,
-    "opts": null,
     "returns": ":ring",
     "signature": {
       "num_halves": 1,
@@ -294,8 +299,12 @@ lang_core = {
   "in_thread": {
     "accepts_block": true,
     "async_block": true,
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {
+      "delay": 0,
+      "name": ":foo",
+      "sync": ":foo",
       "sync_bpm": ":foo"
     },
     "requires_block": true,
@@ -310,6 +319,7 @@ lang_core = {
     "args": {
       "n": ":number"
     },
+    "hiden": false,
     "introduced": "2, 1, 0",
     "opts": {},
     "signature": {
@@ -323,8 +333,8 @@ lang_core = {
       "count": ":number",
       "value": ":anything"
     },
+    "hiden": false,
     "introduced": "2,2,0",
-    "opts": null,
     "returns": ":ring",
     "signature": {
       "*args": null
@@ -337,10 +347,12 @@ lang_core = {
       "finish": ":number",
       "start": ":number"
     },
+    "hiden": false,
     "introduced": "2,5,0",
     "memoize": true,
     "opts": {
-      "inclusive": false
+      "inclusive": false,
+      "steps": 1
     },
     "returns": ":ring",
     "signature": {
@@ -356,9 +368,17 @@ lang_core = {
       "name": ":symbol"
     },
     "async_block": true,
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,1,0",
-    "opts": "}",
+    "opts": {
+      "auto_cue": true,
+      "delay": 0,
+      "init": "",
+      "seed": 0,
+      "sync": ":foo",
+      "sync_bpm": ":foo"
+    },
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -372,8 +392,8 @@ lang_core = {
     "args": {
       "path": ":string"
     },
+    "hiden": false,
     "introduced": "2,10,0",
-    "opts": null,
     "signature": {
       "path": null
     },
@@ -384,8 +404,8 @@ lang_core = {
     "args": {
       "path": ":string"
     },
+    "hiden": false,
     "introduced": "2,10,0",
-    "opts": null,
     "signature": {
       "example_name": null
     },
@@ -396,6 +416,7 @@ lang_core = {
     "alt_args": {
       "key": ":symbol"
     },
+    "hiden": false,
     "introduced": "2,6,0",
     "opts": {
       "offset": 0
@@ -411,8 +432,8 @@ lang_core = {
     "args": {
       "name": ":symbol"
     },
+    "hiden": false,
     "introduced": "2,1,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -425,8 +446,8 @@ lang_core = {
     "args": {
       "condition": ":truthy"
     },
+    "hiden": false,
     "introduced": "2,10,0",
-    "opts": null,
     "returns": null,
     "signature": {
       "&blk": null,
@@ -439,14 +460,15 @@ lang_core = {
     "args": {
       "num": ":number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "num": null
     },
     "summary": "Random true value with specified probability"
   },
   "osc": {
+    "hiden": false,
     "signature": {
       "*args": null,
       "path": null
@@ -458,6 +480,7 @@ lang_core = {
       "list": ":array",
       "n": ":number_or_nil"
     },
+    "hiden": false,
     "introduced": "2,10,0",
     "opts": {
       "skip": 0
@@ -472,9 +495,9 @@ lang_core = {
     "args": {
       "output": ":anything"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "*msgs": null
     },
@@ -485,9 +508,9 @@ lang_core = {
     "args": {
       "output": ":anything"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "*msgs": null
     },
@@ -499,8 +522,8 @@ lang_core = {
       "n": ":number",
       "step": ":positive_number"
     },
+    "hiden": false,
     "introduced": "2,1,0",
-    "opts": null,
     "signature": {
       "n": null,
       "step": null
@@ -512,8 +535,8 @@ lang_core = {
     "args": {
       "list": ":array"
     },
+    "hiden": false,
     "introduced": "2,6,0",
-    "opts": null,
     "returns": ":ramp",
     "signature": {
       "*args": null
@@ -525,9 +548,9 @@ lang_core = {
     "args": {
       "max": ":number_or_range"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "max": 1
     },
@@ -538,8 +561,8 @@ lang_core = {
     "args": {
       "amount": ":number"
     },
+    "hiden": false,
     "introduced": "2,7,0",
-    "opts": null,
     "signature": {
       "amount": 1
     },
@@ -550,8 +573,8 @@ lang_core = {
     "args": {
       "max": ":number_or_range"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "max": 2
     },
@@ -562,8 +585,8 @@ lang_core = {
     "args": {
       "max": ":number_or_range"
     },
+    "hiden": false,
     "introduced": "2,11,0",
-    "opts": null,
     "signature": {
       "*args": null
     },
@@ -574,8 +597,8 @@ lang_core = {
     "args": {
       "max": ":number_or_range"
     },
+    "hiden": false,
     "introduced": "2,11,0",
-    "opts": null,
     "signature": {
       "*args": null
     },
@@ -584,8 +607,8 @@ lang_core = {
   "rand_reset": {
     "accepts_block": false,
     "args": {},
+    "hiden": false,
     "introduced": "2,7,0",
-    "opts": null,
     "summary": "Reset rand generator to last seed"
   },
   "rand_skip": {
@@ -593,8 +616,8 @@ lang_core = {
     "args": {
       "amount": ":number"
     },
+    "hiden": false,
     "introduced": "2,7,0",
-    "opts": null,
     "signature": {
       "amount": 1
     },
@@ -607,10 +630,12 @@ lang_core = {
       "start": ":number",
       "step_size": ":number"
     },
+    "hiden": false,
     "introduced": "2,2,0",
     "memoize": true,
     "opts": {
-      "inclusive": false
+      "inclusive": false,
+      "step": 1
     },
     "returns": ":ring",
     "signature": {
@@ -629,6 +654,7 @@ lang_core = {
       "centre": ":number",
       "width": ":number"
     },
+    "hiden": false,
     "introduced": "2,3,0",
     "opts": {
       "step": 1
@@ -643,8 +669,8 @@ lang_core = {
   "reset": {
     "accepts_block": false,
     "args": {},
+    "hiden": false,
     "introduced": "2,11,0",
-    "opts": null,
     "returns": null,
     "summary": "Reset all thread locals"
   },
@@ -653,8 +679,8 @@ lang_core = {
     "args": {
       "list": ":array"
     },
+    "hiden": false,
     "introduced": "2,2,0",
-    "opts": null,
     "returns": ":ring",
     "signature": {
       "*args": null
@@ -667,6 +693,7 @@ lang_core = {
       "max": ":number",
       "min": ":number"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
     "opts": {
@@ -685,8 +712,8 @@ lang_core = {
       "max": ":number",
       "min": ":number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "max": null,
       "min": null
@@ -698,8 +725,8 @@ lang_core = {
     "args": {
       "seconds": ":number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "t": null
     },
@@ -710,8 +737,8 @@ lang_core = {
     "args": {
       "code": ":string"
     },
+    "hiden": false,
     "introduced": "2,11,0",
-    "opts": null,
     "returns": null,
     "signature": {
       "code": null
@@ -723,8 +750,8 @@ lang_core = {
     "args": {
       "filename": ":path"
     },
+    "hiden": false,
     "introduced": "2,11,0",
-    "opts": null,
     "returns": null,
     "signature": {
       "path": null
@@ -736,8 +763,8 @@ lang_core = {
     "args": {
       "list": ":array"
     },
+    "hiden": false,
     "introduced": "2,1,0",
-    "opts": null,
     "signature": {
       "list": null
     },
@@ -749,8 +776,8 @@ lang_core = {
     "args": {
       "beats": ":number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "beats": null
     },
@@ -758,9 +785,8 @@ lang_core = {
   },
   "spark": {
     "accepts_block": false,
-    "hide": false,
+    "hiden": false,
     "introduced": "2,5,0",
-    "opts": null,
     "signature": {
       "*values": null
     },
@@ -768,8 +794,8 @@ lang_core = {
   },
   "spark_graph": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,5,0",
-    "opts": null,
     "signature": {
       "*values": null
     },
@@ -781,6 +807,7 @@ lang_core = {
       "num_accents": ":number",
       "size": ":number"
     },
+    "hiden": false,
     "introduced": "2,4,0",
     "opts": {
       "rotate": false
@@ -795,8 +822,8 @@ lang_core = {
   },
   "stop": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,5,0",
-    "opts": null,
     "returns": null,
     "summary": "Stop current thread or run"
   },
@@ -806,8 +833,8 @@ lang_core = {
       "count": ":number",
       "list": ":anything"
     },
+    "hiden": false,
     "introduced": "2,6,0",
-    "opts": null,
     "returns": ":ring",
     "signature": {
       "*args": null
@@ -820,6 +847,7 @@ lang_core = {
     "args": {
       "cue_id": ":symbol"
     },
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {
       "bpm_sync": false
@@ -836,6 +864,7 @@ lang_core = {
     "args": {
       "cue_id": ":symbol"
     },
+    "hiden": false,
     "introduced": "2,10,0",
     "opts": {},
     "signature": {
@@ -853,9 +882,11 @@ lang_core = {
     "args": {
       "key": ":symbol"
     },
+    "hiden": false,
     "introduced": "2,6,0",
     "opts": {
-      "offset": 0
+      "offset": 0,
+      "step": 1
     },
     "returns": ":number",
     "signature": {
@@ -868,8 +899,8 @@ lang_core = {
     "alt_args": {
       "key": ":symbol"
     },
+    "hiden": false,
     "introduced": "2,6,0",
-    "opts": null,
     "returns": ":number",
     "signature": {
       "*args": null
@@ -885,8 +916,8 @@ lang_core = {
     "args": {
       "value": ":number"
     },
+    "hiden": false,
     "introduced": "2,6,0",
-    "opts": null,
     "returns": null,
     "summary": "Reset all ticks"
   },
@@ -899,8 +930,8 @@ lang_core = {
     "args": {
       "value": ":number"
     },
+    "hiden": false,
     "introduced": "2,6,0",
-    "opts": null,
     "returns": ":number",
     "signature": {
       "*args": null
@@ -912,8 +943,8 @@ lang_core = {
     "args": {
       "delta_time": ":number"
     },
+    "hiden": false,
     "introduced": "2,11,0",
-    "opts": null,
     "returns": null,
     "signature": {
       "&blk": null,
@@ -923,8 +954,8 @@ lang_core = {
   },
   "uncomment": {
     "accepts_block": true,
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -937,9 +968,9 @@ lang_core = {
     "args": {
       "bpm": ":number"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "bpm": null
@@ -951,8 +982,8 @@ lang_core = {
     "args": {
       "mul": ":number"
     },
+    "hiden": false,
     "introduced": "2,3,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "mul": null
@@ -964,8 +995,8 @@ lang_core = {
     "args": {
       "true_or_false": ":boolean"
     },
+    "hiden": false,
     "introduced": "2,6,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "v": null
@@ -973,6 +1004,7 @@ lang_core = {
     "summary": "Enable and disable cue logging"
   },
   "use_osc": {
+    "hiden": false,
     "signature": {
       "host_or_port": null,
       "port": "nil"
@@ -983,8 +1015,8 @@ lang_core = {
     "args": {
       "seed": ":number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "seed": null
@@ -996,8 +1028,8 @@ lang_core = {
     "args": {
       "list": ":array"
     },
+    "hiden": false,
     "introduced": "2,6,0",
-    "opts": null,
     "returns": ":vector",
     "signature": {
       "*args": null
@@ -1006,14 +1038,14 @@ lang_core = {
   },
   "version": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "summary": "Get current version information"
   },
   "vt": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,1,0",
-    "opts": null,
     "summary": "Get virtual time"
   },
   "wait": {
@@ -1022,8 +1054,8 @@ lang_core = {
     "args": {
       "beats": ":number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "time": null
     },
@@ -1034,8 +1066,8 @@ lang_core = {
     "args": {
       "bpm": ":number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -1048,8 +1080,8 @@ lang_core = {
     "args": {
       "mul": ":number"
     },
+    "hiden": false,
     "introduced": "2,3,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -1062,8 +1094,8 @@ lang_core = {
     "args": {
       "true_or_false": ":boolean"
     },
+    "hiden": false,
     "introduced": "2,6,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -1076,8 +1108,8 @@ lang_core = {
     "args": {
       "seed": ":number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -1086,6 +1118,7 @@ lang_core = {
     "summary": "Specify random seed for code block"
   },
   "with_tempo": {
+    "hiden": false,
     "signature": {
       "&block": null,
       "*args": null
@@ -1102,9 +1135,9 @@ core_opts_types_conversion = {}
 lang_sound = {
   "all_sample_names": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,0,0",
     "memoize": true,
-    "opts": null,
     "summary": "Get all sample names"
   },
   "chord": {
@@ -1113,10 +1146,12 @@ lang_sound = {
       "name": ":symbol",
       "tonic": ":symbol"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
     "memoize": true,
     "opts": {
+      "invert": 0,
       "num_octaves": 1
     },
     "returns": ":ring",
@@ -1134,9 +1169,9 @@ lang_sound = {
       "scale": ":symbol",
       "tonic": ":symbol"
     },
+    "hiden": false,
     "introduced": "2,1,0",
     "memoize": true,
-    "opts": null,
     "returns": ":ring",
     "signature": {
       "*opts": null,
@@ -1153,8 +1188,8 @@ lang_sound = {
       "notes": ":list",
       "shift": ":number"
     },
+    "hiden": false,
     "introduced": "2,6,0",
-    "opts": null,
     "returns": ":ring",
     "signature": {
       "notes": null,
@@ -1164,9 +1199,9 @@ lang_sound = {
   },
   "chord_names": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,6,0",
     "memoize": true,
-    "opts": null,
     "summary": "All chord names"
   },
   "control": {
@@ -1174,6 +1209,7 @@ lang_sound = {
     "args": {
       "node": ":synth_node"
     },
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {},
     "signature": {
@@ -1181,65 +1217,67 @@ lang_sound = {
     },
     "summary": "Control running synth"
   },
-  "current_amp": {},
+  "current_amp": {
+    "hiden": false
+  },
   "current_arg_checks": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "summary": "Get current arg checking status"
   },
   "current_cent_tuning": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,9,0",
-    "opts": null,
     "summary": "Get current cent shift"
   },
   "current_debug": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "summary": "Get current debug status"
   },
   "current_octave": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,9,0",
-    "opts": null,
     "summary": "Get current octave shift"
   },
   "current_sample_defaults": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,5,0",
-    "opts": null,
     "summary": "Get current sample defaults"
   },
   "current_sched_ahead_time": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "summary": "Get current sched ahead time"
   },
   "current_synth": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "summary": "Get current synth"
   },
   "current_synth_defaults": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "summary": "Get current synth defaults"
   },
   "current_transpose": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "summary": "Get current transposition"
   },
   "current_volume": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "summary": "Get current volume"
   },
   "degree": {
@@ -1249,6 +1287,7 @@ lang_sound = {
       "scale": ":symbol",
       "tonic": ":symbol"
     },
+    "hiden": false,
     "introduced": "2,1,0",
     "signature": {
       "degree": null,
@@ -1259,9 +1298,9 @@ lang_sound = {
   },
   "fx_names": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,10,0",
     "memoize": true,
-    "opts": null,
     "summary": "Get all FX names"
   },
   "hz_to_midi": {
@@ -1269,14 +1308,15 @@ lang_sound = {
     "args": {
       "freq": ":number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "freq": null
     },
     "summary": "Hz to MIDI conversion"
   },
   "invert_chord": {
+    "hiden": false,
     "signature": {
       "*args": null
     }
@@ -1286,6 +1326,7 @@ lang_sound = {
     "args": {
       "node": ":synth_node"
     },
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {},
     "signature": {
@@ -1298,14 +1339,15 @@ lang_sound = {
     "args": {
       "path": ":string"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "*args": null
     },
     "summary": "Pre-load first matching sample"
   },
   "load_sample_at_path": {
+    "hiden": false,
     "signature": {
       "path": null
     }
@@ -1315,8 +1357,8 @@ lang_sound = {
     "args": {
       "paths": ":list"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "*args": null
     },
@@ -1327,8 +1369,8 @@ lang_sound = {
     "args": {
       "path": ":string"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "path": "synthdef_path"
     },
@@ -1339,9 +1381,9 @@ lang_sound = {
     "args": {
       "list": ":array"
     },
+    "hiden": false,
     "introduced": "2,7,0",
     "memoize": true,
-    "opts": null,
     "returns": ":ring",
     "signature": {
       "*args": null
@@ -1353,8 +1395,8 @@ lang_sound = {
     "args": {
       "note": ":symbol_or_number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "n": null
     },
@@ -1365,6 +1407,7 @@ lang_sound = {
     "args": {
       "note": ":symbol_or_number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {
       "octave": 4
@@ -1380,6 +1423,7 @@ lang_sound = {
     "args": {
       "note": ":symbol_or_number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {
       "octave": 4
@@ -1396,6 +1440,7 @@ lang_sound = {
       "high_note": ":note",
       "low_note": ":note"
     },
+    "hiden": false,
     "introduced": "2,6,0",
     "opts": {
       "pitches": []
@@ -1414,8 +1459,8 @@ lang_sound = {
       "num_octaves": ":pos_int",
       "start": ":note"
     },
+    "hiden": false,
     "introduced": "2,8,0",
-    "opts": null,
     "returns": ":ring",
     "signature": {
       "num_octs": 1,
@@ -1424,6 +1469,7 @@ lang_sound = {
     "summary": "Create a ring of octaves"
   },
   "pitch_ratio": {
+    "hiden": false,
     "signature": {
       "*args": null
     }
@@ -1433,8 +1479,8 @@ lang_sound = {
     "args": {
       "pitch": ":midi_number"
     },
+    "hiden": false,
     "introduced": "2,5,0",
-    "opts": null,
     "signature": {
       "m": null
     },
@@ -1445,6 +1491,7 @@ lang_sound = {
     "args": {
       "note": ":symbol_or_number"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
     "opts": {
@@ -1476,6 +1523,7 @@ lang_sound = {
     "args": {
       "notes": ":list"
     },
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {
       "amp": 1,
@@ -1505,6 +1553,7 @@ lang_sound = {
     "args": {
       "notes": ":list"
     },
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {},
     "signature": {
@@ -1519,6 +1568,7 @@ lang_sound = {
       "notes": ":list",
       "times": ":list_or_number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {
       "amp": 1,
@@ -1549,8 +1599,8 @@ lang_sound = {
     "args": {
       "ratio": ":number"
     },
+    "hiden": false,
     "introduced": "2,7,0",
-    "opts": null,
     "signature": {
       "r": null
     },
@@ -1558,17 +1608,15 @@ lang_sound = {
   },
   "recording_delete": {
     "accepts_block": false,
-    "hide": true,
-    "opts": null
+    "hiden": true
   },
   "recording_save": {
     "accepts_block": false,
     "args": {
       "path": ":string"
     },
-    "hide": true,
+    "hiden": true,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "filename": null
     },
@@ -1576,20 +1624,19 @@ lang_sound = {
   },
   "recording_start": {
     "accepts_block": false,
-    "hide": true,
+    "hiden": true,
     "introduced": "2,0,0",
-    "opts": null,
     "summary": "Start recording"
   },
   "recording_stop": {
     "accepts_block": false,
-    "hide": true,
+    "hiden": true,
     "introduced": "2,0,0",
-    "opts": null,
     "summary": "Stop recording"
   },
   "reset_mixer!": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,9,0",
     "opts": {},
     "signature": {
@@ -1598,11 +1645,13 @@ lang_sound = {
     "summary": "Reset master mixer"
   },
   "resolve_sample_path": {
+    "hiden": false,
     "signature": {
       "filts_and_sources": null
     }
   },
   "resolve_sample_paths": {
+    "hiden": false,
     "signature": {
       "filts_and_sources": null
     }
@@ -1612,6 +1661,7 @@ lang_sound = {
     "args": {
       "note_or_args": ":number_symbol_or_map"
     },
+    "hiden": false,
     "introduced": "2,1,0",
     "signature": {
       "n": null
@@ -1623,10 +1673,60 @@ lang_sound = {
     "args": {
       "name_or_path": ":symbol_or_string"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
     "opts": {
-      "path": "/path/to/file"
+      "amp": 1,
+      "attack": 0,
+      "beat_stretch": 1,
+      "clamp_time": 0,
+      "compress": 0,
+      "finish": 1,
+      "hpf": 0,
+      "hpf_attack": 0,
+      "hpf_attack_level": 0,
+      "hpf_decay": 0,
+      "hpf_decay_level": 0,
+      "hpf_env_curve": 1,
+      "hpf_init_level": 130,
+      "hpf_max": 200,
+      "hpf_release": 0,
+      "hpf_release_level": 0,
+      "hpf_sustain": 0,
+      "hpf_sustain_level": 0,
+      "lpf": 131,
+      "lpf_attack": 0,
+      "lpf_attack_level": 0,
+      "lpf_decay": 0,
+      "lpf_decay_level": 0,
+      "lpf_env_curve": 1,
+      "lpf_init_level": 30,
+      "lpf_min": 30,
+      "lpf_release": 0,
+      "lpf_release_level": 0,
+      "lpf_sustain": 0,
+      "lpf_sustain_level": 0,
+      "norm": 0,
+      "onset": 0,
+      "pan": 0,
+      "path": "/path/to/file",
+      "pitch": 0,
+      "pitch_dis": 0,
+      "pitch_stretch": 1,
+      "pre_amp": 1,
+      "rate": 1,
+      "relax_time": 0,
+      "release": 0,
+      "rpitch": 0,
+      "slide": 0,
+      "slope_above": 1,
+      "slope_below": 1,
+      "start": 0,
+      "sustain": 1,
+      "threshold": 0,
+      "time_dis": 0,
+      "window_size": 0
     },
     "signature": {
       "&blk": null,
@@ -1639,8 +1739,8 @@ lang_sound = {
     "args": {
       "path": ":string"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "*args": null
     },
@@ -1651,9 +1751,19 @@ lang_sound = {
     "args": {
       "path": ":string"
     },
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {
-      "rpitch": 0
+      "attack": 0,
+      "beat_stretch": 1,
+      "decay": 0,
+      "finish": 1,
+      "pitch_stretch": 1,
+      "rate": 1,
+      "release": 0,
+      "rpitch": 0,
+      "start": 0,
+      "sustain": 1
     },
     "signature": {
       "*args": null
@@ -1665,8 +1775,8 @@ lang_sound = {
     "args": {
       "path": ":string"
     },
+    "hiden": false,
     "introduced": "2,9,0",
-    "opts": null,
     "returns": null,
     "signature": {
       "*paths": null
@@ -1676,16 +1786,16 @@ lang_sound = {
   "sample_free_all": {
     "accepts_block": false,
     "args": {},
+    "hiden": false,
     "introduced": "2,9,0",
-    "opts": null,
     "returns": null,
     "summary": "Free all loaded samples on the synth server"
   },
   "sample_groups": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,0,0",
     "memoize": true,
-    "opts": null,
     "summary": "Get all sample groups"
   },
   "sample_info": {
@@ -1693,8 +1803,8 @@ lang_sound = {
     "args": {
       "path": ":string"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "*args": null
     },
@@ -1705,8 +1815,8 @@ lang_sound = {
     "args": {
       "path": ":string"
     },
+    "hiden": false,
     "introduced": "2,2,0",
-    "opts": null,
     "signature": {
       "*args": null
     },
@@ -1717,9 +1827,9 @@ lang_sound = {
     "args": {
       "group": ":symbol"
     },
+    "hiden": false,
     "introduced": "2,0,0",
     "memoize": true,
-    "opts": null,
     "returns": ":ring",
     "signature": {
       "group": null
@@ -1731,8 +1841,8 @@ lang_sound = {
     "args": {
       "pre_args": ":source_and_filter_types"
     },
+    "hiden": false,
     "introduced": "2,10,0",
-    "opts": null,
     "returns": ":ring",
     "signature": {
       "*args": null
@@ -1740,6 +1850,7 @@ lang_sound = {
     "summary": "Sample Pack Filter Resolution"
   },
   "sample_split_filts_and_opts": {
+    "hiden": false,
     "signature": {
       "args": null
     }
@@ -1750,6 +1861,7 @@ lang_sound = {
       "name": ":symbol",
       "tonic": ":symbol"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
     "memoize": true,
@@ -1765,9 +1877,9 @@ lang_sound = {
   },
   "scale_names": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,6,0",
     "memoize": true,
-    "opts": null,
     "summary": "All scale names"
   },
   "set_cent_tuning!": {
@@ -1775,9 +1887,9 @@ lang_sound = {
     "args": {
       "cent_shift": ":number"
     },
+    "hiden": false,
     "intro_fn": false,
     "introduced": "2,10,0",
-    "opts": null,
     "signature": {
       "shift": null
     },
@@ -1788,9 +1900,9 @@ lang_sound = {
     "args": {
       "time": ":number"
     },
+    "hiden": false,
     "introduced": "2,1,0",
     "modifies_env": true,
-    "opts": null,
     "signature": {
       "t": null
     },
@@ -1798,27 +1910,43 @@ lang_sound = {
   },
   "set_mixer_control!": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,7,0",
     "opts": {
-      "leak_dc_bypass": 0
+      "amp": 1,
+      "hpf": 0,
+      "hpf_bypass": 0,
+      "leak_dc_bypass": 0,
+      "limiter_bypass": 0,
+      "lpf": 131,
+      "lpf_bypass": 0,
+      "pre_amp": 1
     },
     "signature": {
       "opts": null
     },
     "summary": "Control master mixer"
   },
-  "set_mixer_invert_stereo!": {},
-  "set_mixer_mono_mode!": {},
-  "set_mixer_standard_stereo!": {},
-  "set_mixer_stereo_mode!": {},
+  "set_mixer_invert_stereo!": {
+    "hiden": false
+  },
+  "set_mixer_mono_mode!": {
+    "hiden": false
+  },
+  "set_mixer_standard_stereo!": {
+    "hiden": false
+  },
+  "set_mixer_stereo_mode!": {
+    "hiden": false
+  },
   "set_sched_ahead_time!": {
     "accepts_block": false,
     "args": {
       "time": ":number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
     "modifies_env": true,
-    "opts": null,
     "signature": {
       "t": null
     },
@@ -1829,24 +1957,27 @@ lang_sound = {
     "args": {
       "vol": ":number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
     "modifies_env": true,
-    "opts": null,
     "signature": {
       "vol": null
     },
     "summary": "Set Volume globally"
   },
   "should_trigger?": {
+    "hiden": false,
     "signature": {
       "args_h": null
     }
   },
-  "start_amp_monitor": {},
+  "start_amp_monitor": {
+    "hiden": false
+  },
   "status": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "summary": "Get server status"
   },
   "synth": {
@@ -1854,6 +1985,7 @@ lang_sound = {
     "args": {
       "synth_name": ":symbol"
     },
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {
       "amp": 1,
@@ -1881,12 +2013,13 @@ lang_sound = {
   },
   "synth_names": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,9,0",
     "memoize": true,
-    "opts": null,
     "summary": "Get all synth names"
   },
   "truthy?": {
+    "hiden": false,
     "signature": {
       "val": null
     }
@@ -1896,8 +2029,8 @@ lang_sound = {
     "args": {
       "bool": ":boolean"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "bool": null
@@ -1909,8 +2042,8 @@ lang_sound = {
     "args": {
       "true_or_false": ":boolean"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "v": null
@@ -1922,9 +2055,9 @@ lang_sound = {
     "args": {
       "cent_shift": ":number"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,9,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "shift": null
@@ -1936,8 +2069,8 @@ lang_sound = {
     "args": {
       "true_or_false": ":boolean"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "v": null
@@ -1945,12 +2078,14 @@ lang_sound = {
     "summary": "Enable and disable debug"
   },
   "use_external_synths": {
+    "hiden": false,
     "signature": {
       "&block": null,
       "v": null
     }
   },
   "use_fx": {
+    "hiden": false,
     "signature": {
       "&block": null,
       "*args": null
@@ -1958,6 +2093,7 @@ lang_sound = {
   },
   "use_merged_sample_defaults": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,9,0",
     "opts": {},
     "signature": {
@@ -1968,6 +2104,7 @@ lang_sound = {
   },
   "use_merged_synth_defaults": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {},
     "signature": {
@@ -1981,9 +2118,9 @@ lang_sound = {
     "args": {
       "octave_shift": ":number"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,9,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "shift": null
@@ -1995,6 +2132,7 @@ lang_sound = {
     "args": {
       "string_or_number": ":sample_name_or_duration"
     },
+    "hiden": false,
     "introduced": "2,1,0",
     "opts": {
       "num_beats": 1
@@ -2007,6 +2145,7 @@ lang_sound = {
   },
   "use_sample_defaults": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,5,0",
     "opts": {},
     "signature": {
@@ -2020,9 +2159,9 @@ lang_sound = {
     "args": {
       "synth_name": ":symbol"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "*args": null,
@@ -2032,6 +2171,7 @@ lang_sound = {
   },
   "use_synth_defaults": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {},
     "signature": {
@@ -2045,8 +2185,8 @@ lang_sound = {
     "args": {
       "bool": ":true_or_false"
     },
+    "hiden": false,
     "introduced": "2,10,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "v": null
@@ -2054,6 +2194,7 @@ lang_sound = {
     "summary": "Inhibit synth triggers if too late"
   },
   "use_timing_warnings": {
+    "hiden": false,
     "signature": {
       "&block": null,
       "v": null
@@ -2064,9 +2205,9 @@ lang_sound = {
     "args": {
       "note_shift": ":number"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "shift": null
@@ -2079,8 +2220,8 @@ lang_sound = {
       "fundamental_note": ":symbol_or_number",
       "tuning": ":symbol"
     },
+    "hiden": false,
     "introduced": "2,6,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "fundamental_note": ":c",
@@ -2089,6 +2230,7 @@ lang_sound = {
     "summary": "Use alternative tuning systems"
   },
   "with_afx": {
+    "hiden": false,
     "signature": {
       "&block": null,
       "*args": null,
@@ -2097,8 +2239,8 @@ lang_sound = {
   },
   "with_arg_bpm_scaling": {
     "accepts_block": true,
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -2111,8 +2253,8 @@ lang_sound = {
     "args": {
       "true_or_false": ":boolean"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -2125,8 +2267,8 @@ lang_sound = {
     "args": {
       "cent_shift": ":number"
     },
+    "hiden": false,
     "introduced": "2,9,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -2139,8 +2281,8 @@ lang_sound = {
     "args": {
       "true_or_false": ":boolean"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -2153,10 +2295,12 @@ lang_sound = {
     "args": {
       "fx_name": ":symbol"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
     "opts": {
-      "kill_delay": 1
+      "kill_delay": 1,
+      "reps": 1
     },
     "requires_block": true,
     "signature": {
@@ -2168,6 +2312,7 @@ lang_sound = {
   },
   "with_merged_sample_defaults": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,9,0",
     "opts": {},
     "requires_block": false,
@@ -2179,6 +2324,7 @@ lang_sound = {
   },
   "with_merged_synth_defaults": {
     "accepts_block": true,
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {},
     "requires_block": true,
@@ -2193,9 +2339,9 @@ lang_sound = {
     "args": {
       "octave_shift": ":number"
     },
+    "hiden": false,
     "intro_fn": true,
     "introduced": "2,9,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "shift": null
@@ -2207,6 +2353,7 @@ lang_sound = {
     "args": {
       "string_or_number": ":sample_name_or_duration"
     },
+    "hiden": false,
     "introduced": "2,1,0",
     "opts": {
       "num_beats": 1
@@ -2221,6 +2368,7 @@ lang_sound = {
   },
   "with_sample_defaults": {
     "accepts_block": false,
+    "hiden": false,
     "introduced": "2,5,0",
     "opts": {},
     "requires_block": false,
@@ -2235,8 +2383,8 @@ lang_sound = {
     "args": {
       "synth_name": ":symbol"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -2247,6 +2395,7 @@ lang_sound = {
   },
   "with_synth_defaults": {
     "accepts_block": true,
+    "hiden": false,
     "introduced": "2,0,0",
     "opts": {},
     "requires_block": true,
@@ -2261,8 +2410,8 @@ lang_sound = {
     "args": {
       "bool": ":true_or_false"
     },
+    "hiden": false,
     "introduced": "2,10,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "v": null
@@ -2270,6 +2419,7 @@ lang_sound = {
     "summary": "Block-scoped inhibition of synth triggers if too late"
   },
   "with_timing_warnings": {
+    "hiden": false,
     "signature": {
       "&block": null,
       "v": null
@@ -2280,8 +2430,8 @@ lang_sound = {
     "args": {
       "note_shift": ":number"
     },
+    "hiden": false,
     "introduced": "2,0,0",
-    "opts": null,
     "requires_block": true,
     "signature": {
       "&block": null,
@@ -2295,8 +2445,8 @@ lang_sound = {
       "fundamental_note": ":symbol_or_number",
       "tuning": ":symbol"
     },
+    "hiden": false,
     "introduced": "2,6,0",
-    "opts": null,
     "signature": {
       "&block": null,
       "fundamental_note": ":c",
@@ -2587,7 +2737,7 @@ synths = {
       "detune_slide:": 0,
       "detune_slide_curve:": 0,
       "detune_slide_shape:": 1,
-      "dpulse_width:": 0.5,
+      "dpulse_width:": 0,
       "dpulse_width_slide:": 0,
       "dpulse_width_slide_shape:": 1,
       "env_curve:": 2,
@@ -5816,6 +5966,9 @@ samples = {
 
 
 
+
+all_lang_ref = list(lang_core.keys()) + list(lang_sound.keys())
+
 def all_synth_names():
     for key, value in synths.items():
         if value['hiden'] != True and key != 'SoundIn' and value['name'] in synth_nodes:
@@ -5844,6 +5997,90 @@ def sn(ref):
         return fx[c_name]
     else:
         return synths[c_name]
+
+opt_c = {key: value for key, value in lang_core.items()
+        if value['hiden'] != True
+        if 'opts' in value and value['opts'] is not None
+        if len(value['opts']) > 0 }
+
+opt_s = {key: value for key, value in lang_sound.items()
+        if value['hiden'] != True
+        if 'opts' in value and value['opts'] is not None
+        if len(value['opts'].keys()) > 0 }
+
+intro_fn_c = {key: value for key, value in lang_core.items()
+          if value['hiden'] is False
+          if 'intro_fn' in value and value['intro_fn'] is not False
+               }
+intro_fn_s = {key: value for key, value in lang_sound.items()
+          if value['hiden'] is False
+          if 'intro_fn' in value and value['intro_fn'] is not False
+               }
+
+accepts_block_c = {key: value for key, value in lang_core.items()
+              if value['hiden'] is False
+              if 'accepts_block' in value and value['accepts_block'] is not False
+              }
+accepts_block_s = {key: value for key, value in lang_sound.items()
+              if value['hiden'] is False
+              if 'accepts_block' in value and value['accepts_block'] is not False
+              }
+requires_block_c = {key: value for key, value in lang_core.items()
+                   if value['hiden'] is False
+                   if 'requires_block' in value and value['requires_block'] is not False
+                   }
+requires_block_s = {key: value for key, value in lang_sound.items()
+                   if value['hiden'] is False
+                   if 'requires_block' in value and value['requires_block'] is not False
+                   }
+modifies_env_c = {key: value for key, value in lang_core.items()
+                    if value['hiden'] is False
+                    if 'modifies_env' in value and value['modifies_env'] is not False
+                    }
+modifies_env_s = {key: value for key, value in lang_sound.items()
+                    if value['hiden'] is False
+                    if 'modifies_env' in value and value['modifies_env'] is not False
+                    }
+memoize_c = {key: value for key, value in lang_core.items()
+                  if value['hiden'] is False
+                  if 'memoize' in value and value['memoize'] is not False
+                  }
+memoize_s = {key: value for key, value in lang_sound.items()
+                  if value['hiden'] is False
+                  if 'memoize' in value and value['memoize'] is not False
+                  }
+async_block_c = {key: value for key, value in lang_core.items()
+                  if value['hiden'] is False
+                  if 'async_block' in value and value['async_block'] is not False
+                  }
+async_block_s = {key: value for key, value in lang_sound.items()
+                  if value['hiden'] is False
+                  if 'async_block' in value and value['async_block'] is not False
+                  }
+advances_time_c = {key: value for key, value in lang_core.items()
+                  if value['hiden'] is False
+                  if 'advances_time' in value and value['advances_time'] is not False
+                  }
+advances_time_s = {key: value for key, value in lang_sound.items()
+                  if value['hiden'] is False
+                  if 'advances_time' in value and value['advances_time'] is not False
+                  }
+returns_c = {key: value for key, value in lang_core.items()
+                  if value['hiden'] is False
+                  if 'returns' in value and value['returns'] is not False
+                  }
+returns_s = {key: value for key, value in lang_sound.items()
+                  if value['hiden'] is False
+                  if 'returns' in value and value['returns'] is not False
+                  }
+accepts_block_sign_c = {key: value for key, value in lang_core.items()
+                   if value['hiden'] is False
+                   if 'accepts_block' in value and value['accepts_block'] is not False and '&block' in value['signature']
+                   }
+accepts_block_sign_s = {key: value for key, value in lang_sound.items()
+                   if value['hiden'] is False
+                   if 'accepts_block' in value and value['accepts_block'] is not False and '&block' in value['signature']
+                   }
 
 
 if __name__ == '__main__':

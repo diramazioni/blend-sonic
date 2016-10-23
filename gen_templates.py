@@ -4,7 +4,10 @@ import shutil as sh
 from jinja2 import Environment, FileSystemLoader
 
 
-from constant_def import generators, all_synth, all_fx
+from constant_def import opts_default_val, opts_types_conversion, args_types_conversion
+from lang_def import *
+
+    #generators, all_synth, all_fx
 
 pwd = os.path.dirname(os.path.abspath(__file__))
 
@@ -62,7 +65,7 @@ def gen_an_code():
             'synth': synth,
         }
         write_node("generators", context, synth_name, templ_name)
-        
+    '''
     ## synths
     for synth_name, synth in all_synth.items():
         synth_name = synth_name[1:]
@@ -99,6 +102,7 @@ def gen_an_code():
     with open(fname, 'w') as f:
         template = render_template(dest_name, context)
         f.write(template)
+    '''
 
 def copy_in_an():
     print("copy in Animation Nodes addon")
