@@ -1,5 +1,49 @@
 null = None
 
+'''
+we want to distinguish between functions that are inline
+ie doesn't have new line before so output single strings
+puts (spark_graph (range 1, 5).shuffle)
+here spark_graph, range, shuffle are inline
+(it seems memoize is the closest but many is missing)
+exclude memoize:
+['all_sample_names', 'chord', 'chord_degree', 'chord_names',
+'doubles', 'fx_names', 'halves', 'line', 'midi_notes', 'range',
+'sample_groups', 'sample_names', 'scale', 'scale_names', 'synth_names']
+'''
+
+
+# is_selection are function like tick, shuffle (ring).fn(arg)
+is_selection = ['pick', 'tick', 'look', 'shuffle']
+# is_embed are functions surrounded by () like (knit 1, 5)
+is_embed = ['stretch', 'spark_graph', 'vector']
+
+is_inline = is_selection + is_embed +\
+            ['beat', 'bt', 'choose', 'degree', 'dice', 'hz_to_midi', 'one_in', 'midi_to_hz',  'note', 'note_info',
+             'pitch_to_ratio', 'quantise', 'ramp', 'rand', 'rrand', 'rrand_i', 'rand_i', 'rand_i_look', 'rand_look',
+             'ratio_to_pitch', 'rdist', 'rt', 'vt']
+
+## buffer fn
+is_buffer_fn = ['load_buffer', 'load_sample',
+                'run_code', 'run_file', 'sample_free', 'sample_free_all',
+                ]
+## these func can be sync based on the examples
+missing_intro_fn = ['current_random_seed', 'synth']
+## these func can be async based on the examples
+missing_async_block = ['density', 'with_fx', 'sample', 'synth', 'play']
+## these func has wrong accepts_block (based on the examples)
+wrong_accepts_block = ['on', 'with_merged_sample_defaults', 'with_sample_defaults']
+
+
+## set hide to false if not set and hide the one we are not going to use
+is_to_hide = ['assert', 'assert_equal', 'current_arg_checks', 'current_beat_duration', 'current_bpm',
+           'current_cent_tuning', 'current_debug', 'current_octave', 'current_random_seed',
+           'current_sample_defaults', 'current_sched_ahead_time', 'current_synth', 'current_synth_defaults',
+           'current_transpose', 'current_volume', 'dec', 'inc', 'print', 'puts', 'version', 'wait', 'load_samples',
+              'sample_buffer', 'sample_info', 'sample_duration', 'load_synthdefs', 'load_example',
+           ]
+
+
 opts_default_val = {
   "another_key": "foo: 64",  #only used in cue accepts: Numbers, Symbols, Booleans and Nil, or Vectors/Rings of immutable types"
   "amp": 1, 

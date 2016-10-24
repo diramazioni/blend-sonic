@@ -11,7 +11,7 @@ lang_core = {
     "args": {
       "arg": ":anything"
     },
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,8,0",
     "signature": {
       "arg": null,
@@ -30,7 +30,7 @@ lang_core = {
       "arg1": ":anything",
       "arg2": ":anything"
     },
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,8,0",
     "signature": {
       "arg1": null,
@@ -60,6 +60,7 @@ lang_core = {
     "accepts_block": false,
     "args": {},
     "hiden": false,
+    "inline": true,
     "introduced": "2,10,0",
     "summary": "Get current beat"
   },
@@ -106,6 +107,7 @@ lang_core = {
       "seconds": ":number"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,8,0",
     "signature": {
       "t": null
@@ -118,6 +120,7 @@ lang_core = {
       "list": ":array"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,0,0",
     "signature": {
       "args": null
@@ -163,19 +166,20 @@ lang_core = {
   },
   "current_beat_duration": {
     "accepts_block": false,
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,6,0",
     "summary": "Duration of current beat"
   },
   "current_bpm": {
     "accepts_block": false,
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,0,0",
     "summary": "Get current tempo"
   },
   "current_random_seed": {
     "accepts_block": false,
-    "hiden": false,
+    "hiden": true,
+    "intro_fn": true,
     "introduced": "2,10,0",
     "summary": "Get current random seed"
   },
@@ -184,7 +188,7 @@ lang_core = {
     "args": {
       "n": ":number"
     },
-    "hiden": false,
+    "hiden": true,
     "introduced": "2, 1, 0",
     "opts": {},
     "signature": {
@@ -230,6 +234,7 @@ lang_core = {
     "args": {
       "d": ":density"
     },
+    "async_block": true,
     "hiden": false,
     "introduced": "2,3,0",
     "signature": {
@@ -244,6 +249,7 @@ lang_core = {
       "num_sides": ":number"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,0,0",
     "signature": {
       "num_sides": 6
@@ -319,7 +325,7 @@ lang_core = {
     "args": {
       "n": ":number"
     },
-    "hiden": false,
+    "hiden": true,
     "introduced": "2, 1, 0",
     "opts": {},
     "signature": {
@@ -417,6 +423,7 @@ lang_core = {
       "key": ":symbol"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,6,0",
     "opts": {
       "offset": 0
@@ -442,12 +449,13 @@ lang_core = {
     "summary": "Define a new function"
   },
   "on": {
-    "accepts_block": false,
+    "accepts_block": true,
     "args": {
       "condition": ":truthy"
     },
     "hiden": false,
     "introduced": "2,10,0",
+    "requires_block": true,
     "returns": null,
     "signature": {
       "&blk": null,
@@ -461,6 +469,7 @@ lang_core = {
       "num": ":number"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,0,0",
     "signature": {
       "num": null
@@ -481,6 +490,7 @@ lang_core = {
       "n": ":number_or_nil"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,10,0",
     "opts": {
       "skip": 0
@@ -495,7 +505,7 @@ lang_core = {
     "args": {
       "output": ":anything"
     },
-    "hiden": false,
+    "hiden": true,
     "intro_fn": true,
     "introduced": "2,0,0",
     "signature": {
@@ -508,7 +518,7 @@ lang_core = {
     "args": {
       "output": ":anything"
     },
-    "hiden": false,
+    "hiden": true,
     "intro_fn": true,
     "introduced": "2,0,0",
     "signature": {
@@ -523,6 +533,7 @@ lang_core = {
       "step": ":positive_number"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,1,0",
     "signature": {
       "n": null,
@@ -536,6 +547,7 @@ lang_core = {
       "list": ":array"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,6,0",
     "returns": ":ramp",
     "signature": {
@@ -549,6 +561,7 @@ lang_core = {
       "max": ":number_or_range"
     },
     "hiden": false,
+    "inline": true,
     "intro_fn": true,
     "introduced": "2,0,0",
     "signature": {
@@ -574,6 +587,7 @@ lang_core = {
       "max": ":number_or_range"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,0,0",
     "signature": {
       "max": 2
@@ -586,6 +600,7 @@ lang_core = {
       "max": ":number_or_range"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,11,0",
     "signature": {
       "*args": null
@@ -598,6 +613,7 @@ lang_core = {
       "max": ":number_or_range"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,11,0",
     "signature": {
       "*args": null
@@ -655,6 +671,7 @@ lang_core = {
       "width": ":number"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,3,0",
     "opts": {
       "step": 1
@@ -694,6 +711,7 @@ lang_core = {
       "min": ":number"
     },
     "hiden": false,
+    "inline": true,
     "intro_fn": true,
     "introduced": "2,0,0",
     "opts": {
@@ -713,6 +731,7 @@ lang_core = {
       "min": ":number"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,0,0",
     "signature": {
       "max": null,
@@ -726,6 +745,7 @@ lang_core = {
       "seconds": ":number"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,0,0",
     "signature": {
       "t": null
@@ -764,6 +784,7 @@ lang_core = {
       "list": ":array"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,1,0",
     "signature": {
       "list": null
@@ -795,6 +816,7 @@ lang_core = {
   "spark_graph": {
     "accepts_block": false,
     "hiden": false,
+    "inline": true,
     "introduced": "2,5,0",
     "signature": {
       "*values": null
@@ -834,6 +856,7 @@ lang_core = {
       "list": ":anything"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,6,0",
     "returns": ":ring",
     "signature": {
@@ -883,6 +906,7 @@ lang_core = {
       "key": ":symbol"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,6,0",
     "opts": {
       "offset": 0,
@@ -1029,6 +1053,7 @@ lang_core = {
       "list": ":array"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,6,0",
     "returns": ":vector",
     "signature": {
@@ -1038,13 +1063,14 @@ lang_core = {
   },
   "version": {
     "accepts_block": false,
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,0,0",
     "summary": "Get current version information"
   },
   "vt": {
     "accepts_block": false,
     "hiden": false,
+    "inline": true,
     "introduced": "2,1,0",
     "summary": "Get virtual time"
   },
@@ -1054,7 +1080,7 @@ lang_core = {
     "args": {
       "beats": ":number"
     },
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,0,0",
     "signature": {
       "time": null
@@ -1222,61 +1248,61 @@ lang_sound = {
   },
   "current_arg_checks": {
     "accepts_block": false,
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,0,0",
     "summary": "Get current arg checking status"
   },
   "current_cent_tuning": {
     "accepts_block": false,
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,9,0",
     "summary": "Get current cent shift"
   },
   "current_debug": {
     "accepts_block": false,
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,0,0",
     "summary": "Get current debug status"
   },
   "current_octave": {
     "accepts_block": false,
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,9,0",
     "summary": "Get current octave shift"
   },
   "current_sample_defaults": {
     "accepts_block": false,
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,5,0",
     "summary": "Get current sample defaults"
   },
   "current_sched_ahead_time": {
     "accepts_block": false,
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,0,0",
     "summary": "Get current sched ahead time"
   },
   "current_synth": {
     "accepts_block": false,
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,0,0",
     "summary": "Get current synth"
   },
   "current_synth_defaults": {
     "accepts_block": false,
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,0,0",
     "summary": "Get current synth defaults"
   },
   "current_transpose": {
     "accepts_block": false,
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,0,0",
     "summary": "Get current transposition"
   },
   "current_volume": {
     "accepts_block": false,
-    "hiden": false,
+    "hiden": true,
     "introduced": "2,0,0",
     "summary": "Get current volume"
   },
@@ -1288,6 +1314,7 @@ lang_sound = {
       "tonic": ":symbol"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,1,0",
     "signature": {
       "degree": null,
@@ -1309,6 +1336,7 @@ lang_sound = {
       "freq": ":number"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,0,0",
     "signature": {
       "freq": null
@@ -1396,6 +1424,7 @@ lang_sound = {
       "note": ":symbol_or_number"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,0,0",
     "signature": {
       "n": null
@@ -1408,6 +1437,7 @@ lang_sound = {
       "note": ":symbol_or_number"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,0,0",
     "opts": {
       "octave": 4
@@ -1424,6 +1454,7 @@ lang_sound = {
       "note": ":symbol_or_number"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,0,0",
     "opts": {
       "octave": 4
@@ -1480,6 +1511,7 @@ lang_sound = {
       "pitch": ":midi_number"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,5,0",
     "signature": {
       "m": null
@@ -1491,6 +1523,7 @@ lang_sound = {
     "args": {
       "note": ":symbol_or_number"
     },
+    "async_block": true,
     "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
@@ -1600,6 +1633,7 @@ lang_sound = {
       "ratio": ":number"
     },
     "hiden": false,
+    "inline": true,
     "introduced": "2,7,0",
     "signature": {
       "r": null
@@ -1673,6 +1707,7 @@ lang_sound = {
     "args": {
       "name_or_path": ":symbol_or_string"
     },
+    "async_block": true,
     "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
@@ -1985,7 +2020,9 @@ lang_sound = {
     "args": {
       "synth_name": ":symbol"
     },
+    "async_block": true,
     "hiden": false,
+    "intro_fn": true,
     "introduced": "2,0,0",
     "opts": {
       "amp": 1,
@@ -2295,6 +2332,7 @@ lang_sound = {
     "args": {
       "fx_name": ":symbol"
     },
+    "async_block": true,
     "hiden": false,
     "intro_fn": true,
     "introduced": "2,0,0",
@@ -2311,11 +2349,11 @@ lang_sound = {
     "summary": "Use Studio FX"
   },
   "with_merged_sample_defaults": {
-    "accepts_block": false,
+    "accepts_block": true,
     "hiden": false,
     "introduced": "2,9,0",
     "opts": {},
-    "requires_block": false,
+    "requires_block": true,
     "signature": {
       "&block": null,
       "*args": null
@@ -2367,11 +2405,11 @@ lang_sound = {
     "summary": "Block-scoped sample-duration-based bpm modification"
   },
   "with_sample_defaults": {
-    "accepts_block": false,
+    "accepts_block": true,
     "hiden": false,
     "introduced": "2,5,0",
     "opts": {},
-    "requires_block": false,
+    "requires_block": true,
     "signature": {
       "&block": null,
       "*args": null
@@ -5966,9 +6004,6 @@ samples = {
 
 
 
-
-all_lang_ref = list(lang_core.keys()) + list(lang_sound.keys())
-
 def all_synth_names():
     for key, value in synths.items():
         if value['hiden'] != True and key != 'SoundIn' and value['name'] in synth_nodes:
@@ -5991,6 +6026,13 @@ def all_sample_names():
 
 all_sample = [ s for s in all_sample_names()][0]
 
+def lng(ref):
+    if ref in lang_core:
+        return lang_core[ref]
+    elif ref in lang_sound:
+        return lang_sound[ref]
+    else: return None
+
 def sn(ref):
     c_name = synth_nodes[ref]
     if 'FX' in c_name:
@@ -5998,89 +6040,101 @@ def sn(ref):
     else:
         return synths[c_name]
 
-opt_c = {key: value for key, value in lang_core.items()
-        if value['hiden'] != True
-        if 'opts' in value and value['opts'] is not None
-        if len(value['opts']) > 0 }
 
-opt_s = {key: value for key, value in lang_sound.items()
-        if value['hiden'] != True
-        if 'opts' in value and value['opts'] is not None
-        if len(value['opts'].keys()) > 0 }
-
-intro_fn_c = {key: value for key, value in lang_core.items()
-          if value['hiden'] is False
-          if 'intro_fn' in value and value['intro_fn'] is not False
-               }
-intro_fn_s = {key: value for key, value in lang_sound.items()
-          if value['hiden'] is False
-          if 'intro_fn' in value and value['intro_fn'] is not False
-               }
-
-accepts_block_c = {key: value for key, value in lang_core.items()
-              if value['hiden'] is False
-              if 'accepts_block' in value and value['accepts_block'] is not False
-              }
-accepts_block_s = {key: value for key, value in lang_sound.items()
-              if value['hiden'] is False
-              if 'accepts_block' in value and value['accepts_block'] is not False
-              }
-requires_block_c = {key: value for key, value in lang_core.items()
-                   if value['hiden'] is False
-                   if 'requires_block' in value and value['requires_block'] is not False
-                   }
-requires_block_s = {key: value for key, value in lang_sound.items()
-                   if value['hiden'] is False
-                   if 'requires_block' in value and value['requires_block'] is not False
-                   }
-modifies_env_c = {key: value for key, value in lang_core.items()
+has_intro_fn = [key for key, value in lang_sound.items()
+            if value['hiden'] is False
+            if 'intro_fn' in value and value['intro_fn'] is not False
+            ] + [key for key, value in lang_core.items()
+                 if value['hiden'] is False
+                 if 'intro_fn' in value and value['intro_fn'] is not False
+                 ]
+has_async_block = [key for key, value in lang_core.items()
+                 if value['hiden'] is False
+                 if 'async_block' in value and value['async_block'] is not False
+                 ] + [key for key, value in lang_sound.items()
+                 if value['hiden'] is False
+                 if 'async_block' in value and value['async_block'] is not False
+                 ]
+has_modifies_env = [key for key, value in lang_core.items()
                     if value['hiden'] is False
-                    if 'modifies_env' in value and value['modifies_env'] is not False
-                    }
-modifies_env_s = {key: value for key, value in lang_sound.items()
+                    if key.endswith(('?', '!')) or 'modifies_env' in value and value['modifies_env'] is not False
+                    ] + [
+                       key for key, value in lang_sound.items()
+                       if value['hiden'] is False
+                       if key.endswith(('?', '!')) or 'modifies_env' in value and value['modifies_env'] is not False
+                       ]
+has_accepts_block = [key for key, value in lang_core.items()
+                   if value['hiden'] is False
+                   if 'accepts_block' in value and value['accepts_block'] is not False
+                   ] + [key for key, value in lang_sound.items()
+                   if value['hiden'] is False
+                   if 'accepts_block' in value and value['accepts_block'] is not False
+                   ]
+
+has_accepts_block_false = [key for key, value in lang_core.items()
+                         if value['hiden'] is False
+                         if 'accepts_block' in value and value['accepts_block'] is False and key not in has_modifies_env
+                         ] + [key for key, value in lang_sound.items()
+                              if value['hiden'] is False
+                              if 'accepts_block' in value and value['accepts_block'] is False and key not in has_modifies_env
+                              ]
+has_requires_block = [key for key, value in lang_core.items()
                     if value['hiden'] is False
-                    if 'modifies_env' in value and value['modifies_env'] is not False
-                    }
-memoize_c = {key: value for key, value in lang_core.items()
+                    if 'requires_block' in value and value['requires_block'] is not False
+                    ] + [key for key, value in lang_sound.items()
+                    if value['hiden'] is False
+                    if 'requires_block' in value and value['requires_block'] is not False
+                    ]
+
+has_returns = [key for key, value in lang_core.items()
+             if value['hiden'] is False
+             if 'returns' in value and value['returns'] is not False
+             ] + [key for key, value in lang_sound.items()
+             if value['hiden'] is False
+             if 'returns' in value and value['returns'] is not False
+             ]
+
+has_memoize = [key for key, value in lang_core.items()
                   if value['hiden'] is False
                   if 'memoize' in value and value['memoize'] is not False
-                  }
-memoize_s = {key: value for key, value in lang_sound.items()
+                  ] + [
+            key for key, value in lang_sound.items()
                   if value['hiden'] is False
                   if 'memoize' in value and value['memoize'] is not False
-                  }
-async_block_c = {key: value for key, value in lang_core.items()
-                  if value['hiden'] is False
-                  if 'async_block' in value and value['async_block'] is not False
-                  }
-async_block_s = {key: value for key, value in lang_sound.items()
-                  if value['hiden'] is False
-                  if 'async_block' in value and value['async_block'] is not False
-                  }
-advances_time_c = {key: value for key, value in lang_core.items()
-                  if value['hiden'] is False
-                  if 'advances_time' in value and value['advances_time'] is not False
-                  }
-advances_time_s = {key: value for key, value in lang_sound.items()
-                  if value['hiden'] is False
-                  if 'advances_time' in value and value['advances_time'] is not False
-                  }
-returns_c = {key: value for key, value in lang_core.items()
-                  if value['hiden'] is False
-                  if 'returns' in value and value['returns'] is not False
-                  }
-returns_s = {key: value for key, value in lang_sound.items()
-                  if value['hiden'] is False
-                  if 'returns' in value and value['returns'] is not False
-                  }
-accepts_block_sign_c = {key: value for key, value in lang_core.items()
-                   if value['hiden'] is False
-                   if 'accepts_block' in value and value['accepts_block'] is not False and '&block' in value['signature']
-                   }
-accepts_block_sign_s = {key: value for key, value in lang_sound.items()
-                   if value['hiden'] is False
-                   if 'accepts_block' in value and value['accepts_block'] is not False and '&block' in value['signature']
-                   }
+                  ]
+
+has_inline = [key for key, value in lang_core.items()
+                      if value['hiden'] is False
+                      if 'inline' in value and value['inline'] is True
+                      ] + [key for key, value in lang_sound.items()
+                           if value['hiden'] is False
+                           if 'inline' in value and value['inline'] is True
+                           ] + has_memoize
+
+ring_returns = [ret for ret in has_returns if lng(ret)['returns'] == ":ring" ]
+
+all_lang_ref = list(lang_core.keys()) + list(lang_sound.keys())
+all_lang_def = list(set(all_lang_ref) - set(set(all_lang_ref) - set(has_accepts_block) - set(has_accepts_block_false))
+                                        - set(has_modifies_env) )
+
+
+# advances_time_c = {key: value for key, value in lang_core.items()
+#                   if value['hiden'] is False
+#                   if 'advances_time' in value and value['advances_time'] is not False
+#                   }
+# advances_time_s = {key: value for key, value in lang_sound.items()
+#                   if value['hiden'] is False
+#                   if 'advances_time' in value and value['advances_time'] is not False
+#                   }
+
+# accepts_block_sign_c = {key: value for key, value in lang_core.items()
+#                    if value['hiden'] is False
+#                    if 'accepts_block' in value and value['accepts_block'] is not False and '&block' in value['signature']
+#                    }
+# accepts_block_sign_s = {key: value for key, value in lang_sound.items()
+#                    if value['hiden'] is False
+#                    if 'accepts_block' in value and value['accepts_block'] is not False and '&block' in value['signature']
+#                    }
 
 
 if __name__ == '__main__':
