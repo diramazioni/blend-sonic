@@ -561,12 +561,12 @@ class ParseConst(object):
                 parent_synt = self.fx[c_parent]
             else:
                 parent_synt = self.consts[c_parent]
-            tmp = parent_synt["arg_defaults"].copy()
+            tmp = parent_synt["opts"].copy()
             tmp.update(arg_def)
             arg_def = tmp
 
         synth = {
-            "arg_defaults": arg_def,
+            "opts": arg_def,
             "inherit_base": c_parent,
             "inherit_arg": super_merge,
         }
@@ -574,7 +574,7 @@ class ParseConst(object):
             synth['name'] = ":"+synth_name
             hiden = False
         else: hiden = True
-        if len(synth_descr):    synth['descr'] = synth_descr
+        if len(synth_descr):    synth['summary'] = synth_descr
         if c_parent not in user_facing:  hiden = True
         synth['hiden'] = hiden
         if 'FX' in c_name:

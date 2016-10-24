@@ -6,9 +6,9 @@ from ... base_types.node import AnimationNode
 
 import random
 
-class Sonic{{ synth_name|capitalize }}Node(bpy.types.Node, AnimationNode):
-    bl_idname = "an_sp{{ synth_name|capitalize }}Node"
-    bl_label = "{{ synth.descr }}"
+class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
+    bl_idname = "an_sp{{ fn_name |capitalize }}Node"
+    bl_label = "{{ fn.summary }}"
         
     def draw(self, layout):
 {% block draw %}
@@ -23,9 +23,10 @@ class Sonic{{ synth_name|capitalize }}Node(bpy.types.Node, AnimationNode):
         
         
         
-{% for opt, val in arg_defaults|dictsort %}
+{% if fn.opts %}{% for opt, val in fn.opts|dictsort %}
         self.newInput("Float", "{{ opt }}", "{{ opt[:-1] }}", value = {{ val }})     
-{%- endfor %}
+{%- endfor %}{%- endif %}
+
         for socket in self.inputs[1:]:
             socket.useIsUsedProperty = True
             socket.isUsed = False
@@ -37,9 +38,9 @@ class Sonic{{ synth_name|capitalize }}Node(bpy.types.Node, AnimationNode):
         yield "arg = []"
         s = self.inputs
         
-        {% for opt, val in arg_defaults|dictsort %} 
+        {% if fn.opts %}{% for opt, val in fn.opts|dictsort %} 
         if s["{{ opt }}"].isUsed: yield "arg.append('{{ opt }} ' + str({{ opt[:-1] }}) )" 
-        {%- endfor %}        
+        {%- endfor %}{%- endif %}        
         {% block execode -%}{%- endblock %}
         yield "{% block execute -%}{%- endblock %}"
         

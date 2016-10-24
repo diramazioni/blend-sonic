@@ -819,8 +819,7 @@ lang_core = {
   },
   "spark_graph": {
     "accepts_block": false,
-    "hiden": false,
-    "inline": true,
+    "hiden": true,
     "introduced": "2,5,0",
     "signature": {
       "*values": null
@@ -2513,7 +2512,11 @@ sound_opts_types_conversion = {}
 
 synths = {
   "BNoise": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "Noise",
+    "name": ":bnoise",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -2539,59 +2542,33 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Brown Noise",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "Noise",
-    "name": ":bnoise"
+    "summary": "Brown Noise"
   },
   "BaseMixer": {
-    "arg_defaults": {},
     "hiden": true,
     "inherit_arg": true,
-    "inherit_base": "StudioInfo"
+    "inherit_base": "StudioInfo",
+    "opts": {}
   },
   "BasicMixer": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": false,
+    "inherit_base": "BaseMixer",
+    "name": ":basic_mixer",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0.1,
       "amp_slide_curve:": 0,
       "amp_slide_shape:": 1
     },
-    "descr": "Basic Mixer",
-    "hiden": true,
-    "inherit_arg": false,
-    "inherit_base": "BaseMixer",
-    "name": ":basic_mixer"
+    "summary": "Basic Mixer"
   },
   "BasicMonoPlayer": {
-    "arg_defaults": {
-      "amp:": 1,
-      "amp_slide:": 0,
-      "amp_slide_curve:": 0,
-      "amp_slide_shape:": 1,
-      "hpf:": -1,
-      "hpf_slide:": 0,
-      "hpf_slide_curve:": 0,
-      "hpf_slide_shape:": 1,
-      "lpf:": -1,
-      "lpf_slide:": 0,
-      "lpf_slide_curve:": 0,
-      "lpf_slide_shape:": 1,
-      "pan:": 0,
-      "pan_slide:": 0,
-      "pan_slide_curve:": 0,
-      "pan_slide_shape:": 1,
-      "rate:": 1
-    },
-    "descr": "Basic Mono Sample Player (no env)",
     "hiden": true,
     "inherit_arg": false,
     "inherit_base": "StudioInfo",
-    "name": ":basic_mono_player"
-  },
-  "BasicStereoPlayer": {
-    "arg_defaults": {
+    "name": ":basic_mono_player",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -2610,14 +2587,40 @@ synths = {
       "pan_slide_shape:": 1,
       "rate:": 1
     },
-    "descr": "Basic Stereo Sample Player (no env)",
+    "summary": "Basic Mono Sample Player (no env)"
+  },
+  "BasicStereoPlayer": {
     "hiden": true,
     "inherit_arg": true,
     "inherit_base": "BasicMonoPlayer",
-    "name": ":basic_stereo_player"
+    "name": ":basic_stereo_player",
+    "opts": {
+      "amp:": 1,
+      "amp_slide:": 0,
+      "amp_slide_curve:": 0,
+      "amp_slide_shape:": 1,
+      "hpf:": -1,
+      "hpf_slide:": 0,
+      "hpf_slide_curve:": 0,
+      "hpf_slide_shape:": 1,
+      "lpf:": -1,
+      "lpf_slide:": 0,
+      "lpf_slide_curve:": 0,
+      "lpf_slide_shape:": 1,
+      "pan:": 0,
+      "pan_slide:": 0,
+      "pan_slide_curve:": 0,
+      "pan_slide_shape:": 1,
+      "rate:": 1
+    },
+    "summary": "Basic Stereo Sample Player (no env)"
   },
   "Beep": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":beep",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -2639,14 +2642,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Sine Wave",
-    "hiden": false,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":beep"
+    "summary": "Sine Wave"
   },
   "CNoise": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "Noise",
+    "name": ":cnoise",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -2672,14 +2675,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Clip Noise",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "Noise",
-    "name": ":cnoise"
+    "summary": "Clip Noise"
   },
   "ChipBass": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":chipbass",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -2702,14 +2705,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Chip Bass",
+    "summary": "Chip Bass"
+  },
+  "ChipLead": {
     "hiden": false,
     "inherit_arg": false,
     "inherit_base": "SonicPiSynth",
-    "name": ":chipbass"
-  },
-  "ChipLead": {
-    "arg_defaults": {
+    "name": ":chiplead",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -2733,14 +2736,14 @@ synths = {
       "sustain_level:": 1,
       "width:": 0
     },
-    "descr": "Chip Lead",
-    "hiden": false,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":chiplead"
+    "summary": "Chip Lead"
   },
   "ChipNoise": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": false,
+    "inherit_base": "Noise",
+    "name": ":chipnoise",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 1,
@@ -2762,14 +2765,14 @@ synths = {
       "sustain:": 1,
       "sustain_level:": 1
     },
-    "descr": "Chip Noise",
-    "hiden": true,
-    "inherit_arg": false,
-    "inherit_base": "Noise",
-    "name": ":chipnoise"
+    "summary": "Chip Noise"
   },
   "DPulse": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "DSaw",
+    "name": ":dpulse",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -2806,51 +2809,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Detuned Pulse Wave",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "DSaw",
-    "name": ":dpulse"
+    "summary": "Detuned Pulse Wave"
   },
   "DSaw": {
-    "arg_defaults": {
-      "amp:": 1,
-      "amp_slide:": 0,
-      "amp_slide_curve:": 0,
-      "amp_slide_shape:": 1,
-      "attack:": 0,
-      "attack_level:": 1,
-      "cutoff:": 100,
-      "cutoff_slide:": 0,
-      "cutoff_slide_curve:": 0,
-      "cutoff_slide_shape:": 1,
-      "decay:": 0,
-      "decay_level:": 1,
-      "detune:": 0.1,
-      "detune_slide:": 0,
-      "detune_slide_curve:": 0,
-      "detune_slide_shape:": 1,
-      "env_curve:": 2,
-      "note:": 52,
-      "note_slide:": 0,
-      "note_slide_curve:": 0,
-      "note_slide_shape:": 1,
-      "pan:": 0,
-      "pan_slide:": 0,
-      "pan_slide_curve:": 0,
-      "pan_slide_shape:": 1,
-      "release:": 1,
-      "sustain:": 0,
-      "sustain_level:": 1
-    },
-    "descr": "Detuned Saw wave",
     "hiden": false,
     "inherit_arg": false,
     "inherit_base": "SonicPiSynth",
-    "name": ":dsaw"
-  },
-  "DTri": {
-    "arg_defaults": {
+    "name": ":dsaw",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -2880,14 +2846,51 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Detuned Triangle Wave",
+    "summary": "Detuned Saw wave"
+  },
+  "DTri": {
     "hiden": true,
     "inherit_arg": true,
     "inherit_base": "DSaw",
-    "name": ":dtri"
+    "name": ":dtri",
+    "opts": {
+      "amp:": 1,
+      "amp_slide:": 0,
+      "amp_slide_curve:": 0,
+      "amp_slide_shape:": 1,
+      "attack:": 0,
+      "attack_level:": 1,
+      "cutoff:": 100,
+      "cutoff_slide:": 0,
+      "cutoff_slide_curve:": 0,
+      "cutoff_slide_shape:": 1,
+      "decay:": 0,
+      "decay_level:": 1,
+      "detune:": 0.1,
+      "detune_slide:": 0,
+      "detune_slide_curve:": 0,
+      "detune_slide_shape:": 1,
+      "env_curve:": 2,
+      "note:": 52,
+      "note_slide:": 0,
+      "note_slide_curve:": 0,
+      "note_slide_shape:": 1,
+      "pan:": 0,
+      "pan_slide:": 0,
+      "pan_slide_curve:": 0,
+      "pan_slide_shape:": 1,
+      "release:": 1,
+      "sustain:": 0,
+      "sustain_level:": 1
+    },
+    "summary": "Detuned Triangle Wave"
   },
   "DarkAmbience": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":dark_ambience",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -2929,14 +2932,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Dark Ambience",
-    "hiden": false,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":dark_ambience"
+    "summary": "Dark Ambience"
   },
   "DarkSeaHorn": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":dark_sea_horn",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -2958,14 +2961,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Dark Sea Horn",
-    "hiden": true,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":dark_sea_horn"
+    "summary": "Dark Sea Horn"
   },
   "DullBell": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":dull_bell",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -2987,14 +2990,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Dull Bell",
+    "summary": "Dull Bell"
+  },
+  "FM": {
     "hiden": false,
     "inherit_arg": false,
     "inherit_base": "SonicPiSynth",
-    "name": ":dull_bell"
-  },
-  "FM": {
-    "arg_defaults": {
+    "name": ":fm",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3028,14 +3031,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Basic FM synthesis",
-    "hiden": false,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":fm"
+    "summary": "Basic FM synthesis"
   },
   "GNoise": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "Noise",
+    "name": ":gnoise",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3061,14 +3064,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Grey Noise",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "Noise",
-    "name": ":gnoise"
+    "summary": "Grey Noise"
   },
   "Growl": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":growl",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3098,14 +3101,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Growl",
+    "summary": "Growl"
+  },
+  "Hollow": {
     "hiden": false,
     "inherit_arg": false,
     "inherit_base": "SonicPiSynth",
-    "name": ":growl"
-  },
-  "Hollow": {
-    "arg_defaults": {
+    "name": ":hollow",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3137,14 +3140,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Hollow",
+    "summary": "Hollow"
+  },
+  "Hoover": {
     "hiden": false,
     "inherit_arg": false,
     "inherit_base": "SonicPiSynth",
-    "name": ":hollow"
-  },
-  "Hoover": {
-    "arg_defaults": {
+    "name": ":hoover",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3174,14 +3177,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Hoover",
-    "hiden": false,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":hoover"
+    "summary": "Hoover"
   },
   "MainMixer": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": false,
+    "inherit_base": "BaseMixer",
+    "name": ":mixer",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0.02,
       "amp_slide_curve:": 0,
@@ -3204,14 +3207,14 @@ synths = {
       "pre_amp_slide_curve:": 0,
       "pre_amp_slide_shape:": 1
     },
-    "descr": "Main Mixer",
-    "hiden": true,
-    "inherit_arg": false,
-    "inherit_base": "BaseMixer",
-    "name": ":mixer"
+    "summary": "Main Mixer"
   },
   "ModDSaw": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":mod_dsaw",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3256,14 +3259,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Modulated Detuned Saw Waves",
-    "hiden": false,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":mod_dsaw"
+    "summary": "Modulated Detuned Saw Waves"
   },
   "ModFM": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "FM",
+    "name": ":mod_fm",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3303,14 +3306,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Basic FM synthesis with frequency modulation.",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "FM",
-    "name": ":mod_fm"
+    "summary": "Basic FM synthesis with frequency modulation."
   },
   "ModPulse": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":mod_pulse",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3355,14 +3358,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Modulated Pulse",
-    "hiden": false,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":mod_pulse"
+    "summary": "Modulated Pulse"
   },
   "ModSaw": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":mod_saw",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3403,14 +3406,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Modulated Saw Wave",
-    "hiden": false,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":mod_saw"
+    "summary": "Modulated Saw Wave"
   },
   "ModSine": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":mod_sine",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3451,14 +3454,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Modulated Sine Wave",
-    "hiden": false,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":mod_sine"
+    "summary": "Modulated Sine Wave"
   },
   "ModTri": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":mod_tri",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3499,14 +3502,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Modulated Triangle Wave",
-    "hiden": false,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":mod_tri"
+    "summary": "Modulated Triangle Wave"
   },
   "MonoPlayer": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": false,
+    "inherit_base": "BasicMonoPlayer",
+    "name": ":mono_player",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3605,47 +3608,14 @@ synths = {
       "window_size_slide_curve:": 0,
       "window_size_slide_shape:": 1
     },
-    "descr": "Mono Sample Player",
-    "hiden": true,
-    "inherit_arg": false,
-    "inherit_base": "BasicMonoPlayer",
-    "name": ":mono_player"
+    "summary": "Mono Sample Player"
   },
   "Noise": {
-    "arg_defaults": {
-      "amp:": 1,
-      "amp_slide:": 0,
-      "amp_slide_curve:": 0,
-      "amp_slide_shape:": 1,
-      "attack:": 0,
-      "attack_level:": 1,
-      "cutoff:": 110,
-      "cutoff_slide:": 0,
-      "cutoff_slide_curve:": 0,
-      "cutoff_slide_shape:": 1,
-      "decay:": 0,
-      "decay_level:": 1,
-      "env_curve:": 2,
-      "pan:": 0,
-      "pan_slide:": 0,
-      "pan_slide_curve:": 0,
-      "pan_slide_shape:": 1,
-      "release:": 1,
-      "res:": 0,
-      "res_slide:": 0,
-      "res_slide_curve:": 0,
-      "res_slide_shape:": 1,
-      "sustain:": 0,
-      "sustain_level:": 1
-    },
-    "descr": "Noise",
     "hiden": false,
     "inherit_arg": false,
     "inherit_base": "Pitchless",
-    "name": ":noise"
-  },
-  "PNoise": {
-    "arg_defaults": {
+    "name": ":noise",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3671,20 +3641,53 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Pink Noise",
+    "summary": "Noise"
+  },
+  "PNoise": {
     "hiden": true,
     "inherit_arg": true,
     "inherit_base": "Noise",
-    "name": ":pnoise"
+    "name": ":pnoise",
+    "opts": {
+      "amp:": 1,
+      "amp_slide:": 0,
+      "amp_slide_curve:": 0,
+      "amp_slide_shape:": 1,
+      "attack:": 0,
+      "attack_level:": 1,
+      "cutoff:": 110,
+      "cutoff_slide:": 0,
+      "cutoff_slide_curve:": 0,
+      "cutoff_slide_shape:": 1,
+      "decay:": 0,
+      "decay_level:": 1,
+      "env_curve:": 2,
+      "pan:": 0,
+      "pan_slide:": 0,
+      "pan_slide_curve:": 0,
+      "pan_slide_shape:": 1,
+      "release:": 1,
+      "res:": 0,
+      "res_slide:": 0,
+      "res_slide_curve:": 0,
+      "res_slide_shape:": 1,
+      "sustain:": 0,
+      "sustain_level:": 1
+    },
+    "summary": "Pink Noise"
   },
   "Pitchless": {
-    "arg_defaults": {},
     "hiden": true,
     "inherit_arg": true,
-    "inherit_base": "SonicPiSynth"
+    "inherit_base": "SonicPiSynth",
+    "opts": {}
   },
   "PrettyBell": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "DullBell",
+    "name": ":pretty_bell",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3706,14 +3709,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Pretty Bell",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "DullBell",
-    "name": ":pretty_bell"
+    "summary": "Pretty Bell"
   },
   "Prophet": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":prophet",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3743,14 +3746,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "The Prophet",
-    "hiden": false,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":prophet"
+    "summary": "The Prophet"
   },
   "Pulse": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "Square",
+    "name": ":pulse",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3779,14 +3782,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Pulse Wave",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "Square",
-    "name": ":pulse"
+    "summary": "Pulse Wave"
   },
   "Saw": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "Beep",
+    "name": ":saw",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3808,14 +3811,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Saw Wave",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "Beep",
-    "name": ":saw"
+    "summary": "Saw Wave"
   },
   "Singer": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":singer",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3837,46 +3840,20 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Singer",
-    "hiden": true,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":singer"
+    "summary": "Singer"
   },
   "SonicPiSynth": {
-    "arg_defaults": {},
     "hiden": true,
     "inherit_arg": true,
-    "inherit_base": "SynthInfo"
+    "inherit_base": "SynthInfo",
+    "opts": {}
   },
   "SoundIn": {
-    "arg_defaults": {
-      "amp:": 1,
-      "amp_slide:": 0,
-      "amp_slide_curve:": 0,
-      "amp_slide_shape:": 1,
-      "attack:": 0,
-      "attack_level:": 1,
-      "decay:": 0,
-      "decay_level:": 1,
-      "env_curve:": 0,
-      "input:": 1,
-      "pan:": 0,
-      "pan_slide:": 0,
-      "pan_slide_curve:": 0,
-      "pan_slide_shape:": 1,
-      "release:": 0,
-      "sustain:": 1,
-      "sustain_level:": 1
-    },
-    "descr": "Sound In",
     "hiden": false,
     "inherit_arg": false,
     "inherit_base": "SonicPiSynth",
-    "name": ":sound_in"
-  },
-  "SoundInStereo": {
-    "arg_defaults": {
+    "name": ":sound_in",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3895,14 +3872,40 @@ synths = {
       "sustain:": 1,
       "sustain_level:": 1
     },
-    "descr": "Sound In Stereo",
+    "summary": "Sound In"
+  },
+  "SoundInStereo": {
     "hiden": true,
     "inherit_arg": true,
     "inherit_base": "SoundIn",
-    "name": ":sound_in_stereo"
+    "name": ":sound_in_stereo",
+    "opts": {
+      "amp:": 1,
+      "amp_slide:": 0,
+      "amp_slide_curve:": 0,
+      "amp_slide_shape:": 1,
+      "attack:": 0,
+      "attack_level:": 1,
+      "decay:": 0,
+      "decay_level:": 1,
+      "env_curve:": 0,
+      "input:": 1,
+      "pan:": 0,
+      "pan_slide:": 0,
+      "pan_slide_curve:": 0,
+      "pan_slide_shape:": 1,
+      "release:": 0,
+      "sustain:": 1,
+      "sustain_level:": 1
+    },
+    "summary": "Sound In Stereo"
   },
   "Square": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":square",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -3928,14 +3931,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Square Wave",
-    "hiden": false,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":square"
+    "summary": "Square Wave"
   },
   "StereoPlayer": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "MonoPlayer",
+    "name": ":stereo_player",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4034,20 +4037,20 @@ synths = {
       "window_size_slide_curve:": 0,
       "window_size_slide_shape:": 1
     },
-    "descr": "Stereo Sample Player",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "MonoPlayer",
-    "name": ":stereo_player"
+    "summary": "Stereo Sample Player"
   },
   "StudioInfo": {
-    "arg_defaults": {},
     "hiden": true,
     "inherit_arg": true,
-    "inherit_base": "SonicPiSynth"
+    "inherit_base": "SonicPiSynth",
+    "opts": {}
   },
   "SubPulse": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "Pulse",
+    "name": ":subpulse",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4083,14 +4086,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Pulse Wave with sub",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "Pulse",
-    "name": ":subpulse"
+    "summary": "Pulse Wave with sub"
   },
   "Supersaw": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":supersaw",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4120,20 +4123,20 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Supersaw",
+    "summary": "Supersaw"
+  },
+  "SynthInfo": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "BaseInfo",
+    "opts": {}
+  },
+  "SynthPiano": {
     "hiden": false,
     "inherit_arg": false,
     "inherit_base": "SonicPiSynth",
-    "name": ":supersaw"
-  },
-  "SynthInfo": {
-    "arg_defaults": {},
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "BaseInfo"
-  },
-  "SynthPiano": {
-    "arg_defaults": {
+    "name": ":piano",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4157,14 +4160,14 @@ synths = {
       "sustain_level:": 1,
       "vel:": 0.2
     },
-    "descr": "SynthPiano",
+    "summary": "SynthPiano"
+  },
+  "SynthPluck": {
     "hiden": false,
     "inherit_arg": false,
     "inherit_base": "SonicPiSynth",
-    "name": ":piano"
-  },
-  "SynthPluck": {
-    "arg_defaults": {
+    "name": ":pluck",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4189,14 +4192,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "SynthPluck",
+    "summary": "SynthPluck"
+  },
+  "SynthViolin": {
     "hiden": false,
     "inherit_arg": false,
     "inherit_base": "SonicPiSynth",
-    "name": ":pluck"
-  },
-  "SynthViolin": {
-    "arg_defaults": {
+    "name": ":synth_violin",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4230,14 +4233,14 @@ synths = {
       "vibrato_rate_slide_curve:": 0,
       "vibrato_rate_slide_shape:": 1
     },
-    "descr": "Blade Runner style strings",
+    "summary": "Blade Runner style strings"
+  },
+  "TB303": {
     "hiden": false,
     "inherit_arg": false,
     "inherit_base": "SonicPiSynth",
-    "name": ":synth_violin"
-  },
-  "TB303": {
-    "arg_defaults": {
+    "name": ":tb303",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4283,14 +4286,14 @@ synths = {
       "sustain_level:": 1,
       "wave:": 0
     },
-    "descr": "TB-303 Emulation",
+    "summary": "TB-303 Emulation"
+  },
+  "TechSaws": {
     "hiden": false,
     "inherit_arg": false,
     "inherit_base": "SonicPiSynth",
-    "name": ":tb303"
-  },
-  "TechSaws": {
-    "arg_defaults": {
+    "name": ":tech_saws",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4320,14 +4323,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "TechSaws",
-    "hiden": false,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":tech_saws"
+    "summary": "TechSaws"
   },
   "Tri": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "Pulse",
+    "name": ":tri",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4356,14 +4359,14 @@ synths = {
       "sustain:": 0,
       "sustain_level:": 1
     },
-    "descr": "Triangle Wave",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "Pulse",
-    "name": ":tri"
+    "summary": "Triangle Wave"
   },
   "Zawa": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": false,
+    "inherit_base": "SonicPiSynth",
+    "name": ":zawa",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4408,11 +4411,7 @@ synths = {
       "sustain_level:": 1,
       "wave:": 3
     },
-    "descr": "Zawa",
-    "hiden": false,
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "name": ":zawa"
+    "summary": "Zawa"
   }
 }
 
@@ -4522,7 +4521,11 @@ synth_nodes = {
 
 fx = {
   "FXBPF": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": true,
+    "inherit_base": "FXInfo",
+    "name": ":fx_bpf",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4548,14 +4551,14 @@ fx = {
       "res_slide_curve:": 0,
       "res_slide_shape:": 1
     },
-    "descr": "Band Pass Filter",
+    "summary": "Band Pass Filter"
+  },
+  "FXBandEQ": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_bpf"
-  },
-  "FXBandEQ": {
-    "arg_defaults": {
+    "name": ":fx_band_eq",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4585,14 +4588,14 @@ fx = {
       "res_slide_curve:": 0,
       "res_slide_shape:": 1
     },
-    "descr": "Band EQ Filter",
+    "summary": "Band EQ Filter"
+  },
+  "FXBitcrusher": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_band_eq"
-  },
-  "FXBitcrusher": {
-    "arg_defaults": {
+    "name": ":fx_bitcrusher",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4622,14 +4625,14 @@ fx = {
       "sample_rate_slide_curve:": 0,
       "sample_rate_slide_shape:": 1
     },
-    "descr": "Bitcrusher",
-    "hiden": false,
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "name": ":fx_bitcrusher"
+    "summary": "Bitcrusher"
   },
   "FXChorus": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "FXInfo",
+    "name": ":fx_chorus",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4656,14 +4659,14 @@ fx = {
       "pre_mix_slide_curve:": 0,
       "pre_mix_slide_shape:": 1
     },
-    "descr": "Chorus",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "name": ":fx_chorus"
+    "summary": "Chorus"
   },
   "FXCompressor": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": true,
+    "inherit_base": "FXInfo",
+    "name": ":fx_compressor",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4701,14 +4704,14 @@ fx = {
       "threshold_slide_curve:": 0,
       "threshold_slide_shape:": 1
     },
-    "descr": "Compressor",
+    "summary": "Compressor"
+  },
+  "FXDistortion": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_compressor"
-  },
-  "FXDistortion": {
-    "arg_defaults": {
+    "name": ":fx_distortion",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4730,14 +4733,14 @@ fx = {
       "pre_mix_slide_curve:": 0,
       "pre_mix_slide_shape:": 1
     },
-    "descr": "Distortion",
+    "summary": "Distortion"
+  },
+  "FXEcho": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_distortion"
-  },
-  "FXEcho": {
-    "arg_defaults": {
+    "name": ":fx_echo",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4764,14 +4767,14 @@ fx = {
       "pre_mix_slide_curve:": 0,
       "pre_mix_slide_shape:": 1
     },
-    "descr": "Echo",
+    "summary": "Echo"
+  },
+  "FXFlanger": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_echo"
-  },
-  "FXFlanger": {
-    "arg_defaults": {
+    "name": ":fx_flanger",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4815,14 +4818,14 @@ fx = {
       "stereo_invert_wave:": 0,
       "wave:": 4
     },
-    "descr": "Flanger",
+    "summary": "Flanger"
+  },
+  "FXGVerb": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_flanger"
-  },
-  "FXGVerb": {
-    "arg_defaults": {
+    "name": ":fx_gverb",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4860,14 +4863,14 @@ fx = {
       "spread_slide_shape:": 1,
       "tail_level:": 0.5
     },
-    "descr": "GVerb",
+    "summary": "GVerb"
+  },
+  "FXHPF": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_gverb"
-  },
-  "FXHPF": {
-    "arg_defaults": {
+    "name": ":fx_hpf",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4889,14 +4892,14 @@ fx = {
       "pre_mix_slide_curve:": 0,
       "pre_mix_slide_shape:": 1
     },
-    "descr": "High Pass Filter",
+    "summary": "High Pass Filter"
+  },
+  "FXIXITechno": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_hpf"
-  },
-  "FXIXITechno": {
-    "arg_defaults": {
+    "name": ":fx_ixi_techno",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4931,14 +4934,13 @@ fx = {
       "res_slide_curve:": 0,
       "res_slide_shape:": 1
     },
-    "descr": "Techno from IXI Lang",
-    "hiden": false,
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "name": ":fx_ixi_techno"
+    "summary": "Techno from IXI Lang"
   },
   "FXInfo": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": false,
+    "inherit_base": "BaseInfo",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4955,13 +4957,14 @@ fx = {
       "pre_mix_slide:": 0,
       "pre_mix_slide_curve:": 0,
       "pre_mix_slide_shape:": 1
-    },
-    "hiden": true,
-    "inherit_arg": false,
-    "inherit_base": "BaseInfo"
+    }
   },
   "FXKrush": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": true,
+    "inherit_base": "FXInfo",
+    "name": ":fx_krush",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -4991,14 +4994,14 @@ fx = {
       "res_slide_curve:": 0,
       "res_slide_shape:": 1
     },
-    "descr": "krush",
+    "summary": "krush"
+  },
+  "FXLPF": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_krush"
-  },
-  "FXLPF": {
-    "arg_defaults": {
+    "name": ":fx_lpf",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5020,27 +5023,27 @@ fx = {
       "pre_mix_slide_curve:": 0,
       "pre_mix_slide_shape:": 1
     },
-    "descr": "Low Pass Filter",
-    "hiden": false,
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "name": ":fx_lpf"
+    "summary": "Low Pass Filter"
   },
   "FXLevel": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": false,
+    "inherit_base": "FXInfo",
+    "name": ":fx_level",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
       "amp_slide_shape:": 1
     },
-    "descr": "Level Amplifier",
-    "hiden": false,
-    "inherit_arg": false,
-    "inherit_base": "FXInfo",
-    "name": ":fx_level"
+    "summary": "Level Amplifier"
   },
   "FXMono": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": true,
+    "inherit_base": "FXInfo",
+    "name": ":fx_mono",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5062,14 +5065,14 @@ fx = {
       "pre_mix_slide_curve:": 0,
       "pre_mix_slide_shape:": 1
     },
-    "descr": "Mono",
-    "hiden": false,
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "name": ":fx_mono"
+    "summary": "Mono"
   },
   "FXNBPF": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "FXBPF",
+    "name": ":fx_nbpf",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5095,14 +5098,14 @@ fx = {
       "res_slide_curve:": 0,
       "res_slide_shape:": 1
     },
-    "descr": "Normalised Band Pass Filter",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "FXBPF",
-    "name": ":fx_nbpf"
+    "summary": "Normalised Band Pass Filter"
   },
   "FXNRBPF": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "FXRBPF",
+    "name": ":fx_nrbpf",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5128,43 +5131,14 @@ fx = {
       "res_slide_curve:": 0,
       "res_slide_shape:": 1
     },
-    "descr": "Normalised Resonant Band Pass Filter",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "FXRBPF",
-    "name": ":fx_nrbpf"
+    "summary": "Normalised Resonant Band Pass Filter"
   },
   "FXNormHPF": {
-    "arg_defaults": {
-      "amp:": 1,
-      "amp_slide:": 0,
-      "amp_slide_curve:": 0,
-      "amp_slide_shape:": 1,
-      "cutoff:": 100,
-      "cutoff_slide:": 0,
-      "cutoff_slide_curve:": 0,
-      "cutoff_slide_shape:": 1,
-      "mix:": 1,
-      "mix_slide:": 0,
-      "mix_slide_curve:": 0,
-      "mix_slide_shape:": 1,
-      "pre_amp:": 1,
-      "pre_amp_slide:": 0,
-      "pre_amp_slide_curve:": 0,
-      "pre_amp_slide_shape:": 1,
-      "pre_mix:": 1,
-      "pre_mix_slide:": 0,
-      "pre_mix_slide_curve:": 0,
-      "pre_mix_slide_shape:": 1
-    },
-    "descr": "Normalised High Pass Filter",
     "hiden": true,
     "inherit_arg": true,
     "inherit_base": "FXHPF",
-    "name": ":fx_nhpf"
-  },
-  "FXNormLPF": {
-    "arg_defaults": {
+    "name": ":fx_nhpf",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5186,14 +5160,14 @@ fx = {
       "pre_mix_slide_curve:": 0,
       "pre_mix_slide_shape:": 1
     },
-    "descr": "Normalised Low Pass Filter.",
+    "summary": "Normalised High Pass Filter"
+  },
+  "FXNormLPF": {
     "hiden": true,
     "inherit_arg": true,
     "inherit_base": "FXLPF",
-    "name": ":fx_nlpf"
-  },
-  "FXNormRHPF": {
-    "arg_defaults": {
+    "name": ":fx_nlpf",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5213,20 +5187,16 @@ fx = {
       "pre_mix:": 1,
       "pre_mix_slide:": 0,
       "pre_mix_slide_curve:": 0,
-      "pre_mix_slide_shape:": 1,
-      "res:": 0.5,
-      "res_slide:": 0,
-      "res_slide_curve:": 0,
-      "res_slide_shape:": 1
+      "pre_mix_slide_shape:": 1
     },
-    "descr": "Normalised Resonant High Pass Filter",
+    "summary": "Normalised Low Pass Filter."
+  },
+  "FXNormRHPF": {
     "hiden": true,
     "inherit_arg": true,
     "inherit_base": "FXRHPF",
-    "name": ":fx_nrhpf"
-  },
-  "FXNormRLPF": {
-    "arg_defaults": {
+    "name": ":fx_nrhpf",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5252,14 +5222,47 @@ fx = {
       "res_slide_curve:": 0,
       "res_slide_shape:": 1
     },
-    "descr": "Normalised Resonant Low Pass Filter",
+    "summary": "Normalised Resonant High Pass Filter"
+  },
+  "FXNormRLPF": {
     "hiden": true,
     "inherit_arg": true,
     "inherit_base": "FXRLPF",
-    "name": ":fx_nrlpf"
+    "name": ":fx_nrlpf",
+    "opts": {
+      "amp:": 1,
+      "amp_slide:": 0,
+      "amp_slide_curve:": 0,
+      "amp_slide_shape:": 1,
+      "cutoff:": 100,
+      "cutoff_slide:": 0,
+      "cutoff_slide_curve:": 0,
+      "cutoff_slide_shape:": 1,
+      "mix:": 1,
+      "mix_slide:": 0,
+      "mix_slide_curve:": 0,
+      "mix_slide_shape:": 1,
+      "pre_amp:": 1,
+      "pre_amp_slide:": 0,
+      "pre_amp_slide_curve:": 0,
+      "pre_amp_slide_shape:": 1,
+      "pre_mix:": 1,
+      "pre_mix_slide:": 0,
+      "pre_mix_slide_curve:": 0,
+      "pre_mix_slide_shape:": 1,
+      "res:": 0.5,
+      "res_slide:": 0,
+      "res_slide_curve:": 0,
+      "res_slide_shape:": 1
+    },
+    "summary": "Normalised Resonant Low Pass Filter"
   },
   "FXNormaliser": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": true,
+    "inherit_base": "FXInfo",
+    "name": ":fx_normaliser",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5281,14 +5284,14 @@ fx = {
       "pre_mix_slide_curve:": 0,
       "pre_mix_slide_shape:": 1
     },
-    "descr": "Normaliser",
+    "summary": "Normaliser"
+  },
+  "FXOctaver": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_normaliser"
-  },
-  "FXOctaver": {
-    "arg_defaults": {
+    "name": ":fx_octaver",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5318,14 +5321,14 @@ fx = {
       "super_amp_slide_curve:": 0,
       "super_amp_slide_shape:": 1
     },
-    "descr": "Octaver",
+    "summary": "Octaver"
+  },
+  "FXPan": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_octaver"
-  },
-  "FXPan": {
-    "arg_defaults": {
+    "name": ":fx_pan",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5347,14 +5350,14 @@ fx = {
       "pre_mix_slide_curve:": 0,
       "pre_mix_slide_shape:": 1
     },
-    "descr": "Pan",
-    "hiden": false,
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "name": ":fx_pan"
+    "summary": "Pan"
   },
   "FXPanSlicer": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "FXSlicer",
+    "name": ":fx_panslicer",
+    "opts": {
       "amp:": 1,
       "amp_max:": 1,
       "amp_max_slide:": 0,
@@ -5420,14 +5423,14 @@ fx = {
       "smooth_up_slide_shape:": 1,
       "wave:": 1
     },
-    "descr": "Pan Slicer",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "FXSlicer",
-    "name": ":fx_panslicer"
+    "summary": "Pan Slicer"
   },
   "FXPitchShift": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": true,
+    "inherit_base": "FXInfo",
+    "name": ":fx_pitch_shift",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5461,14 +5464,14 @@ fx = {
       "window_size_slide_curve:": 0,
       "window_size_slide_shape:": 1
     },
-    "descr": "Pitch shift",
-    "hiden": false,
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "name": ":fx_pitch_shift"
+    "summary": "Pitch shift"
   },
   "FXRBPF": {
-    "arg_defaults": {
+    "hiden": true,
+    "inherit_arg": true,
+    "inherit_base": "FXBPF",
+    "name": ":fx_rbpf",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5494,47 +5497,14 @@ fx = {
       "res_slide_curve:": 0,
       "res_slide_shape:": 1
     },
-    "descr": "Resonant Band Pass Filter",
-    "hiden": true,
-    "inherit_arg": true,
-    "inherit_base": "FXBPF",
-    "name": ":fx_rbpf"
+    "summary": "Resonant Band Pass Filter"
   },
   "FXRHPF": {
-    "arg_defaults": {
-      "amp:": 1,
-      "amp_slide:": 0,
-      "amp_slide_curve:": 0,
-      "amp_slide_shape:": 1,
-      "cutoff:": 100,
-      "cutoff_slide:": 0,
-      "cutoff_slide_curve:": 0,
-      "cutoff_slide_shape:": 1,
-      "mix:": 1,
-      "mix_slide:": 0,
-      "mix_slide_curve:": 0,
-      "mix_slide_shape:": 1,
-      "pre_amp:": 1,
-      "pre_amp_slide:": 0,
-      "pre_amp_slide_curve:": 0,
-      "pre_amp_slide_shape:": 1,
-      "pre_mix:": 1,
-      "pre_mix_slide:": 0,
-      "pre_mix_slide_curve:": 0,
-      "pre_mix_slide_shape:": 1,
-      "res:": 0.5,
-      "res_slide:": 0,
-      "res_slide_curve:": 0,
-      "res_slide_shape:": 1
-    },
-    "descr": "Resonant High Pass Filter",
     "hiden": true,
     "inherit_arg": true,
     "inherit_base": "FXHPF",
-    "name": ":fx_rhpf"
-  },
-  "FXRLPF": {
-    "arg_defaults": {
+    "name": ":fx_rhpf",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5560,14 +5530,47 @@ fx = {
       "res_slide_curve:": 0,
       "res_slide_shape:": 1
     },
-    "descr": "Resonant Low Pass Filter",
+    "summary": "Resonant High Pass Filter"
+  },
+  "FXRLPF": {
     "hiden": true,
     "inherit_arg": true,
     "inherit_base": "FXLPF",
-    "name": ":fx_rlpf"
+    "name": ":fx_rlpf",
+    "opts": {
+      "amp:": 1,
+      "amp_slide:": 0,
+      "amp_slide_curve:": 0,
+      "amp_slide_shape:": 1,
+      "cutoff:": 100,
+      "cutoff_slide:": 0,
+      "cutoff_slide_curve:": 0,
+      "cutoff_slide_shape:": 1,
+      "mix:": 1,
+      "mix_slide:": 0,
+      "mix_slide_curve:": 0,
+      "mix_slide_shape:": 1,
+      "pre_amp:": 1,
+      "pre_amp_slide:": 0,
+      "pre_amp_slide_curve:": 0,
+      "pre_amp_slide_shape:": 1,
+      "pre_mix:": 1,
+      "pre_mix_slide:": 0,
+      "pre_mix_slide_curve:": 0,
+      "pre_mix_slide_shape:": 1,
+      "res:": 0.5,
+      "res_slide:": 0,
+      "res_slide_curve:": 0,
+      "res_slide_shape:": 1
+    },
+    "summary": "Resonant Low Pass Filter"
   },
   "FXReverb": {
-    "arg_defaults": {
+    "hiden": false,
+    "inherit_arg": true,
+    "inherit_base": "FXInfo",
+    "name": ":fx_reverb",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5593,14 +5596,14 @@ fx = {
       "room_slide_curve:": 0,
       "room_slide_shape:": 1
     },
-    "descr": "Reverb",
+    "summary": "Reverb"
+  },
+  "FXRingMod": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_reverb"
-  },
-  "FXRingMod": {
-    "arg_defaults": {
+    "name": ":fx_ring_mod",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5626,14 +5629,14 @@ fx = {
       "pre_mix_slide_curve:": 0,
       "pre_mix_slide_shape:": 1
     },
-    "descr": "Ring Modulator",
+    "summary": "Ring Modulator"
+  },
+  "FXSlicer": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_ring_mod"
-  },
-  "FXSlicer": {
-    "arg_defaults": {
+    "name": ":fx_slicer",
+    "opts": {
       "amp:": 1,
       "amp_max:": 1,
       "amp_max_slide:": 0,
@@ -5691,14 +5694,14 @@ fx = {
       "smooth_up_slide_shape:": 1,
       "wave:": 1
     },
-    "descr": "Slicer",
+    "summary": "Slicer"
+  },
+  "FXTanh": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_slicer"
-  },
-  "FXTanh": {
-    "arg_defaults": {
+    "name": ":fx_tanh",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5720,14 +5723,14 @@ fx = {
       "pre_mix_slide_curve:": 0,
       "pre_mix_slide_shape:": 1
     },
-    "descr": "Hyperbolic Tangent",
+    "summary": "Hyperbolic Tangent"
+  },
+  "FXVowel": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_tanh"
-  },
-  "FXVowel": {
-    "arg_defaults": {
+    "name": ":fx_vowel",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5747,14 +5750,14 @@ fx = {
       "voice:": 0,
       "vowel_sound:": 1
     },
-    "descr": "Vowel",
+    "summary": "Vowel"
+  },
+  "FXWhammy": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_vowel"
-  },
-  "FXWhammy": {
-    "arg_defaults": {
+    "name": ":fx_whammy",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5779,14 +5782,14 @@ fx = {
       "transpose_slide_curve:": 0,
       "transpose_slide_shape:": 1
     },
-    "descr": "Whammy",
+    "summary": "Whammy"
+  },
+  "FXWobble": {
     "hiden": false,
     "inherit_arg": true,
     "inherit_base": "FXInfo",
-    "name": ":fx_whammy"
-  },
-  "FXWobble": {
-    "arg_defaults": {
+    "name": ":fx_wobble",
+    "opts": {
       "amp:": 1,
       "amp_slide:": 0,
       "amp_slide_curve:": 0,
@@ -5849,11 +5852,7 @@ fx = {
       "smooth_up_slide_shape:": 1,
       "wave:": 0
     },
-    "descr": "Wobble",
-    "hiden": false,
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "name": ":fx_wobble"
+    "summary": "Wobble"
   }
 }
 

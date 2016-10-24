@@ -5,7 +5,7 @@ from jinja2 import Environment, FileSystemLoader
 
 
 from constant_def import opts_default_val, opts_types_conversion, args_types_conversion
-from lang_def import *
+from category_def import *
 
     #generators, all_synth, all_fx
 
@@ -40,31 +40,34 @@ def gen_an_code():
         
     def write_node(cat, context, synth_name, templ_name):
         print("generating nodes for:", synth_name)
-        if cat == "generators":
-            dest_name = "SonicPI_"+synth_name+".py"
+        if cat == "functions":
+            dest_name = 'sp_'+synth_name+".py"
             cat = ""
         elif cat == "synth":
-            dest_name = synth_name+".py"
+            dest_name = 'sp_'+synth_name+".py"
         elif cat == "fx":
-            dest_name = synth_name+".py"
+            dest_name = 'sp_'+synth_name+".py"
         fname = os.path.join(pwd, 'nodes', cat, dest_name)
         with open(fname, 'w') as f:
-            template = render_template(templ_name, context)
+            template = render_template(templ_name+'.py', context)
             f.write(template)        
     
     prep_dir()
     
-    ## generators
-    for synth_name, synth in generators.items():
-        synth_name = synth_name[1:]
-        templ_name = synth_name +'.py'
+    ## fn_simple
+
+    for fn_name in is_inline_fn:
+        if fn_name in fn_simple:
+            templ_name = "fn_simple"
+        else:
+            templ_name = "to_do"
+        fn = lng(fn_name )
         
         context = {
-            'synth_name': synth_name,
-            'arg_defaults': synth['arg_defaults'],
-            'synth': synth,
+            'fn_name': fn_name,
+            'fn': fn,
         }
-        write_node("generators", context, synth_name, templ_name)
+        write_node("functions", context, fn_name , templ_name)
     '''
     ## synths
     for synth_name, synth in all_synth.items():
