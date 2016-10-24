@@ -1,5 +1,8 @@
-from constant_def import opts_default_val, opts_types_conversion, args_types_conversion, \
-    is_inline, is_buffer_fn, missing_intro_fn, missing_async_block, wrong_accepts_block, is_to_hide
+from constant_def import *
+from category_def import *
+
+#opts_default_val, opts_types_conversion, args_types_conversion, \
+# is_inline, is_buffer_fn, missing_intro_fn, missing_async_block, wrong_accepts_block, is_to_hide
 
 from collections import defaultdict
 import re
@@ -722,7 +725,7 @@ def parseCore():
 
 
 def addMetaData(ps):
-    # using the list in constant_def
+    # using the list in category_def
     for synth_name, val in ps.consts.items():
         if 'hiden' not in val and synth_name not in is_to_hide:
             val['hiden'] = False
@@ -732,11 +735,12 @@ def addMetaData(ps):
             val['async_block'] = True
         if synth_name in missing_intro_fn:
             val['intro_fn'] = True
-        if synth_name in is_inline:
+        if synth_name in is_inline_fn:
             val['inline'] = True
         if synth_name in wrong_accepts_block:
-            val['accepts_block'] = True
-            val['requires_block'] = True
+            val['accepts_block'] = not val['accepts_block']
+            if 'requires_block' in val:
+                val['requires_block'] = not val['requires_block']
 
 def printDone():
     print(' ==> OK')
@@ -798,7 +802,7 @@ def run():
                {"synth_nodes": pSy.active},
                {"fx": pSy.fx},
                {"samples": pSy.samples},
-               ],'lang_def.py', 'a', gen_helper_func() )
+               ],'lang_def.py', 'a', "" )
     synth_doc = pSy.func_doc
     synth_opts_doc = pSy.opts_doc
     ## doc
@@ -825,146 +829,9 @@ def run():
 def gen_helper_func():
     return '''
 
-def all_synth_names():
-    for key, value in synths.items():
-        if value['hiden'] != True and key != 'SoundIn' and value['name'] in synth_nodes:
-            yield value['name']
-
-all_synth = [ synths[synth_nodes[s]] for s in all_synth_names()]
-
-def all_fx_names():
-    for key, value in fx.items():
-        if value['hiden'] != True and value['name'] in synth_nodes:
-            yield value['name']
-
-all_fx = [ fx[synth_nodes[s]] for s in all_fx_names()]
-
-def all_sample_names():
-    all = []
-    for key, value in samples.items():
-        yield all
-        all += value
-
-all_sample = [ s for s in all_sample_names()][0]
-
-def lng(ref):
-    if ref in lang_core:
-        return lang_core[ref]
-    elif ref in lang_sound:
-        return lang_sound[ref]
-    else: return None
-
-def sn(ref):
-    c_name = synth_nodes[ref]
-    if 'FX' in c_name:
-        return fx[c_name]
-    else:
-        return synths[c_name]
-
-
-has_intro_fn = [key for key, value in lang_sound.items()
-            if value['hiden'] is False
-            if 'intro_fn' in value and value['intro_fn'] is not False
-            ] + [key for key, value in lang_core.items()
-                 if value['hiden'] is False
-                 if 'intro_fn' in value and value['intro_fn'] is not False
-                 ]
-has_async_block = [key for key, value in lang_core.items()
-                 if value['hiden'] is False
-                 if 'async_block' in value and value['async_block'] is not False
-                 ] + [key for key, value in lang_sound.items()
-                 if value['hiden'] is False
-                 if 'async_block' in value and value['async_block'] is not False
-                 ]
-has_modifies_env = [key for key, value in lang_core.items()
-                    if value['hiden'] is False
-                    if key.endswith(('?', '!')) or 'modifies_env' in value and value['modifies_env'] is not False
-                    ] + [
-                       key for key, value in lang_sound.items()
-                       if value['hiden'] is False
-                       if key.endswith(('?', '!')) or 'modifies_env' in value and value['modifies_env'] is not False
-                       ]
-has_accepts_block = [key for key, value in lang_core.items()
-                   if value['hiden'] is False
-                   if 'accepts_block' in value and value['accepts_block'] is not False
-                   ] + [key for key, value in lang_sound.items()
-                   if value['hiden'] is False
-                   if 'accepts_block' in value and value['accepts_block'] is not False
-                   ]
-
-has_accepts_block_false = [key for key, value in lang_core.items()
-                         if value['hiden'] is False
-                         if 'accepts_block' in value and value['accepts_block'] is False and key not in has_modifies_env
-                         ] + [key for key, value in lang_sound.items()
-                              if value['hiden'] is False
-                              if 'accepts_block' in value and value['accepts_block'] is False and key not in has_modifies_env
-                              ]
-has_requires_block = [key for key, value in lang_core.items()
-                    if value['hiden'] is False
-                    if 'requires_block' in value and value['requires_block'] is not False
-                    ] + [key for key, value in lang_sound.items()
-                    if value['hiden'] is False
-                    if 'requires_block' in value and value['requires_block'] is not False
-                    ]
-
-has_returns = [key for key, value in lang_core.items()
-             if value['hiden'] is False
-             if 'returns' in value and value['returns'] is not False
-             ] + [key for key, value in lang_sound.items()
-             if value['hiden'] is False
-             if 'returns' in value and value['returns'] is not False
-             ]
-
-has_memoize = [key for key, value in lang_core.items()
-                  if value['hiden'] is False
-                  if 'memoize' in value and value['memoize'] is not False
-                  ] + [
-            key for key, value in lang_sound.items()
-                  if value['hiden'] is False
-                  if 'memoize' in value and value['memoize'] is not False
-                  ]
-
-has_inline = [key for key, value in lang_core.items()
-                      if value['hiden'] is False
-                      if 'inline' in value and value['inline'] is True
-                      ] + [key for key, value in lang_sound.items()
-                           if value['hiden'] is False
-                           if 'inline' in value and value['inline'] is True
-                           ] + has_memoize
-
-ring_returns = [ret for ret in has_returns if lng(ret)['returns'] == ":ring" ]
-
-all_lang_ref = list(lang_core.keys()) + list(lang_sound.keys())
-all_lang_def = list(set(all_lang_ref) - set(set(all_lang_ref) - set(has_accepts_block) - set(has_accepts_block_false))
-                                        - set(has_modifies_env) )
-
-
-# advances_time_c = {key: value for key, value in lang_core.items()
-#                   if value['hiden'] is False
-#                   if 'advances_time' in value and value['advances_time'] is not False
-#                   }
-# advances_time_s = {key: value for key, value in lang_sound.items()
-#                   if value['hiden'] is False
-#                   if 'advances_time' in value and value['advances_time'] is not False
-#                   }
-
-# accepts_block_sign_c = {key: value for key, value in lang_core.items()
-#                    if value['hiden'] is False
-#                    if 'accepts_block' in value and value['accepts_block'] is not False and '&block' in value['signature']
-#                    }
-# accepts_block_sign_s = {key: value for key, value in lang_sound.items()
-#                    if value['hiden'] is False
-#                    if 'accepts_block' in value and value['accepts_block'] is not False and '&block' in value['signature']
-#                    }
-
-
-if __name__ == '__main__':
-    print("synth: ", len(all_synth))
-    print("fx: ",len(all_fx))
-    print("samples: ",len(all_sample))
     '''
 
-from lang_def import *
+# from lang_def import *
 
 
 def report():
@@ -986,16 +853,16 @@ def report():
     # print('\nNO accepts_block: ')
     # print(sorted(has_accepts_block_false))
     print('\n inline : ')
-    print(sorted((has_inline)))
+    print(sorted(has_inline))
 
     print('\n memoize : ')
-    print(sorted((has_memoize)))
+    print(sorted(has_memoize))
 
     print('\nno inline : ')
-    print(sorted(list(set(has_accepts_block_false) - set(has_inline) - set(ring_returns) - set(is_buffer_fn))))
-
-    print('\n returns ring: ')
-    print(sorted((ring_returns)))
+    print(sorted(list(set(has_accepts_block_false) - set(has_inline) - set(is_buffer_fn))))
+    print('\n........ : ')
+    # print('\n returns ring: ')
+    print(sorted(is_use_env))
 
     # print('\nreturns: lang_core + lang_sound ')
     # print(has_returns)
