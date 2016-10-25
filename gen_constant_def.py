@@ -399,7 +399,7 @@ class ParseConst(object):
                             self.opts_doc[opt] = doc
                             if opt in opts_default_val:
                                 opt_dict[opt] = opts_default_val[opt]
-                                print(opt_dict)
+                                # print(opt_dict)
                             else:
                                 self.warn["no default value for opt %s" % opt].append(f_name)
                                 self.new_opt[opt] = "__to_do__"
@@ -461,7 +461,7 @@ class ParseConst(object):
             self.next_line()
         # Guess the defaults zero arg.... if someone knows tell me
         for opt in ["pan", "slide", "pitch", "attack", "decay", "release"]:
-            arg_def[opt] = 0       
+            arg_def[opt] = 0
         return arg_def
 
 
@@ -513,12 +513,12 @@ class ParseConst(object):
                         continue
                     arg, v = l.split('=>')
                     v = v.strip(',').strip()
-                    arg = arg.strip()[1:] + ":"  # remove : and add @end
+                    arg = arg.strip()[1:] # remove :
                     arg_def[arg.strip()] = v
                     self.next_line()
                 for k, v in arg_def.items():  # fix value reference
                     if v[0] == ":":
-                        v = v[1:] + ":"
+                        v = v[1:]
                         ref = arg_def[v]
                         arg_def[k] = self.eval_val(ref)
                     else:

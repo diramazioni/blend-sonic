@@ -509,7 +509,7 @@ class SoundMenu(bpy.types.Menu):
         insertNode(layout, "an_SoundFromSequencesNode", "Sound from Sequences")
 
 {% macro insNode(synth_name, synth_descr) -%}
-        insertNode(layout, "an_sp{{ synth_name[1:]|capitalize }}Node", "{{synth_descr}}")
+        insertNode(layout, "an_sp_{{ synth_name|capitalize }}Node", "{{synth_descr}}")
 {%- endmacro %} 
 {% block new_menu %}
 class SonicPI_Menu(bpy.types.Menu):
@@ -518,34 +518,33 @@ class SonicPI_Menu(bpy.types.Menu):
 
     def draw(self, context):
         layout = self.layout
-        {{ insNode('#send', 'Sonic-PI Send') }}
-        {% for synth_name, synth in generators|dictsort %}
-        {{ insNode(synth_name, synth.descr) }}
+        {{ insNode('send', 'Send to SonicPI') }}
+        {% for synth_name, synth in menu.common%}
+        {{ insNode(synth_name, synth.summary) }}
         {%- endfor %}
         layout.separator()
-        layout.menu("an_sp_synth_menu", text = "Synth")
-        layout.menu("an_sp_fx_menu", text = "FX")
-
-class SonicPI_Synth_Menu(bpy.types.Menu):
-    bl_idname = "an_sp_synth_menu"
-    bl_label = "Synth Menu"
-
-    def draw(self, context):
-        layout = self.layout
-        {% for synth_name, synth in all_synth|dictsort %}
-        {{ insNode(synth_name, synth.descr) }}
+        {% for synth_name, synth in menu.common |dictsort %}
+        {{ insNode(synth_name, synth.summary) }}
         {%- endfor %}
-
-class SonicPI_FX_Menu(bpy.types.Menu):
-    bl_idname = "an_sp_fx_menu"
-    bl_label = "FX Menu"
-
-    def draw(self, context):
-        layout = self.layout
-        {% for synth_name, synth in all_fx|dictsort %}
-        {{ insNode(synth_name, synth.descr) }}
+        {% for cat in categories %}
+        layout.menu("an_sp_{{ cat }}_menu", text = "{{ cat|capitalize }}")
         {%- endfor %}
         
+
+        #layout.menu("an_sp_synth_menu", text = "Synth")
+        #layout.menu("an_sp_fx_menu", text = "FX")
+{% for cat in categories %}
+
+class SonicPI_{{ cat|capitalize }}_Menu(bpy.types.Menu):
+    bl_idname = "an_sp_{{ cat }}_menu"
+    bl_label = "{{ cat|capitalize }} Menu"
+
+    def draw(self, context):
+        layout = self.layout
+        {% for synth_name, synth in menu[cat]|dictsort %}
+        {{ insNode(synth_name, synth_name) }}
+        {%- endfor %}
+{%- endfor %}     
 {% endblock -%}    
 
 

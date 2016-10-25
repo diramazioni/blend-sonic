@@ -7,7 +7,7 @@ import random
 
 
 class SonicSendNode(bpy.types.Node, AnimationNode):
-    bl_idname = "an_spSendNode"
+    bl_idname = "an_sp_SendNode"
     bl_label = "Send to Sonic-PI"
 
     #send = BoolProperty(name = "send", default = False)

@@ -1,5 +1,7 @@
 from lang_def import *
 
+categories = ['common', 'synth', 'fx', 'use', 'functions', 'control', 'buffer']
+
 all_lang_ref = list(lang_core.keys()) + list(lang_sound.keys())
 
 def all_synth_names():
@@ -161,7 +163,8 @@ is_just_output = ['all_sample_names', 'assert', 'assert_equal', 'beat', 'bt', 'c
                'synth_names', 'version', 'spark', 'status']
 # set hide to false if not set and hide the one we are not going to use
 is_rec = ['recording_delete', 'recording_save', 'recording_start', 'recording_stop']
-is_dups = ['wait','with_afx', 'use_fx', 'use_timing_warnings', 'invert_chord', 'pitch_ratio', 'print', 'sample_buffer','with_tempo']
+is_dups = ['wait','with_afx', 'use_fx', 'use_timing_warnings', 'invert_chord', 'pitch_ratio', 'print', 'sample_buffer',
+           'with_tempo', 'pitch_ratio']
 is_to_hide = [ 'dec', 'inc', 'puts',
                'load_synthdefs', 'load_example', 'comment', 'uncomment','resolve_sample_paths', 'resolve_sample_path',
                'use_osc', 'osc','with_timing_warnings','use_timing_warnings', 'use_external_synths',
@@ -177,14 +180,14 @@ is_to_hide = [ 'dec', 'inc', 'puts',
 all_lang_def = list(set(all_lang_ref) - set(set(all_lang_ref) - set(has_accepts_block) - set(has_accepts_block_false))
                                         - set(has_modifies_env) )
 is_buffer_fn = ['load_buffer', 'load_sample', 'load_samples', 'load_sample_at_path',
-                'run_code', 'run_file', 'sample_free', 'sample_free_all',
+                'run_code', 'run_file',
                 ]
 
-is_control = [ 'clear', 'control', 'cue', 'kill', 'rand_back',
-              'rand_reset', 'rand_skip', 'reset', 'sleep', 'stop', 'sync', 'sync_bpm', 'tick_reset', 'tick_reset_all',
-              'tick_set',]
+is_control = [ 'clear', 'control', 'cue', 'kill', 'rand_back', 'rand_reset', 'rand_skip',
+              'reset', 'sample_free', 'sample_free_all', 'sleep', 'stop', 'sync', 'sync_bpm',
+               'tick_reset', 'tick_reset_all', 'tick_set',]
 is_common = ['play', 'play_chord', 'play_pattern', 'play_pattern_timed','live_loop', 'sample', 'synth', 'with_fx']
-ring_returns = [ret for ret in has_returns if lng(ret)['returns'] == ":ring" ]
+# ring_returns = [ret for ret in has_returns if lng(ret)['returns'] == ":ring" ]
 
 is_use_env = [ret for ret in all_lang_ref if ret.startswith('use_') ]
 
