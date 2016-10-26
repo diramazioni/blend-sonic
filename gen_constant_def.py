@@ -1,12 +1,15 @@
 from constant_def import *
-from category_def import *
+#from category_def import *
 
 #opts_default_val, opts_types_conversion, args_types_conversion, \
 # is_inline, is_buffer_fn, missing_intro_fn, missing_async_block, wrong_accepts_block, is_to_hide
 
-from collections import defaultdict
+from collections import defaultdict, Counter, OrderedDict
 import re
 import json
+
+class OrderedCounter(Counter, OrderedDict):
+    pass
 
 class ParseConst(object):
     
@@ -343,21 +346,21 @@ class ParseConst(object):
                 self.consts[f_name][key[:-1]] = summary
                 self.func_doc[f_name][key[:-1]] = summary
                 printDone()
+            ###############################
             elif key in ['args:', 'alt_args:']:
                 def parse_arg(val):
-                    arg_dict = {}
+                    arg_dict = []
                     args_type_iter = re.compile('\[(:\w*), (:\w*)\]')
                     for ar_match in args_type_iter.finditer(val):
                         arg_ref, arg_type = ar_match.group(1), ar_match.group(2)
                         arg_ref = arg_ref[1:]  # remove initial :
-                        arg_dict[arg_ref] = arg_type
+                        arg_dict.append({arg_ref: arg_type})
 
                         if arg_type not in args_types_conversion:
                             self.warn["new arg %s" % arg_type].append(f_name)
                             self.new_arg[arg_type] = "__to_do__"
                     return arg_dict
 
-                args_d = {}
                 line = catch_val(key)
                 if line == '[]':
                     print('empty')
@@ -365,19 +368,18 @@ class ParseConst(object):
                     continue
                 elif line.endswith(']]'):
                     line = catch_val2(key)
-                    args_d = parse_arg(line)
                 elif line.endswith(']]]'):
                     line = line[1:-1]
                     #line = catch_val2(key)
-                    args_d = parse_arg(line)
                 else:
                     lines = catch_multiline(key)
                     line = '|'.join(lines)
-                    args_d.update(parse_arg(line))
                     #for line in lines:
+                args_d = parse_arg(line)
 
                 self.consts[f_name][key[:-1]] = args_d
                 printDone()
+            ###############################
             elif key == 'opts:':
                 opt_dict = catch_val(key) 
                 if "nil" in opt_dict:
@@ -662,7 +664,7 @@ def parseSynth():
     print("="*80)
     print("TOT synths", len(ps.consts))
     print("TOT fx", len(ps.fx))
-    print("TOT samples", len(ps.samples))
+    print("TOT samples", sum(len(sam) for sam in ps.samples))
     print("TOT funct_doc", len(ps.func_doc))
     return ps
 
@@ -687,7 +689,7 @@ def parseSound():
                 break
 
     ########
-    addMetaData(ps)
+    # addMetaData(ps)
 
 
     print("="*80)
@@ -714,7 +716,7 @@ def parseCore():
                 break
 
     ########
-    addMetaData(ps)
+    # addMetaData(ps)
 
     print("="*80)
     print("TOT lang_core", len(ps.consts))
@@ -723,24 +725,6 @@ def parseCore():
     return ps
 
 
-
-def addMetaData(ps):
-    # using the list in category_def
-    for synth_name, val in ps.consts.items():
-        if 'hiden' not in val and synth_name not in is_to_hide:
-            val['hiden'] = False
-        elif synth_name in is_to_hide:
-            val['hiden'] = True
-        if synth_name in missing_async_block:
-            val['async_block'] = True
-        if synth_name in missing_intro_fn:
-            val['intro_fn'] = True
-        if synth_name in is_inline_fn:
-            val['inline'] = True
-        if synth_name in wrong_accepts_block:
-            val['accepts_block'] = not val['accepts_block']
-            if 'requires_block' in val:
-                val['requires_block'] = not val['requires_block']
 
 def printDone():
     print(' ==> OK')
@@ -758,8 +742,8 @@ def dump_dict(dict_def, out_file_name, out_mode, helper_func):
 
     def dict2var(dictionary):
         text = []
-        for k, v in dictionary.items():   # split json in separate k = val        
-            d = json.dumps(v, sort_keys = True, ensure_ascii = False, indent = 2)
+        for k, v in dictionary.items():   #  sort_keys = True,
+            d = json.dumps(v, ensure_ascii = False, indent = 2)
             text.append(k+" = " + d + "\n\n")
             print("writing %s in %s" % (k,out_file_name))
         return ('\n').join(text)
@@ -778,15 +762,15 @@ def dump_dict(dict_def, out_file_name, out_mode, helper_func):
         json.dump(const, outfile, sort_keys = True, indent = 2) )
     '''
 
-def run():
+def parse():
     pC = parseCore()
     pS = parseSound()
     pSy = parseSynth()
     ## core
     dump_dict([{"lang_core":pC.consts },
-               {"core_args_types_conversion": pC.new_arg},
-               {"core_opts_types_conversion": pC.new_opt}
                ],'lang_def.py', 'w', "" )
+    # {"core_args_types_conversion": pC.new_arg},
+    # {"core_opts_types_conversion": pC.new_opt}
     func_doc = pC.func_doc
     opts_doc = pC.opts_doc
     ## sound
@@ -834,48 +818,11 @@ def gen_helper_func():
 # from lang_def import *
 
 
-def report():
 
-
-    print('\nintro_fn: lang_core + lang_sound')
-    print(has_intro_fn)
-    print('\nasync_block: lang_core + lang_sound')
-    print(has_async_block)
-    #
-    print('\naccepts_block: lang_core + lang_sound ')
-    print(has_accepts_block)
-    print('\nrequires_block: lang_core + lang_sound ')
-    print(has_requires_block)
-    #
-    print('\n DIFF accept - req (where block is optional)')
-    print(list(set(has_accepts_block) - set(has_requires_block)))
-
-    # print('\nNO accepts_block: ')
-    # print(sorted(has_accepts_block_false))
-    print('\n inline : ')
-    print(sorted(has_inline))
-
-    print('\n memoize : ')
-    print(sorted(has_memoize))
-
-    print('\nno inline : ')
-    print(sorted(list(set(has_accepts_block_false) - set(has_inline) - set(is_buffer_fn))))
-    print('\n........ : ')
-    # print('\n returns ring: ')
-    print(sorted(is_use_env))
-
-    # print('\nreturns: lang_core + lang_sound ')
-    # print(has_returns)
-    # print('\nlang_core lang_sound with modifies_env:')
-    # print(has_modifies_env)
-    # print('\nlang_core lang_sound filtered:')
-    # print(all_lang_def)
 
 
 
 if __name__ == '__main__':
-    run()
-
-    report()
+    parse()
 
 

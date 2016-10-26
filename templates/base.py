@@ -11,7 +11,7 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
     bl_label = "{{ fn_name }}: {{ fn.summary }}"
     bl_description = "{{ fn.summary }}"
     
-    searchTags = ['SP{{ fn_name }}']
+    searchTags = ['SP {{ fn_name }}']
 
     infoMessage = StringProperty()
         
@@ -36,9 +36,11 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
 {% set count_args = 1 %}
 
 {% if fn.args %} {% set count_args = fn.args | length %}
-{% for arg, val in fn.args.items() %}
+{% for ar in fn.args %}
+{% for arg, val in ar.items() %}
         self.newInput("{{ args_types[val] }}", "{{ arg }}", "{{arg +inp }}")     
-{%- endfor %}{%- endif %}
+{%- endfor %}{%- endfor %}
+{%- endif %}
 
 {% if fn.opts %}{% for opt, val in fn.opts|dictsort %}
         self.newInput("{{ opts_types[opt] }}", "{{ opt }}", "{{opt +inp}}", value = {{ val }})     
@@ -59,17 +61,18 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
         s = self.inputs
 
     {% if fn.args %}
-        #yield "args_ = []"        
-        {%- for arg, val in fn.args|dictsort %}
+        #yield "args_ = []"
+        {% for ar in fn.args %}
+        {%- for arg, val in ar.items() %}
         yield "if len(str({{ arg+inp }})): args_.append(str({{arg+inp }}))" 
-        {%- endfor %}
+        {%- endfor %}{%- endfor %}
         yield "if len(args_): args_ = list(filter(None, args_ ))"        
     {% endif %}        
     {% if fn.opts %}
         #yield "opts_ = []"        
         {%- for opt, val in fn.opts|dictsort %} 
         if s["{{ opt }}"].isUsed: 
-            yield "opts_.append('{{ opt+inp }}: ' + str({{ opt+inp }}) )" 
+            yield "opts_.append('{{ opt }}: ' + str({{ opt+inp }}) )" 
     {%- endfor %}{% endif %}        
         {% block execode -%}{%- endblock %}
         yield '{% block execute -%}{%- endblock %}'
@@ -82,4 +85,9 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
         print("Removing node: {{ fn_name }}", self.name)        
         
     
+    '''
+    {% for arg, val in oargs.items() %}
+    {{ arg }}
+    {%- endfor %}
     
+    '''

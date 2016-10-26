@@ -43,74 +43,54 @@ def sn(ref):
 
 
 has_intro_fn = [key for key, value in lang_sound.items()
-            if value['hiden'] is False
             if 'intro_fn' in value and value['intro_fn'] is not False
             ] + [key for key, value in lang_core.items()
-                 if value['hiden'] is False
-                 if 'intro_fn' in value and value['intro_fn'] is not False
-                 ]
+            if 'intro_fn' in value and value['intro_fn'] is not False
+            ]
 has_async_block = [key for key, value in lang_core.items()
-                 if value['hiden'] is False
                  if 'async_block' in value and value['async_block'] is not False
                  ] + [key for key, value in lang_sound.items()
-                 if value['hiden'] is False
                  if 'async_block' in value and value['async_block'] is not False
                  ]
 has_modifies_env = [key for key, value in lang_core.items()
-                    if value['hiden'] is False
                     if key.endswith(('?', '!')) or 'modifies_env' in value and value['modifies_env'] is not False
-                    ] + [
-                       key for key, value in lang_sound.items()
-                       if value['hiden'] is False
-                       if key.endswith(('?', '!')) or 'modifies_env' in value and value['modifies_env'] is not False
-                       ]
+                    ] + [ key for key, value in lang_sound.items()
+                    if key.endswith(('?', '!')) or 'modifies_env' in value and value['modifies_env'] is not False
+                    ]
 has_accepts_block = [key for key, value in lang_core.items()
-                   if value['hiden'] is False
                    if 'accepts_block' in value and value['accepts_block'] is not False
                    ] + [key for key, value in lang_sound.items()
-                   if value['hiden'] is False
                    if 'accepts_block' in value and value['accepts_block'] is not False
                    ]
 
 has_accepts_block_false = [key for key, value in lang_core.items()
-                         if value['hiden'] is False
-                         if 'accepts_block' in value and value['accepts_block'] is False and key not in has_modifies_env
-                         ] + [key for key, value in lang_sound.items()
-                              if value['hiden'] is False
-                              if 'accepts_block' in value and value['accepts_block'] is False and key not in has_modifies_env
-                              ]
+                        if 'accepts_block' in value and value['accepts_block'] is False and key not in has_modifies_env
+                        ] + [key for key, value in lang_sound.items()
+                        if 'accepts_block' in value and value['accepts_block'] is False and key not in has_modifies_env
+                        ]
 has_requires_block = [key for key, value in lang_core.items()
-                    if value['hiden'] is False
                     if 'requires_block' in value and value['requires_block'] is not False
                     ] + [key for key, value in lang_sound.items()
-                    if value['hiden'] is False
                     if 'requires_block' in value and value['requires_block'] is not False
                     ]
 
 has_returns = [key for key, value in lang_core.items()
-             if value['hiden'] is False
              if 'returns' in value and value['returns'] is not False
              ] + [key for key, value in lang_sound.items()
-             if value['hiden'] is False
              if 'returns' in value and value['returns'] is not False
              ]
 
 has_memoize = [key for key, value in lang_core.items()
-                  if value['hiden'] is False
                   if 'memoize' in value and value['memoize'] is not False
-                  ] + [
-            key for key, value in lang_sound.items()
-                  if value['hiden'] is False
+                  ] + [ key for key, value in lang_sound.items()
                   if 'memoize' in value and value['memoize'] is not False
                   ]
 
 has_inline = [key for key, value in lang_core.items()
-                      if value['hiden'] is False
-                      if 'inline' in value and value['inline'] is True
-                      ] + [key for key, value in lang_sound.items()
-                           if value['hiden'] is False
-                           if 'inline' in value and value['inline'] is True
-                           ] + has_memoize
+            if 'inline' in value and value['inline'] is True
+            ] + [key for key, value in lang_sound.items()
+            if 'inline' in value and value['inline'] is True
+            ] + has_memoize
 
 
 
@@ -192,13 +172,6 @@ is_common = ['play', 'play_chord', 'play_pattern', 'play_pattern_timed','live_lo
 is_use_env = [ret for ret in all_lang_ref if ret.startswith('use_') ]
 
 
-# print(sub_list([1,2,3,4,5], [1,2], [3,4]))
-def sub_list(list_source, *lists_subtract):
-    final = []
-    for key in lists_subtract:
-        final += key
-    sub = list(set(list_source) - set(final))
-    return sorted(sub)
 
 ###################################
 
@@ -209,10 +182,112 @@ missing_async_block = ['density', 'with_fx', 'sample', 'synth', 'play']
 ## these func has wrong accepts_block (based on the examples)
 wrong_accepts_block = ['on', 'with_merged_sample_defaults', 'with_sample_defaults', 'use_timing_guarantees']
 
+def addMetaData(consts):
+    print('+'*30)
+    print('add / fix metaData')
+    # using the list in category_def
+    for fn, val in consts.items():
+        if 'hiden' not in val and fn not in is_to_hide:
+            val['hiden'] = False
+        elif fn in is_to_hide:
+            val['hiden'] = True
+        if fn in missing_async_block:
+            val['async_block'] = True
+        if fn in missing_intro_fn:
+            val['intro_fn'] = True
+        if fn in is_inline_fn:
+            val['inline'] = True
+        if fn in wrong_accepts_block:
+            val['accepts_block'] = not val['accepts_block']
+            if 'requires_block' in val:
+                val['requires_block'] = not val['requires_block']
+
+def report():
+    print('\nintro_fn: lang_core + lang_sound')
+    print(has_intro_fn)
+    print('\nasync_block: lang_core + lang_sound')
+    print(has_async_block)
+    #
+    print('\naccepts_block: lang_core + lang_sound ')
+    print(has_accepts_block)
+    print('\nrequires_block: lang_core + lang_sound ')
+    print(has_requires_block)
+    #
+    print('\n DIFF accept - req (where block is optional)')
+    print(list(set(has_accepts_block) - set(has_requires_block)))
+
+    # print('\nNO accepts_block: ')
+    # print(sorted(has_accepts_block_false))
+    print('\n inline : ')
+    print(sorted(has_inline))
+
+    print('\n memoize : ')
+    print(sorted(has_memoize))
+
+    print('\nno inline : ')
+    print(sorted(list(set(has_accepts_block_false) - set(has_inline) - set(is_buffer_fn))))
+    print('\n........ : ')
+    # print('\n returns ring: ')
+    print(sorted(is_use_env))
+
+    # print('\nreturns: lang_core + lang_sound ')
+    # print(has_returns)
+    # print('\nlang_core lang_sound with modifies_env:')
+    # print(has_modifies_env)
+    # print('\nlang_core lang_sound filtered:')
+    # print(all_lang_def)
+
+
+# print(sub_list([1,2,3,4,5], [1,2], [3,4]))
+def sub_list(list_source, *lists_subtract):
+    final = []
+    for key in lists_subtract:
+        final += key
+    sub = list(set(list_source) - set(final))
+    return sorted(sub)
+
+
+def sub_args(arg1, arg2):
+    set1 = []
+    set2 = []
+    # print('arg1', arg1)
+    print(set1)
+    s1 = set(set1)
+    final = s1
+    return final
+
+def find_optional_args(consts):
+    print('+'*30)
+    print('find_optional_args')
+    for fn, v in consts.items():
+        if not 'alt_args' in v or not 'args' in v: continue
+        print('\n'+fn)
+        args, alt_args = (v['args'],v['alt_args'])
+        # print('args ', args)
+        # print('alt_args ', alt_args)
+        # TODO it should be the opposite but we don't support alt_args for now 
+        args = max(v['args'], v['alt_args'], key=len)
+        alt_args = min(v['args'], v['alt_args'], key=len)
+        
+        print('args ', args)
+        print('alt_args ', alt_args)
+        # v['args'] = args
+        # v['alt_args'] = alt_args
+        # m_a = sub_list(args, alt_args)
+        # a_m = sub_args(alt_args, args)
+        # print('final ', m_a)
+        # print('a_m', a_m)
+
 
 if __name__ == '__main__':
-    print('should be 0')
-    print(sub_list(has_accepts_block_false, has_inline, is_common, is_use_env, is_control, is_buffer_fn))
-    # print(sub_list(has_accepts_block, is_control))
-    print(sub_list(all_lang_ref, has_accepts_block, has_accepts_block_false, is_to_hide, is_buffer_fn, has_modifies_env))
+    from gen_constant_def import parse
+    parse()
+    addMetaData(lang_core)
+    addMetaData(lang_sound)
+    find_optional_args(lang_core)
+    # find_optional_args(lang_sound)
 
+    # print('should be 0')
+    # print(sub_list(has_accepts_block_false, has_inline, is_common, is_use_env, is_control, is_buffer_fn))
+    # print(sub_list(has_accepts_block, is_control))
+    # print(sub_list(all_lang_ref, has_accepts_block, has_accepts_block_false, is_to_hide, is_buffer_fn, has_modifies_env))

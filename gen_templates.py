@@ -6,7 +6,7 @@ from jinja2 import Environment, FileSystemLoader
 from collections import defaultdict, OrderedDict
 
 from category_def import *
-from lang_doc import *
+
 from constant_def import opts_default_val, opts_types_conversion, args_types_conversion
 
 
@@ -73,12 +73,19 @@ def gen_an_code():
             templ_name = "fn_simple"
 
         fn = lng(fn_name )
-        
+
+        args_t = [
+                    ("tonic", ":symbol"),
+                    ("name",":symbol"),
+                    ("aaaaa", ":zzzzz")
+        ]
+        oargs = OrderedDict(args_t)
         context = {
             'fn_name': fn_name,
             'fn': fn,
             'args_types': args_types_conversion,
-            'opts_types': opts_types_conversion
+            'opts_types': opts_types_conversion,
+            'oargs': oargs
         }
         menu[category][fn_name] = fn
         write_node(category, context, fn_name, templ_name)
