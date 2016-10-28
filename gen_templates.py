@@ -73,11 +73,13 @@ def gen_an_code():
     menu = defaultdict(dict)
     ## is_inline_fn
     for fn_name in all_lang_ref:
+        menu_levels = '....'
         if fn_name is is_to_hide: continue
         if fn_name in is_inline_fn:
             category = categories[4] # functions
         elif fn_name in is_common:
             category = categories[0] # common
+            menu_levels = '...'
         elif fn_name in is_use_env:
             category = categories[3] # use
         elif fn_name in is_control:
@@ -109,6 +111,7 @@ def gen_an_code():
             'fn': fn,
             'args_types': args_types_conversion,
             'opts_types': opts_types_conversion,
+            "menu_levels": menu_levels
         }
         menu[category][fn_name] = fn
 

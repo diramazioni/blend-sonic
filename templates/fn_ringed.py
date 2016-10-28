@@ -1,7 +1,7 @@
 {% extends "inline_fn.py" %}
 {%- block imports %}
-from .... base_types.node import AnimationNode
-from .... events import propertyChanged
+{{ super() }}
+from {{ menu_levels }} events import propertyChanged
 {% endblock %}
 
 {%- block classMembers %}        
@@ -17,7 +17,7 @@ from .... events import propertyChanged
         yield "if self.dot: dot_='.'"
         yield "else: dot_=' '"        
         
-        yield "send = dot_ +'{{ fn_name }}' + args_ + sep+ opts_"
+        yield "send = dot_ +'{{ fn.name }}' + args_ + sep+ opts_"
 {%- endblock -%}
 
 

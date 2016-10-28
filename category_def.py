@@ -53,9 +53,9 @@ has_async_block = [key for key, value in lang_core.items()
                  if 'async_block' in value and value['async_block'] is not False
                  ]
 has_modifies_env = [key for key, value in lang_core.items()
-                    if key.endswith(('?', '!')) or 'modifies_env' in value and value['modifies_env'] is not False
+                    if 'modifies_env' in value and value['modifies_env'] is not False
                     ] + [ key for key, value in lang_sound.items()
-                    if key.endswith(('?', '!')) or 'modifies_env' in value and value['modifies_env'] is not False
+                    if 'modifies_env' in value and value['modifies_env'] is not False
                     ]
 has_accepts_block = [key for key, value in lang_core.items()
                    if 'accepts_block' in value and value['accepts_block'] is not False

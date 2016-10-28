@@ -130,10 +130,10 @@ class ParseConst(object):
         func_with_arg_re = re.compile(r'\s*def (\w*[\?!]?)\((.*)\)')
         func_simple = func_simple_re.match(self.line)
         func_with_arg = func_with_arg_re.match(self.line)
-        f_name, argu, arg_def = None, None, None
         if func_with_arg:
             args = {}
             f_name, argu = (func_with_arg.group(1), func_with_arg.group(2))
+            if f_name.endswith(('?', '!')): f_name = f_name[:-1]
             argu_l = argu.split(', ')
             for arg in argu_l:
                 if '=' in arg:
@@ -160,7 +160,6 @@ class ParseConst(object):
 
     def parse_doc(self, f_name, stop_line, defaults_opts={}):
         def nextLines():
-            nextL = ""  # self.lines[self.l+1].strip()
             start, end = (self.l+1,self.l)
             re_key= re.compile(r'^\s*[\w^:]*:\s*.*')
             re_end_line = re.compile(r'.*\n*\"[\n, ]*\],?\n*$')
@@ -336,13 +335,12 @@ class ParseConst(object):
                 continue
 
             elif key == 'name:':
-                name = catch_val('doc name:') #self.line.strip().split(':')[2][:-1]
-                if name[1:] != f_name: 
-                    raise Exception("name %s != f_name %s %s %s" % 
-                                    (name, f_name, self.line, self.l))
+                name = catch_val('doc name:')
+                self.consts[f_name][key[:-1]] = name[1:]
+                if name.endswith('!'): self.consts[f_name]['modifies_env'] = True
                 printDone()
             elif key == 'summary:':
-                summary = catch_val(key).strip('\"') #self.line.split('"')[1]
+                summary = catch_val(key).strip('\"')
                 self.consts[f_name][key[:-1]] = summary
                 self.func_doc[f_name][key[:-1]] = summary
                 printDone()

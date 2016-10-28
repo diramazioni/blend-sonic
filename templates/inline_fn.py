@@ -1,8 +1,5 @@
 {% extends "base.py" %}
 
-{%- block imports %}
-from .... base_types.node import AnimationNode
-{% endblock %}
 
 {%- block draw %}
 {{ super() }}
