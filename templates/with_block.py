@@ -9,7 +9,6 @@
 {% block post_create %}
 {% set post_args = -1 %}
         self.newInput("String List", "do_end lines", "do_end")
-
 {{ hideInput(count_args, post_args ) }}        
 {%- endblock %}
 
