@@ -519,13 +519,11 @@ class SonicPI_Menu(bpy.types.Menu):
     def draw(self, context):
         layout = self.layout
         {{ insNode('send', 'Send to SonicPI') }}
-        {% for synth_name, synth in menu.common%}
-        {{ insNode(synth_name, synth.summary) }}
+        {% for fn_name, fn in menu['common']|dictsort %}
+        {{ insNode(fn_name, fn.summary) }}
         {%- endfor %}
         layout.separator()
-        {% for synth_name, synth in menu.common |dictsort %}
-        {{ insNode(synth_name, synth.summary) }}
-        {%- endfor %}
+
         {% for cat in categories %}
         layout.menu("an_sp_{{ cat }}_menu", text = "{{ cat|capitalize }}")
         {%- endfor %}

@@ -47,7 +47,8 @@ def gen_an_code():
         if os.path.exists(override_template): templ_name = fn_name + ext
         elif os.path.exists(in_template): templ_name = templ_name + ext
         else: raise Exception('template not found %s %s' % (fn_name, templ_name+ext))
-        fname = os.path.join(pwd, 'nodes', cat, dest_name)
+        if cat == categories[0]: fname = os.path.join(pwd, 'nodes', dest_name)
+        else: fname = os.path.join(pwd, 'nodes', cat, dest_name)
         with open(fname, 'w') as f:
             template_out = render_template(templ_name, context)
             f.write(template_out)

@@ -8,9 +8,7 @@ from .... base_types.node import AnimationNode
 {{ super() }}
 {% endblock -%}
 
-{%- block create %} 
-
-{%- endblock -%}
+{%- block create %}{%- endblock -%}
 {% block newInput%}
         self.newInput("String", "line in", "code_in")
 {%- endblock -%}
@@ -18,7 +16,7 @@ from .... base_types.node import AnimationNode
         self.newOutput("String", "line out", "code_out")
 {%- endblock -%}
 {%- block execode -%}        
-        yield "send = '({{ fn_name }} ' + ', '.join(args_) + ', '.join(opts_) + ')'"
+{{ super() }}     
 {%- endblock -%}
 
 

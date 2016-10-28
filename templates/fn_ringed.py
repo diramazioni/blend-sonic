@@ -12,11 +12,8 @@ from .... events import propertyChanged
         col.prop(self, "dot", text = "", icon = "RADIOBUT_ON")
 {%- endblock %}
 {%- block execode -%}
-        yield "opts_ = ', '.join(opts_)"
+        {{ super() }}
         yield "args_ = '('+', '.join(args_)+')'"
-        
-        yield "if len(opts_): sep=', '"
-        yield "else: sep=''"
         yield "if self.dot: dot_='.'"
         yield "else: dot_=' '"        
         
