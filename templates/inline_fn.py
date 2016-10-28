@@ -18,8 +18,9 @@
 
 
 {%- block execute -%}{%- endblock -%} 
-    {%- block code_out %}
+{%- block code_out %}
+        yield 'self.infoMessage = send' 
         yield 'code_out = code_in + send'
-    {%- endblock %}
+{%- endblock %}
 
       

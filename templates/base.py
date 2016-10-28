@@ -18,9 +18,10 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
 {%- block classMembers %}{%- endblock %}
             
     def draw(self, layout):
+{%- block draw %}
         if self.infoMessage != "":
             layout.label(self.infoMessage, icon = "TRIA_RIGHT")
-{%- block draw %}{%- endblock %}
+{%- endblock %}
 
     def create(self):   
 {%- block newInput%}
@@ -57,16 +58,19 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
   {%- endif %}        
  {%- endfor %}
 {%- endif %}
-
-{%- block post_create %}{% set post_args = '' %}{%- endblock %}
-
-        for socket in self.inputs[{{ count_args }}:{{ post_args }}]:
+{% macro hideInput(start, end) %}
+        for socket in self.inputs[{{ start }}:{{ end }}]:
             socket.useIsUsedProperty = True
             socket.isUsed = False
             #socket.value = False
-        for socket in self.inputs[{{ count_args }}:{{ post_args }}]:
+        for socket in self.inputs[{{ start }}:{{ end }}]:
             socket.hide = True
-
+{%- endmacro %} 
+{%- with %}{% set post_args = '' %}
+{%- block post_create %}
+{{ hideInput(count_args, post_args) }}
+{%- endblock %}
+{%- endwith %}
     def getExecutionCode(self):
         #yield "send = []"
         yield "args_ = []"
@@ -111,7 +115,7 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
     {%- block code_out %}
         yield 'code_out = code_in + send'
     {%- endblock %}
-        yield 'self.infoMessage = code_out' #str((opts_, args_, code_out))'
+        #str((opts_, args_, code_out))'
     def delete(self):        
         print("Removing node: {{ fn_name }}", self.name)        
         

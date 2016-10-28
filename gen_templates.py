@@ -3,6 +3,7 @@ import os
 import shutil as sh
 from jinja2 import Environment, FileSystemLoader
 
+
 from collections import defaultdict, OrderedDict
 
 from category_def import *
@@ -18,7 +19,7 @@ ext = ".py"
 def render_template(template_file, context):
 
     template_env = Environment( 
-        autoescape = False, loader = FileSystemLoader(os.path.join(pwd, templates)), trim_blocks = False )
+        autoescape = False, loader = FileSystemLoader(os.path.join(pwd, templates)), extensions=['jinja2.ext.with_'], trim_blocks = False )
     return template_env.get_template(template_file).render(context)
  
  
