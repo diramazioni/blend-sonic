@@ -1,5 +1,5 @@
 from constant_def import *
-#from category_def import *
+from category_def import is_to_hide, is_inline_fn
 
 #opts_default_val, opts_types_conversion, args_types_conversion, \
 # is_inline, is_buffer_fn, missing_intro_fn, missing_async_block, wrong_accepts_block, is_to_hide
@@ -689,7 +689,7 @@ def parseSound():
                 break
 
     ########
-    # addMetaData(ps)
+    addMetaData(ps.consts)
 
 
     print("="*80)
@@ -716,7 +716,8 @@ def parseCore():
                 break
 
     ########
-    # addMetaData(ps)
+    find_optional_args(ps.consts)
+    addMetaData(ps.consts)
 
     print("="*80)
     print("TOT lang_core", len(ps.consts))
@@ -725,6 +726,90 @@ def parseCore():
     return ps
 
 
+def addMetaData(consts):
+    print('+'*30)
+    print('add / fix metaData')
+    ###################################
+    ## these func can be sync based on the examples
+    missing_intro_fn = ['current_random_seed', 'synth']
+    ## these func can be async based on the examples
+    missing_async_block = ['density', 'with_fx', 'sample', 'synth', 'play']
+    ## these func has wrong accepts_block (based on the examples)
+    wrong_block = {
+        'play': {"accepts_block": True, "requires_block": False},
+        'sample': {"accepts_block": True, "requires_block": False},
+        'synth': {"accepts_block": True, "requires_block": False},
+        'on': {"accepts_block": True, "requires_block": True},
+        'time_shift': {"accepts_block": True, "requires_block": True},
+        'density': {"accepts_block": True, "requires_block": True},
+        'with_octave': {"accepts_block": True, "requires_block": True},
+        'with_timing_guarantees': {"accepts_block": True, "requires_block": True},
+        'with_tuning': {"accepts_block": True, "requires_block": True},
+        'with_merged_sample_defaults': {"accepts_block": True, "requires_block": True},
+        'with_sample_defaults': {"accepts_block": True, "requires_block": True},
+        'use_timing_guarantees': {"accepts_block": False, "requires_block": False},
+    }
+    #{'tick': 0}, {'shuffle': 0}, {'choose': 0}, {'stretch': 0}, {'stretch': 1}
+    remove_mandatory_arg = {'pick': {
+                                "args": [{"n": ":number_or_nil" }],
+                                "alt_args":[{"list": ":array" }
+                                            ]},
+                            'tick': {
+                                "args": [],
+                                "alt_args": [{"list": ":array"},
+                                             { "key": ":symbol"},
+                                             { "value": ":number"}
+                                             ]},
+                            'look': {
+                                "alt_args": [{"list": ":array"},
+                                             { "key": ":symbol"}
+                                             ]},
+                            'shuffle': {
+                                "args": [],
+                                "alt_args": [{"list": ":array"}
+                                             ]},
+                            'choose': {
+                                "args": [],
+                                "alt_args": [{"list": ":array"}
+                                             ]},
+                            'stretch': {
+                                "args": [{"count": ":int"}],
+                                "alt_args": [{"list": ":array"}
+                                             ]}
+                            }
+    # using the list in category_def
+    for fn, val in consts.items():
+        if 'hiden' not in val and fn not in is_to_hide:
+            val['hiden'] = False
+        elif fn in is_to_hide:
+            val['hiden'] = True
+        if fn in missing_async_block:
+            val['async_block'] = True
+        if fn in missing_intro_fn:
+            val['intro_fn'] = True
+        if fn in is_inline_fn:
+            val['inline'] = True
+        if fn in wrong_block.keys():
+            for k, v in wrong_block[fn].items():
+                val[k] = v
+        if fn in remove_mandatory_arg.keys():
+            # val.update(remove_mandatory_arg[fn])
+            for k, v in remove_mandatory_arg[fn].items():
+                val[k] = v
+
+def find_optional_args(consts):
+    print('+'*30)
+    print('find_optional_args')
+    for fn, v in consts.items():
+        if not 'alt_args' in v or not 'args' in v: continue
+        print('\n'+fn)
+
+        args = min(v['args'], v['alt_args'], key=len)
+        alt_args = max(v['args'], v['alt_args'], key=len)
+        print('args ', args)
+        print('alt_args ', alt_args)
+        v['args'] = args
+        v['alt_args'] = alt_args
 
 def printDone():
     print(' ==> OK')

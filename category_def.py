@@ -1,6 +1,6 @@
 from lang_def import *
-
-categories = ['common', 'synth', 'fx', 'use', 'functions', 'control', 'buffer']
+#                0         1      2      3         4          5          6        7       8
+categories = ['common', 'synth', 'fx', 'use', 'functions', 'control', 'buffer', 'env', 'general']
 
 all_lang_ref = list(lang_core.keys()) + list(lang_sound.keys())
 
@@ -152,9 +152,6 @@ is_to_hide = [ 'dec', 'inc', 'puts',
            ] + is_just_output + is_dups + is_rec
 
 
-
-
-
 #####################################
 # other static category
 all_lang_def = list(set(all_lang_ref) - set(set(all_lang_ref) - set(has_accepts_block) - set(has_accepts_block_false))
@@ -173,34 +170,7 @@ is_use_env = [ret for ret in all_lang_ref if ret.startswith('use_') ]
 
 
 
-###################################
 
-## these func can be sync based on the examples
-missing_intro_fn = ['current_random_seed', 'synth']
-## these func can be async based on the examples
-missing_async_block = ['density', 'with_fx', 'sample', 'synth', 'play']
-## these func has wrong accepts_block (based on the examples)
-wrong_accepts_block = ['on', 'with_merged_sample_defaults', 'with_sample_defaults', 'use_timing_guarantees']
-
-def addMetaData(consts):
-    print('+'*30)
-    print('add / fix metaData')
-    # using the list in category_def
-    for fn, val in consts.items():
-        if 'hiden' not in val and fn not in is_to_hide:
-            val['hiden'] = False
-        elif fn in is_to_hide:
-            val['hiden'] = True
-        if fn in missing_async_block:
-            val['async_block'] = True
-        if fn in missing_intro_fn:
-            val['intro_fn'] = True
-        if fn in is_inline_fn:
-            val['inline'] = True
-        if fn in wrong_accepts_block:
-            val['accepts_block'] = not val['accepts_block']
-            if 'requires_block' in val:
-                val['requires_block'] = not val['requires_block']
 
 def report():
     print('\nintro_fn: lang_core + lang_sound')
@@ -247,47 +217,15 @@ def sub_list(list_source, *lists_subtract):
     return sorted(sub)
 
 
-def sub_args(arg1, arg2):
-    set1 = []
-    set2 = []
-    # print('arg1', arg1)
-    print(set1)
-    s1 = set(set1)
-    final = s1
-    return final
 
-def find_optional_args(consts):
-    print('+'*30)
-    print('find_optional_args')
-    for fn, v in consts.items():
-        if not 'alt_args' in v or not 'args' in v: continue
-        print('\n'+fn)
-        args, alt_args = (v['args'],v['alt_args'])
-        # print('args ', args)
-        # print('alt_args ', alt_args)
-        # TODO it should be the opposite but we don't support alt_args for now 
-        args = max(v['args'], v['alt_args'], key=len)
-        alt_args = min(v['args'], v['alt_args'], key=len)
-        
-        print('args ', args)
-        print('alt_args ', alt_args)
-        # v['args'] = args
-        # v['alt_args'] = alt_args
-        # m_a = sub_list(args, alt_args)
-        # a_m = sub_args(alt_args, args)
-        # print('final ', m_a)
-        # print('a_m', a_m)
 
 
 if __name__ == '__main__':
     from gen_constant_def import parse
-    parse()
-    addMetaData(lang_core)
-    addMetaData(lang_sound)
-    find_optional_args(lang_core)
-    # find_optional_args(lang_sound)
+    # parse()
+
 
     # print('should be 0')
     # print(sub_list(has_accepts_block_false, has_inline, is_common, is_use_env, is_control, is_buffer_fn))
-    # print(sub_list(has_accepts_block, is_control))
+    print(sub_list(has_accepts_block, has_requires_block))
     # print(sub_list(all_lang_ref, has_accepts_block, has_accepts_block_false, is_to_hide, is_buffer_fn, has_modifies_env))

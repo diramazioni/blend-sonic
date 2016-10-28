@@ -12,10 +12,13 @@ from constant_def import opts_default_val, opts_types_conversion, args_types_con
 
 pwd = os.path.dirname(os.path.abspath(__file__))
 written = defaultdict(list)
+templates = 'templates'
+ext = ".py"
  
 def render_template(template_file, context):
+
     template_env = Environment( 
-        autoescape = False, loader = FileSystemLoader(os.path.join(pwd, 'templates')), trim_blocks = False )
+        autoescape = False, loader = FileSystemLoader(os.path.join(pwd, templates)), trim_blocks = False )
     return template_env.get_template(template_file).render(context)
  
  
@@ -25,7 +28,7 @@ def gen_an_code():
         dst = os.path.join(pwd, 'nodes')
         sh.rmtree(dst)        
         os.makedirs(dst)
-        src = os.path.join(pwd, 'templates', '__init__.py')
+        src = os.path.join(pwd, templates, '__init__.py')
         dst = os.path.join(pwd, 'nodes', '__init__.py')
         sh.copy2(src,  dst)
 
@@ -36,15 +39,20 @@ def gen_an_code():
             dst = os.path.join(pwd, 'nodes', cat, '__init__.py')
             sh.copy2(src,  dst)
 
-    def write_node(cat, context, fn_name, templ_name):
+    def write_template(cat, context, fn_name, templ_name):
         print("w: %s %s %s " % (cat, templ_name, fn_name))
-        dest_name = 'sp_' + fn_name + ".py"
-        templ_name = templ_name + '.py'
+        dest_name = 'sp_' + fn_name + ext
+        override_template = os.path.join(pwd, templates, fn_name + ext)
+        in_template = os.path.join(pwd, templates, templ_name + ext)
+        if os.path.exists(override_template): templ_name = fn_name + ext
+        elif os.path.exists(in_template): templ_name = templ_name + ext
+        else: raise Exception('template not found %s %s' % (fn_name, templ_name+ext))
         fname = os.path.join(pwd, 'nodes', cat, dest_name)
         with open(fname, 'w') as f:
             template_out = render_template(templ_name, context)
             f.write(template_out)
         written[templ_name].append(fn_name)
+
     def write_menu(menu):
         context = {
             'menu': menu,
@@ -63,32 +71,47 @@ def gen_an_code():
     prep_dir(categories)
     menu = defaultdict(dict)
     ## is_inline_fn
-    for fn_name in is_inline_fn:
-        category = categories[4]
+    for fn_name in all_lang_ref:
+        if fn_name is is_to_hide: continue
+        if fn_name in is_inline_fn:
+            category = categories[4] # functions
+        elif fn_name in is_common:
+            category = categories[0] # common
+        elif fn_name in is_use_env:
+            category = categories[3] # use
+        elif fn_name in is_control:
+            category = categories[5] # control
+        elif fn_name in is_buffer_fn:
+            category = categories[6] # buffer
+        elif fn_name in has_modifies_env:
+            category = categories[7]  # buffer
+        else:
+            category = categories[8] # general
+
         if fn_name in fn_simple + fn_embeded:
             templ_name = "fn_simple"
         elif fn_name in fn_normal:
             templ_name = "fn_normal"
+        elif fn_name in fn_ringed:
+            templ_name = "fn_ringed"
+        elif fn_name in has_requires_block:
+            templ_name = "with_block"
+        # elif fn_name in sub_list(has_accepts_block, has_requires_block):  # optional block
+        #     templ_name = "with_opt_block"
         else:
-            templ_name = "fn_simple"
-
+            templ_name = None
+        if not templ_name: continue
         fn = lng(fn_name )
 
-        args_t = [
-                    ("tonic", ":symbol"),
-                    ("name",":symbol"),
-                    ("aaaaa", ":zzzzz")
-        ]
-        oargs = OrderedDict(args_t)
         context = {
             'fn_name': fn_name,
             'fn': fn,
             'args_types': args_types_conversion,
             'opts_types': opts_types_conversion,
-            'oargs': oargs
         }
         menu[category][fn_name] = fn
-        write_node(category, context, fn_name, templ_name)
+
+        write_template(category, context, fn_name, templ_name)
 
     '''
     ## synths
