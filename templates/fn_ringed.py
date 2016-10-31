@@ -13,11 +13,12 @@ from {{ menu_levels }} events import propertyChanged
 {%- endblock %}
 {%- block execode -%}
         {{ super() }}
-        yield "args_ = '('+', '.join(args_)+')'"
-        yield "if self.dot: dot_='.'"
-        yield "else: dot_=' '"        
-        
-        yield "send = dot_ +'{{ fn.name }}' + args_ + sep+ opts_"
+        yield "args_ = ', '.join(args_) if len(args_ ) else ''"
+
+        yield "if self.dot: send = list_+'.'+'{{ fn.name }}' +args_ +sep +opts_"
+        yield "else: send = '{{ fn.name }}' + '(' + list_ +args_ +sep +opts_+')'"        
+
+        #yield "send = dot_ +'{{ fn.name }}' + args_ + sep+ opts_"
 {%- endblock -%}
 
 

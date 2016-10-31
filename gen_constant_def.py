@@ -748,7 +748,7 @@ def addMetaData(consts):
         'use_timing_guarantees': {"accepts_block": False, "requires_block": False},
     }
     #{'tick': 0}, {'shuffle': 0}, {'choose': 0}, {'stretch': 0}, {'stretch': 1}
-    remove_mandatory_arg = {'pick': {
+    arg_fixes = {           'pick': {
                                 "args": [{"n": ":number_or_nil" }],
                                 "alt_args":[{"list": ":array" }
                                             ]},
@@ -773,8 +773,51 @@ def addMetaData(consts):
                             'stretch': {
                                 "args": [{"count": ":int"}],
                                 "alt_args": [{"list": ":array"}
-                                             ]}
-                            }
+                                             ]},
+                            'assert': { # override
+                                "args": [{"is_true": ":boolean"}],
+                                "alt_args": []},
+                            'stop': { # override
+                                "args": [{"true_stops": ":boolean"}],
+                                "alt_args": []},
+                            'note': { # override
+                                "args": [],
+                                "alt_args": [{ "note": ":symbol"},],
+                                "opts": {}},
+                            'chord': { # override
+                                "args": [],
+                                "alt_args": [{"tonic": ":symbol" },
+                                         {"chord": ":symbol"}]},
+                            'scale': {  # override
+                                "args": [],
+                                "alt_args": [{"tonic": ":symbol"},
+                                             {"scale": ":symbol"}]},
+                            'degree': {  # override
+                                "args": [],
+                                "alt_args": [{"degree": ":symbol"},
+                                             {"tonic": ":symbol"},
+                                             {"scale": ":symbol"}]},
+                            'chord_degree': {  # override
+                                "args": [{"number_of_notes": ":int"}],
+                                "alt_args": [{"degree": ":symbol"},
+                                             {"tonic": ":symbol"},
+                                             {"scale": ":symbol"}]},
+    }
+    new_functions = {
+        "note_list": {
+            "accepts_block": False,
+            "summary": "Make a list of notes",
+            "opts": {},
+            "signature": {},
+            "hiden": False,
+            "args": [],
+            "name": "note_list",
+            "introduced": "blend-sonic"
+        },
+    }
+    consts.update(new_functions)
+    #for fn, val in new_functions.items():
+
     # using the list in category_def
     for fn, val in consts.items():
         if 'hiden' not in val and fn not in is_to_hide:
@@ -790,9 +833,9 @@ def addMetaData(consts):
         if fn in wrong_block.keys():
             for k, v in wrong_block[fn].items():
                 val[k] = v
-        if fn in remove_mandatory_arg.keys():
+        if fn in arg_fixes.keys():
             # val.update(remove_mandatory_arg[fn])
-            for k, v in remove_mandatory_arg[fn].items():
+            for k, v in arg_fixes[fn].items():
                 val[k] = v
 
 def find_optional_args(consts):

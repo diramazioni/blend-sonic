@@ -2,912 +2,8 @@ null = None; true = True; false = False;
 #\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/
 
 lang_core = {
-  "wait": {
-    "accepts_block": false,
-    "args": [
-      {
-        "beats": ":number"
-      }
-    ],
-    "name": "wait",
-    "introduced": "2,0,0",
-    "hiden": true,
-    "summary": "Wait for duration",
-    "signature": {
-      "time": null
-    },
-    "advances_time": true
-  },
-  "defonce": {
-    "accepts_block": true,
-    "args": [
-      {
-        "name": ":symbol"
-      }
-    ],
-    "requires_block": true,
-    "opts": {
-      "override": false
-    },
-    "name": "defonce",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Define a named value only once",
-    "signature": {
-      "&block": null,
-      "*opts": null,
-      "name": null
-    }
-  },
-  "current_bpm": {
-    "introduced": "2,0,0",
-    "accepts_block": false,
-    "hiden": true,
-    "summary": "Get current tempo",
-    "name": "current_bpm"
-  },
-  "rt": {
-    "accepts_block": false,
-    "args": [
-      {
-        "seconds": ":number"
-      }
-    ],
-    "name": "rt",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Real time conversion",
-    "signature": {
-      "t": null
-    },
-    "inline": true
-  },
-  "with_random_seed": {
-    "accepts_block": true,
-    "args": [
-      {
-        "seed": ":number"
-      }
-    ],
-    "requires_block": true,
-    "name": "with_random_seed",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Specify random seed for code block",
-    "signature": {
-      "seed": null,
-      "&block": null
-    }
-  },
-  "on": {
-    "accepts_block": true,
-    "args": [
-      {
-        "condition": ":truthy"
-      }
-    ],
-    "requires_block": true,
-    "name": "on",
-    "introduced": "2,10,0",
-    "hiden": false,
-    "returns": null,
-    "summary": "Optionally evaluate block",
-    "signature": {
-      "condition": null,
-      "&blk": null
-    }
-  },
-  "use_bpm_mul": {
-    "accepts_block": false,
-    "args": [
-      {
-        "mul": ":number"
-      }
-    ],
-    "name": "use_bpm_mul",
-    "introduced": "2,3,0",
-    "hiden": false,
-    "summary": "Set new tempo as a multiple of current tempo",
-    "signature": {
-      "mul": null,
-      "&block": null
-    }
-  },
-  "puts": {
-    "accepts_block": false,
-    "args": [
-      {
-        "output": ":anything"
-      }
-    ],
-    "name": "puts",
-    "introduced": "2,0,0",
-    "hiden": true,
-    "intro_fn": true,
-    "summary": "Display a message in the output pane",
-    "signature": {
-      "*msgs": null
-    }
-  },
-  "with_bpm": {
-    "accepts_block": true,
-    "args": [
-      {
-        "bpm": ":number"
-      }
-    ],
-    "requires_block": true,
-    "name": "with_bpm",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Set the tempo for the code block",
-    "signature": {
-      "bpm": null,
-      "&block": null
-    }
-  },
-  "use_cue_logging": {
-    "accepts_block": false,
-    "args": [
-      {
-        "true_or_false": ":boolean"
-      }
-    ],
-    "name": "use_cue_logging",
-    "introduced": "2,6,0",
-    "hiden": false,
-    "summary": "Enable and disable cue logging",
-    "signature": {
-      "v": null,
-      "&block": null
-    }
-  },
-  "assert_equal": {
-    "accepts_block": false,
-    "args": [
-      {
-        "arg1": ":anything"
-      },
-      {
-        "arg2": ":anything"
-      }
-    ],
-    "alt_args": [
-      {
-        "arg1": ":anything"
-      },
-      {
-        "arg2": ":anything"
-      },
-      {
-        "error_msg": ":string"
-      }
-    ],
-    "name": "assert_equal",
-    "introduced": "2,8,0",
-    "hiden": true,
-    "summary": "Ensure args are equal",
-    "signature": {
-      "msg": "nil",
-      "arg1": null,
-      "arg2": null
-    }
-  },
-  "rdist": {
-    "accepts_block": false,
-    "args": [
-      {
-        "width": ":number"
-      }
-    ],
-    "alt_args": [
-      {
-        "width": ":number"
-      },
-      {
-        "centre": ":number"
-      }
-    ],
-    "opts": {
-      "step": 1
-    },
-    "name": "rdist",
-    "introduced": "2,3,0",
-    "hiden": false,
-    "summary": "Random number in centred distribution",
-    "signature": {
-      "*opts": null,
-      "centre": 0,
-      "width": null
-    },
-    "inline": true
-  },
-  "assert": {
-    "accepts_block": false,
-    "args": [
-      {
-        "arg": ":anything"
-      }
-    ],
-    "alt_args": [
-      {
-        "arg": ":anything"
-      },
-      {
-        "error_msg": ":string"
-      }
-    ],
-    "name": "assert",
-    "introduced": "2,8,0",
-    "hiden": true,
-    "summary": "Ensure arg is valid",
-    "signature": {
-      "arg": null,
-      "msg": "nil"
-    }
-  },
-  "block_duration": {
-    "accepts_block": true,
-    "args": [],
-    "requires_block": true,
-    "async_block": false,
-    "name": "block_duration",
-    "introduced": "2,9,0",
-    "hiden": false,
-    "summary": "Return block duration",
-    "signature": {
-      "&block": null
-    }
-  },
-  "print": {
-    "accepts_block": false,
-    "args": [
-      {
-        "output": ":anything"
-      }
-    ],
-    "name": "print",
-    "introduced": "2,0,0",
-    "hiden": true,
-    "intro_fn": true,
-    "summary": "Display a message in the output pane",
-    "signature": {
-      "*msgs": null
-    }
-  },
-  "with_tempo": {
-    "hiden": true,
-    "signature": {
-      "*args": null,
-      "&block": null
-    }
-  },
-  "use_random_seed": {
-    "accepts_block": false,
-    "args": [
-      {
-        "seed": ":number"
-      }
-    ],
-    "name": "use_random_seed",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Set random seed generator to known seed",
-    "signature": {
-      "seed": null,
-      "&block": null
-    }
-  },
-  "rand_back": {
-    "accepts_block": false,
-    "args": [
-      {
-        "amount": ":number"
-      }
-    ],
-    "name": "rand_back",
-    "introduced": "2,7,0",
-    "hiden": false,
-    "summary": "Roll back random generator",
-    "signature": {
-      "amount": 1
-    }
-  },
-  "rand_skip": {
-    "accepts_block": false,
-    "args": [
-      {
-        "amount": ":number"
-      }
-    ],
-    "name": "rand_skip",
-    "introduced": "2,7,0",
-    "hiden": false,
-    "summary": "Jump forward random generator",
-    "signature": {
-      "amount": 1
-    }
-  },
-  "sleep": {
-    "accepts_block": false,
-    "args": [
-      {
-        "beats": ":number"
-      }
-    ],
-    "name": "sleep",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Wait for beat duration",
-    "signature": {
-      "beats": null
-    },
-    "advances_time": true
-  },
-  "reset": {
-    "accepts_block": false,
-    "args": [],
-    "name": "reset",
-    "introduced": "2,11,0",
-    "hiden": false,
-    "returns": null,
-    "summary": "Reset all thread locals"
-  },
-  "look": {
-    "accepts_block": false,
-    "alt_args": [
-      {
-        "list": ":array"
-      },
-      {
-        "key": ":symbol"
-      }
-    ],
-    "opts": {
-      "offset": 0
-    },
-    "name": "look",
-    "introduced": "2,6,0",
-    "hiden": false,
-    "returns": ":number",
-    "summary": "Obtain value of a tick",
-    "signature": {
-      "*args": null
-    },
-    "inline": true
-  },
-  "ring": {
-    "accepts_block": false,
-    "args": [
-      {
-        "list": ":array"
-      }
-    ],
-    "name": "ring",
-    "introduced": "2,2,0",
-    "hiden": false,
-    "returns": ":ring",
-    "summary": "Create a ring buffer",
-    "signature": {
-      "*args": null
-    },
-    "inline": true
-  },
-  "sync": {
-    "accepts_block": false,
-    "args": [
-      {
-        "cue_id": ":symbol"
-      }
-    ],
-    "opts": {
-      "bpm_sync": false
-    },
-    "name": "sync",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Sync with other threads",
-    "signature": {
-      "cue_ids": null,
-      "opts": "{}"
-    },
-    "advances_time": true
-  },
-  "inc": {
-    "accepts_block": false,
-    "args": [
-      {
-        "n": ":number"
-      }
-    ],
-    "opts": {},
-    "name": "inc",
-    "introduced": "2, 1, 0",
-    "hiden": true,
-    "summary": "Increment",
-    "signature": {
-      "n": null
-    }
-  },
-  "tick": {
-    "accepts_block": false,
-    "args": [],
-    "alt_args": [
-      {
-        "list": ":array"
-      },
-      {
-        "key": ":symbol"
-      },
-      {
-        "value": ":number"
-      }
-    ],
-    "opts": {
-      "offset": 0,
-      "step": 1
-    },
-    "name": "tick",
-    "introduced": "2,6,0",
-    "hiden": false,
-    "returns": ":number",
-    "summary": "Increment a tick and return value",
-    "signature": {
-      "*args": null
-    },
-    "inline": true
-  },
-  "tick_reset": {
-    "accepts_block": false,
-    "alt_args": [
-      {
-        "key": ":symbol"
-      }
-    ],
-    "name": "tick_reset",
-    "introduced": "2,6,0",
-    "hiden": false,
-    "returns": ":number",
-    "summary": "Reset tick to 0",
-    "signature": {
-      "*args": null
-    }
-  },
-  "spread": {
-    "accepts_block": false,
-    "args": [
-      {
-        "num_accents": ":number"
-      },
-      {
-        "size": ":number"
-      }
-    ],
-    "opts": {
-      "rotate": false
-    },
-    "name": "spread",
-    "introduced": "2,4,0",
-    "hiden": false,
-    "returns": ":ring",
-    "summary": "Euclidean distribution for beats",
-    "signature": {
-      "num_accents": null,
-      "size": null,
-      "*args": null
-    },
-    "inline": true
-  },
-  "factor": {
-    "accepts_block": false,
-    "args": [
-      {
-        "val": ":number"
-      },
-      {
-        "factor": ":number"
-      }
-    ],
-    "name": "factor?",
-    "introduced": "2,1,0",
-    "hiden": false,
-    "summary": "Factor test",
-    "signature": {
-      "val": null,
-      "factor": null
-    }
-  },
-  "at": {
-    "accepts_block": true,
-    "args": [
-      {
-        "times": ":list"
-      },
-      {
-        "params": ":list"
-      }
-    ],
-    "requires_block": true,
-    "async_block": true,
-    "name": "at",
-    "introduced": "2,1,0",
-    "hiden": false,
-    "summary": "Asynchronous Time. Run a block at the given time(s)",
-    "signature": {
-      "times": 0,
-      "params": "nil",
-      "&block": null
-    }
-  },
-  "rrand_i": {
-    "accepts_block": false,
-    "args": [
-      {
-        "min": ":number"
-      },
-      {
-        "max": ":number"
-      }
-    ],
-    "name": "rrand_i",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Generate a random whole number between two points inclusively",
-    "signature": {
-      "min": null,
-      "max": null
-    },
-    "inline": true
-  },
-  "spark": {
-    "accepts_block": false,
-    "name": "spark",
-    "introduced": "2,5,0",
-    "hiden": true,
-    "summary": "Print a string representing a list of numeric values as a spark graph/bar chart",
-    "signature": {
-      "*values": null
-    }
-  },
-  "quantise": {
-    "accepts_block": false,
-    "args": [
-      {
-        "n": ":number"
-      },
-      {
-        "step": ":positive_number"
-      }
-    ],
-    "name": "quantise",
-    "introduced": "2,1,0",
-    "hiden": false,
-    "summary": "Quantise a value to resolution",
-    "signature": {
-      "n": null,
-      "step": null
-    },
-    "inline": true
-  },
-  "live_loop": {
-    "accepts_block": true,
-    "args": [
-      {
-        "name": ":symbol"
-      }
-    ],
-    "requires_block": true,
-    "async_block": true,
-    "opts": {
-      "sync_bpm": ":foo",
-      "seed": 0,
-      "sync": ":foo",
-      "init": "",
-      "auto_cue": true,
-      "delay": 0
-    },
-    "name": "live_loop",
-    "introduced": "2,1,0",
-    "hiden": false,
-    "intro_fn": true,
-    "summary": "A loop for live coding",
-    "signature": {
-      "*args": null,
-      "&block": null,
-      "name": "nil"
-    }
-  },
-  "one_in": {
-    "accepts_block": false,
-    "args": [
-      {
-        "num": ":number"
-      }
-    ],
-    "name": "one_in",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Random true value with specified probability",
-    "signature": {
-      "num": null
-    },
-    "inline": true
-  },
-  "ramp": {
-    "accepts_block": false,
-    "args": [
-      {
-        "list": ":array"
-      }
-    ],
-    "name": "ramp",
-    "introduced": "2,6,0",
-    "hiden": false,
-    "returns": ":ramp",
-    "summary": "Create a ramp vector",
-    "signature": {
-      "*args": null
-    },
-    "inline": true
-  },
-  "spark_graph": {
-    "accepts_block": false,
-    "name": "spark_graph",
-    "introduced": "2,5,0",
-    "hiden": true,
-    "summary": "Returns a string representing a list of numeric values as a spark graph/bar chart",
-    "signature": {
-      "*values": null
-    }
-  },
-  "define": {
-    "accepts_block": true,
-    "args": [
-      {
-        "name": ":symbol"
-      }
-    ],
-    "requires_block": true,
-    "name": "define",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "intro_fn": true,
-    "summary": "Define a new function",
-    "signature": {
-      "&block": null,
-      "name": null
-    }
-  },
-  "choose": {
-    "accepts_block": false,
-    "args": [],
-    "alt_args": [
-      {
-        "list": ":array"
-      }
-    ],
-    "name": "choose",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Random list selection",
-    "signature": {
-      "args": null
-    },
-    "inline": true
-  },
-  "load_buffer": {
-    "accepts_block": false,
-    "args": [
-      {
-        "path": ":string"
-      }
-    ],
-    "name": "load_buffer",
-    "introduced": "2,10,0",
-    "hiden": false,
-    "summary": "Load the contents of a file to the current buffer",
-    "signature": {
-      "path": null
-    }
-  },
-  "rand_i_look": {
-    "accepts_block": false,
-    "args": [
-      {
-        "max": ":number_or_range"
-      }
-    ],
-    "name": "rand_i_look",
-    "introduced": "2,11,0",
-    "hiden": false,
-    "summary": "Generate a random whole number without consuming a rand",
-    "signature": {
-      "*args": null
-    },
-    "inline": true
-  },
-  "shuffle": {
-    "accepts_block": false,
-    "args": [],
-    "alt_args": [
-      {
-        "list": ":array"
-      }
-    ],
-    "name": "shuffle",
-    "introduced": "2,1,0",
-    "hiden": false,
-    "summary": "Randomise order of a list",
-    "signature": {
-      "list": null
-    },
-    "inline": true
-  },
-  "with_bpm_mul": {
-    "accepts_block": true,
-    "args": [
-      {
-        "mul": ":number"
-      }
-    ],
-    "requires_block": true,
-    "name": "with_bpm_mul",
-    "introduced": "2,3,0",
-    "hiden": false,
-    "summary": "Set new tempo as a multiple of current tempo for block",
-    "signature": {
-      "mul": null,
-      "&block": null
-    }
-  },
-  "stop": {
-    "accepts_block": false,
-    "name": "stop",
-    "introduced": "2,5,0",
-    "hiden": false,
-    "returns": null,
-    "summary": "Stop current thread or run"
-  },
-  "vt": {
-    "accepts_block": false,
-    "name": "vt",
-    "introduced": "2,1,0",
-    "hiden": false,
-    "summary": "Get virtual time",
-    "inline": true
-  },
-  "run_file": {
-    "accepts_block": false,
-    "args": [
-      {
-        "filename": ":path"
-      }
-    ],
-    "name": "run_file",
-    "introduced": "2,11,0",
-    "hiden": false,
-    "returns": null,
-    "summary": "Evaluate the contents of the file as a new Run",
-    "signature": {
-      "path": null
-    }
-  },
-  "doubles": {
-    "accepts_block": false,
-    "args": [
-      {
-        "start": ":number"
-      },
-      {
-        "num_doubles": ":int"
-      }
-    ],
-    "name": "doubles",
-    "memoize": true,
-    "introduced": "2,10,0",
-    "hiden": false,
-    "returns": ":ring",
-    "summary": "Create a ring of successive doubles",
-    "signature": {
-      "num_doubles": 1,
-      "start": null
-    },
-    "inline": true
-  },
-  "pick": {
-    "accepts_block": false,
-    "args": [
-      {
-        "n": ":number_or_nil"
-      }
-    ],
-    "alt_args": [
-      {
-        "list": ":array"
-      }
-    ],
-    "opts": {
-      "skip": 0
-    },
-    "name": "pick",
-    "introduced": "2,10,0",
-    "hiden": false,
-    "summary": "Randomly pick from list (with duplicates)",
-    "signature": {
-      "*args": null
-    },
-    "inline": true
-  },
-  "load_example": {
-    "accepts_block": false,
-    "args": [
-      {
-        "path": ":string"
-      }
-    ],
-    "name": "load_example",
-    "introduced": "2,10,0",
-    "hiden": true,
-    "summary": "Load a built-in example",
-    "signature": {
-      "example_name": null
-    }
-  },
-  "current_beat_duration": {
-    "introduced": "2,6,0",
-    "accepts_block": false,
-    "hiden": true,
-    "summary": "Duration of current beat",
-    "name": "current_beat_duration"
-  },
-  "block_slept": {
-    "accepts_block": true,
-    "args": [],
-    "requires_block": true,
-    "async_block": false,
-    "name": "block_slept?",
-    "introduced": "2,9,0",
-    "hiden": false,
-    "summary": "Determine if block contains sleep time",
-    "signature": {
-      "&block": null
-    }
-  },
-  "tick_set": {
-    "accepts_block": false,
-    "args": [
-      {
-        "value": ":number"
-      }
-    ],
-    "alt_args": [
-      {
-        "key": ":symbol"
-      },
-      {
-        "value": ":number"
-      }
-    ],
-    "name": "tick_set",
-    "introduced": "2,6,0",
-    "hiden": false,
-    "returns": ":number",
-    "summary": "Set tick to a specific value",
-    "signature": {
-      "*args": null
-    }
-  },
-  "clear": {
-    "accepts_block": false,
-    "args": [],
-    "name": "clear",
-    "introduced": "2,11,0",
-    "hiden": false,
-    "returns": null,
-    "summary": "Clear all thread locals to defaults"
-  },
   "range": {
-    "accepts_block": false,
+    "name": "range",
     "args": [
       {
         "start": ":number"
@@ -920,203 +16,778 @@ lang_core = {
       }
     ],
     "opts": {
-      "step": 1,
-      "inclusive": false
+      "inclusive": false,
+      "step": 1
     },
-    "name": "range",
     "memoize": true,
-    "introduced": "2,2,0",
-    "hiden": false,
     "returns": ":ring",
+    "inline": true,
     "summary": "Create a ring buffer with the specified start, finish and step size",
+    "accepts_block": false,
+    "introduced": "2,2,0",
     "signature": {
-      "*args": null,
+      "start": null,
       "finish": null,
-      "start": null
+      "*args": null
     },
-    "inline": true
+    "hiden": false
   },
-  "rand_i": {
-    "accepts_block": false,
+  "spread": {
+    "name": "spread",
     "args": [
       {
-        "max": ":number_or_range"
-      }
-    ],
-    "name": "rand_i",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Generate a random whole number below a value (exclusive)",
-    "signature": {
-      "max": 2
-    },
-    "inline": true
-  },
-  "comment": {
-    "accepts_block": true,
-    "requires_block": true,
-    "name": "comment",
-    "introduced": "2,0,0",
-    "hiden": true,
-    "summary": "Block level commenting",
-    "signature": {
-      "*args": null,
-      "&block": null
-    }
-  },
-  "run_code": {
-    "accepts_block": false,
-    "args": [
-      {
-        "code": ":string"
-      }
-    ],
-    "name": "run_code",
-    "introduced": "2,11,0",
-    "hiden": false,
-    "returns": null,
-    "summary": "Evaluate the code passed as a String as a new Run",
-    "signature": {
-      "code": null
-    }
-  },
-  "uncomment": {
-    "accepts_block": true,
-    "requires_block": true,
-    "name": "uncomment",
-    "introduced": "2,0,0",
-    "hiden": true,
-    "summary": "Block level comment ignoring",
-    "signature": {
-      "*args": null,
-      "&block": null
-    }
-  },
-  "with_cue_logging": {
-    "accepts_block": true,
-    "args": [
-      {
-        "true_or_false": ":boolean"
-      }
-    ],
-    "requires_block": true,
-    "name": "with_cue_logging",
-    "introduced": "2,6,0",
-    "hiden": false,
-    "summary": "Block-level enable and disable cue logging",
-    "signature": {
-      "v": null,
-      "&block": null
-    }
-  },
-  "version": {
-    "introduced": "2,0,0",
-    "accepts_block": false,
-    "hiden": true,
-    "summary": "Get current version information",
-    "name": "version"
-  },
-  "rand_reset": {
-    "accepts_block": false,
-    "args": [],
-    "name": "rand_reset",
-    "introduced": "2,7,0",
-    "hiden": false,
-    "summary": "Reset rand generator to last seed"
-  },
-  "dice": {
-    "accepts_block": false,
-    "args": [
-      {
-        "num_sides": ":number"
-      }
-    ],
-    "name": "dice",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Random dice throw",
-    "signature": {
-      "num_sides": 6
-    },
-    "inline": true
-  },
-  "halves": {
-    "accepts_block": false,
-    "args": [
-      {
-        "start": ":number"
+        "num_accents": ":number"
       },
       {
-        "num_halves": ":int"
+        "size": ":number"
       }
     ],
-    "name": "halves",
-    "memoize": true,
-    "introduced": "2,10,0",
-    "hiden": false,
-    "returns": ":ring",
-    "summary": "Create a ring of successive halves",
-    "signature": {
-      "num_halves": 1,
-      "start": null
-    },
-    "inline": true
-  },
-  "in_thread": {
-    "accepts_block": true,
-    "requires_block": true,
-    "async_block": true,
     "opts": {
-      "sync": ":foo",
-      "sync_bpm": ":foo",
-      "name": ":foo",
-      "delay": 0
+      "rotate": false
     },
-    "name": "in_thread",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Run code block at the same time",
-    "signature": {
-      "&block": null,
-      "*opts": null
-    }
-  },
-  "dec": {
+    "inline": true,
+    "returns": ":ring",
+    "summary": "Euclidean distribution for beats",
     "accepts_block": false,
+    "introduced": "2,4,0",
+    "signature": {
+      "size": null,
+      "num_accents": null,
+      "*args": null
+    },
+    "hiden": false
+  },
+  "rand_skip": {
+    "name": "rand_skip",
+    "args": [
+      {
+        "amount": ":number"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Jump forward random generator",
+    "introduced": "2,7,0",
+    "signature": {
+      "amount": 1
+    },
+    "hiden": false
+  },
+  "inc": {
+    "name": "inc",
     "args": [
       {
         "n": ":number"
       }
     ],
     "opts": {},
-    "name": "dec",
+    "summary": "Increment",
+    "accepts_block": false,
     "introduced": "2, 1, 0",
-    "hiden": true,
-    "summary": "Decrement",
     "signature": {
       "n": null
-    }
+    },
+    "hiden": true
   },
-  "time_shift": {
-    "accepts_block": true,
+  "one_in": {
+    "name": "one_in",
     "args": [
       {
-        "delta_time": ":number"
+        "num": ":number"
       }
     ],
-    "requires_block": true,
-    "name": "time_shift",
-    "introduced": "2,11,0",
-    "hiden": false,
-    "returns": null,
-    "summary": "Slide time forwards or backwards for the given block",
+    "accepts_block": false,
+    "inline": true,
+    "summary": "Random true value with specified probability",
+    "introduced": "2,0,0",
     "signature": {
-      "delta": null,
-      "&blk": null
-    }
+      "num": null
+    },
+    "hiden": false
+  },
+  "dice": {
+    "name": "dice",
+    "args": [
+      {
+        "num_sides": ":number"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "summary": "Random dice throw",
+    "introduced": "2,0,0",
+    "signature": {
+      "num_sides": 6
+    },
+    "hiden": false
+  },
+  "tick": {
+    "name": "tick",
+    "args": [],
+    "opts": {
+      "step": 1,
+      "offset": 0
+    },
+    "inline": true,
+    "returns": ":number",
+    "alt_args": [
+      {
+        "list": ":array"
+      },
+      {
+        "key": ":symbol"
+      },
+      {
+        "value": ":number"
+      }
+    ],
+    "summary": "Increment a tick and return value",
+    "accepts_block": false,
+    "introduced": "2,6,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "print": {
+    "name": "print",
+    "args": [
+      {
+        "output": ":anything"
+      }
+    ],
+    "intro_fn": true,
+    "accepts_block": false,
+    "summary": "Display a message in the output pane",
+    "introduced": "2,0,0",
+    "signature": {
+      "*msgs": null
+    },
+    "hiden": true
+  },
+  "density": {
+    "name": "density",
+    "args": [
+      {
+        "d": ":density"
+      }
+    ],
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Squash and repeat time",
+    "introduced": "2,3,0",
+    "async_block": true,
+    "signature": {
+      "d": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "current_bpm": {
+    "name": "current_bpm",
+    "introduced": "2,0,0",
+    "accepts_block": false,
+    "summary": "Get current tempo",
+    "hiden": true
+  },
+  "rrand_i": {
+    "name": "rrand_i",
+    "args": [
+      {
+        "min": ":number"
+      },
+      {
+        "max": ":number"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "summary": "Generate a random whole number between two points inclusively",
+    "introduced": "2,0,0",
+    "signature": {
+      "min": null,
+      "max": null
+    },
+    "hiden": false
+  },
+  "use_osc": {
+    "signature": {
+      "host_or_port": null,
+      "port": "nil"
+    },
+    "hiden": true
+  },
+  "with_bpm": {
+    "name": "with_bpm",
+    "args": [
+      {
+        "bpm": ":number"
+      }
+    ],
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Set the tempo for the code block",
+    "introduced": "2,0,0",
+    "signature": {
+      "&block": null,
+      "bpm": null
+    },
+    "hiden": false
+  },
+  "use_random_seed": {
+    "name": "use_random_seed",
+    "args": [
+      {
+        "seed": ":number"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Set random seed generator to known seed",
+    "introduced": "2,0,0",
+    "signature": {
+      "&block": null,
+      "seed": null
+    },
+    "hiden": false
+  },
+  "with_bpm_mul": {
+    "name": "with_bpm_mul",
+    "args": [
+      {
+        "mul": ":number"
+      }
+    ],
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Set new tempo as a multiple of current tempo for block",
+    "introduced": "2,3,0",
+    "signature": {
+      "mul": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "pick": {
+    "name": "pick",
+    "args": [
+      {
+        "n": ":number_or_nil"
+      }
+    ],
+    "opts": {
+      "skip": 0
+    },
+    "inline": true,
+    "alt_args": [
+      {
+        "list": ":array"
+      }
+    ],
+    "summary": "Randomly pick from list (with duplicates)",
+    "accepts_block": false,
+    "introduced": "2,10,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "load_buffer": {
+    "name": "load_buffer",
+    "args": [
+      {
+        "path": ":string"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Load the contents of a file to the current buffer",
+    "introduced": "2,10,0",
+    "signature": {
+      "path": null
+    },
+    "hiden": false
+  },
+  "look": {
+    "name": "look",
+    "alt_args": [
+      {
+        "list": ":array"
+      },
+      {
+        "key": ":symbol"
+      }
+    ],
+    "opts": {
+      "offset": 0
+    },
+    "inline": true,
+    "returns": ":number",
+    "summary": "Obtain value of a tick",
+    "accepts_block": false,
+    "introduced": "2,6,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "version": {
+    "name": "version",
+    "introduced": "2,0,0",
+    "accepts_block": false,
+    "summary": "Get current version information",
+    "hiden": true
+  },
+  "at": {
+    "name": "at",
+    "args": [
+      {
+        "times": ":list"
+      },
+      {
+        "params": ":list"
+      }
+    ],
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Asynchronous Time. Run a block at the given time(s)",
+    "introduced": "2,1,0",
+    "async_block": true,
+    "signature": {
+      "params": "nil",
+      "times": 0,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "rand_back": {
+    "name": "rand_back",
+    "args": [
+      {
+        "amount": ":number"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Roll back random generator",
+    "introduced": "2,7,0",
+    "signature": {
+      "amount": 1
+    },
+    "hiden": false
+  },
+  "vt": {
+    "name": "vt",
+    "accepts_block": false,
+    "inline": true,
+    "introduced": "2,1,0",
+    "summary": "Get virtual time",
+    "hiden": false
+  },
+  "current_beat_duration": {
+    "name": "current_beat_duration",
+    "introduced": "2,6,0",
+    "accepts_block": false,
+    "summary": "Duration of current beat",
+    "hiden": true
+  },
+  "vector": {
+    "name": "vector",
+    "args": [
+      {
+        "list": ":array"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "returns": ":vector",
+    "summary": "Create a vector",
+    "introduced": "2,6,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "bt": {
+    "name": "bt",
+    "args": [
+      {
+        "seconds": ":number"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Beat time conversion",
+    "introduced": "2,8,0",
+    "signature": {
+      "t": null
+    },
+    "hiden": true
+  },
+  "quantise": {
+    "name": "quantise",
+    "args": [
+      {
+        "n": ":number"
+      },
+      {
+        "step": ":positive_number"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "summary": "Quantise a value to resolution",
+    "introduced": "2,1,0",
+    "signature": {
+      "step": null,
+      "n": null
+    },
+    "hiden": false
+  },
+  "note_list": {
+    "args": [],
+    "name": "note_list",
+    "accepts_block": false,
+    "opts": {},
+    "summary": "Make a list of notes",
+    "signature": {},
+    "hiden": false,
+    "introduced": "blend-sonic"
+  },
+  "rand_i_look": {
+    "name": "rand_i_look",
+    "args": [
+      {
+        "max": ":number_or_range"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "summary": "Generate a random whole number without consuming a rand",
+    "introduced": "2,11,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "wait": {
+    "name": "wait",
+    "args": [
+      {
+        "beats": ":number"
+      }
+    ],
+    "advances_time": true,
+    "accepts_block": false,
+    "summary": "Wait for duration",
+    "introduced": "2,0,0",
+    "signature": {
+      "time": null
+    },
+    "hiden": true
+  },
+  "assert_equal": {
+    "name": "assert_equal",
+    "args": [
+      {
+        "arg1": ":anything"
+      },
+      {
+        "arg2": ":anything"
+      }
+    ],
+    "accepts_block": false,
+    "alt_args": [
+      {
+        "arg1": ":anything"
+      },
+      {
+        "arg2": ":anything"
+      },
+      {
+        "error_msg": ":string"
+      }
+    ],
+    "summary": "Ensure args are equal",
+    "introduced": "2,8,0",
+    "signature": {
+      "arg1": null,
+      "msg": "nil",
+      "arg2": null
+    },
+    "hiden": false
+  },
+  "rrand": {
+    "name": "rrand",
+    "args": [
+      {
+        "min": ":number"
+      },
+      {
+        "max": ":number"
+      }
+    ],
+    "intro_fn": true,
+    "opts": {
+      "step": 1
+    },
+    "inline": true,
+    "summary": "Generate a random float between two numbers",
+    "accepts_block": false,
+    "introduced": "2,0,0",
+    "signature": {
+      "*opts": null,
+      "min": null,
+      "max": null
+    },
+    "hiden": false
+  },
+  "assert": {
+    "name": "assert",
+    "args": [
+      {
+        "is_true": ":boolean"
+      }
+    ],
+    "accepts_block": false,
+    "alt_args": [],
+    "summary": "Ensure arg is valid",
+    "introduced": "2,8,0",
+    "signature": {
+      "msg": "nil",
+      "arg": null
+    },
+    "hiden": false
+  },
+  "cue": {
+    "name": "cue",
+    "args": [
+      {
+        "cue_id": ":symbol"
+      }
+    ],
+    "opts": {
+      "another_key": "foo: 64",
+      "your_key": ":bar",
+      "key": "foo: 64"
+    },
+    "summary": "Cue other threads",
+    "accepts_block": false,
+    "introduced": "2,0,0",
+    "signature": {
+      "*opts": null,
+      "cue_id": null
+    },
+    "hiden": false
+  },
+  "ndefine": {
+    "name": "ndefine",
+    "args": [
+      {
+        "name": ":symbol"
+      }
+    ],
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Define a new function",
+    "introduced": "2,1,0",
+    "signature": {
+      "name": null,
+      "&block": null
+    },
+    "hiden": true
+  },
+  "ring": {
+    "name": "ring",
+    "args": [
+      {
+        "list": ":array"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "returns": ":ring",
+    "summary": "Create a ring buffer",
+    "introduced": "2,2,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "rdist": {
+    "name": "rdist",
+    "args": [
+      {
+        "width": ":number"
+      }
+    ],
+    "opts": {
+      "step": 1
+    },
+    "inline": true,
+    "alt_args": [
+      {
+        "width": ":number"
+      },
+      {
+        "centre": ":number"
+      }
+    ],
+    "summary": "Random number in centred distribution",
+    "accepts_block": false,
+    "introduced": "2,3,0",
+    "signature": {
+      "centre": 0,
+      "*opts": null,
+      "width": null
+    },
+    "hiden": false
+  },
+  "rand_reset": {
+    "name": "rand_reset",
+    "args": [],
+    "accepts_block": false,
+    "introduced": "2,7,0",
+    "summary": "Reset rand generator to last seed",
+    "hiden": false
+  },
+  "current_random_seed": {
+    "name": "current_random_seed",
+    "accepts_block": false,
+    "intro_fn": true,
+    "introduced": "2,10,0",
+    "summary": "Get current random seed",
+    "hiden": true
+  },
+  "clear": {
+    "name": "clear",
+    "args": [],
+    "accepts_block": false,
+    "returns": null,
+    "introduced": "2,11,0",
+    "summary": "Clear all thread locals to defaults",
+    "hiden": false
+  },
+  "tick_set": {
+    "name": "tick_set",
+    "args": [
+      {
+        "value": ":number"
+      }
+    ],
+    "accepts_block": false,
+    "returns": ":number",
+    "alt_args": [
+      {
+        "key": ":symbol"
+      },
+      {
+        "value": ":number"
+      }
+    ],
+    "summary": "Set tick to a specific value",
+    "introduced": "2,6,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "factor": {
+    "name": "factor?",
+    "args": [
+      {
+        "val": ":number"
+      },
+      {
+        "factor": ":number"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Factor test",
+    "introduced": "2,1,0",
+    "signature": {
+      "factor": null,
+      "val": null
+    },
+    "hiden": false
+  },
+  "rt": {
+    "name": "rt",
+    "args": [
+      {
+        "seconds": ":number"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "summary": "Real time conversion",
+    "introduced": "2,0,0",
+    "signature": {
+      "t": null
+    },
+    "hiden": false
+  },
+  "with_tempo": {
+    "signature": {
+      "&block": null,
+      "*args": null
+    },
+    "hiden": true
+  },
+  "load_example": {
+    "name": "load_example",
+    "args": [
+      {
+        "path": ":string"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Load a built-in example",
+    "introduced": "2,10,0",
+    "signature": {
+      "example_name": null
+    },
+    "hiden": true
+  },
+  "beat": {
+    "name": "beat",
+    "args": [],
+    "accepts_block": false,
+    "introduced": "2,10,0",
+    "summary": "Get current beat",
+    "hiden": true
+  },
+  "use_bpm": {
+    "name": "use_bpm",
+    "args": [
+      {
+        "bpm": ":number"
+      }
+    ],
+    "intro_fn": true,
+    "accepts_block": false,
+    "summary": "Set the tempo",
+    "introduced": "2,0,0",
+    "signature": {
+      "&block": null,
+      "bpm": null
+    },
+    "hiden": false
+  },
+  "choose": {
+    "name": "choose",
+    "args": [],
+    "accepts_block": false,
+    "inline": true,
+    "alt_args": [
+      {
+        "list": ":array"
+      }
+    ],
+    "summary": "Random list selection",
+    "introduced": "2,0,0",
+    "signature": {
+      "args": null
+    },
+    "hiden": false
   },
   "line": {
-    "accepts_block": false,
+    "name": "line",
     "args": [
       {
         "start": ":number"
@@ -1129,257 +800,162 @@ lang_core = {
       "inclusive": false,
       "steps": 1
     },
-    "name": "line",
     "memoize": true,
-    "introduced": "2,5,0",
-    "hiden": false,
     "returns": ":ring",
+    "inline": true,
     "summary": "Create a ring buffer representing a straight line",
+    "accepts_block": false,
+    "introduced": "2,5,0",
     "signature": {
-      "*args": null,
+      "start": null,
       "finish": null,
-      "start": null
-    },
-    "inline": true
-  },
-  "vector": {
-    "accepts_block": false,
-    "args": [
-      {
-        "list": ":array"
-      }
-    ],
-    "name": "vector",
-    "introduced": "2,6,0",
-    "hiden": false,
-    "returns": ":vector",
-    "summary": "Create a vector",
-    "signature": {
       "*args": null
     },
-    "inline": true
+    "hiden": false
   },
-  "ndefine": {
+  "with_cue_logging": {
+    "name": "with_cue_logging",
+    "args": [
+      {
+        "true_or_false": ":boolean"
+      }
+    ],
     "accepts_block": true,
-    "args": [
-      {
-        "name": ":symbol"
-      }
-    ],
     "requires_block": true,
-    "name": "ndefine",
-    "introduced": "2,1,0",
-    "hiden": true,
-    "summary": "Define a new function",
+    "summary": "Block-level enable and disable cue logging",
+    "introduced": "2,6,0",
     "signature": {
-      "&block": null,
-      "name": null
-    }
-  },
-  "use_bpm": {
-    "accepts_block": false,
-    "args": [
-      {
-        "bpm": ":number"
-      }
-    ],
-    "name": "use_bpm",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "intro_fn": true,
-    "summary": "Set the tempo",
-    "signature": {
-      "bpm": null,
+      "v": null,
       "&block": null
-    }
-  },
-  "osc": {
-    "hiden": true,
-    "signature": {
-      "*args": null,
-      "path": null
-    }
-  },
-  "beat": {
-    "accepts_block": false,
-    "args": [],
-    "name": "beat",
-    "introduced": "2,10,0",
-    "hiden": true,
-    "summary": "Get current beat"
-  },
-  "rrand": {
-    "accepts_block": false,
-    "args": [
-      {
-        "min": ":number"
-      },
-      {
-        "max": ":number"
-      }
-    ],
-    "opts": {
-      "step": 1
     },
-    "name": "rrand",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "intro_fn": true,
-    "summary": "Generate a random float between two numbers",
-    "signature": {
-      "min": null,
-      "*opts": null,
-      "max": null
-    },
-    "inline": true
-  },
-  "bools": {
-    "accepts_block": false,
-    "args": [
-      {
-        "list": ":array"
-      }
-    ],
-    "name": "bools",
-    "introduced": "2,2,0",
-    "hiden": false,
-    "returns": ":ring",
-    "summary": "Create a ring of boolean values",
-    "signature": {
-      "*args": null
-    },
-    "inline": true
-  },
-  "sync_bpm": {
-    "accepts_block": false,
-    "args": [
-      {
-        "cue_id": ":symbol"
-      }
-    ],
-    "opts": {},
-    "name": "sync_bpm",
-    "introduced": "2,10,0",
-    "hiden": false,
-    "summary": "Sync and inherit BPM from other threads ",
-    "signature": {
-      "cue_ids": null,
-      "opts": "{}"
-    },
-    "advances_time": true
-  },
-  "rand": {
-    "accepts_block": false,
-    "args": [
-      {
-        "max": ":number_or_range"
-      }
-    ],
-    "name": "rand",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "intro_fn": true,
-    "summary": "Generate a random float below a value",
-    "signature": {
-      "max": 1
-    },
-    "inline": true
-  },
-  "knit": {
-    "accepts_block": false,
-    "args": [
-      {
-        "value": ":anything"
-      },
-      {
-        "count": ":number"
-      }
-    ],
-    "name": "knit",
-    "introduced": "2,2,0",
-    "hiden": false,
-    "returns": ":ring",
-    "summary": "Knit a sequence of repeated values",
-    "signature": {
-      "*args": null
-    },
-    "inline": true
-  },
-  "rand_look": {
-    "accepts_block": false,
-    "args": [
-      {
-        "max": ":number_or_range"
-      }
-    ],
-    "name": "rand_look",
-    "introduced": "2,11,0",
-    "hiden": false,
-    "summary": "Generate a random number without consuming a rand",
-    "signature": {
-      "*args": null
-    },
-    "inline": true
-  },
-  "use_osc": {
-    "hiden": true,
-    "signature": {
-      "port": "nil",
-      "host_or_port": null
-    }
-  },
-  "current_random_seed": {
-    "accepts_block": false,
-    "name": "current_random_seed",
-    "introduced": "2,10,0",
-    "hiden": true,
-    "intro_fn": true,
-    "summary": "Get current random seed"
+    "hiden": false
   },
   "stretch": {
-    "accepts_block": false,
+    "name": "stretch",
     "args": [
       {
         "count": ":int"
       }
     ],
+    "accepts_block": false,
+    "inline": true,
+    "returns": ":ring",
     "alt_args": [
       {
         "list": ":array"
       }
     ],
-    "name": "stretch",
-    "introduced": "2,6,0",
-    "hiden": false,
-    "returns": ":ring",
     "summary": "Stretch a sequence of values",
+    "introduced": "2,6,0",
     "signature": {
       "*args": null
     },
-    "inline": true
+    "hiden": false
   },
-  "bt": {
-    "accepts_block": false,
+  "use_bpm_mul": {
+    "name": "use_bpm_mul",
     "args": [
       {
-        "seconds": ":number"
+        "mul": ":number"
       }
     ],
-    "name": "bt",
-    "introduced": "2,8,0",
-    "hiden": true,
-    "summary": "Beat time conversion",
+    "accepts_block": false,
+    "summary": "Set new tempo as a multiple of current tempo",
+    "introduced": "2,3,0",
     "signature": {
-      "t": null
-    }
+      "mul": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "sleep": {
+    "name": "sleep",
+    "args": [
+      {
+        "beats": ":number"
+      }
+    ],
+    "advances_time": true,
+    "accepts_block": false,
+    "summary": "Wait for beat duration",
+    "introduced": "2,0,0",
+    "signature": {
+      "beats": null
+    },
+    "hiden": false
+  },
+  "puts": {
+    "name": "puts",
+    "args": [
+      {
+        "output": ":anything"
+      }
+    ],
+    "intro_fn": true,
+    "accepts_block": false,
+    "summary": "Display a message in the output pane",
+    "introduced": "2,0,0",
+    "signature": {
+      "*msgs": null
+    },
+    "hiden": true
+  },
+  "shuffle": {
+    "name": "shuffle",
+    "args": [],
+    "accepts_block": false,
+    "inline": true,
+    "alt_args": [
+      {
+        "list": ":array"
+      }
+    ],
+    "summary": "Randomise order of a list",
+    "introduced": "2,1,0",
+    "signature": {
+      "list": null
+    },
+    "hiden": false
+  },
+  "on": {
+    "name": "on",
+    "args": [
+      {
+        "condition": ":truthy"
+      }
+    ],
+    "accepts_block": true,
+    "returns": null,
+    "requires_block": true,
+    "summary": "Optionally evaluate block",
+    "introduced": "2,10,0",
+    "signature": {
+      "&blk": null,
+      "condition": null
+    },
+    "hiden": false
+  },
+  "block_duration": {
+    "name": "block_duration",
+    "args": [],
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Return block duration",
+    "introduced": "2,9,0",
+    "async_block": false,
+    "signature": {
+      "&block": null
+    },
+    "hiden": false
   },
   "tick_reset_all": {
-    "accepts_block": false,
+    "name": "tick_reset_all",
     "args": [
       {
         "value": ":number"
       }
     ],
+    "accepts_block": false,
     "alt_args": [
       {
         "key": ":symbol"
@@ -1388,523 +964,597 @@ lang_core = {
         "value": ":number"
       }
     ],
-    "name": "tick_reset_all",
-    "introduced": "2,6,0",
-    "hiden": false,
     "returns": null,
-    "summary": "Reset all ticks"
+    "introduced": "2,6,0",
+    "summary": "Reset all ticks",
+    "hiden": false
   },
-  "density": {
-    "accepts_block": true,
+  "time_shift": {
+    "name": "time_shift",
     "args": [
       {
-        "d": ":density"
+        "delta_time": ":number"
       }
     ],
+    "accepts_block": true,
+    "returns": null,
     "requires_block": true,
-    "async_block": true,
-    "name": "density",
-    "introduced": "2,3,0",
-    "hiden": false,
-    "summary": "Squash and repeat time",
+    "summary": "Slide time forwards or backwards for the given block",
+    "introduced": "2,11,0",
     "signature": {
-      "d": null,
+      "&blk": null,
+      "delta": null
+    },
+    "hiden": false
+  },
+  "defonce": {
+    "name": "defonce",
+    "args": [
+      {
+        "name": ":symbol"
+      }
+    ],
+    "opts": {
+      "override": false
+    },
+    "requires_block": true,
+    "summary": "Define a named value only once",
+    "accepts_block": true,
+    "introduced": "2,0,0",
+    "signature": {
+      "name": null,
+      "*opts": null,
       "&block": null
+    },
+    "hiden": false
+  },
+  "halves": {
+    "name": "halves",
+    "args": [
+      {
+        "start": ":number"
+      },
+      {
+        "num_halves": ":int"
+      }
+    ],
+    "accepts_block": false,
+    "memoize": true,
+    "returns": ":ring",
+    "inline": true,
+    "summary": "Create a ring of successive halves",
+    "introduced": "2,10,0",
+    "signature": {
+      "start": null,
+      "num_halves": 1
+    },
+    "hiden": false
+  },
+  "uncomment": {
+    "name": "uncomment",
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Block level comment ignoring",
+    "introduced": "2,0,0",
+    "signature": {
+      "&block": null,
+      "*args": null
+    },
+    "hiden": true
+  },
+  "dec": {
+    "name": "dec",
+    "args": [
+      {
+        "n": ":number"
+      }
+    ],
+    "opts": {},
+    "summary": "Decrement",
+    "accepts_block": false,
+    "introduced": "2, 1, 0",
+    "signature": {
+      "n": null
+    },
+    "hiden": true
+  },
+  "run_code": {
+    "name": "run_code",
+    "args": [
+      {
+        "code": ":string"
+      }
+    ],
+    "accepts_block": false,
+    "returns": null,
+    "summary": "Evaluate the code passed as a String as a new Run",
+    "introduced": "2,11,0",
+    "signature": {
+      "code": null
+    },
+    "hiden": false
+  },
+  "stop": {
+    "name": "stop",
+    "args": [
+      {
+        "true_stops": ":boolean"
+      }
+    ],
+    "accepts_block": false,
+    "alt_args": [],
+    "returns": null,
+    "introduced": "2,5,0",
+    "summary": "Stop current thread or run",
+    "hiden": false
+  },
+  "spark": {
+    "name": "spark",
+    "accepts_block": false,
+    "introduced": "2,5,0",
+    "summary": "Print a string representing a list of numeric values as a spark graph/bar chart",
+    "hiden": true,
+    "signature": {
+      "*values": null
     }
   },
-  "cue": {
+  "rand": {
+    "name": "rand",
+    "args": [
+      {
+        "max": ":number_or_range"
+      }
+    ],
+    "intro_fn": true,
     "accepts_block": false,
+    "inline": true,
+    "summary": "Generate a random float below a value",
+    "introduced": "2,0,0",
+    "signature": {
+      "max": 1
+    },
+    "hiden": false
+  },
+  "block_slept": {
+    "name": "block_slept?",
+    "args": [],
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Determine if block contains sleep time",
+    "introduced": "2,9,0",
+    "async_block": false,
+    "signature": {
+      "&block": null
+    },
+    "hiden": false
+  },
+  "live_loop": {
+    "name": "live_loop",
+    "args": [
+      {
+        "name": ":symbol"
+      }
+    ],
+    "intro_fn": true,
+    "opts": {
+      "auto_cue": true,
+      "sync_bpm": ":foo",
+      "delay": 0,
+      "sync": ":foo",
+      "init": "",
+      "seed": 0
+    },
+    "requires_block": true,
+    "summary": "A loop for live coding",
+    "accepts_block": true,
+    "introduced": "2,1,0",
+    "async_block": true,
+    "signature": {
+      "name": "nil",
+      "&block": null,
+      "*args": null
+    },
+    "hiden": false
+  },
+  "ramp": {
+    "name": "ramp",
+    "args": [
+      {
+        "list": ":array"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "returns": ":ramp",
+    "summary": "Create a ramp vector",
+    "introduced": "2,6,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "sync": {
+    "name": "sync",
     "args": [
       {
         "cue_id": ":symbol"
       }
     ],
+    "advances_time": true,
     "opts": {
-      "another_key": "foo: 64",
-      "your_key": ":bar",
-      "key": "foo: 64"
+      "bpm_sync": false
     },
-    "name": "cue",
+    "summary": "Sync with other threads",
+    "accepts_block": false,
     "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Cue other threads",
     "signature": {
-      "cue_id": null,
-      "*opts": null
-    }
+      "cue_ids": null,
+      "opts": "{}"
+    },
+    "hiden": false
+  },
+  "in_thread": {
+    "name": "in_thread",
+    "opts": {
+      "name": ":foo",
+      "sync_bpm": ":foo",
+      "delay": 0,
+      "sync": ":foo"
+    },
+    "requires_block": true,
+    "summary": "Run code block at the same time",
+    "accepts_block": true,
+    "introduced": "2,0,0",
+    "async_block": true,
+    "signature": {
+      "*opts": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "with_random_seed": {
+    "name": "with_random_seed",
+    "args": [
+      {
+        "seed": ":number"
+      }
+    ],
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Specify random seed for code block",
+    "introduced": "2,0,0",
+    "signature": {
+      "&block": null,
+      "seed": null
+    },
+    "hiden": false
+  },
+  "rand_i": {
+    "name": "rand_i",
+    "args": [
+      {
+        "max": ":number_or_range"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "summary": "Generate a random whole number below a value (exclusive)",
+    "introduced": "2,0,0",
+    "signature": {
+      "max": 2
+    },
+    "hiden": false
+  },
+  "doubles": {
+    "name": "doubles",
+    "args": [
+      {
+        "start": ":number"
+      },
+      {
+        "num_doubles": ":int"
+      }
+    ],
+    "accepts_block": false,
+    "memoize": true,
+    "returns": ":ring",
+    "inline": true,
+    "summary": "Create a ring of successive doubles",
+    "introduced": "2,10,0",
+    "signature": {
+      "start": null,
+      "num_doubles": 1
+    },
+    "hiden": false
+  },
+  "use_cue_logging": {
+    "name": "use_cue_logging",
+    "args": [
+      {
+        "true_or_false": ":boolean"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Enable and disable cue logging",
+    "introduced": "2,6,0",
+    "signature": {
+      "v": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "tick_reset": {
+    "name": "tick_reset",
+    "alt_args": [
+      {
+        "key": ":symbol"
+      }
+    ],
+    "accepts_block": false,
+    "returns": ":number",
+    "summary": "Reset tick to 0",
+    "introduced": "2,6,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "spark_graph": {
+    "name": "spark_graph",
+    "accepts_block": false,
+    "summary": "Returns a string representing a list of numeric values as a spark graph/bar chart",
+    "introduced": "2,5,0",
+    "signature": {
+      "*values": null
+    },
+    "hiden": true
+  },
+  "comment": {
+    "name": "comment",
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Block level commenting",
+    "introduced": "2,0,0",
+    "signature": {
+      "&block": null,
+      "*args": null
+    },
+    "hiden": true
+  },
+  "reset": {
+    "name": "reset",
+    "args": [],
+    "accepts_block": false,
+    "returns": null,
+    "introduced": "2,11,0",
+    "summary": "Reset all thread locals",
+    "hiden": false
+  },
+  "bools": {
+    "name": "bools",
+    "args": [
+      {
+        "list": ":array"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "returns": ":ring",
+    "summary": "Create a ring of boolean values",
+    "introduced": "2,2,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "define": {
+    "name": "define",
+    "args": [
+      {
+        "name": ":symbol"
+      }
+    ],
+    "intro_fn": true,
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Define a new function",
+    "introduced": "2,0,0",
+    "signature": {
+      "name": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "run_file": {
+    "name": "run_file",
+    "args": [
+      {
+        "filename": ":path"
+      }
+    ],
+    "accepts_block": false,
+    "returns": null,
+    "summary": "Evaluate the contents of the file as a new Run",
+    "introduced": "2,11,0",
+    "signature": {
+      "path": null
+    },
+    "hiden": false
+  },
+  "osc": {
+    "signature": {
+      "path": null,
+      "*args": null
+    },
+    "hiden": true
+  },
+  "sync_bpm": {
+    "name": "sync_bpm",
+    "args": [
+      {
+        "cue_id": ":symbol"
+      }
+    ],
+    "advances_time": true,
+    "opts": {},
+    "summary": "Sync and inherit BPM from other threads ",
+    "accepts_block": false,
+    "introduced": "2,10,0",
+    "signature": {
+      "cue_ids": null,
+      "opts": "{}"
+    },
+    "hiden": false
+  },
+  "knit": {
+    "name": "knit",
+    "args": [
+      {
+        "value": ":anything"
+      },
+      {
+        "count": ":number"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "returns": ":ring",
+    "summary": "Knit a sequence of repeated values",
+    "introduced": "2,2,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "rand_look": {
+    "name": "rand_look",
+    "args": [
+      {
+        "max": ":number_or_range"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "summary": "Generate a random number without consuming a rand",
+    "introduced": "2,11,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
   }
 }
 
 #\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/
 
 lang_sound = {
-  "note_info": {
+  "fx_names": {
+    "name": "fx_names",
     "accepts_block": false,
-    "args": [
-      {
-        "note": ":symbol_or_number"
-      }
-    ],
-    "opts": {
-      "octave": 4
+    "memoize": true,
+    "introduced": "2,10,0",
+    "summary": "Get all FX names",
+    "hiden": true
+  },
+  "truthy": {
+    "signature": {
+      "val": null
     },
-    "name": "note_info",
-    "introduced": "2,0,0",
-    "hiden": true,
-    "summary": "Get note info",
-    "signature": {
-      "n": null,
-      "*args": null
-    }
-  },
-  "rest": {
-    "accepts_block": false,
-    "args": [
-      {
-        "note_or_args": ":number_symbol_or_map"
-      }
-    ],
-    "name": "rest?",
-    "introduced": "2,1,0",
-    "hiden": false,
-    "summary": "Determine if note or args is a rest",
-    "signature": {
-      "n": null
-    }
-  },
-  "note": {
-    "accepts_block": false,
-    "args": [
-      {
-        "note": ":symbol_or_number"
-      }
-    ],
-    "opts": {
-      "octave": 4
-    },
-    "name": "note",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Describe note",
-    "signature": {
-      "n": null,
-      "*args": null
-    },
-    "inline": true
-  },
-  "recording_save": {
-    "accepts_block": false,
-    "args": [
-      {
-        "path": ":string"
-      }
-    ],
-    "name": "recording_save",
-    "introduced": "2,0,0",
-    "hiden": true,
-    "summary": "Save recording",
-    "signature": {
-      "filename": null
-    }
-  },
-  "set_control_delta": {
-    "accepts_block": false,
-    "args": [
-      {
-        "time": ":number"
-      }
-    ],
-    "name": "set_control_delta!",
-    "introduced": "2,1,0",
-    "hiden": false,
-    "summary": "Set control delta globally",
-    "signature": {
-      "t": null
-    },
-    "modifies_env": true
-  },
-  "reset_mixer": {
-    "accepts_block": false,
-    "opts": {},
-    "name": "reset_mixer!",
-    "introduced": "2,9,0",
-    "hiden": false,
-    "summary": "Reset master mixer",
-    "signature": {
-      "": null
-    },
-    "modifies_env": true
-  },
-  "set_mixer_invert_stereo!": {
     "hiden": false
   },
-  "play_chord": {
+  "use_arg_bpm_scaling": {
+    "name": "use_arg_bpm_scaling",
+    "args": [
+      {
+        "bool": ":boolean"
+      }
+    ],
     "accepts_block": false,
-    "args": [
-      {
-        "notes": ":list"
-      }
-    ],
-    "opts": {
-      "pitch": 0,
-      "attack": 0,
-      "pan": 0,
-      "amp_slide": 1,
-      "amp": 1,
-      "on": 1,
-      "release": 0,
-      "sustain": 1,
-      "env_curve": 1,
-      "decay_level": 1,
-      "pan_slide": 1,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "slide": 0,
-      "decay": 0
-    },
-    "name": "play_chord",
+    "summary": "Enable and disable BPM scaling",
     "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Play notes simultaneously",
-    "signature": {
-      "notes": null,
-      "*args": null
-    }
-  },
-  "chord_degree": {
-    "accepts_block": false,
-    "args": [
-      {
-        "degree": ":symbol_or_number"
-      },
-      {
-        "tonic": ":symbol"
-      },
-      {
-        "scale": ":symbol"
-      },
-      {
-        "number_of_notes": ":number"
-      }
-    ],
-    "name": "chord_degree",
-    "memoize": true,
-    "introduced": "2,1,0",
-    "hiden": false,
-    "returns": ":ring",
-    "summary": "Construct chords of stacked thirds, based on scale degrees",
-    "signature": {
-      "degree": null,
-      "tonic": null,
-      "number_of_notes": 4,
-      "*opts": null,
-      "scale": ":major"
-    },
-    "inline": true
-  },
-  "with_transpose": {
-    "accepts_block": true,
-    "args": [
-      {
-        "note_shift": ":number"
-      }
-    ],
-    "requires_block": true,
-    "name": "with_transpose",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Block-level note transposition",
-    "signature": {
-      "shift": null,
-      "&block": null
-    }
-  },
-  "with_arg_bpm_scaling": {
-    "accepts_block": true,
-    "requires_block": true,
-    "name": "with_arg_bpm_scaling",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Block-level enable and disable BPM scaling",
     "signature": {
       "&block": null,
       "bool": null
-    }
-  },
-  "load_sample_at_path": {
-    "hiden": false,
-    "signature": {
-      "path": null
-    }
+    },
+    "hiden": false
   },
   "current_amp": {
     "hiden": true
   },
-  "use_synth": {
+  "midi_notes": {
+    "name": "midi_notes",
+    "args": [
+      {
+        "list": ":array"
+      }
+    ],
     "accepts_block": false,
+    "memoize": true,
+    "returns": ":ring",
+    "inline": true,
+    "summary": "Create a ring buffer of midi note numbers",
+    "introduced": "2,7,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "load_sample_at_path": {
+    "signature": {
+      "path": null
+    },
+    "hiden": false
+  },
+  "use_sample_defaults": {
+    "name": "use_sample_defaults",
+    "opts": {},
+    "summary": "Use new sample defaults",
+    "accepts_block": false,
+    "introduced": "2,5,0",
+    "signature": {
+      "&block": null,
+      "*args": null
+    },
+    "hiden": false
+  },
+  "synth": {
+    "name": "synth",
     "args": [
       {
         "synth_name": ":symbol"
       }
     ],
-    "name": "use_synth",
-    "introduced": "2,0,0",
-    "hiden": false,
     "intro_fn": true,
-    "summary": "Switch current synth",
-    "signature": {
-      "*args": null,
-      "synth_name": null,
-      "&block": null
-    }
-  },
-  "pitch_ratio": {
-    "hiden": true,
-    "signature": {
-      "*args": null
-    }
-  },
-  "current_debug": {
-    "introduced": "2,0,0",
-    "accepts_block": false,
-    "hiden": true,
-    "summary": "Get current debug status",
-    "name": "current_debug"
-  },
-  "use_cent_tuning": {
-    "accepts_block": false,
-    "args": [
-      {
-        "cent_shift": ":number"
-      }
-    ],
-    "name": "use_cent_tuning",
-    "introduced": "2,9,0",
-    "hiden": false,
-    "intro_fn": true,
-    "summary": "Cent tuning",
-    "signature": {
-      "shift": null,
-      "&block": null
-    }
-  },
-  "control": {
-    "accepts_block": false,
-    "args": [
-      {
-        "node": ":synth_node"
-      }
-    ],
-    "opts": {},
-    "name": "control",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Control running synth",
-    "signature": {
-      "*args": null
-    }
-  },
-  "use_sample_bpm": {
-    "accepts_block": false,
-    "args": [
-      {
-        "string_or_number": ":sample_name_or_duration"
-      }
-    ],
     "opts": {
-      "num_beats": 1
-    },
-    "name": "use_sample_bpm",
-    "introduced": "2,1,0",
-    "hiden": false,
-    "summary": "Sample-duration-based bpm modification",
-    "signature": {
-      "*args": null,
-      "sample_name": null
-    }
-  },
-  "hz_to_midi": {
-    "accepts_block": false,
-    "args": [
-      {
-        "freq": ":number"
-      }
-    ],
-    "name": "hz_to_midi",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Hz to MIDI conversion",
-    "signature": {
-      "freq": null
-    },
-    "inline": true
-  },
-  "recording_stop": {
-    "introduced": "2,0,0",
-    "accepts_block": false,
-    "hiden": true,
-    "summary": "Stop recording",
-    "name": "recording_stop"
-  },
-  "use_octave": {
-    "accepts_block": false,
-    "args": [
-      {
-        "octave_shift": ":number"
-      }
-    ],
-    "name": "use_octave",
-    "introduced": "2,9,0",
-    "hiden": false,
-    "intro_fn": true,
-    "summary": "Note octave transposition",
-    "signature": {
-      "shift": null,
-      "&block": null
-    }
-  },
-  "set_mixer_mono_mode!": {
-    "hiden": false
-  },
-  "recording_delete": {
-    "accepts_block": false,
-    "hiden": true,
-    "name": "recording_delete"
-  },
-  "with_merged_sample_defaults": {
-    "accepts_block": true,
-    "requires_block": true,
-    "opts": {},
-    "name": "with_merged_sample_defaults",
-    "introduced": "2,9,0",
-    "hiden": false,
-    "summary": "Block-level use merged sample defaults",
-    "signature": {
-      "*args": null,
-      "&block": null
-    }
-  },
-  "current_arg_checks": {
-    "introduced": "2,0,0",
-    "accepts_block": false,
-    "hiden": true,
-    "summary": "Get current arg checking status",
-    "name": "current_arg_checks"
-  },
-  "sample_duration": {
-    "accepts_block": false,
-    "args": [
-      {
-        "path": ":string"
-      }
-    ],
-    "opts": {
-      "sustain": 1,
       "decay": 0,
-      "pitch_stretch": 1,
-      "start": 0,
-      "beat_stretch": 1,
-      "rpitch": 0,
-      "finish": 1,
+      "amp": 1,
+      "attack_level": 1,
+      "on": 1,
+      "pan_slide": 1,
+      "pitch": 0,
+      "sustain": 1,
+      "pan": 0,
+      "amp_slide": 1,
       "release": 0,
-      "rate": 1,
+      "decay_level": 1,
+      "sustain_level": 1,
+      "slide": 0,
+      "env_curve": 1,
       "attack": 0
     },
-    "name": "sample_duration",
+    "requires_block": false,
+    "summary": "Trigger specific synth",
+    "accepts_block": true,
     "introduced": "2,0,0",
-    "hiden": true,
-    "summary": "Get duration of sample in beats",
+    "async_block": true,
     "signature": {
+      "&blk": null,
+      "synth_name": null,
       "*args": null
-    }
-  },
-  "recording_start": {
-    "introduced": "2,0,0",
-    "accepts_block": false,
-    "hiden": true,
-    "summary": "Start recording",
-    "name": "recording_start"
-  },
-  "sample_split_filts_and_opts": {
-    "hiden": true,
-    "signature": {
-      "args": null
-    }
-  },
-  "set_mixer_stereo_mode!": {
+    },
     "hiden": false
   },
-  "with_timing_warnings": {
-    "hiden": true,
-    "signature": {
-      "v": null,
-      "&block": null
-    }
-  },
-  "use_external_synths": {
-    "hiden": true,
-    "signature": {
-      "v": null,
-      "&block": null
-    }
-  },
-  "play_pattern": {
-    "accepts_block": false,
-    "args": [
-      {
-        "notes": ":list"
-      }
-    ],
-    "opts": {},
-    "name": "play_pattern",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Play pattern of notes",
-    "signature": {
-      "notes": null,
-      "*args": null
-    }
-  },
-  "current_synth": {
-    "introduced": "2,0,0",
-    "accepts_block": false,
-    "hiden": true,
-    "summary": "Get current synth",
-    "name": "current_synth"
-  },
-  "sample_buffer": {
-    "accepts_block": false,
-    "args": [
-      {
-        "path": ":string"
-      }
-    ],
-    "name": "sample_buffer",
-    "introduced": "2,0,0",
-    "hiden": true,
-    "summary": "Get sample data",
-    "signature": {
-      "*args": null
-    }
-  },
-  "kill": {
-    "accepts_block": false,
-    "args": [
-      {
-        "node": ":synth_node"
-      }
-    ],
-    "opts": {},
-    "name": "kill",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Kill synth",
-    "signature": {
-      "node": null
-    }
-  },
   "use_tuning": {
-    "accepts_block": false,
+    "name": "use_tuning",
     "args": [
       {
         "tuning": ":symbol"
@@ -1913,52 +1563,1338 @@ lang_sound = {
         "fundamental_note": ":symbol_or_number"
       }
     ],
-    "name": "use_tuning",
-    "introduced": "2,6,0",
-    "hiden": false,
+    "accepts_block": false,
     "summary": "Use alternative tuning systems",
+    "introduced": "2,6,0",
     "signature": {
-      "tuning": null,
       "fundamental_note": ":c",
-      "&block": null
-    }
+      "&block": null,
+      "tuning": null
+    },
+    "hiden": false
   },
-  "with_octave": {
+  "sample_paths": {
+    "name": "sample_paths",
+    "args": [
+      {
+        "pre_args": ":source_and_filter_types"
+      }
+    ],
+    "accepts_block": false,
+    "returns": ":ring",
+    "summary": "Sample Pack Filter Resolution",
+    "introduced": "2,10,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": true
+  },
+  "set_volume": {
+    "name": "set_volume!",
+    "args": [
+      {
+        "vol": ":number"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Set Volume globally",
+    "introduced": "2,0,0",
+    "signature": {
+      "vol": null
+    },
+    "hiden": false,
+    "modifies_env": true
+  },
+  "current_transpose": {
+    "name": "current_transpose",
+    "introduced": "2,0,0",
+    "accepts_block": false,
+    "summary": "Get current transposition",
+    "hiden": true
+  },
+  "recording_save": {
+    "name": "recording_save",
+    "args": [
+      {
+        "path": ":string"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Save recording",
+    "introduced": "2,0,0",
+    "signature": {
+      "filename": null
+    },
+    "hiden": true
+  },
+  "play_pattern_timed": {
+    "name": "play_pattern_timed",
+    "args": [
+      {
+        "notes": ":list"
+      },
+      {
+        "times": ":list_or_number"
+      }
+    ],
+    "opts": {
+      "decay": 0,
+      "amp": 1,
+      "attack_level": 1,
+      "on": 1,
+      "pan_slide": 1,
+      "pitch": 0,
+      "sustain": 1,
+      "pan": 0,
+      "amp_slide": 1,
+      "release": 0,
+      "decay_level": 1,
+      "sustain_level": 1,
+      "slide": 0,
+      "env_curve": 1,
+      "attack": 0
+    },
+    "summary": "Play pattern of notes with specific times",
+    "accepts_block": false,
+    "introduced": "2,0,0",
+    "signature": {
+      "times": null,
+      "notes": null,
+      "*args": null
+    },
+    "hiden": false
+  },
+  "sample": {
+    "name": "sample",
+    "args": [
+      {
+        "name_or_path": ":symbol_or_string"
+      }
+    ],
+    "intro_fn": true,
+    "opts": {
+      "clamp_time": 0,
+      "hpf_attack": 0,
+      "sustain": 1,
+      "lpf_min": 30,
+      "pan": 0,
+      "rpitch": 0,
+      "lpf_release_level": 0,
+      "hpf_max": 200,
+      "compress": 0,
+      "hpf_sustain_level": 0,
+      "hpf_decay_level": 0,
+      "beat_stretch": 1,
+      "onset": 0,
+      "window_size": 0,
+      "path": "/path/to/file",
+      "lpf_env_curve": 1,
+      "hpf_attack_level": 0,
+      "hpf_env_curve": 1,
+      "slope_above": 1,
+      "lpf_init_level": 30,
+      "slide": 0,
+      "hpf_release": 0,
+      "lpf_decay_level": 0,
+      "pre_amp": 1,
+      "amp": 1,
+      "threshold": 0,
+      "norm": 0,
+      "hpf_release_level": 0,
+      "rate": 1,
+      "time_dis": 0,
+      "hpf_init_level": 130,
+      "lpf_sustain_level": 0,
+      "lpf": 131,
+      "hpf": 0,
+      "pitch_dis": 0,
+      "lpf_attack": 0,
+      "start": 0,
+      "lpf_release": 0,
+      "release": 0,
+      "hpf_sustain": 0,
+      "hpf_decay": 0,
+      "finish": 1,
+      "slope_below": 1,
+      "lpf_decay": 0,
+      "lpf_sustain": 0,
+      "relax_time": 0,
+      "lpf_attack_level": 0,
+      "pitch_stretch": 1,
+      "pitch": 0,
+      "attack": 0
+    },
+    "requires_block": false,
+    "summary": "Trigger sample",
     "accepts_block": true,
+    "introduced": "2,0,0",
+    "async_block": true,
+    "signature": {
+      "&blk": null,
+      "*args": null
+    },
+    "hiden": false
+  },
+  "degree": {
+    "name": "degree",
+    "args": [],
+    "accepts_block": false,
+    "inline": true,
+    "alt_args": [
+      {
+        "degree": ":symbol"
+      },
+      {
+        "tonic": ":symbol"
+      },
+      {
+        "scale": ":symbol"
+      }
+    ],
+    "summary": "Convert a degree into a note",
+    "introduced": "2,1,0",
+    "signature": {
+      "degree": null,
+      "tonic": null,
+      "scale": null
+    },
+    "hiden": false
+  },
+  "resolve_sample_paths": {
+    "signature": {
+      "filts_and_sources": null
+    },
+    "hiden": true
+  },
+  "load_sample": {
+    "name": "load_sample",
+    "args": [
+      {
+        "path": ":string"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Pre-load first matching sample",
+    "introduced": "2,0,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "current_synth": {
+    "name": "current_synth",
+    "introduced": "2,0,0",
+    "accepts_block": false,
+    "summary": "Get current synth",
+    "hiden": true
+  },
+  "hz_to_midi": {
+    "name": "hz_to_midi",
+    "args": [
+      {
+        "freq": ":number"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "summary": "Hz to MIDI conversion",
+    "introduced": "2,0,0",
+    "signature": {
+      "freq": null
+    },
+    "hiden": false
+  },
+  "note": {
+    "name": "note",
+    "args": [],
+    "opts": {},
+    "alt_args": [
+      {
+        "note": ":symbol"
+      }
+    ],
+    "summary": "Describe note",
+    "accepts_block": false,
+    "introduced": "2,0,0",
+    "signature": {
+      "*args": null,
+      "n": null
+    },
+    "hiden": false
+  },
+  "current_volume": {
+    "name": "current_volume",
+    "introduced": "2,0,0",
+    "accepts_block": false,
+    "summary": "Get current volume",
+    "hiden": true
+  },
+  "set_mixer_control": {
+    "name": "set_mixer_control!",
+    "opts": {
+      "pre_amp": 1,
+      "hpf": 0,
+      "lpf": 131,
+      "lpf_bypass": 0,
+      "hpf_bypass": 0,
+      "amp": 1,
+      "limiter_bypass": 0,
+      "leak_dc_bypass": 0
+    },
+    "summary": "Control master mixer",
+    "accepts_block": false,
+    "introduced": "2,7,0",
+    "signature": {
+      "opts": null
+    },
+    "hiden": false,
+    "modifies_env": true
+  },
+  "midi_to_hz": {
+    "name": "midi_to_hz",
+    "args": [
+      {
+        "note": ":symbol_or_number"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "summary": "MIDI to Hz conversion",
+    "introduced": "2,0,0",
+    "signature": {
+      "n": null
+    },
+    "hiden": false
+  },
+  "current_cent_tuning": {
+    "name": "current_cent_tuning",
+    "introduced": "2,9,0",
+    "accepts_block": false,
+    "summary": "Get current cent shift",
+    "hiden": true
+  },
+  "use_external_synths": {
+    "signature": {
+      "v": null,
+      "&block": null
+    },
+    "hiden": true
+  },
+  "scale_names": {
+    "name": "scale_names",
+    "accepts_block": false,
+    "memoize": true,
+    "introduced": "2,6,0",
+    "summary": "All scale names",
+    "hiden": true
+  },
+  "pitch_to_ratio": {
+    "name": "pitch_to_ratio",
+    "args": [
+      {
+        "pitch": ":midi_number"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "summary": "relative MIDI pitch to frequency ratio",
+    "introduced": "2,5,0",
+    "signature": {
+      "m": null
+    },
+    "hiden": false
+  },
+  "octs": {
+    "name": "octs",
+    "args": [
+      {
+        "start": ":note"
+      },
+      {
+        "num_octaves": ":pos_int"
+      }
+    ],
+    "accepts_block": false,
+    "inline": true,
+    "returns": ":ring",
+    "summary": "Create a ring of octaves",
+    "introduced": "2,8,0",
+    "signature": {
+      "start": null,
+      "num_octs": 1
+    },
+    "hiden": false
+  },
+  "resolve_sample_path": {
+    "signature": {
+      "filts_and_sources": null
+    },
+    "hiden": true
+  },
+  "with_merged_synth_defaults": {
+    "name": "with_merged_synth_defaults",
+    "opts": {},
+    "requires_block": true,
+    "summary": "Block-level merge synth defaults",
+    "accepts_block": true,
+    "introduced": "2,0,0",
+    "signature": {
+      "&block": null,
+      "*args": null
+    },
+    "hiden": false
+  },
+  "use_merged_synth_defaults": {
+    "name": "use_merged_synth_defaults",
+    "opts": {},
+    "summary": "Merge synth defaults",
+    "accepts_block": false,
+    "introduced": "2,0,0",
+    "signature": {
+      "&block": null,
+      "*args": null
+    },
+    "hiden": false
+  },
+  "sample_free_all": {
+    "name": "sample_free_all",
+    "args": [],
+    "accepts_block": false,
+    "returns": null,
+    "introduced": "2,9,0",
+    "summary": "Free all loaded samples on the synth server",
+    "hiden": false
+  },
+  "with_timing_warnings": {
+    "signature": {
+      "v": null,
+      "&block": null
+    },
+    "hiden": true
+  },
+  "recording_stop": {
+    "name": "recording_stop",
+    "introduced": "2,0,0",
+    "accepts_block": false,
+    "summary": "Stop recording",
+    "hiden": true
+  },
+  "use_timing_guarantees": {
+    "name": "use_timing_guarantees",
+    "args": [
+      {
+        "bool": ":true_or_false"
+      }
+    ],
+    "accepts_block": false,
+    "requires_block": false,
+    "summary": "Inhibit synth triggers if too late",
+    "introduced": "2,10,0",
+    "signature": {
+      "v": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "current_arg_checks": {
+    "name": "current_arg_checks",
+    "introduced": "2,0,0",
+    "accepts_block": false,
+    "summary": "Get current arg checking status",
+    "hiden": true
+  },
+  "with_synth": {
+    "name": "with_synth",
+    "args": [
+      {
+        "synth_name": ":symbol"
+      }
+    ],
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Block-level synth switching",
+    "introduced": "2,0,0",
+    "signature": {
+      "synth_name": null,
+      "&block": null,
+      "*args": null
+    },
+    "hiden": false
+  },
+  "play_pattern": {
+    "name": "play_pattern",
+    "args": [
+      {
+        "notes": ":list"
+      }
+    ],
+    "opts": {},
+    "summary": "Play pattern of notes",
+    "accepts_block": false,
+    "introduced": "2,0,0",
+    "signature": {
+      "notes": null,
+      "*args": null
+    },
+    "hiden": false
+  },
+  "with_synth_defaults": {
+    "name": "with_synth_defaults",
+    "opts": {},
+    "requires_block": true,
+    "summary": "Block-level use new synth defaults",
+    "accepts_block": true,
+    "introduced": "2,0,0",
+    "signature": {
+      "&block": null,
+      "*args": null
+    },
+    "hiden": false
+  },
+  "kill": {
+    "name": "kill",
+    "args": [
+      {
+        "node": ":synth_node"
+      }
+    ],
+    "opts": {},
+    "summary": "Kill synth",
+    "accepts_block": false,
+    "introduced": "2,0,0",
+    "signature": {
+      "node": null
+    },
+    "hiden": false
+  },
+  "sample_info": {
+    "name": "sample_info",
+    "args": [
+      {
+        "path": ":string"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Get sample information",
+    "introduced": "2,0,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": true
+  },
+  "current_synth_defaults": {
+    "name": "current_synth_defaults",
+    "introduced": "2,0,0",
+    "accepts_block": false,
+    "summary": "Get current synth defaults",
+    "hiden": true
+  },
+  "reset_mixer": {
+    "name": "reset_mixer!",
+    "opts": {},
+    "summary": "Reset master mixer",
+    "accepts_block": false,
+    "introduced": "2,9,0",
+    "signature": {
+      "": null
+    },
+    "hiden": false,
+    "modifies_env": true
+  },
+  "set_mixer_invert_stereo!": {
+    "hiden": false
+  },
+  "sample_split_filts_and_opts": {
+    "signature": {
+      "args": null
+    },
+    "hiden": true
+  },
+  "status": {
+    "name": "status",
+    "introduced": "2,0,0",
+    "accepts_block": false,
+    "summary": "Get server status",
+    "hiden": true
+  },
+  "scale": {
+    "args": [],
+    "memoize": true,
+    "returns": ":ring",
+    "summary": "Create scale",
+    "signature": {
+      "*opts": null,
+      "tonic_or_name": null
+    },
+    "name": "scale",
+    "opts": {
+      "num_octaves": 1
+    },
+    "inline": true,
+    "alt_args": [
+      {
+        "tonic": ":symbol"
+      },
+      {
+        "scale": ":symbol"
+      }
+    ],
+    "intro_fn": true,
+    "accepts_block": false,
+    "introduced": "2,0,0",
+    "hiden": false
+  },
+  "chord_degree": {
+    "name": "chord_degree",
+    "args": [
+      {
+        "number_of_notes": ":int"
+      }
+    ],
+    "accepts_block": false,
+    "memoize": true,
+    "returns": ":ring",
+    "inline": true,
+    "summary": "Construct chords of stacked thirds, based on scale degrees",
+    "alt_args": [
+      {
+        "degree": ":symbol"
+      },
+      {
+        "tonic": ":symbol"
+      },
+      {
+        "scale": ":symbol"
+      }
+    ],
+    "introduced": "2,1,0",
+    "signature": {
+      "degree": null,
+      "number_of_notes": 4,
+      "*opts": null,
+      "tonic": null,
+      "scale": ":major"
+    },
+    "hiden": false
+  },
+  "invert_chord": {
+    "signature": {
+      "*args": null
+    },
+    "hiden": true
+  },
+  "use_transpose": {
+    "name": "use_transpose",
+    "args": [
+      {
+        "note_shift": ":number"
+      }
+    ],
+    "intro_fn": true,
+    "accepts_block": false,
+    "summary": "Note transposition",
+    "introduced": "2,0,0",
+    "signature": {
+      "shift": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "rest": {
+    "name": "rest?",
+    "args": [
+      {
+        "note_or_args": ":number_symbol_or_map"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Determine if note or args is a rest",
+    "introduced": "2,1,0",
+    "signature": {
+      "n": null
+    },
+    "hiden": false
+  },
+  "use_synth_defaults": {
+    "name": "use_synth_defaults",
+    "opts": {},
+    "summary": "Use new synth defaults",
+    "accepts_block": false,
+    "introduced": "2,0,0",
+    "signature": {
+      "&block": null,
+      "*args": null
+    },
+    "hiden": false
+  },
+  "synth_names": {
+    "name": "synth_names",
+    "accepts_block": false,
+    "memoize": true,
+    "introduced": "2,9,0",
+    "summary": "Get all synth names",
+    "hiden": true
+  },
+  "with_arg_checks": {
+    "name": "with_arg_checks",
+    "args": [
+      {
+        "true_or_false": ":boolean"
+      }
+    ],
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Block-level enable and disable arg checks",
+    "introduced": "2,0,0",
+    "signature": {
+      "v": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "sample_free": {
+    "name": "sample_free",
+    "args": [
+      {
+        "path": ":string"
+      }
+    ],
+    "accepts_block": false,
+    "returns": null,
+    "summary": "Free a sample on the synth server",
+    "introduced": "2,9,0",
+    "signature": {
+      "*paths": null
+    },
+    "hiden": false
+  },
+  "with_debug": {
+    "name": "with_debug",
+    "args": [
+      {
+        "true_or_false": ":boolean"
+      }
+    ],
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Block-level enable and disable debug",
+    "introduced": "2,0,0",
+    "signature": {
+      "v": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "current_octave": {
+    "name": "current_octave",
+    "introduced": "2,9,0",
+    "accepts_block": false,
+    "summary": "Get current octave shift",
+    "hiden": true
+  },
+  "pitch_ratio": {
+    "signature": {
+      "*args": null
+    },
+    "hiden": true
+  },
+  "with_sample_defaults": {
+    "name": "with_sample_defaults",
+    "opts": {},
+    "requires_block": true,
+    "summary": "Block-level use new sample defaults",
+    "accepts_block": true,
+    "introduced": "2,5,0",
+    "signature": {
+      "&block": null,
+      "*args": null
+    },
+    "hiden": false
+  },
+  "current_debug": {
+    "name": "current_debug",
+    "introduced": "2,0,0",
+    "accepts_block": false,
+    "summary": "Get current debug status",
+    "hiden": true
+  },
+  "use_timing_warnings": {
+    "signature": {
+      "v": null,
+      "&block": null
+    },
+    "hiden": true
+  },
+  "sample_duration": {
+    "name": "sample_duration",
+    "args": [
+      {
+        "path": ":string"
+      }
+    ],
+    "opts": {
+      "decay": 0,
+      "rate": 1,
+      "sustain": 1,
+      "beat_stretch": 1,
+      "start": 0,
+      "pitch_stretch": 1,
+      "finish": 1,
+      "release": 0,
+      "attack": 0,
+      "rpitch": 0
+    },
+    "summary": "Get duration of sample in beats",
+    "accepts_block": false,
+    "introduced": "2,0,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": true
+  },
+  "load_samples": {
+    "name": "load_samples",
+    "args": [
+      {
+        "paths": ":list"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Pre-load all matching samples",
+    "introduced": "2,0,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "recording_start": {
+    "name": "recording_start",
+    "introduced": "2,0,0",
+    "accepts_block": false,
+    "summary": "Start recording",
+    "hiden": true
+  },
+  "use_cent_tuning": {
+    "name": "use_cent_tuning",
+    "args": [
+      {
+        "cent_shift": ":number"
+      }
+    ],
+    "intro_fn": true,
+    "accepts_block": false,
+    "summary": "Cent tuning",
+    "introduced": "2,9,0",
+    "signature": {
+      "shift": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "with_fx": {
+    "name": "with_fx",
+    "args": [
+      {
+        "fx_name": ":symbol"
+      }
+    ],
+    "intro_fn": true,
+    "opts": {
+      "reps": 1,
+      "kill_delay": 1
+    },
+    "requires_block": true,
+    "summary": "Use Studio FX",
+    "accepts_block": true,
+    "introduced": "2,0,0",
+    "async_block": true,
+    "signature": {
+      "fx_name": null,
+      "&block": null,
+      "*args": null
+    },
+    "hiden": false
+  },
+  "play_chord": {
+    "name": "play_chord",
+    "args": [
+      {
+        "notes": ":list"
+      }
+    ],
+    "opts": {
+      "decay": 0,
+      "amp": 1,
+      "attack_level": 1,
+      "on": 1,
+      "pan_slide": 1,
+      "pitch": 0,
+      "sustain": 1,
+      "pan": 0,
+      "amp_slide": 1,
+      "release": 0,
+      "decay_level": 1,
+      "sustain_level": 1,
+      "slide": 0,
+      "env_curve": 1,
+      "attack": 0
+    },
+    "summary": "Play notes simultaneously",
+    "accepts_block": false,
+    "introduced": "2,0,0",
+    "signature": {
+      "notes": null,
+      "*args": null
+    },
+    "hiden": false
+  },
+  "sample_groups": {
+    "name": "sample_groups",
+    "accepts_block": false,
+    "memoize": true,
+    "introduced": "2,0,0",
+    "summary": "Get all sample groups",
+    "hiden": true
+  },
+  "sample_loaded": {
+    "name": "sample_loaded?",
+    "args": [
+      {
+        "path": ":string"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Test if sample was pre-loaded",
+    "introduced": "2,2,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "with_arg_bpm_scaling": {
+    "name": "with_arg_bpm_scaling",
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Block-level enable and disable BPM scaling",
+    "introduced": "2,0,0",
+    "signature": {
+      "&block": null,
+      "bool": null
+    },
+    "hiden": false
+  },
+  "load_synthdefs": {
+    "name": "load_synthdefs",
+    "args": [
+      {
+        "path": ":string"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Load external synthdefs",
+    "introduced": "2,0,0",
+    "signature": {
+      "path": "synthdef_path"
+    },
+    "hiden": true
+  },
+  "use_arg_checks": {
+    "name": "use_arg_checks",
+    "args": [
+      {
+        "true_or_false": ":boolean"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Enable and disable arg checks",
+    "introduced": "2,0,0",
+    "signature": {
+      "v": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "start_amp_monitor": {
+    "hiden": true
+  },
+  "with_afx": {
+    "signature": {
+      "fx_name": null,
+      "&block": null,
+      "*args": null
+    },
+    "hiden": true
+  },
+  "use_debug": {
+    "name": "use_debug",
+    "args": [
+      {
+        "true_or_false": ":boolean"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Enable and disable debug",
+    "introduced": "2,0,0",
+    "signature": {
+      "v": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "set_sched_ahead_time": {
+    "name": "set_sched_ahead_time!",
+    "args": [
+      {
+        "time": ":number"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Set sched ahead time globally",
+    "introduced": "2,0,0",
+    "signature": {
+      "t": null
+    },
+    "hiden": false,
+    "modifies_env": true
+  },
+  "set_control_delta": {
+    "name": "set_control_delta!",
+    "args": [
+      {
+        "time": ":number"
+      }
+    ],
+    "accepts_block": false,
+    "summary": "Set control delta globally",
+    "introduced": "2,1,0",
+    "signature": {
+      "t": null
+    },
+    "hiden": false,
+    "modifies_env": true
+  },
+  "should_trigger": {
+    "signature": {
+      "args_h": null
+    },
+    "hiden": false
+  },
+  "note_list": {
+    "args": [],
+    "name": "note_list",
+    "accepts_block": false,
+    "opts": {},
+    "summary": "Make a list of notes",
+    "signature": {},
+    "hiden": false,
+    "introduced": "blend-sonic"
+  },
+  "all_sample_names": {
+    "name": "all_sample_names",
+    "accepts_block": false,
+    "memoize": true,
+    "introduced": "2,0,0",
+    "summary": "Get all sample names",
+    "hiden": true
+  },
+  "use_fx": {
+    "signature": {
+      "&block": null,
+      "*args": null
+    },
+    "hiden": true
+  },
+  "use_octave": {
+    "name": "use_octave",
     "args": [
       {
         "octave_shift": ":number"
       }
     ],
-    "requires_block": true,
-    "name": "with_octave",
-    "introduced": "2,9,0",
-    "hiden": false,
     "intro_fn": true,
-    "summary": "Block level octave transposition",
+    "accepts_block": false,
+    "summary": "Note octave transposition",
+    "introduced": "2,9,0",
     "signature": {
       "shift": null,
       "&block": null
-    }
+    },
+    "hiden": false
   },
-  "ratio_to_pitch": {
+  "recording_delete": {
+    "name": "recording_delete",
     "accepts_block": false,
+    "hiden": true
+  },
+  "use_sample_bpm": {
+    "name": "use_sample_bpm",
     "args": [
       {
-        "ratio": ":number"
+        "string_or_number": ":sample_name_or_duration"
       }
     ],
-    "name": "ratio_to_pitch",
-    "introduced": "2,7,0",
-    "hiden": false,
-    "summary": "relative frequency ratio to MIDI pitch",
-    "signature": {
-      "r": null
+    "opts": {
+      "num_beats": 1
     },
-    "inline": true
+    "summary": "Sample-duration-based bpm modification",
+    "accepts_block": false,
+    "introduced": "2,1,0",
+    "signature": {
+      "*args": null,
+      "sample_name": null
+    },
+    "hiden": false
+  },
+  "with_tuning": {
+    "name": "with_tuning",
+    "args": [
+      {
+        "tuning": ":symbol"
+      },
+      {
+        "fundamental_note": ":symbol_or_number"
+      }
+    ],
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Block-level tuning modification",
+    "introduced": "2,6,0",
+    "signature": {
+      "fundamental_note": ":c",
+      "&block": null,
+      "tuning": null
+    },
+    "hiden": false
+  },
+  "set_cent_tuning": {
+    "name": "set_cent_tuning!",
+    "args": [
+      {
+        "cent_shift": ":number"
+      }
+    ],
+    "intro_fn": false,
+    "accepts_block": false,
+    "summary": "Global Cent tuning",
+    "introduced": "2,10,0",
+    "signature": {
+      "shift": null
+    },
+    "hiden": false,
+    "modifies_env": true
+  },
+  "with_timing_guarantees": {
+    "name": "with_timing_guarantees",
+    "args": [
+      {
+        "bool": ":true_or_false"
+      }
+    ],
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Block-scoped inhibition of synth triggers if too late",
+    "introduced": "2,10,0",
+    "signature": {
+      "v": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "note_info": {
+    "name": "note_info",
+    "args": [
+      {
+        "note": ":symbol_or_number"
+      }
+    ],
+    "opts": {
+      "octave": 4
+    },
+    "summary": "Get note info",
+    "accepts_block": false,
+    "introduced": "2,0,0",
+    "signature": {
+      "*args": null,
+      "n": null
+    },
+    "hiden": true
+  },
+  "sample_names": {
+    "name": "sample_names",
+    "args": [
+      {
+        "group": ":symbol"
+      }
+    ],
+    "accepts_block": false,
+    "memoize": true,
+    "returns": ":ring",
+    "summary": "Get sample names",
+    "introduced": "2,0,0",
+    "signature": {
+      "group": null
+    },
+    "hiden": true
+  },
+  "chord": {
+    "args": [],
+    "memoize": true,
+    "returns": ":ring",
+    "summary": "Create chord",
+    "signature": {
+      "*opts": null,
+      "tonic_or_name": null
+    },
+    "name": "chord",
+    "opts": {
+      "invert": 0,
+      "num_octaves": 1
+    },
+    "inline": true,
+    "alt_args": [
+      {
+        "tonic": ":symbol"
+      },
+      {
+        "chord": ":symbol"
+      }
+    ],
+    "intro_fn": true,
+    "accepts_block": false,
+    "introduced": "2,0,0",
+    "hiden": false
+  },
+  "chord_names": {
+    "name": "chord_names",
+    "accepts_block": false,
+    "memoize": true,
+    "introduced": "2,6,0",
+    "summary": "All chord names",
+    "hiden": true
+  },
+  "with_transpose": {
+    "name": "with_transpose",
+    "args": [
+      {
+        "note_shift": ":number"
+      }
+    ],
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Block-level note transposition",
+    "introduced": "2,0,0",
+    "signature": {
+      "shift": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "with_merged_sample_defaults": {
+    "name": "with_merged_sample_defaults",
+    "opts": {},
+    "requires_block": true,
+    "summary": "Block-level use merged sample defaults",
+    "accepts_block": true,
+    "introduced": "2,9,0",
+    "signature": {
+      "&block": null,
+      "*args": null
+    },
+    "hiden": false
+  },
+  "control": {
+    "name": "control",
+    "args": [
+      {
+        "node": ":synth_node"
+      }
+    ],
+    "opts": {},
+    "summary": "Control running synth",
+    "accepts_block": false,
+    "introduced": "2,0,0",
+    "signature": {
+      "*args": null
+    },
+    "hiden": false
+  },
+  "set_mixer_standard_stereo!": {
+    "hiden": false
+  },
+  "with_cent_tuning": {
+    "name": "with_cent_tuning",
+    "args": [
+      {
+        "cent_shift": ":number"
+      }
+    ],
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Block-level cent tuning",
+    "introduced": "2,9,0",
+    "signature": {
+      "shift": null,
+      "&block": null
+    },
+    "hiden": false
+  },
+  "play": {
+    "name": "play",
+    "args": [
+      {
+        "note": ":symbol_or_number"
+      }
+    ],
+    "intro_fn": true,
+    "opts": {
+      "decay": 0,
+      "amp": 1,
+      "attack_level": 1,
+      "on": 1,
+      "pan_slide": 1,
+      "pitch": 0,
+      "sustain": 1,
+      "pan": 0,
+      "amp_slide": 1,
+      "release": 0,
+      "decay_level": 1,
+      "sustain_level": 1,
+      "slide": 0,
+      "env_curve": 1,
+      "attack": 0
+    },
+    "requires_block": false,
+    "summary": "Play current synth",
+    "accepts_block": true,
+    "introduced": "2,0,0",
+    "async_block": true,
+    "signature": {
+      "&blk": null,
+      "*args": null,
+      "n": null
+    },
+    "hiden": false
+  },
+  "with_octave": {
+    "name": "with_octave",
+    "args": [
+      {
+        "octave_shift": ":number"
+      }
+    ],
+    "intro_fn": true,
+    "accepts_block": true,
+    "requires_block": true,
+    "summary": "Block level octave transposition",
+    "introduced": "2,9,0",
+    "signature": {
+      "shift": null,
+      "&block": null
+    },
+    "hiden": false
   },
   "chord_invert": {
-    "accepts_block": false,
+    "name": "chord_invert",
     "args": [
       {
         "notes": ":list"
@@ -1967,101 +2903,50 @@ lang_sound = {
         "shift": ":number"
       }
     ],
-    "name": "chord_invert",
-    "introduced": "2,6,0",
-    "hiden": false,
+    "accepts_block": false,
+    "inline": true,
     "returns": ":ring",
     "summary": "Chord inversion",
+    "introduced": "2,6,0",
     "signature": {
-      "notes": null,
-      "shift": null
+      "shift": null,
+      "notes": null
     },
-    "inline": true
+    "hiden": false
   },
-  "use_merged_synth_defaults": {
+  "ratio_to_pitch": {
+    "name": "ratio_to_pitch",
+    "args": [
+      {
+        "ratio": ":number"
+      }
+    ],
     "accepts_block": false,
-    "opts": {},
-    "name": "use_merged_synth_defaults",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Merge synth defaults",
+    "inline": true,
+    "summary": "relative frequency ratio to MIDI pitch",
+    "introduced": "2,7,0",
     "signature": {
-      "*args": null,
-      "&block": null
-    }
+      "r": null
+    },
+    "hiden": false
   },
-  "resolve_sample_paths": {
-    "hiden": true,
-    "signature": {
-      "filts_and_sources": null
-    }
-  },
-  "sample_loaded": {
-    "accepts_block": false,
+  "sample_buffer": {
+    "name": "sample_buffer",
     "args": [
       {
         "path": ":string"
       }
     ],
-    "name": "sample_loaded?",
-    "introduced": "2,2,0",
-    "hiden": false,
-    "summary": "Test if sample was pre-loaded",
+    "accepts_block": false,
+    "summary": "Get sample data",
+    "introduced": "2,0,0",
     "signature": {
       "*args": null
-    }
-  },
-  "set_cent_tuning": {
-    "accepts_block": false,
-    "args": [
-      {
-        "cent_shift": ":number"
-      }
-    ],
-    "name": "set_cent_tuning!",
-    "introduced": "2,10,0",
-    "hiden": false,
-    "intro_fn": false,
-    "summary": "Global Cent tuning",
-    "signature": {
-      "shift": null
     },
-    "modifies_env": true
-  },
-  "use_transpose": {
-    "accepts_block": false,
-    "args": [
-      {
-        "note_shift": ":number"
-      }
-    ],
-    "name": "use_transpose",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "intro_fn": true,
-    "summary": "Note transposition",
-    "signature": {
-      "shift": null,
-      "&block": null
-    }
-  },
-  "load_samples": {
-    "accepts_block": false,
-    "args": [
-      {
-        "paths": ":list"
-      }
-    ],
-    "name": "load_samples",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Pre-load all matching samples",
-    "signature": {
-      "*args": null
-    }
+    "hiden": true
   },
   "note_range": {
-    "accepts_block": false,
+    "name": "note_range",
     "args": [
       {
         "low_note": ":note"
@@ -2073,951 +2958,88 @@ lang_sound = {
     "opts": {
       "pitches": []
     },
-    "name": "note_range",
-    "introduced": "2,6,0",
-    "hiden": false,
+    "inline": true,
     "returns": ":ring",
     "summary": "Get a range of notes",
-    "signature": {
-      "high_note": null,
-      "*opts": null,
-      "low_note": null
-    },
-    "inline": true
-  },
-  "current_sched_ahead_time": {
-    "introduced": "2,0,0",
     "accepts_block": false,
-    "hiden": true,
-    "summary": "Get current sched ahead time",
-    "name": "current_sched_ahead_time"
-  },
-  "use_timing_warnings": {
-    "hiden": true,
+    "introduced": "2,6,0",
     "signature": {
-      "v": null,
-      "&block": null
-    }
+      "low_note": null,
+      "*opts": null,
+      "high_note": null
+    },
+    "hiden": false
   },
   "current_sample_defaults": {
+    "name": "current_sample_defaults",
     "introduced": "2,5,0",
     "accepts_block": false,
-    "hiden": true,
     "summary": "Get current sample defaults",
-    "name": "current_sample_defaults"
+    "hiden": true
   },
-  "with_synth": {
-    "accepts_block": true,
+  "current_sched_ahead_time": {
+    "name": "current_sched_ahead_time",
+    "introduced": "2,0,0",
+    "accepts_block": false,
+    "summary": "Get current sched ahead time",
+    "hiden": true
+  },
+  "use_synth": {
+    "name": "use_synth",
     "args": [
       {
         "synth_name": ":symbol"
       }
     ],
-    "requires_block": true,
-    "name": "with_synth",
+    "intro_fn": true,
+    "accepts_block": false,
+    "summary": "Switch current synth",
     "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Block-level synth switching",
     "signature": {
-      "*args": null,
       "synth_name": null,
-      "&block": null
-    }
-  },
-  "use_arg_checks": {
-    "accepts_block": false,
-    "args": [
-      {
-        "true_or_false": ":boolean"
-      }
-    ],
-    "name": "use_arg_checks",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Enable and disable arg checks",
-    "signature": {
-      "v": null,
-      "&block": null
-    }
-  },
-  "truthy": {
-    "hiden": false,
-    "signature": {
-      "val": null
-    }
-  },
-  "use_fx": {
-    "hiden": true,
-    "signature": {
-      "*args": null,
-      "&block": null
-    }
-  },
-  "sample_info": {
-    "accepts_block": false,
-    "args": [
-      {
-        "path": ":string"
-      }
-    ],
-    "name": "sample_info",
-    "introduced": "2,0,0",
-    "hiden": true,
-    "summary": "Get sample information",
-    "signature": {
+      "&block": null,
       "*args": null
-    }
-  },
-  "current_volume": {
-    "introduced": "2,0,0",
-    "accepts_block": false,
-    "hiden": true,
-    "summary": "Get current volume",
-    "name": "current_volume"
-  },
-  "set_mixer_control": {
-    "accepts_block": false,
-    "opts": {
-      "limiter_bypass": 0,
-      "lpf_bypass": 0,
-      "leak_dc_bypass": 0,
-      "amp": 1,
-      "pre_amp": 1,
-      "hpf_bypass": 0,
-      "hpf": 0,
-      "lpf": 131
     },
-    "name": "set_mixer_control!",
-    "introduced": "2,7,0",
-    "hiden": false,
-    "summary": "Control master mixer",
-    "signature": {
-      "opts": null
-    },
-    "modifies_env": true
-  },
-  "with_tuning": {
-    "accepts_block": true,
-    "args": [
-      {
-        "tuning": ":symbol"
-      },
-      {
-        "fundamental_note": ":symbol_or_number"
-      }
-    ],
-    "requires_block": true,
-    "name": "with_tuning",
-    "introduced": "2,6,0",
-    "hiden": false,
-    "summary": "Block-level tuning modification",
-    "signature": {
-      "tuning": null,
-      "fundamental_note": ":c",
-      "&block": null
-    }
-  },
-  "current_synth_defaults": {
-    "introduced": "2,0,0",
-    "accepts_block": false,
-    "hiden": true,
-    "summary": "Get current synth defaults",
-    "name": "current_synth_defaults"
-  },
-  "sample": {
-    "accepts_block": true,
-    "args": [
-      {
-        "name_or_path": ":symbol_or_string"
-      }
-    ],
-    "requires_block": false,
-    "async_block": true,
-    "opts": {
-      "pitch": 0,
-      "rpitch": 0,
-      "finish": 1,
-      "path": "/path/to/file",
-      "release": 0,
-      "pitch_dis": 0,
-      "sustain": 1,
-      "lpf_attack_level": 0,
-      "hpf": 0,
-      "hpf_env_curve": 1,
-      "lpf_env_curve": 1,
-      "pre_amp": 1,
-      "compress": 0,
-      "lpf_release_level": 0,
-      "lpf_release": 0,
-      "relax_time": 0,
-      "pitch_stretch": 1,
-      "start": 0,
-      "pan": 0,
-      "hpf_sustain": 0,
-      "lpf_decay": 0,
-      "hpf_attack": 0,
-      "norm": 0,
-      "lpf_min": 30,
-      "lpf_init_level": 30,
-      "hpf_decay_level": 0,
-      "beat_stretch": 1,
-      "lpf_attack": 0,
-      "hpf_sustain_level": 0,
-      "amp": 1,
-      "window_size": 0,
-      "lpf_sustain_level": 0,
-      "onset": 0,
-      "slide": 0,
-      "hpf_attack_level": 0,
-      "slope_below": 1,
-      "clamp_time": 0,
-      "lpf_sustain": 0,
-      "attack": 0,
-      "lpf_decay_level": 0,
-      "hpf_init_level": 130,
-      "hpf_decay": 0,
-      "hpf_release": 0,
-      "hpf_release_level": 0,
-      "slope_above": 1,
-      "hpf_max": 200,
-      "lpf": 131,
-      "time_dis": 0,
-      "rate": 1,
-      "threshold": 0
-    },
-    "name": "sample",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "intro_fn": true,
-    "summary": "Trigger sample",
-    "signature": {
-      "*args": null,
-      "&blk": null
-    }
-  },
-  "load_sample": {
-    "accepts_block": false,
-    "args": [
-      {
-        "path": ":string"
-      }
-    ],
-    "name": "load_sample",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Pre-load first matching sample",
-    "signature": {
-      "*args": null
-    }
-  },
-  "scale": {
-    "args": [
-      {
-        "tonic": ":symbol"
-      },
-      {
-        "name": ":symbol"
-      }
-    ],
-    "opts": {
-      "num_octaves": 1
-    },
-    "intro_fn": true,
-    "signature": {
-      "*opts": null,
-      "tonic_or_name": null
-    },
-    "inline": true,
-    "accepts_block": false,
-    "memoize": true,
-    "name": "scale",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "returns": ":ring",
-    "summary": "Create scale"
-  },
-  "degree": {
-    "accepts_block": false,
-    "args": [
-      {
-        "degree": ":symbol_or_number"
-      },
-      {
-        "tonic": ":symbol"
-      },
-      {
-        "scale": ":symbol"
-      }
-    ],
-    "name": "degree",
-    "introduced": "2,1,0",
-    "hiden": false,
-    "summary": "Convert a degree into a note",
-    "signature": {
-      "degree": null,
-      "tonic": null,
-      "scale": null
-    },
-    "inline": true
+    "hiden": false
   },
   "with_sample_bpm": {
-    "accepts_block": true,
+    "name": "with_sample_bpm",
     "args": [
       {
         "string_or_number": ":sample_name_or_duration"
       }
     ],
-    "requires_block": true,
     "opts": {
       "num_beats": 1
     },
-    "name": "with_sample_bpm",
-    "introduced": "2,1,0",
-    "hiden": false,
+    "requires_block": true,
     "summary": "Block-scoped sample-duration-based bpm modification",
+    "accepts_block": true,
+    "introduced": "2,1,0",
     "signature": {
       "*args": null,
       "&block": null,
       "sample_name": null
-    }
-  },
-  "pitch_to_ratio": {
-    "accepts_block": false,
-    "args": [
-      {
-        "pitch": ":midi_number"
-      }
-    ],
-    "name": "pitch_to_ratio",
-    "introduced": "2,5,0",
-    "hiden": false,
-    "summary": "relative MIDI pitch to frequency ratio",
-    "signature": {
-      "m": null
     },
-    "inline": true
-  },
-  "use_timing_guarantees": {
-    "accepts_block": false,
-    "args": [
-      {
-        "bool": ":true_or_false"
-      }
-    ],
-    "requires_block": false,
-    "name": "use_timing_guarantees",
-    "introduced": "2,10,0",
-    "hiden": false,
-    "summary": "Inhibit synth triggers if too late",
-    "signature": {
-      "v": null,
-      "&block": null
-    }
-  },
-  "invert_chord": {
-    "hiden": true,
-    "signature": {
-      "*args": null
-    }
-  },
-  "sample_groups": {
-    "accepts_block": false,
-    "memoize": true,
-    "name": "sample_groups",
-    "introduced": "2,0,0",
-    "hiden": true,
-    "summary": "Get all sample groups"
-  },
-  "use_merged_sample_defaults": {
-    "accepts_block": false,
-    "opts": {},
-    "name": "use_merged_sample_defaults",
-    "introduced": "2,9,0",
-    "hiden": false,
-    "summary": "Merge new sample defaults",
-    "signature": {
-      "*args": null,
-      "&block": null
-    }
-  },
-  "sample_free": {
-    "accepts_block": false,
-    "args": [
-      {
-        "path": ":string"
-      }
-    ],
-    "name": "sample_free",
-    "introduced": "2,9,0",
-    "hiden": false,
-    "returns": null,
-    "summary": "Free a sample on the synth server",
-    "signature": {
-      "*paths": null
-    }
-  },
-  "should_trigger": {
-    "hiden": false,
-    "signature": {
-      "args_h": null
-    }
-  },
-  "with_fx": {
-    "accepts_block": true,
-    "args": [
-      {
-        "fx_name": ":symbol"
-      }
-    ],
-    "requires_block": true,
-    "async_block": true,
-    "opts": {
-      "kill_delay": 1,
-      "reps": 1
-    },
-    "name": "with_fx",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "intro_fn": true,
-    "summary": "Use Studio FX",
-    "signature": {
-      "*args": null,
-      "&block": null,
-      "fx_name": null
-    }
-  },
-  "sample_free_all": {
-    "accepts_block": false,
-    "args": [],
-    "name": "sample_free_all",
-    "introduced": "2,9,0",
-    "hiden": false,
-    "returns": null,
-    "summary": "Free all loaded samples on the synth server"
-  },
-  "fx_names": {
-    "accepts_block": false,
-    "memoize": true,
-    "name": "fx_names",
-    "introduced": "2,10,0",
-    "hiden": true,
-    "summary": "Get all FX names"
-  },
-  "scale_names": {
-    "accepts_block": false,
-    "memoize": true,
-    "name": "scale_names",
-    "introduced": "2,6,0",
-    "hiden": true,
-    "summary": "All scale names"
-  },
-  "all_sample_names": {
-    "accepts_block": false,
-    "memoize": true,
-    "name": "all_sample_names",
-    "introduced": "2,0,0",
-    "hiden": true,
-    "summary": "Get all sample names"
-  },
-  "with_arg_checks": {
-    "accepts_block": true,
-    "args": [
-      {
-        "true_or_false": ":boolean"
-      }
-    ],
-    "requires_block": true,
-    "name": "with_arg_checks",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Block-level enable and disable arg checks",
-    "signature": {
-      "v": null,
-      "&block": null
-    }
-  },
-  "synth_names": {
-    "accepts_block": false,
-    "memoize": true,
-    "name": "synth_names",
-    "introduced": "2,9,0",
-    "hiden": true,
-    "summary": "Get all synth names"
-  },
-  "current_octave": {
-    "introduced": "2,9,0",
-    "accepts_block": false,
-    "hiden": true,
-    "summary": "Get current octave shift",
-    "name": "current_octave"
-  },
-  "with_debug": {
-    "accepts_block": true,
-    "args": [
-      {
-        "true_or_false": ":boolean"
-      }
-    ],
-    "requires_block": true,
-    "name": "with_debug",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Block-level enable and disable debug",
-    "signature": {
-      "v": null,
-      "&block": null
-    }
-  },
-  "start_amp_monitor": {
-    "hiden": true
-  },
-  "with_sample_defaults": {
-    "accepts_block": true,
-    "requires_block": true,
-    "opts": {},
-    "name": "with_sample_defaults",
-    "introduced": "2,5,0",
-    "hiden": false,
-    "summary": "Block-level use new sample defaults",
-    "signature": {
-      "*args": null,
-      "&block": null
-    }
-  },
-  "use_arg_bpm_scaling": {
-    "accepts_block": false,
-    "args": [
-      {
-        "bool": ":boolean"
-      }
-    ],
-    "name": "use_arg_bpm_scaling",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Enable and disable BPM scaling",
-    "signature": {
-      "&block": null,
-      "bool": null
-    }
-  },
-  "with_timing_guarantees": {
-    "accepts_block": true,
-    "args": [
-      {
-        "bool": ":true_or_false"
-      }
-    ],
-    "requires_block": true,
-    "name": "with_timing_guarantees",
-    "introduced": "2,10,0",
-    "hiden": false,
-    "summary": "Block-scoped inhibition of synth triggers if too late",
-    "signature": {
-      "v": null,
-      "&block": null
-    }
-  },
-  "set_mixer_standard_stereo!": {
     "hiden": false
   },
-  "status": {
-    "introduced": "2,0,0",
+  "use_merged_sample_defaults": {
+    "name": "use_merged_sample_defaults",
+    "opts": {},
+    "summary": "Merge new sample defaults",
     "accepts_block": false,
-    "hiden": true,
-    "summary": "Get server status",
-    "name": "status"
-  },
-  "chord": {
-    "args": [
-      {
-        "tonic": ":symbol"
-      },
-      {
-        "name": ":symbol"
-      }
-    ],
-    "opts": {
-      "num_octaves": 1,
-      "invert": 0
-    },
-    "intro_fn": true,
-    "signature": {
-      "*opts": null,
-      "tonic_or_name": null
-    },
-    "inline": true,
-    "accepts_block": false,
-    "memoize": true,
-    "name": "chord",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "returns": ":ring",
-    "summary": "Create chord"
-  },
-  "current_cent_tuning": {
     "introduced": "2,9,0",
-    "accepts_block": false,
-    "hiden": true,
-    "summary": "Get current cent shift",
-    "name": "current_cent_tuning"
-  },
-  "chord_names": {
-    "accepts_block": false,
-    "memoize": true,
-    "name": "chord_names",
-    "introduced": "2,6,0",
-    "hiden": true,
-    "summary": "All chord names"
-  },
-  "with_synth_defaults": {
-    "accepts_block": true,
-    "requires_block": true,
-    "opts": {},
-    "name": "with_synth_defaults",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Block-level use new synth defaults",
     "signature": {
-      "*args": null,
-      "&block": null
-    }
-  },
-  "resolve_sample_path": {
-    "hiden": true,
-    "signature": {
-      "filts_and_sources": null
-    }
-  },
-  "load_synthdefs": {
-    "accepts_block": false,
-    "args": [
-      {
-        "path": ":string"
-      }
-    ],
-    "name": "load_synthdefs",
-    "introduced": "2,0,0",
-    "hiden": true,
-    "summary": "Load external synthdefs",
-    "signature": {
-      "path": "synthdef_path"
-    }
-  },
-  "midi_to_hz": {
-    "accepts_block": false,
-    "args": [
-      {
-        "note": ":symbol_or_number"
-      }
-    ],
-    "name": "midi_to_hz",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "MIDI to Hz conversion",
-    "signature": {
-      "n": null
-    },
-    "inline": true
-  },
-  "sample_names": {
-    "accepts_block": false,
-    "args": [
-      {
-        "group": ":symbol"
-      }
-    ],
-    "name": "sample_names",
-    "memoize": true,
-    "introduced": "2,0,0",
-    "hiden": true,
-    "returns": ":ring",
-    "summary": "Get sample names",
-    "signature": {
-      "group": null
-    }
-  },
-  "use_sample_defaults": {
-    "accepts_block": false,
-    "opts": {},
-    "name": "use_sample_defaults",
-    "introduced": "2,5,0",
-    "hiden": false,
-    "summary": "Use new sample defaults",
-    "signature": {
-      "*args": null,
-      "&block": null
-    }
-  },
-  "with_afx": {
-    "hiden": true,
-    "signature": {
-      "*args": null,
       "&block": null,
-      "fx_name": null
-    }
-  },
-  "synth": {
-    "accepts_block": true,
-    "args": [
-      {
-        "synth_name": ":symbol"
-      }
-    ],
-    "requires_block": false,
-    "async_block": true,
-    "opts": {
-      "pitch": 0,
-      "attack": 0,
-      "pan": 0,
-      "amp_slide": 1,
-      "amp": 1,
-      "on": 1,
-      "release": 0,
-      "sustain": 1,
-      "env_curve": 1,
-      "decay_level": 1,
-      "pan_slide": 1,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "slide": 0,
-      "decay": 0
-    },
-    "name": "synth",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "intro_fn": true,
-    "summary": "Trigger specific synth",
-    "signature": {
-      "*args": null,
-      "synth_name": null,
-      "&blk": null
-    }
-  },
-  "set_sched_ahead_time": {
-    "accepts_block": false,
-    "args": [
-      {
-        "time": ":number"
-      }
-    ],
-    "name": "set_sched_ahead_time!",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Set sched ahead time globally",
-    "signature": {
-      "t": null
-    },
-    "modifies_env": true
-  },
-  "with_cent_tuning": {
-    "accepts_block": true,
-    "args": [
-      {
-        "cent_shift": ":number"
-      }
-    ],
-    "requires_block": true,
-    "name": "with_cent_tuning",
-    "introduced": "2,9,0",
-    "hiden": false,
-    "summary": "Block-level cent tuning",
-    "signature": {
-      "shift": null,
-      "&block": null
-    }
-  },
-  "current_transpose": {
-    "introduced": "2,0,0",
-    "accepts_block": false,
-    "hiden": true,
-    "summary": "Get current transposition",
-    "name": "current_transpose"
-  },
-  "sample_paths": {
-    "accepts_block": false,
-    "args": [
-      {
-        "pre_args": ":source_and_filter_types"
-      }
-    ],
-    "name": "sample_paths",
-    "introduced": "2,10,0",
-    "hiden": true,
-    "returns": ":ring",
-    "summary": "Sample Pack Filter Resolution",
-    "signature": {
-      "*args": null
-    }
-  },
-  "use_debug": {
-    "accepts_block": false,
-    "args": [
-      {
-        "true_or_false": ":boolean"
-      }
-    ],
-    "name": "use_debug",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Enable and disable debug",
-    "signature": {
-      "v": null,
-      "&block": null
-    }
-  },
-  "play": {
-    "accepts_block": true,
-    "args": [
-      {
-        "note": ":symbol_or_number"
-      }
-    ],
-    "requires_block": false,
-    "async_block": true,
-    "opts": {
-      "pitch": 0,
-      "attack": 0,
-      "pan": 0,
-      "amp_slide": 1,
-      "amp": 1,
-      "on": 1,
-      "release": 0,
-      "sustain": 1,
-      "env_curve": 1,
-      "decay_level": 1,
-      "pan_slide": 1,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "slide": 0,
-      "decay": 0
-    },
-    "name": "play",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "intro_fn": true,
-    "summary": "Play current synth",
-    "signature": {
-      "n": null,
-      "*args": null,
-      "&blk": null
-    }
-  },
-  "set_volume": {
-    "accepts_block": false,
-    "args": [
-      {
-        "vol": ":number"
-      }
-    ],
-    "name": "set_volume!",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Set Volume globally",
-    "signature": {
-      "vol": null
-    },
-    "modifies_env": true
-  },
-  "midi_notes": {
-    "accepts_block": false,
-    "args": [
-      {
-        "list": ":array"
-      }
-    ],
-    "name": "midi_notes",
-    "memoize": true,
-    "introduced": "2,7,0",
-    "hiden": false,
-    "returns": ":ring",
-    "summary": "Create a ring buffer of midi note numbers",
-    "signature": {
       "*args": null
     },
-    "inline": true
+    "hiden": false
   },
-  "use_synth_defaults": {
-    "accepts_block": false,
-    "opts": {},
-    "name": "use_synth_defaults",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Use new synth defaults",
-    "signature": {
-      "*args": null,
-      "&block": null
-    }
+  "set_mixer_mono_mode!": {
+    "hiden": false
   },
-  "play_pattern_timed": {
-    "accepts_block": false,
-    "args": [
-      {
-        "notes": ":list"
-      },
-      {
-        "times": ":list_or_number"
-      }
-    ],
-    "opts": {
-      "pitch": 0,
-      "attack": 0,
-      "pan": 0,
-      "amp_slide": 1,
-      "amp": 1,
-      "on": 1,
-      "release": 0,
-      "sustain": 1,
-      "env_curve": 1,
-      "decay_level": 1,
-      "pan_slide": 1,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "slide": 0,
-      "decay": 0
-    },
-    "name": "play_pattern_timed",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Play pattern of notes with specific times",
-    "signature": {
-      "notes": null,
-      "times": null,
-      "*args": null
-    }
-  },
-  "with_merged_synth_defaults": {
-    "accepts_block": true,
-    "requires_block": true,
-    "opts": {},
-    "name": "with_merged_synth_defaults",
-    "introduced": "2,0,0",
-    "hiden": false,
-    "summary": "Block-level merge synth defaults",
-    "signature": {
-      "*args": null,
-      "&block": null
-    }
-  },
-  "octs": {
-    "accepts_block": false,
-    "args": [
-      {
-        "start": ":note"
-      },
-      {
-        "num_octaves": ":pos_int"
-      }
-    ],
-    "name": "octs",
-    "introduced": "2,8,0",
-    "hiden": false,
-    "returns": ":ring",
-    "summary": "Create a ring of octaves",
-    "signature": {
-      "num_octs": 1,
-      "start": null
-    },
-    "inline": true
+  "set_mixer_stereo_mode!": {
+    "hiden": false
   }
 }
 
@@ -3028,3352 +3050,3390 @@ sound_opts_types_conversion = {}
 #\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/
 
 synths = {
-  "SubPulse": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "sub_amp_slide": 0,
-      "sub_detune_slide_shape": 1,
-      "sustain": 0,
-      "pulse_width_slide": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "note": 52,
-      "pan_slide": 0,
-      "sub_detune": -12,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "sub_amp": 1,
-      "pulse_width_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 100,
-      "sub_amp_slide_shape": 1,
-      "amp_slide": 0,
-      "sub_amp_slide_curve": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "pulse_width": 0.5,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "sub_detune_slide": 0,
-      "note_slide_curve": 0
-    },
-    "name": ":subpulse",
-    "inherit_arg": true,
-    "inherit_base": "Pulse",
-    "summary": "Pulse Wave with sub",
-    "hiden": true
-  },
-  "DullBell": {
-    "opts": {
-      "attack_level": 1,
-      "attack": 0,
-      "pan": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "pan_slide_curve": 0,
-      "decay": 0,
-      "release": 1,
-      "amp_slide": 0,
-      "sustain": 0,
-      "amp_slide_curve": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "amp": 1,
-      "pan_slide": 0,
-      "sustain_level": 1,
-      "note_slide_shape": 1,
-      "env_curve": 2,
-      "note_slide_curve": 0,
-      "note_slide": 0
-    },
-    "name": ":dull_bell",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Dull Bell",
-    "hiden": false
-  },
-  "ChipBass": {
-    "opts": {
-      "attack_level": 1,
-      "attack": 0,
-      "pan": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "pan_slide_curve": 0,
-      "note": 60,
-      "release": 1,
-      "amp_slide": 0,
-      "sustain": 0,
-      "decay": 0,
-      "amp_slide_curve": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "note_resolution": 0.1,
-      "pan_slide": 0,
-      "sustain_level": 1,
-      "note_slide_shape": 1,
-      "env_curve": 2,
-      "note_slide_curve": 0,
-      "note_slide": 0
-    },
-    "name": ":chipbass",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Chip Bass",
-    "hiden": false
-  },
-  "SynthInfo": {
-    "inherit_base": "BaseInfo",
-    "hiden": true,
-    "opts": {},
-    "inherit_arg": true
-  },
-  "ModTri": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "mod_pulse_width_slide_curve": 0,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "sustain": 0,
-      "mod_phase_slide_shape": 1,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "mod_range_slide": 0,
-      "pan_slide": 0,
-      "mod_pulse_width_slide": 0,
-      "mod_wave": 1,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "mod_phase_slide": 0,
-      "mod_pulse_width_slide_shape": 1,
-      "mod_range_slide_shape": 1,
-      "mod_phase_offset": 0,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 100,
-      "mod_phase_slide_curve": 0,
-      "mod_pulse_width": 0.5,
-      "mod_range": 5,
-      "amp_slide": 0,
-      "mod_phase": 0.25,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "mod_range_slide_curve": 0,
-      "note_slide_curve": 0,
-      "mod_invert_wave": 0
-    },
-    "name": ":mod_tri",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Modulated Triangle Wave",
-    "hiden": false
-  },
-  "Square": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "pan_slide": 0,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 100,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0
-    },
-    "name": ":square",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Square Wave",
-    "hiden": false
-  },
-  "ChipLead": {
-    "opts": {
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "note_resolution": 0.1,
-      "note": 60,
-      "release": 1,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "pan_slide": 0,
-      "note_slide_shape": 1,
-      "width": 0,
-      "attack": 0,
-      "pan": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0
-    },
-    "name": ":chiplead",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Chip Lead",
-    "hiden": false
-  },
-  "BasicMonoPlayer": {
-    "opts": {
-      "lpf_slide": 0,
-      "hpf_slide": 0,
-      "pan": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "hpf": -1,
-      "lpf_slide_curve": 0,
-      "amp_slide": 0,
-      "hpf_slide_shape": 1,
-      "hpf_slide_curve": 0,
-      "amp_slide_curve": 0,
-      "pan_slide_shape": 1,
-      "pan_slide_curve": 0,
-      "pan_slide": 0,
-      "lpf_slide_shape": 1,
-      "rate": 1,
-      "lpf": -1
-    },
-    "name": ":basic_mono_player",
-    "inherit_arg": false,
-    "inherit_base": "StudioInfo",
-    "summary": "Basic Mono Sample Player (no env)",
-    "hiden": true
-  },
-  "SynthViolin": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "vibrato_depth_slide_curve": 0,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "pan_slide": 0,
-      "cutoff_slide": 0,
-      "vibrato_delay": 0.5,
-      "note_slide_shape": 1,
-      "vibrato_depth_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 100,
-      "vibrato_rate_slide_shape": 1,
-      "vibrato_rate": 6,
-      "vibrato_onset": 0.1,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "vibrato_rate_slide_curve": 0,
-      "vibrato_depth": 0.15,
-      "note_slide_curve": 0
-    },
-    "name": ":synth_violin",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Blade Runner style strings",
-    "hiden": false
-  },
-  "StereoPlayer": {
-    "opts": {
-      "pitch": 0,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "release": 0,
-      "hpf_slide_curve": 0,
-      "sustain": -1,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "clamp_time_slide_curve": 0,
-      "lpf_env_curve": 2,
-      "pre_amp": 1,
-      "lpf_slide_shape": 1,
-      "hpf_slide": 0,
-      "relax_time": 0.01,
-      "lpf_min_slide": 0,
-      "lpf_decay": 0,
-      "hpf_sustain": -1,
-      "amp_slide": 0,
-      "env_curve": 2,
-      "norm": 0,
-      "lpf_min": -1,
-      "hpf": -1,
-      "hpf_decay_level": -1,
-      "pre_amp_slide": 0,
-      "relax_time_slide_curve": 0,
-      "hpf_sustain_level": -1,
-      "clamp_time_slide_shape": 1,
-      "amp": 1,
-      "pre_amp_slide_shape": 1,
-      "window_size": 0.2,
-      "time_dis_slide_curve": 0,
-      "hpf_env_curve": 2,
-      "hpf_attack_level": -1,
-      "attack": 0,
-      "clamp_time": 0.01,
-      "time_dis_slide_shape": 1,
-      "pan": 0,
-      "hpf_release": 0,
-      "amp_slide_curve": 0,
-      "hpf_max": -1,
-      "sustain_level": 1,
-      "lpf": -1,
-      "time_dis": 0.0,
-      "slope_above_slide": 0,
-      "pitch_slide": 0,
-      "threshold_slide_curve": 0,
-      "relax_time_slide_shape": 1,
-      "lpf_min_slide_curve": 0,
-      "pitch_dis_slide_curve": 0,
-      "slope_above_slide_curve": 0,
-      "pitch_dis_slide": 0,
-      "pitch_dis": 0.0,
-      "hpf_slide_shape": 1,
-      "pitch_dis_slide_shape": 1,
-      "lpf_attack_level": -1,
-      "window_size_slide_curve": 0,
-      "slope_below_slide": 0,
-      "compress": 0,
-      "lpf_slide": 0,
-      "lpf_release_level": -1,
-      "finish": 1,
-      "clamp_time_slide": 0,
-      "lpf_attack": 0,
-      "lpf_slide_curve": 0,
-      "threshold_slide_shape": 1,
-      "threshold": 0.2,
-      "hpf_attack": 0,
-      "hpf_max_slide_shape": 1,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "lpf_init_level": -1,
-      "hpf_max_slide_curve": 0,
-      "window_size_slide_shape": 1,
-      "pitch_slide_shape": 1,
-      "hpf_max_slide": 0,
-      "slope_below_slide_curve": 0,
-      "slope_below_slide_shape": 1,
-      "pre_amp_slide_curve": 0,
-      "lpf_release": 0,
-      "lpf_sustain_level": -1,
-      "pan_slide": 0,
-      "hpf_init_level": -1,
-      "relax_time_slide": 0,
-      "slope_below": 1,
-      "lpf_decay_level": -1,
-      "threshold_slide": 0,
-      "start": 0,
-      "hpf_decay": 0,
-      "time_dis_slide": 0,
-      "lpf_sustain": -1,
-      "lpf_min_slide_shape": 1,
-      "hpf_release_level": -1,
-      "slope_above": 0.5,
-      "window_size_slide": 0,
-      "pitch_slide_curve": 0,
-      "rate": 1,
-      "slope_above_slide_shape": 1
-    },
-    "name": ":stereo_player",
-    "inherit_arg": true,
-    "inherit_base": "MonoPlayer",
-    "summary": "Stereo Sample Player",
-    "hiden": true
-  },
-  "Tri": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "sustain": 0,
-      "pulse_width_slide": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "note": 52,
-      "pan_slide": 0,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "pulse_width_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 100,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "pulse_width": 0.5,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0
-    },
-    "name": ":tri",
-    "inherit_arg": true,
-    "inherit_base": "Pulse",
-    "summary": "Triangle Wave",
-    "hiden": true
-  },
-  "DSaw": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "detune_slide_curve": 0,
-      "sustain": 0,
-      "detune": 0.1,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "pan_slide": 0,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 100,
-      "detune_slide_shape": 1,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0,
-      "detune_slide": 0
-    },
-    "name": ":dsaw",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Detuned Saw wave",
-    "hiden": false
-  },
-  "Growl": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "res": 0.7,
-      "res_slide_curve": 0,
-      "pan_slide": 0,
-      "res_slide": 0,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "attack": 0.1,
-      "pan": 0,
-      "cutoff": 130,
-      "res_slide_shape": 1,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0
-    },
-    "name": ":growl",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Growl",
-    "hiden": false
-  },
-  "ChipNoise": {
-    "opts": {
-      "freq_band": 0,
-      "attack_level": 1,
-      "decay": 0,
-      "pan": 0,
-      "amp_slide_shape": 0,
-      "amp": 1,
-      "freq_band_slide": 0,
-      "freq_band_slide_shape": 1,
-      "release": 0,
-      "freq_band_slide_curve": 0,
-      "amp_slide": 0,
-      "sustain": 1,
-      "amp_slide_curve": 1,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "pan_slide_curve": 0,
-      "pan_slide": 0,
-      "sustain_level": 1,
-      "env_curve": 0,
-      "attack": 0
-    },
-    "name": ":chipnoise",
-    "inherit_arg": false,
-    "inherit_base": "Noise",
-    "summary": "Chip Noise",
-    "hiden": true
-  },
-  "SoundInStereo": {
-    "opts": {
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "release": 0,
-      "sustain": 1,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "pan_slide": 0,
-      "input": 1,
-      "attack": 0,
-      "pan": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 0,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1
-    },
-    "name": ":sound_in_stereo",
-    "inherit_arg": true,
-    "inherit_base": "SoundIn",
-    "summary": "Sound In Stereo",
-    "hiden": true
-  },
   "DarkSeaHorn": {
+    "name": ":dark_sea_horn",
     "opts": {
-      "attack_level": 1,
-      "attack": 1,
-      "pan": 0,
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "pan_slide": 0,
       "amp_slide_shape": 1,
       "note": 52,
-      "pan_slide_curve": 0,
-      "decay": 0,
-      "release": 4.0,
-      "amp_slide": 0,
       "sustain": 0,
-      "amp_slide_curve": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
       "amp": 1,
-      "pan_slide": 0,
-      "sustain_level": 1,
-      "note_slide_shape": 1,
+      "pan": 0,
+      "attack": 1,
       "env_curve": 2,
-      "note_slide_curve": 0,
-      "note_slide": 0
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "decay_level": 1,
+      "sustain_level": 1,
+      "attack_level": 1,
+      "release": 4.0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0
     },
-    "name": ":dark_sea_horn",
-    "inherit_arg": false,
     "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
     "summary": "Dark Sea Horn",
     "hiden": true
   },
-  "GNoise": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "res": 0,
-      "res_slide_curve": 0,
-      "pan_slide": 0,
-      "res_slide": 0,
-      "cutoff_slide": 0,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 110,
-      "res_slide_shape": 1,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1
-    },
-    "name": ":gnoise",
-    "inherit_arg": true,
-    "inherit_base": "Noise",
-    "summary": "Grey Noise",
-    "hiden": true
-  },
-  "TechSaws": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "res": 0.7,
-      "res_slide_curve": 0,
-      "pan_slide": 0,
-      "res_slide": 0,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 130,
-      "res_slide_shape": 1,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0
-    },
-    "name": ":tech_saws",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "TechSaws",
-    "hiden": false
-  },
-  "ModSaw": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "mod_pulse_width_slide_curve": 0,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "sustain": 0,
-      "mod_phase_slide_shape": 1,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "mod_range_slide": 0,
-      "pan_slide": 0,
-      "mod_pulse_width_slide": 0,
-      "mod_wave": 1,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "mod_phase_slide": 0,
-      "mod_pulse_width_slide_shape": 1,
-      "mod_range_slide_shape": 1,
-      "mod_phase_offset": 0,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 100,
-      "mod_phase_slide_curve": 0,
-      "mod_pulse_width": 0.5,
-      "mod_range": 5,
-      "amp_slide": 0,
-      "mod_phase": 0.25,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "mod_range_slide_curve": 0,
-      "note_slide_curve": 0,
-      "mod_invert_wave": 0
-    },
-    "name": ":mod_saw",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Modulated Saw Wave",
-    "hiden": false
-  },
-  "DarkAmbience": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "detune1_slide_curve": 0,
-      "amp": 1,
-      "decay": 0,
-      "detune2": 24,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "detune2_slide": 0,
-      "noise": 0,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "res": 0.7,
-      "res_slide_curve": 0,
-      "pan_slide": 0,
-      "detune1_slide_shape": 1,
-      "res_slide": 0,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "ring": 0.2,
-      "reverb_time": 100,
-      "detune2_slide_curve": 0,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 110,
-      "detune1_slide": 0,
-      "res_slide_shape": 1,
-      "amp_slide": 0,
-      "detune1": 12,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "detune2_slide_shape": 1,
-      "room": 70,
-      "note_slide_curve": 0
-    },
-    "name": ":dark_ambience",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Dark Ambience",
-    "hiden": false
-  },
-  "Saw": {
-    "opts": {
-      "amp": 1,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "release": 1,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "pan_slide": 0,
-      "note_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0
-    },
-    "name": ":saw",
-    "inherit_arg": true,
-    "inherit_base": "Beep",
-    "summary": "Saw Wave",
-    "hiden": true
-  },
-  "Pulse": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "pan_slide_curve": 0,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "sustain": 0,
-      "pulse_width_slide": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "pan_slide": 0,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "pulse_width_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 100,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "note": 52,
-      "pulse_width": 0.5,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0
-    },
-    "name": ":pulse",
-    "inherit_arg": true,
-    "inherit_base": "Square",
-    "summary": "Pulse Wave",
-    "hiden": true
-  },
-  "SoundIn": {
-    "opts": {
-      "attack_level": 1,
-      "decay": 0,
-      "pan": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "release": 0,
-      "amp_slide": 0,
-      "sustain": 1,
-      "input": 1,
-      "amp_slide_curve": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "pan_slide_curve": 0,
-      "pan_slide": 0,
-      "sustain_level": 1,
-      "env_curve": 0,
-      "attack": 0
-    },
-    "name": ":sound_in",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Sound In",
-    "hiden": false
-  },
-  "SonicPiSynth": {
-    "inherit_base": "SynthInfo",
-    "hiden": true,
-    "opts": {},
-    "inherit_arg": true
-  },
-  "Noise": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "pan_slide_curve": 0,
-      "release": 1,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "res": 0,
-      "res_slide_curve": 0,
-      "pan_slide": 0,
-      "res_slide": 0,
-      "cutoff_slide": 0,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 110,
-      "res_slide_shape": 1,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "cutoff_slide_shape": 1,
-      "attack_level": 1,
-      "sustain_level": 1
-    },
-    "name": ":noise",
-    "inherit_arg": false,
-    "inherit_base": "Pitchless",
-    "summary": "Noise",
-    "hiden": false
-  },
-  "ModFM": {
-    "opts": {
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "release": 1,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "divisor_slide_shape": 1,
-      "cutoff_slide": 0,
-      "mod_phase_offset": 0,
-      "depth": 1,
-      "cutoff": 100,
-      "mod_range": 5,
-      "amp_slide": 0,
-      "mod_pulse_width": 0.5,
-      "env_curve": 2,
-      "cutoff_slide_shape": 1,
-      "attack_level": 1,
-      "note_slide": 0,
-      "depth_slide_shape": 1,
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "depth_slide_curve": 0,
-      "pan_slide_curve": 0,
-      "divisor_slide_curve": 0,
-      "divisor": 2,
-      "pan_slide": 0,
-      "depth_slide": 0,
-      "mod_wave": 1,
-      "note_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "mod_phase": 0.25,
-      "amp_slide_curve": 0,
-      "note_slide_curve": 0,
-      "sustain_level": 1,
-      "mod_invert_wave": 0,
-      "divisor_slide": 0
-    },
-    "name": ":mod_fm",
-    "inherit_arg": true,
-    "inherit_base": "FM",
-    "summary": "Basic FM synthesis with frequency modulation.",
-    "hiden": true
-  },
-  "PNoise": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "res": 0,
-      "res_slide_curve": 0,
-      "pan_slide": 0,
-      "res_slide": 0,
-      "cutoff_slide": 0,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 110,
-      "res_slide_shape": 1,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1
-    },
-    "name": ":pnoise",
-    "inherit_arg": true,
-    "inherit_base": "Noise",
-    "summary": "Pink Noise",
-    "hiden": true
-  },
-  "SynthPluck": {
-    "opts": {
-      "amp": 1,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "release": 1,
-      "sustain": 0,
-      "coef": 0.3,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "pan_slide": 0,
-      "noise_amp": 0.8,
-      "note_slide_shape": 1,
-      "max_delay_time": 0.125,
-      "pluck_decay": 30,
-      "attack": 0,
-      "pan": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0
-    },
-    "name": ":pluck",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "SynthPluck",
-    "hiden": false
-  },
-  "DTri": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "detune": 0.1,
-      "decay": 0,
-      "note_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "pan_slide_curve": 0,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "detune_slide_curve": 0,
-      "sustain": 0,
-      "detune_slide": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "pan_slide": 0,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 100,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "note": 52,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "detune_slide_shape": 1
-    },
-    "name": ":dtri",
-    "inherit_arg": true,
-    "inherit_base": "DSaw",
-    "summary": "Detuned Triangle Wave",
-    "hiden": true
-  },
-  "FM": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "depth_slide_curve": 0,
-      "divisor_slide_shape": 1,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "divisor_slide_curve": 0,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "divisor": 2,
-      "pan_slide": 0,
-      "depth_slide": 0,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "depth": 1,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 100,
-      "depth_slide_shape": 1,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0,
-      "divisor_slide": 0
-    },
-    "name": ":fm",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Basic FM synthesis",
-    "hiden": false
-  },
-  "DPulse": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "detune": 0.1,
-      "pulse_width_slide_curve": 0,
-      "decay": 0,
-      "note_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "pan_slide_curve": 0,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "dpulse_width_slide": 0,
-      "detune_slide_curve": 0,
-      "sustain": 0,
-      "detune_slide": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "pan_slide": 0,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "dpulse_width_slide_shape": 1,
-      "dpulse_width": 0,
-      "pulse_width_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 100,
-      "amp_slide": 0,
-      "pulse_width_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "note": 52,
-      "pulse_width": 0.5,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "detune_slide_shape": 1
-    },
-    "name": ":dpulse",
-    "inherit_arg": true,
-    "inherit_base": "DSaw",
-    "summary": "Detuned Pulse Wave",
-    "hiden": true
-  },
-  "Beep": {
-    "opts": {
-      "attack_level": 1,
-      "attack": 0,
-      "pan": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "pan_slide_curve": 0,
-      "decay": 0,
-      "release": 1,
-      "amp_slide": 0,
-      "sustain": 0,
-      "amp_slide_curve": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "amp": 1,
-      "pan_slide": 0,
-      "sustain_level": 1,
-      "note_slide_shape": 1,
-      "env_curve": 2,
-      "note_slide_curve": 0,
-      "note_slide": 0
-    },
-    "name": ":beep",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Sine Wave",
-    "hiden": false
-  },
   "TB303": {
-    "opts": {
-      "cutoff_attack_level": 1,
-      "cutoff_min": 30,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "release": 1,
-      "cutoff_attack": 0,
-      "sustain": 0,
-      "pulse_width_slide": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "res": 0.9,
-      "res_slide_curve": 0,
-      "pulse_width_slide_curve": 0,
-      "cutoff_slide": 0,
-      "pulse_width_slide_shape": 1,
-      "cutoff": 120,
-      "cutoff_min_slide_shape": 1,
-      "amp_slide": 0,
-      "cutoff_release": 1,
-      "cutoff_decay": 0,
-      "env_curve": 2,
-      "cutoff_slide_shape": 1,
-      "amp_slide_curve": 0,
-      "cutoff_min_slide_curve": 0,
-      "note_slide": 0,
-      "note_slide_curve": 0,
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "pan_slide_curve": 0,
-      "cutoff_min_slide": 0,
-      "cutoff_sustain": 0,
-      "res_slide": 0,
-      "cutoff_sustain_level": 1,
-      "res_slide_shape": 1,
-      "attack_level": 1,
-      "pan_slide": 0,
-      "note_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "cutoff_decay_level": 1,
-      "wave": 0,
-      "pulse_width": 0.5,
-      "sustain_level": 1
-    },
     "name": ":tb303",
-    "inherit_arg": false,
+    "opts": {
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "cutoff": 120,
+      "res": 0.9,
+      "cutoff_decay": 0,
+      "note": 52,
+      "sustain": 0,
+      "cutoff_attack": 0,
+      "pan": 0,
+      "pulse_width": 0.5,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "pulse_width_slide_shape": 1,
+      "attack_level": 1,
+      "cutoff_release": 1,
+      "cutoff_min_slide_curve": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "attack": 0,
+      "decay_level": 1,
+      "pulse_width_slide": 0,
+      "decay": 0,
+      "amp": 1,
+      "res_slide_shape": 1,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "pulse_width_slide_curve": 0,
+      "cutoff_min_slide": 0,
+      "cutoff_min_slide_shape": 1,
+      "release": 1,
+      "sustain_level": 1,
+      "cutoff_decay_level": 1,
+      "cutoff_slide": 0,
+      "cutoff_sustain": 0,
+      "wave": 0,
+      "res_slide": 0,
+      "cutoff_attack_level": 1,
+      "cutoff_sustain_level": 1,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "res_slide_curve": 0,
+      "cutoff_min": 30
+    },
     "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
     "summary": "TB-303 Emulation",
     "hiden": false
   },
-  "Pitchless": {
-    "inherit_base": "SonicPiSynth",
-    "hiden": true,
-    "opts": {},
-    "inherit_arg": true
-  },
-  "BaseMixer": {
-    "inherit_base": "StudioInfo",
-    "hiden": true,
-    "opts": {},
-    "inherit_arg": true
-  },
-  "MainMixer": {
+  "DTri": {
+    "name": ":dtri",
     "opts": {
-      "pre_amp_slide": 0.02,
-      "force_mono": 0,
-      "invert_stereo": 0,
-      "hpf_slide": 0.02,
-      "lpf_slide_shape": 1,
-      "lpf_slide": 0.02,
-      "amp_slide": 0.02,
-      "amp": 1,
-      "pre_amp_slide_curve": 0,
-      "hpf": 0,
-      "lpf_bypass": 0,
-      "hpf_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "hpf_slide_shape": 1,
-      "lpf_slide_curve": 0,
-      "amp_slide_curve": 0,
-      "limiter_bypass": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_amp": 1,
-      "hpf_bypass": 0,
-      "lpf": 135.5
-    },
-    "name": ":mixer",
-    "inherit_arg": false,
-    "inherit_base": "BaseMixer",
-    "summary": "Main Mixer",
-    "hiden": true
-  },
-  "StudioInfo": {
-    "inherit_base": "SonicPiSynth",
-    "hiden": true,
-    "opts": {},
-    "inherit_arg": true
-  },
-  "PrettyBell": {
-    "opts": {
-      "amp": 1,
       "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "release": 1,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "pan_slide": 0,
-      "note_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0
-    },
-    "name": ":pretty_bell",
-    "inherit_arg": true,
-    "inherit_base": "DullBell",
-    "summary": "Pretty Bell",
-    "hiden": true
-  },
-  "ModPulse": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "mod_pulse_width_slide_curve": 0,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "pulse_width_slide_shape": 1,
-      "sustain": 0,
-      "mod_phase_slide_shape": 1,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "mod_range_slide": 0,
-      "pan_slide": 0,
-      "mod_pulse_width_slide": 0,
-      "mod_wave": 1,
-      "cutoff_slide": 0,
-      "pulse_width_slide_curve": 0,
-      "note_slide_shape": 1,
-      "mod_phase_slide": 0,
-      "mod_pulse_width_slide_shape": 1,
-      "mod_range_slide_shape": 1,
-      "mod_phase_offset": 0,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 100,
-      "mod_phase_slide_curve": 0,
-      "mod_pulse_width": 0.5,
-      "mod_range": 5,
-      "amp_slide": 0,
-      "mod_phase": 0.25,
-      "pulse_width_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "pulse_width": 0.5,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "mod_range_slide_curve": 0,
       "note_slide_curve": 0,
-      "mod_invert_wave": 0
-    },
-    "name": ":mod_pulse",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Modulated Pulse",
-    "hiden": false
-  },
-  "Supersaw": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "decay": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "detune_slide_curve": 0,
+      "cutoff": 100,
+      "pan_slide": 0,
       "amp_slide_shape": 1,
       "note": 52,
-      "cutoff_slide_shape": 1,
-      "release": 1,
       "sustain": 0,
+      "pan": 0,
       "pan_slide_shape": 1,
-      "decay_level": 1,
-      "res": 0.7,
-      "res_slide_curve": 0,
-      "pan_slide": 0,
-      "res_slide": 0,
-      "cutoff_slide": 0,
       "note_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 130,
-      "res_slide_shape": 1,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
       "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0
-    },
-    "name": ":supersaw",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Supersaw",
-    "hiden": false
-  },
-  "BNoise": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "res": 0,
-      "res_slide_curve": 0,
-      "pan_slide": 0,
-      "res_slide": 0,
-      "cutoff_slide": 0,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 110,
-      "res_slide_shape": 1,
-      "amp_slide": 0,
       "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
       "attack_level": 1,
-      "sustain_level": 1
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "detune_slide": 0,
+      "detune_slide_shape": 1,
+      "attack": 0,
+      "decay_level": 1,
+      "detune": 0.1,
+      "amp_slide": 0
     },
-    "name": ":bnoise",
+    "inherit_base": "DSaw",
     "inherit_arg": true,
-    "inherit_base": "Noise",
-    "summary": "Brown Noise",
+    "summary": "Detuned Triangle Wave",
     "hiden": true
   },
-  "Prophet": {
+  "Pulse": {
+    "name": ":pulse",
     "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
       "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "cutoff": 100,
+      "pan_slide": 0,
       "amp_slide_shape": 1,
       "note": 52,
-      "cutoff_slide_shape": 1,
-      "release": 1,
       "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "res": 0.7,
-      "res_slide_curve": 0,
-      "pan_slide": 0,
-      "res_slide": 0,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "attack": 0,
       "pan": 0,
-      "cutoff": 110,
-      "res_slide_shape": 1,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
+      "pulse_width": 0.5,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "pulse_width_slide_shape": 1,
       "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0
-    },
-    "name": ":prophet",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "The Prophet",
-    "hiden": false
-  },
-  "BasicMixer": {
-    "opts": {
-      "amp_slide": 0.1,
+      "attack_level": 1,
+      "release": 1,
       "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "attack": 0,
+      "decay_level": 1,
       "amp_slide_curve": 0,
-      "amp_slide_shape": 1
+      "amp_slide": 0,
+      "pulse_width_slide": 0
     },
-    "name": ":basic_mixer",
-    "inherit_arg": false,
-    "inherit_base": "BaseMixer",
-    "summary": "Basic Mixer",
+    "inherit_base": "Square",
+    "inherit_arg": true,
+    "summary": "Pulse Wave",
     "hiden": true
   },
-  "BasicStereoPlayer": {
+  "StereoPlayer": {
+    "name": ":stereo_player",
     "opts": {
-      "hpf_slide": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "hpf_slide_curve": 0,
-      "hpf_slide_shape": 1,
+      "hpf_max_slide_shape": 1,
+      "hpf_attack": 0,
+      "hpf_sustain_level": -1,
+      "pan": 0,
+      "lpf_slide_curve": 0,
+      "lpf_release_level": -1,
       "pan_slide_shape": 1,
-      "pan_slide": 0,
-      "lpf_slide_shape": 1,
+      "hpf_max": -1,
+      "decay_level": 1,
+      "attack_level": 1,
+      "threshold_slide": 0,
+      "compress": 0,
       "lpf_slide": 0,
-      "pan": 0,
-      "hpf": -1,
-      "lpf_slide_curve": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "pan_slide_curve": 0,
+      "hpf_decay_level": -1,
+      "clamp_time_slide_curve": 0,
+      "pre_amp_slide_shape": 1,
+      "clamp_time_slide_shape": 1,
+      "time_dis_slide": 0,
+      "hpf_attack_level": -1,
+      "hpf_env_curve": 2,
+      "slope_above": 0.5,
+      "pitch": 0,
+      "lpf_decay_level": -1,
+      "pre_amp": 1,
+      "amp": 1,
+      "hpf_slide_curve": 0,
+      "hpf_release_level": -1,
+      "threshold_slide_curve": 0,
+      "slope_above_slide": 0,
+      "time_dis": 0.0,
+      "pre_amp_slide": 0,
+      "pitch_dis_slide": 0,
+      "pitch_dis_slide_shape": 1,
+      "sustain": -1,
+      "relax_time_slide_shape": 1,
       "rate": 1,
-      "lpf": -1
+      "release": 0,
+      "pitch_slide": 0,
+      "hpf_sustain": -1,
+      "clamp_time": 0.01,
+      "hpf_max_slide_curve": 0,
+      "hpf_release": 0,
+      "lpf_sustain": -1,
+      "slope_above_slide_shape": 1,
+      "lpf_attack_level": -1,
+      "pitch_dis_slide_curve": 0,
+      "finish": 1,
+      "hpf_max_slide": 0,
+      "env_curve": 2,
+      "lpf_min_slide": 0,
+      "lpf_min": -1,
+      "pitch_slide_shape": 1,
+      "hpf_slide_shape": 1,
+      "clamp_time_slide": 0,
+      "slope_below_slide": 0,
+      "window_size": 0.2,
+      "lpf_env_curve": 2,
+      "lpf_min_slide_shape": 1,
+      "hpf_slide": 0,
+      "norm": 0,
+      "window_size_slide_shape": 1,
+      "lpf_init_level": -1,
+      "lpf_decay": 0,
+      "slope_below_slide_shape": 1,
+      "decay": 0,
+      "lpf_slide_shape": 1,
+      "slope_above_slide_curve": 0,
+      "pre_amp_slide_curve": 0,
+      "threshold": 0.2,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "hpf_init_level": -1,
+      "lpf_sustain_level": -1,
+      "pitch_slide_curve": 0,
+      "relax_time_slide_curve": 0,
+      "lpf": -1,
+      "sustain_level": 1,
+      "hpf": -1,
+      "pitch_dis": 0.0,
+      "lpf_attack": 0,
+      "threshold_slide_shape": 1,
+      "start": 0,
+      "lpf_release": 0,
+      "time_dis_slide_curve": 0,
+      "window_size_slide": 0,
+      "lpf_min_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "window_size_slide_curve": 0,
+      "slope_below": 1,
+      "slope_below_slide_curve": 0,
+      "attack": 0,
+      "relax_time": 0.01,
+      "pan_slide_curve": 0,
+      "relax_time_slide": 0,
+      "hpf_decay": 0,
+      "amp_slide": 0,
+      "time_dis_slide_shape": 1
     },
-    "name": ":basic_stereo_player",
+    "inherit_base": "MonoPlayer",
     "inherit_arg": true,
-    "inherit_base": "BasicMonoPlayer",
-    "summary": "Basic Stereo Sample Player (no env)",
+    "summary": "Stereo Sample Player",
     "hiden": true
   },
-  "ModSine": {
+  "ModFM": {
+    "name": ":mod_fm",
     "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "mod_pulse_width_slide_curve": 0,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "sustain": 0,
-      "mod_phase_slide_shape": 1,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "mod_range_slide": 0,
-      "pan_slide": 0,
-      "mod_pulse_width_slide": 0,
-      "mod_wave": 1,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "mod_phase_slide": 0,
-      "mod_pulse_width_slide_shape": 1,
-      "mod_range_slide_shape": 1,
-      "mod_phase_offset": 0,
-      "attack": 0,
-      "pan": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
       "cutoff": 100,
-      "mod_phase_slide_curve": 0,
+      "env_curve": 2,
+      "note": 52,
+      "mod_wave": 1,
+      "sustain": 0,
+      "pan": 0,
+      "depth_slide_curve": 0,
+      "divisor_slide_shape": 1,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "attack_level": 1,
+      "mod_invert_wave": 0,
+      "divisor_slide_curve": 0,
+      "depth_slide_shape": 1,
+      "divisor_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
       "mod_pulse_width": 0.5,
       "mod_range": 5,
-      "amp_slide": 0,
+      "decay_level": 1,
+      "decay": 0,
+      "depth_slide": 0,
+      "amp": 1,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "depth": 1,
+      "sustain_level": 1,
+      "divisor": 2,
+      "release": 1,
+      "cutoff_slide": 0,
+      "mod_phase_offset": 0,
+      "attack": 0,
       "mod_phase": 0.25,
       "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "mod_range_slide_curve": 0,
-      "note_slide_curve": 0,
-      "mod_invert_wave": 0
+      "amp_slide": 0
     },
-    "name": ":mod_sine",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Modulated Sine Wave",
-    "hiden": false
-  },
-  "SynthPiano": {
-    "opts": {
-      "amp": 1,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "vel": 0.2,
-      "release": 1,
-      "amp_slide": 0,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "pan_slide": 0,
-      "note_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "stereo_width": 0,
-      "hard": 0.5,
-      "amp_slide_curve": 0,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0
-    },
-    "name": ":piano",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "SynthPiano",
-    "hiden": false
-  },
-  "Hollow": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "norm": 0,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "noise": 1,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "res": 0.99,
-      "res_slide_curve": 0,
-      "pan_slide": 0,
-      "res_slide": 0,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 90,
-      "res_slide_shape": 1,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0
-    },
-    "name": ":hollow",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Hollow",
-    "hiden": false
-  },
-  "Hoover": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "note": 52,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "res": 0.1,
-      "res_slide_curve": 0,
-      "pan_slide": 0,
-      "res_slide": 0,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "attack": 0.05,
-      "pan": 0,
-      "cutoff": 130,
-      "res_slide_shape": 1,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1,
-      "note_slide": 0,
-      "note_slide_curve": 0
-    },
-    "name": ":hoover",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Hoover",
-    "hiden": false
-  },
-  "CNoise": {
-    "opts": {
-      "cutoff_slide_curve": 0,
-      "decay": 0,
-      "amp_slide_shape": 1,
-      "amp": 1,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "sustain": 0,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "res": 0,
-      "res_slide_curve": 0,
-      "pan_slide": 0,
-      "res_slide": 0,
-      "cutoff_slide": 0,
-      "attack": 0,
-      "pan": 0,
-      "cutoff": 110,
-      "res_slide_shape": 1,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "attack_level": 1,
-      "sustain_level": 1
-    },
-    "name": ":cnoise",
+    "inherit_base": "FM",
     "inherit_arg": true,
-    "inherit_base": "Noise",
-    "summary": "Clip Noise",
+    "summary": "Basic FM synthesis with frequency modulation.",
     "hiden": true
   },
-  "Zawa": {
+  "SubPulse": {
+    "name": ":subpulse",
     "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "pulse_width_slide_curve": 0,
       "decay": 0,
-      "invert_wave": 0,
+      "note_slide_curve": 0,
+      "sub_amp": 1,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "sub_detune_slide_shape": 1,
+      "cutoff": 100,
+      "pan_slide": 0,
       "amp_slide_shape": 1,
       "note": 52,
-      "range_slide": 0,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "range_slide_shape": 1,
+      "sub_detune_slide": 0,
       "sustain": 0,
-      "range": 24,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "res": 0.9,
-      "res_slide_curve": 0,
-      "pan_slide": 0,
-      "phase_slide": 0,
-      "res_slide": 0,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "pulse_width_slide_shape": 1,
-      "attack": 0,
+      "sub_amp_slide_curve": 0,
       "pan": 0,
-      "cutoff": 100,
-      "disable_wave": 0,
-      "phase": 1,
-      "range_slide_curve": 0,
-      "phase_slide_shape": 1,
-      "phase_offset": 0,
-      "res_slide_shape": 1,
-      "amp_slide": 0,
-      "wave": 3,
-      "amp_slide_curve": 0,
-      "pulse_width_slide": 0,
-      "pan_slide_curve": 0,
       "pulse_width": 0.5,
-      "attack_level": 1,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
       "sustain_level": 1,
-      "note_slide": 0,
-      "phase_slide_curve": 0,
-      "note_slide_curve": 0
+      "pulse_width_slide_shape": 1,
+      "attack_level": 1,
+      "sub_detune": -12,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "sub_amp_slide": 0,
+      "sub_amp_slide_shape": 1,
+      "amp_slide_curve": 0,
+      "attack": 0,
+      "pulse_width_slide": 0
     },
-    "name": ":zawa",
-    "inherit_arg": false,
-    "inherit_base": "SonicPiSynth",
-    "summary": "Zawa",
-    "hiden": false
+    "inherit_base": "Pulse",
+    "inherit_arg": true,
+    "summary": "Pulse Wave with sub",
+    "hiden": true
   },
   "ModDSaw": {
+    "name": ":mod_dsaw",
     "opts": {
-      "cutoff_slide_curve": 0,
-      "amp": 1,
-      "mod_pulse_width_slide_curve": 0,
       "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "detune_slide_curve": 0,
+      "cutoff": 100,
+      "pan_slide": 0,
       "amp_slide_shape": 1,
       "note": 52,
-      "cutoff_slide_shape": 1,
-      "release": 1,
-      "detune_slide_curve": 0,
-      "sustain": 0,
-      "mod_phase_slide_shape": 1,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
       "mod_range_slide": 0,
-      "detune": 0.1,
-      "pan_slide": 0,
-      "mod_pulse_width_slide": 0,
-      "mod_wave": 1,
-      "cutoff_slide": 0,
-      "note_slide_shape": 1,
-      "mod_phase_slide": 0,
-      "mod_pulse_width_slide_shape": 1,
+      "sustain": 0,
       "mod_range_slide_shape": 1,
-      "mod_phase_offset": 0,
-      "attack": 0,
       "pan": 0,
-      "cutoff": 100,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "mod_pulse_width_slide_curve": 0,
+      "mod_phase_slide_shape": 1,
       "detune_slide": 0,
-      "mod_phase_slide_curve": 0,
-      "mod_pulse_width": 0.5,
-      "mod_range": 5,
-      "amp_slide": 0,
-      "mod_phase": 0.25,
-      "amp_slide_curve": 0,
-      "env_curve": 2,
-      "pan_slide_curve": 0,
-      "detune_slide_shape": 1,
-      "attack_level": 1,
       "sustain_level": 1,
-      "note_slide": 0,
+      "mod_invert_wave": 0,
+      "attack_level": 1,
+      "mod_wave": 1,
+      "detune_slide_shape": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "mod_phase_offset": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "mod_pulse_width": 0.5,
+      "env_curve": 2,
+      "mod_pulse_width_slide_shape": 1,
       "mod_range_slide_curve": 0,
-      "note_slide_curve": 0,
-      "mod_invert_wave": 0
+      "amp_slide": 0,
+      "mod_phase_slide_curve": 0,
+      "mod_range": 5,
+      "mod_phase": 0.25,
+      "decay_level": 1,
+      "mod_phase_slide": 0,
+      "detune": 0.1,
+      "amp_slide_curve": 0,
+      "attack": 0,
+      "mod_pulse_width_slide": 0
     },
-    "name": ":mod_dsaw",
-    "inherit_arg": false,
     "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
     "summary": "Modulated Detuned Saw Waves",
     "hiden": false
   },
-  "MonoPlayer": {
+  "ChipBass": {
+    "name": ":chipbass",
     "opts": {
-      "pitch": 0,
       "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "attack": 0,
+      "pan_slide": 0,
       "amp_slide_shape": 1,
-      "release": 0,
-      "hpf_slide_curve": 0,
-      "sustain": -1,
-      "pan_slide_shape": 1,
-      "decay_level": 1,
-      "clamp_time_slide_curve": 0,
-      "lpf_env_curve": 2,
-      "pre_amp": 1,
-      "lpf_slide_shape": 1,
-      "hpf_slide": 0,
-      "relax_time_slide_curve": 0,
-      "relax_time": 0.01,
-      "lpf_min_slide": 0,
-      "threshold": 0.2,
-      "hpf_sustain": -1,
+      "note": 60,
+      "sustain": 0,
+      "amp": 1,
+      "pan": 0,
       "amp_slide": 0,
       "env_curve": 2,
-      "relax_time_slide_shape": 1,
-      "norm": 0,
-      "lpf_min": -1,
-      "hpf": -1,
-      "pre_amp_slide": 0,
-      "pitch_dis_slide": 0,
-      "hpf_sustain_level": -1,
-      "finish": 1,
-      "clamp_time_slide_shape": 1,
-      "amp": 1,
-      "pre_amp_slide_shape": 1,
-      "window_size": 0.2,
-      "hpf_env_curve": 2,
-      "hpf_attack_level": -1,
-      "slope_below": 1,
-      "clamp_time": 0.01,
-      "time_dis_slide_shape": 1,
-      "pan": 0,
-      "slope_below_slide_shape": 1,
-      "hpf_release": 0,
-      "amp_slide_curve": 0,
-      "hpf_max": -1,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "decay_level": 1,
       "sustain_level": 1,
-      "hpf_max_slide": 0,
-      "time_dis": 0.0,
-      "slope_above_slide": 0,
-      "pitch_slide": 0,
-      "window_size_slide_curve": 0,
-      "slope_above_slide_shape": 1,
-      "lpf_min_slide_curve": 0,
-      "pitch_dis_slide_curve": 0,
-      "slope_above_slide_curve": 0,
-      "hpf_decay_level": -1,
-      "pitch_dis": 0.0,
-      "hpf_slide_shape": 1,
-      "pitch_dis_slide_shape": 1,
-      "lpf_attack_level": -1,
-      "threshold_slide_curve": 0,
-      "slope_below_slide": 0,
-      "compress": 0,
-      "lpf_slide": 0,
-      "lpf_release_level": -1,
-      "lpf_release": 0,
-      "clamp_time_slide": 0,
-      "time_dis_slide": 0,
-      "lpf_slide_curve": 0,
-      "threshold_slide_shape": 1,
-      "lpf_decay": 0,
-      "hpf_attack": 0,
-      "hpf_max_slide_shape": 1,
+      "attack_level": 1,
+      "release": 1,
+      "amp_slide_curve": 0,
+      "note_resolution": 0.1
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Chip Bass",
+    "hiden": false
+  },
+  "Noise": {
+    "name": ":noise",
+    "opts": {
+      "decay": 0,
+      "res": 0,
       "pan_slide_curve": 0,
       "attack_level": 1,
-      "lpf_init_level": -1,
-      "hpf_max_slide_curve": 0,
-      "window_size_slide_shape": 1,
-      "pitch_slide_shape": 1,
-      "lpf": -1,
-      "slope_below_slide_curve": 0,
-      "lpf_attack": 0,
-      "pre_amp_slide_curve": 0,
-      "lpf_sustain_level": -1,
+      "cutoff": 110,
       "pan_slide": 0,
-      "hpf_init_level": -1,
-      "relax_time_slide": 0,
+      "amp_slide_shape": 1,
+      "amp": 1,
+      "pan": 0,
+      "pan_slide_shape": 1,
+      "sustain_level": 1,
+      "res_slide_shape": 1,
+      "res_slide": 0,
+      "sustain": 0,
+      "release": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
       "attack": 0,
-      "lpf_decay_level": -1,
-      "threshold_slide": 0,
-      "start": 0,
-      "hpf_decay": 0,
-      "time_dis_slide_curve": 0,
-      "lpf_sustain": -1,
-      "lpf_min_slide_shape": 1,
-      "hpf_release_level": -1,
-      "slope_above": 0.5,
-      "window_size_slide": 0,
-      "pitch_slide_curve": 0,
-      "rate": 1
+      "res_slide_curve": 0
     },
-    "name": ":mono_player",
+    "inherit_base": "Pitchless",
     "inherit_arg": false,
+    "summary": "Noise",
+    "hiden": false
+  },
+  "ModPulse": {
+    "name": ":mod_pulse",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "cutoff": 100,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "mod_range_slide": 0,
+      "sustain": 0,
+      "mod_range_slide_shape": 1,
+      "pan": 0,
+      "pulse_width": 0.5,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "mod_pulse_width_slide_curve": 0,
+      "mod_phase_slide_shape": 1,
+      "pulse_width_slide_shape": 1,
+      "sustain_level": 1,
+      "pulse_width_slide_curve": 0,
+      "mod_invert_wave": 0,
+      "attack_level": 1,
+      "mod_wave": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "mod_phase_offset": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "mod_pulse_width": 0.5,
+      "env_curve": 2,
+      "mod_pulse_width_slide_shape": 1,
+      "mod_range_slide_curve": 0,
+      "amp_slide": 0,
+      "mod_phase_slide_curve": 0,
+      "mod_range": 5,
+      "mod_phase": 0.25,
+      "decay_level": 1,
+      "mod_phase_slide": 0,
+      "amp_slide_curve": 0,
+      "attack": 0,
+      "mod_pulse_width_slide": 0,
+      "pulse_width_slide": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Modulated Pulse",
+    "hiden": false
+  },
+  "SynthPiano": {
+    "name": ":piano",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "pan": 0,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "sustain_level": 1,
+      "vel": 0.2,
+      "attack_level": 1,
+      "release": 1,
+      "amp": 1,
+      "amp_slide": 0,
+      "stereo_width": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "attack": 0,
+      "hard": 0.5
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "SynthPiano",
+    "hiden": false
+  },
+  "ModTri": {
+    "name": ":mod_tri",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "cutoff": 100,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "mod_range_slide": 0,
+      "sustain": 0,
+      "mod_range_slide_shape": 1,
+      "pan": 0,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "mod_pulse_width_slide_curve": 0,
+      "mod_phase_slide_shape": 1,
+      "sustain_level": 1,
+      "mod_invert_wave": 0,
+      "attack_level": 1,
+      "mod_wave": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "mod_phase_offset": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "mod_pulse_width": 0.5,
+      "env_curve": 2,
+      "mod_pulse_width_slide_shape": 1,
+      "mod_range_slide_curve": 0,
+      "amp_slide": 0,
+      "mod_phase_slide_curve": 0,
+      "mod_range": 5,
+      "mod_phase": 0.25,
+      "decay_level": 1,
+      "mod_phase_slide": 0,
+      "amp_slide_curve": 0,
+      "attack": 0,
+      "mod_pulse_width_slide": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Modulated Triangle Wave",
+    "hiden": false
+  },
+  "ChipNoise": {
+    "name": ":chipnoise",
+    "opts": {
+      "decay": 0,
+      "freq_band_slide": 0,
+      "pan_slide_curve": 0,
+      "amp": 1,
+      "freq_band_slide_shape": 1,
+      "pan_slide": 0,
+      "amp_slide_shape": 0,
+      "sustain": 1,
+      "freq_band": 0,
+      "pan": 0,
+      "attack": 0,
+      "env_curve": 0,
+      "pan_slide_shape": 1,
+      "decay_level": 1,
+      "sustain_level": 1,
+      "attack_level": 1,
+      "release": 0,
+      "amp_slide_curve": 1,
+      "amp_slide": 0,
+      "freq_band_slide_curve": 0
+    },
+    "inherit_base": "Noise",
+    "inherit_arg": false,
+    "summary": "Chip Noise",
+    "hiden": true
+  },
+  "MainMixer": {
+    "name": ":mixer",
+    "opts": {
+      "lpf_slide_shape": 1,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "hpf_slide_curve": 0,
+      "amp_slide_shape": 1,
+      "pre_amp_slide_shape": 1,
+      "invert_stereo": 0,
+      "amp": 1,
+      "pre_amp_slide": 0.02,
+      "amp_slide": 0.02,
+      "lpf_slide_curve": 0,
+      "lpf_bypass": 0,
+      "hpf_slide": 0.02,
+      "limiter_bypass": 0,
+      "lpf": 135.5,
+      "hpf_slide_shape": 1,
+      "hpf_bypass": 0,
+      "force_mono": 0,
+      "hpf": 0,
+      "amp_slide_curve": 0,
+      "lpf_slide": 0.02
+    },
+    "inherit_base": "BaseMixer",
+    "inherit_arg": false,
+    "summary": "Main Mixer",
+    "hiden": true
+  },
+  "Prophet": {
+    "name": ":prophet",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "cutoff": 110,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "pan": 0,
+      "res": 0.7,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "sustain_level": 1,
+      "res_slide": 0,
+      "res_slide_shape": 1,
+      "attack_level": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "attack": 0,
+      "res_slide_curve": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "The Prophet",
+    "hiden": false
+  },
+  "PrettyBell": {
+    "name": ":pretty_bell",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "pan": 0,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "sustain_level": 1,
+      "attack_level": 1,
+      "release": 1,
+      "amp": 1,
+      "env_curve": 2,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "attack": 0
+    },
+    "inherit_base": "DullBell",
+    "inherit_arg": true,
+    "summary": "Pretty Bell",
+    "hiden": true
+  },
+  "BasicMonoPlayer": {
+    "name": ":basic_mono_player",
+    "opts": {
+      "rate": 1,
+      "pan_slide_curve": 0,
+      "hpf_slide_curve": 0,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "amp": 1,
+      "pan": 0,
+      "lpf_slide": 0,
+      "lpf_slide_curve": 0,
+      "hpf_slide": 0,
+      "pan_slide_shape": 1,
+      "lpf": -1,
+      "hpf_slide_shape": 1,
+      "lpf_slide_shape": 1,
+      "hpf": -1,
+      "amp_slide_curve": 0,
+      "amp_slide": 0
+    },
+    "inherit_base": "StudioInfo",
+    "inherit_arg": false,
+    "summary": "Basic Mono Sample Player (no env)",
+    "hiden": true
+  },
+  "Zawa": {
+    "name": ":zawa",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "range_slide": 0,
+      "cutoff": 100,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "phase_slide_shape": 1,
+      "sustain": 0,
+      "range_slide_curve": 0,
+      "pan": 0,
+      "res": 0.9,
+      "pulse_width": 0.5,
+      "invert_wave": 0,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "phase": 1,
+      "disable_wave": 0,
+      "sustain_level": 1,
+      "res_slide": 0,
+      "res_slide_shape": 1,
+      "attack_level": 1,
+      "pulse_width_slide_shape": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "wave": 3,
+      "phase_slide_curve": 0,
+      "range": 24,
+      "amp_slide": 0,
+      "phase_slide": 0,
+      "phase_offset": 0,
+      "decay_level": 1,
+      "pulse_width_slide_curve": 0,
+      "range_slide_shape": 1,
+      "amp_slide_curve": 0,
+      "attack": 0,
+      "res_slide_curve": 0,
+      "pulse_width_slide": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Zawa",
+    "hiden": false
+  },
+  "Tri": {
+    "name": ":tri",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "cutoff": 100,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "pan": 0,
+      "pulse_width": 0.5,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "sustain_level": 1,
+      "pulse_width_slide_shape": 1,
+      "attack_level": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "attack": 0,
+      "pulse_width_slide": 0
+    },
+    "inherit_base": "Pulse",
+    "inherit_arg": true,
+    "summary": "Triangle Wave",
+    "hiden": true
+  },
+  "Growl": {
+    "name": ":growl",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "cutoff": 130,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "pan": 0,
+      "res": 0.7,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "sustain_level": 1,
+      "res_slide": 0,
+      "res_slide_shape": 1,
+      "attack_level": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "attack": 0.1,
+      "res_slide_curve": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Growl",
+    "hiden": false
+  },
+  "Saw": {
+    "name": ":saw",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "pan": 0,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "sustain_level": 1,
+      "attack_level": 1,
+      "release": 1,
+      "amp": 1,
+      "env_curve": 2,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "attack": 0
+    },
+    "inherit_base": "Beep",
+    "inherit_arg": true,
+    "summary": "Saw Wave",
+    "hiden": true
+  },
+  "SynthPluck": {
+    "name": ":pluck",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "noise_amp": 0.8,
+      "pan": 0,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "max_delay_time": 0.125,
+      "sustain_level": 1,
+      "attack_level": 1,
+      "coef": 0.3,
+      "release": 1,
+      "amp": 1,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "pluck_decay": 30,
+      "amp_slide_curve": 0,
+      "attack": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "SynthPluck",
+    "hiden": false
+  },
+  "SynthInfo": {
+    "inherit_arg": true,
+    "opts": {},
+    "hiden": true,
+    "inherit_base": "BaseInfo"
+  },
+  "MonoPlayer": {
+    "name": ":mono_player",
+    "opts": {
+      "hpf_max_slide_shape": 1,
+      "hpf_attack": 0,
+      "hpf_sustain_level": -1,
+      "pan": 0,
+      "lpf_slide_curve": 0,
+      "lpf_release_level": -1,
+      "pan_slide_shape": 1,
+      "hpf_max": -1,
+      "lpf_min_slide_curve": 0,
+      "attack_level": 1,
+      "threshold_slide": 0,
+      "compress": 0,
+      "lpf_slide": 0,
+      "hpf_decay_level": -1,
+      "time_dis_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "clamp_time_slide_shape": 1,
+      "clamp_time_slide_curve": 0,
+      "hpf_attack_level": -1,
+      "hpf_env_curve": 2,
+      "slope_above": 0.5,
+      "lpf_decay_level": -1,
+      "pre_amp": 1,
+      "lpf_min_slide": 0,
+      "norm": 0,
+      "hpf_release_level": -1,
+      "threshold_slide_curve": 0,
+      "slope_above_slide": 0,
+      "time_dis": 0.0,
+      "pre_amp_slide": 0,
+      "pitch_dis_slide_shape": 1,
+      "relax_time_slide_shape": 1,
+      "rate": 1,
+      "release": 0,
+      "pitch_slide": 0,
+      "hpf_sustain": -1,
+      "clamp_time": 0.01,
+      "hpf_max_slide_curve": 0,
+      "lpf_decay": 0,
+      "lpf_sustain": -1,
+      "slope_above_slide_shape": 1,
+      "finish": 1,
+      "pitch_dis_slide_curve": 0,
+      "amp": 1,
+      "pan_slide_curve": 0,
+      "hpf_max_slide": 0,
+      "env_curve": 2,
+      "sustain": -1,
+      "slope_above_slide_curve": 0,
+      "pitch_slide_shape": 1,
+      "hpf_slide_shape": 1,
+      "clamp_time_slide": 0,
+      "hpf_slide_curve": 0,
+      "slope_below_slide": 0,
+      "window_size": 0.2,
+      "pan_slide": 0,
+      "lpf_min_slide_shape": 1,
+      "hpf_slide": 0,
+      "lpf_attack_level": -1,
+      "decay_level": 1,
+      "window_size_slide_shape": 1,
+      "lpf_init_level": -1,
+      "hpf_release": 0,
+      "slope_below_slide_shape": 1,
+      "decay": 0,
+      "lpf_slide_shape": 1,
+      "lpf_min": -1,
+      "pre_amp_slide_curve": 0,
+      "threshold": 0.2,
+      "lpf_env_curve": 2,
+      "amp_slide_shape": 1,
+      "hpf_init_level": -1,
+      "lpf_sustain_level": -1,
+      "pitch_slide_curve": 0,
+      "relax_time_slide_curve": 0,
+      "lpf": -1,
+      "sustain_level": 1,
+      "hpf": -1,
+      "pitch_dis": 0.0,
+      "hpf_decay": 0,
+      "lpf_attack": 0,
+      "threshold_slide_shape": 1,
+      "start": 0,
+      "lpf_release": 0,
+      "time_dis_slide_curve": 0,
+      "window_size_slide": 0,
+      "pitch_dis_slide": 0,
+      "amp_slide_curve": 0,
+      "window_size_slide_curve": 0,
+      "slope_below": 1,
+      "slope_below_slide_curve": 0,
+      "amp_slide": 0,
+      "relax_time": 0.01,
+      "relax_time_slide": 0,
+      "pitch": 0,
+      "attack": 0,
+      "time_dis_slide_shape": 1
+    },
     "inherit_base": "BasicMonoPlayer",
+    "inherit_arg": false,
     "summary": "Mono Sample Player",
     "hiden": true
   },
-  "Singer": {
+  "ChipLead": {
+    "name": ":chiplead",
     "opts": {
-      "attack_level": 1,
-      "attack": 1,
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 60,
+      "sustain": 0,
       "pan": 0,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "sustain_level": 1,
+      "note_resolution": 0.1,
+      "attack_level": 1,
+      "release": 1,
+      "amp": 1,
+      "env_curve": 2,
+      "width": 0,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "attack": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Chip Lead",
+    "hiden": false
+  },
+  "ModSaw": {
+    "name": ":mod_saw",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "cutoff": 100,
+      "pan_slide": 0,
       "amp_slide_shape": 1,
       "note": 52,
-      "pan_slide_curve": 0,
-      "decay": 0,
-      "release": 4.0,
-      "amp_slide": 0,
+      "mod_range_slide": 0,
       "sustain": 0,
-      "amp_slide_curve": 0,
+      "mod_range_slide_shape": 1,
+      "pan": 0,
       "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "mod_pulse_width_slide_curve": 0,
+      "mod_phase_slide_shape": 1,
+      "sustain_level": 1,
+      "mod_invert_wave": 0,
+      "attack_level": 1,
+      "mod_wave": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "mod_phase_offset": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "mod_pulse_width": 0.5,
+      "env_curve": 2,
+      "mod_pulse_width_slide_shape": 1,
+      "mod_range_slide_curve": 0,
+      "amp_slide": 0,
+      "mod_phase_slide_curve": 0,
+      "mod_range": 5,
+      "mod_phase": 0.25,
       "decay_level": 1,
+      "mod_phase_slide": 0,
+      "amp_slide_curve": 0,
+      "attack": 0,
+      "mod_pulse_width_slide": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Modulated Saw Wave",
+    "hiden": false
+  },
+  "Supersaw": {
+    "name": ":supersaw",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "cutoff": 130,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "pan": 0,
+      "res": 0.7,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "sustain_level": 1,
+      "res_slide": 0,
+      "res_slide_shape": 1,
+      "attack_level": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "attack": 0,
+      "res_slide_curve": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Supersaw",
+    "hiden": false
+  },
+  "DPulse": {
+    "name": ":dpulse",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "detune_slide_curve": 0,
+      "cutoff": 100,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "pan": 0,
+      "pulse_width": 0.5,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "dpulse_width_slide_shape": 1,
+      "pulse_width_slide_shape": 1,
+      "sustain_level": 1,
+      "amp_slide_curve": 0,
+      "attack_level": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "detune_slide": 0,
+      "dpulse_width_slide": 0,
+      "detune_slide_shape": 1,
+      "attack": 0,
+      "decay_level": 1,
+      "pulse_width_slide_curve": 0,
+      "dpulse_width": 0,
+      "detune": 0.1,
+      "amp_slide": 0,
+      "pulse_width_slide": 0
+    },
+    "inherit_base": "DSaw",
+    "inherit_arg": true,
+    "summary": "Detuned Pulse Wave",
+    "hiden": true
+  },
+  "TechSaws": {
+    "name": ":tech_saws",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "cutoff": 130,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "pan": 0,
+      "res": 0.7,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "sustain_level": 1,
+      "res_slide": 0,
+      "res_slide_shape": 1,
+      "attack_level": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "attack": 0,
+      "res_slide_curve": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "TechSaws",
+    "hiden": false
+  },
+  "Hollow": {
+    "name": ":hollow",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "norm": 0,
+      "cutoff": 90,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "pan": 0,
+      "res": 0.99,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "sustain_level": 1,
+      "res_slide": 0,
+      "res_slide_shape": 1,
+      "attack_level": 1,
+      "noise": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "attack": 0,
+      "res_slide_curve": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Hollow",
+    "hiden": false
+  },
+  "BasicMixer": {
+    "name": ":basic_mixer",
+    "opts": {
+      "amp_slide_shape": 1,
+      "amp": 1,
+      "amp_slide_curve": 0,
+      "amp_slide": 0.1
+    },
+    "inherit_base": "BaseMixer",
+    "inherit_arg": false,
+    "summary": "Basic Mixer",
+    "hiden": true
+  },
+  "SoundIn": {
+    "name": ":sound_in",
+    "opts": {
+      "decay": 0,
+      "pan_slide_curve": 0,
       "amp": 1,
       "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "sustain": 1,
+      "pan": 0,
+      "attack": 0,
+      "input": 1,
+      "env_curve": 0,
+      "pan_slide_shape": 1,
+      "decay_level": 1,
       "sustain_level": 1,
-      "note_slide_shape": 1,
-      "env_curve": 2,
-      "note_slide_curve": 0,
-      "note_slide": 0
+      "attack_level": 1,
+      "release": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0
     },
-    "name": ":singer",
-    "inherit_arg": false,
     "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Sound In",
+    "hiden": false
+  },
+  "DarkAmbience": {
+    "name": ":dark_ambience",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "detune1_slide": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "cutoff": 110,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "detune1_slide_curve": 0,
+      "sustain": 0,
+      "noise": 0,
+      "pan": 0,
+      "res": 0.7,
+      "ring": 0.2,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "detune2_slide_shape": 1,
+      "sustain_level": 1,
+      "res_slide": 0,
+      "res_slide_shape": 1,
+      "attack_level": 1,
+      "detune1_slide_shape": 1,
+      "reverb_time": 100,
+      "detune1": 12,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "detune2_slide_curve": 0,
+      "detune2_slide": 0,
+      "room": 70,
+      "amp_slide_curve": 0,
+      "attack": 0,
+      "res_slide_curve": 0,
+      "detune2": 24
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Dark Ambience",
+    "hiden": false
+  },
+  "Singer": {
+    "name": ":singer",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "amp": 1,
+      "pan": 0,
+      "attack": 1,
+      "env_curve": 2,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "decay_level": 1,
+      "sustain_level": 1,
+      "attack_level": 1,
+      "release": 4.0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
     "summary": "Singer",
+    "hiden": true
+  },
+  "BaseMixer": {
+    "inherit_arg": true,
+    "opts": {},
+    "hiden": true,
+    "inherit_base": "StudioInfo"
+  },
+  "GNoise": {
+    "name": ":gnoise",
+    "opts": {
+      "decay": 0,
+      "res": 0,
+      "pan_slide_curve": 0,
+      "attack_level": 1,
+      "cutoff": 110,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "amp": 1,
+      "pan": 0,
+      "pan_slide_shape": 1,
+      "sustain_level": 1,
+      "sustain": 0,
+      "cutoff_slide": 0,
+      "release": 1,
+      "res_slide_shape": 1,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "res_slide": 0,
+      "attack": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "res_slide_curve": 0
+    },
+    "inherit_base": "Noise",
+    "inherit_arg": true,
+    "summary": "Grey Noise",
+    "hiden": true
+  },
+  "FM": {
+    "name": ":fm",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "cutoff": 100,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "pan": 0,
+      "depth_slide_curve": 0,
+      "divisor_slide_shape": 1,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "depth": 1,
+      "sustain_level": 1,
+      "divisor_slide": 0,
+      "depth_slide_shape": 1,
+      "attack_level": 1,
+      "divisor": 2,
+      "divisor_slide_curve": 0,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "amp_slide": 0,
+      "depth_slide": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "attack": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Basic FM synthesis",
+    "hiden": false
+  },
+  "DullBell": {
+    "name": ":dull_bell",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "amp": 1,
+      "pan": 0,
+      "attack": 0,
+      "env_curve": 2,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "decay_level": 1,
+      "sustain_level": 1,
+      "attack_level": 1,
+      "release": 1,
+      "amp_slide_curve": 0,
+      "amp_slide": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Dull Bell",
+    "hiden": false
+  },
+  "SonicPiSynth": {
+    "inherit_arg": true,
+    "opts": {},
+    "hiden": true,
+    "inherit_base": "SynthInfo"
+  },
+  "StudioInfo": {
+    "inherit_arg": true,
+    "opts": {},
+    "hiden": true,
+    "inherit_base": "SonicPiSynth"
+  },
+  "DSaw": {
+    "name": ":dsaw",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "detune_slide_curve": 0,
+      "cutoff": 100,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "pan": 0,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "sustain_level": 1,
+      "attack_level": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "detune_slide": 0,
+      "amp_slide": 0,
+      "detune_slide_shape": 1,
+      "decay_level": 1,
+      "detune": 0.1,
+      "amp_slide_curve": 0,
+      "attack": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Detuned Saw wave",
+    "hiden": false
+  },
+  "Beep": {
+    "name": ":beep",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "amp": 1,
+      "pan": 0,
+      "attack": 0,
+      "env_curve": 2,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "decay_level": 1,
+      "sustain_level": 1,
+      "attack_level": 1,
+      "release": 1,
+      "amp_slide_curve": 0,
+      "amp_slide": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Sine Wave",
+    "hiden": false
+  },
+  "BNoise": {
+    "name": ":bnoise",
+    "opts": {
+      "decay": 0,
+      "res": 0,
+      "pan_slide_curve": 0,
+      "attack_level": 1,
+      "cutoff": 110,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "amp": 1,
+      "pan": 0,
+      "pan_slide_shape": 1,
+      "sustain_level": 1,
+      "sustain": 0,
+      "cutoff_slide": 0,
+      "release": 1,
+      "res_slide_shape": 1,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "res_slide": 0,
+      "attack": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "res_slide_curve": 0
+    },
+    "inherit_base": "Noise",
+    "inherit_arg": true,
+    "summary": "Brown Noise",
+    "hiden": true
+  },
+  "PNoise": {
+    "name": ":pnoise",
+    "opts": {
+      "decay": 0,
+      "res": 0,
+      "pan_slide_curve": 0,
+      "attack_level": 1,
+      "cutoff": 110,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "amp": 1,
+      "pan": 0,
+      "pan_slide_shape": 1,
+      "sustain_level": 1,
+      "sustain": 0,
+      "cutoff_slide": 0,
+      "release": 1,
+      "res_slide_shape": 1,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "res_slide": 0,
+      "attack": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "res_slide_curve": 0
+    },
+    "inherit_base": "Noise",
+    "inherit_arg": true,
+    "summary": "Pink Noise",
+    "hiden": true
+  },
+  "SoundInStereo": {
+    "name": ":sound_in_stereo",
+    "opts": {
+      "decay": 0,
+      "pan_slide_curve": 0,
+      "attack_level": 1,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "amp": 1,
+      "pan": 0,
+      "pan_slide_shape": 1,
+      "sustain_level": 1,
+      "sustain": 1,
+      "release": 0,
+      "input": 1,
+      "env_curve": 0,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "attack": 0
+    },
+    "inherit_base": "SoundIn",
+    "inherit_arg": true,
+    "summary": "Sound In Stereo",
+    "hiden": true
+  },
+  "Pitchless": {
+    "inherit_arg": true,
+    "opts": {},
+    "hiden": true,
+    "inherit_base": "SonicPiSynth"
+  },
+  "BasicStereoPlayer": {
+    "name": ":basic_stereo_player",
+    "opts": {
+      "lpf_slide_shape": 1,
+      "pan_slide_curve": 0,
+      "hpf_slide_curve": 0,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "amp": 1,
+      "pan": 0,
+      "lpf_slide_curve": 0,
+      "pan_slide_shape": 1,
+      "lpf": -1,
+      "hpf_slide_shape": 1,
+      "hpf": -1,
+      "lpf_slide": 0,
+      "rate": 1,
+      "hpf_slide": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0
+    },
+    "inherit_base": "BasicMonoPlayer",
+    "inherit_arg": true,
+    "summary": "Basic Stereo Sample Player (no env)",
+    "hiden": true
+  },
+  "SynthViolin": {
+    "name": ":synth_violin",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "vibrato_depth_slide_curve": 0,
+      "cutoff": 100,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "pan": 0,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "vibrato_rate_slide_shape": 1,
+      "vibrato_onset": 0.1,
+      "sustain_level": 1,
+      "vibrato_rate": 6,
+      "attack_level": 1,
+      "vibrato_depth": 0.15,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "amp_slide": 0,
+      "vibrato_rate_slide_curve": 0,
+      "vibrato_delay": 0.5,
+      "decay_level": 1,
+      "vibrato_depth_slide_shape": 1,
+      "amp_slide_curve": 0,
+      "attack": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Blade Runner style strings",
+    "hiden": false
+  },
+  "Hoover": {
+    "name": ":hoover",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "cutoff": 130,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "pan": 0,
+      "res": 0.1,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "sustain_level": 1,
+      "res_slide": 0,
+      "res_slide_shape": 1,
+      "attack_level": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "attack": 0.05,
+      "res_slide_curve": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Hoover",
+    "hiden": false
+  },
+  "ModSine": {
+    "name": ":mod_sine",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "cutoff": 100,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "mod_range_slide": 0,
+      "sustain": 0,
+      "mod_range_slide_shape": 1,
+      "pan": 0,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "mod_pulse_width_slide_curve": 0,
+      "mod_phase_slide_shape": 1,
+      "sustain_level": 1,
+      "mod_invert_wave": 0,
+      "attack_level": 1,
+      "mod_wave": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "mod_phase_offset": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "mod_pulse_width": 0.5,
+      "env_curve": 2,
+      "mod_pulse_width_slide_shape": 1,
+      "mod_range_slide_curve": 0,
+      "amp_slide": 0,
+      "mod_phase_slide_curve": 0,
+      "mod_range": 5,
+      "mod_phase": 0.25,
+      "decay_level": 1,
+      "mod_phase_slide": 0,
+      "amp_slide_curve": 0,
+      "attack": 0,
+      "mod_pulse_width_slide": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Modulated Sine Wave",
+    "hiden": false
+  },
+  "Square": {
+    "name": ":square",
+    "opts": {
+      "decay": 0,
+      "note_slide_curve": 0,
+      "pan_slide_curve": 0,
+      "note_slide": 0,
+      "cutoff": 100,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "note": 52,
+      "sustain": 0,
+      "pan": 0,
+      "pan_slide_shape": 1,
+      "note_slide_shape": 1,
+      "sustain_level": 1,
+      "attack_level": 1,
+      "release": 1,
+      "amp": 1,
+      "cutoff_slide": 0,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "amp_slide": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "attack": 0
+    },
+    "inherit_base": "SonicPiSynth",
+    "inherit_arg": false,
+    "summary": "Square Wave",
+    "hiden": false
+  },
+  "CNoise": {
+    "name": ":cnoise",
+    "opts": {
+      "decay": 0,
+      "res": 0,
+      "pan_slide_curve": 0,
+      "attack_level": 1,
+      "cutoff": 110,
+      "pan_slide": 0,
+      "amp_slide_shape": 1,
+      "amp": 1,
+      "pan": 0,
+      "pan_slide_shape": 1,
+      "sustain_level": 1,
+      "sustain": 0,
+      "cutoff_slide": 0,
+      "release": 1,
+      "res_slide_shape": 1,
+      "cutoff_slide_shape": 1,
+      "cutoff_slide_curve": 0,
+      "env_curve": 2,
+      "res_slide": 0,
+      "attack": 0,
+      "decay_level": 1,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "res_slide_curve": 0
+    },
+    "inherit_base": "Noise",
+    "inherit_arg": true,
+    "summary": "Clip Noise",
     "hiden": true
   }
 }
 
 synth_nodes = {
-  ":square": "Square",
-  ":fx_replace_ixi_techno": "FXIXITechno",
-  ":fx_rhpf": "FXRHPF",
-  ":dsaw": "DSaw",
-  ":fx_nbpf": "FXNBPF",
-  ":fx_rbpf": "FXRBPF",
+  ":fx_replace_nhpf": "FXNormHPF",
   ":subpulse": "SubPulse",
-  ":noise": "Noise",
+  ":mod_beep": "ModSine",
   ":growl": "Growl",
-  ":saw": "Saw",
-  ":pulse": "Pulse",
-  ":fx_octaver": "FXOctaver",
-  ":fx_reverb": "FXReverb",
-  ":fx_replace_echo": "FXEcho",
-  ":fx_replace_lpf": "FXLPF",
-  ":chiplead": "ChipLead",
-  ":fx_replace_compressor": "FXCompressor",
-  ":fx_panslicer": "FXPanSlicer",
-  ":fx_wobble": "FXWobble",
-  ":fx_nrlpf": "FXNormRLPF",
-  ":beep": "Beep",
-  ":tri": "Tri",
-  ":chipbass": "ChipBass",
-  ":fx_replace_rlpf": "FXRLPF",
-  ":fx_ixi_techno": "FXIXITechno",
-  ":fx_ring_mod": "FXRingMod",
-  ":hollow": "Hollow",
-  ":basic_stereo_player": "BasicStereoPlayer",
+  ":fx_whammy": "FXWhammy",
+  ":fx_band_eq": "FXBandEQ",
   ":fx_level": "FXLevel",
-  ":fx_nhpf": "FXNormHPF",
-  ":supersaw": "Supersaw",
+  ":fm": "FM",
+  ":chipnoise": "ChipNoise",
+  ":pretty_bell": "PrettyBell",
+  ":dsaw": "DSaw",
+  ":sine": "Beep",
+  ":prophet": "Prophet",
+  ":fx_replace_rlpf": "FXRLPF",
   ":fx_gverb": "FXGVerb",
+  ":fx_replace_distortion": "FXDistortion",
+  ":dull_bell": "DullBell",
+  ":chipbass": "ChipBass",
+  ":fx_nrhpf": "FXNormRHPF",
+  ":cnoise": "CNoise",
+  ":fx_pan": "FXPan",
+  ":fx_hpf": "FXHPF",
+  ":blade": "SynthViolin",
+  ":beep": "Beep",
+  ":fx_replace_echo": "FXEcho",
+  ":fx_ixi_techno": "FXIXITechno",
+  ":piano": "SynthPiano",
+  ":tri": "Tri",
+  ":fx_normaliser": "FXNormaliser",
+  ":fx_replace_nrhpf": "FXNormRHPF",
+  ":fx_panslicer": "FXPanSlicer",
+  ":fx_replace_reverb": "FXReverb",
+  ":fx_distortion": "FXDistortion",
+  ":fx_compressor": "FXCompressor",
+  ":fx_replace_lpf": "FXLPF",
+  ":dtri": "DTri",
+  ":fx_lpf": "FXLPF",
+  ":basic_stereo_player": "BasicStereoPlayer",
+  ":fx_flanger": "FXFlanger",
+  ":fx_rbpf": "FXRBPF",
+  ":fx_nhpf": "FXNormHPF",
+  ":basic_mono_player": "BasicMonoPlayer",
+  ":fx_rhpf": "FXRHPF",
+  ":fx_nlpf": "FXNormLPF",
+  ":fx_bitcrusher": "FXBitcrusher",
+  ":fx_replace_compressor": "FXCompressor",
+  ":hollow": "Hollow",
+  ":fx_replace_nrlpf": "FXNormRLPF",
+  ":basic_mixer": "BasicMixer",
+  ":chiplead": "ChipLead",
+  ":fx_vowel": "FXVowel",
+  ":tb303": "TB303",
+  ":fx_replace_level": "FXLevel",
+  ":fx_replace_rhpf": "FXRHPF",
+  ":stereo_player": "StereoPlayer",
+  ":fx_wobble": "FXWobble",
+  ":mono_player": "MonoPlayer",
+  ":fx_replace_ixi_techno": "FXIXITechno",
+  ":mod_fm": "ModFM",
+  ":square": "Square",
+  ":fx_replace_slicer": "FXSlicer",
+  ":supersaw": "Supersaw",
+  ":gnoise": "GNoise",
+  ":mod_pulse": "ModPulse",
+  ":fx_rlpf": "FXRLPF",
   ":pnoise": "PNoise",
+  ":fx_replace_wobble": "FXWobble",
+  ":fx_octaver": "FXOctaver",
+  ":fx_replace_hpf": "FXHPF",
+  ":dark_ambience": "DarkAmbience",
+  ":pulse": "Pulse",
+  ":mod_tri": "ModTri",
+  ":bnoise": "BNoise",
+  ":hoover": "Hoover",
+  ":fx_bpf": "FXBPF",
+  ":mod_sine": "ModSine",
+  ":fx_krush": "FXKrush",
+  ":fx_replace_pan": "FXPan",
+  ":fx_nrlpf": "FXNormRLPF",
+  ":main_mixer": "MainMixer",
+  ":dpulse": "DPulse",
+  ":saw": "Saw",
+  ":fx_replace_normaliser": "FXNormaliser",
+  ":noise": "Noise",
+  ":pluck": "SynthPluck",
   ":fx_tanh": "FXTanh",
   ":sound_in": "SoundIn",
-  ":fx_slicer": "FXSlicer",
-  ":fx_replace_nlpf": "FXNormLPF",
-  ":fx_replace_normaliser": "FXNormaliser",
-  ":basic_mixer": "BasicMixer",
-  ":fx_mono": "FXMono",
-  ":mod_pulse": "ModPulse",
-  ":basic_mono_player": "BasicMonoPlayer",
-  ":mod_dsaw": "ModDSaw",
-  ":piano": "SynthPiano",
-  ":pretty_bell": "PrettyBell",
-  ":gnoise": "GNoise",
-  ":dark_ambience": "DarkAmbience",
-  ":fx_normaliser": "FXNormaliser",
-  ":fx_pitch_shift": "FXPitchShift",
-  ":tb303": "TB303",
-  ":fx_replace_nrhpf": "FXNormRHPF",
-  ":fx_replace_pan": "FXPan",
-  ":dpulse": "DPulse",
-  ":fx_nrhpf": "FXNormRHPF",
-  ":fx_nrbpf": "FXNRBPF",
-  ":fx_replace_slicer": "FXSlicer",
-  ":fx_bpf": "FXBPF",
-  ":fx_echo": "FXEcho",
-  ":main_mixer": "MainMixer",
-  ":dtri": "DTri",
-  ":fx_distortion": "FXDistortion",
-  ":bnoise": "BNoise",
-  ":fx_replace_hpf": "FXHPF",
-  ":stereo_player": "StereoPlayer",
-  ":fx_replace_nrlpf": "FXNormRLPF",
-  ":mod_sine": "ModSine",
-  ":fx_band_eq": "FXBandEQ",
-  ":fx_flanger": "FXFlanger",
-  ":fx_compressor": "FXCompressor",
-  ":sine": "Beep",
-  ":fx_whammy": "FXWhammy",
-  ":mono_player": "MonoPlayer",
-  ":chipnoise": "ChipNoise",
-  ":fx_lpf": "FXLPF",
-  ":zawa": "Zawa",
-  ":fx_bitcrusher": "FXBitcrusher",
-  ":mod_fm": "ModFM",
-  ":fm": "FM",
-  ":fx_hpf": "FXHPF",
-  ":pluck": "SynthPluck",
-  ":cnoise": "CNoise",
-  ":fx_replace_distortion": "FXDistortion",
-  ":fx_nlpf": "FXNormLPF",
-  ":dull_bell": "DullBell",
-  ":fx_replace_rhpf": "FXRHPF",
-  ":tech_saws": "TechSaws",
-  ":prophet": "Prophet",
-  ":fx_krush": "FXKrush",
-  ":hoover": "Hoover",
   ":mod_saw": "ModSaw",
-  ":fx_replace_wobble": "FXWobble",
-  ":fx_pan": "FXPan",
-  ":fx_rlpf": "FXRLPF",
-  ":fx_replace_reverb": "FXReverb",
-  ":mod_beep": "ModSine",
-  ":blade": "SynthViolin",
-  ":fx_vowel": "FXVowel",
-  ":mod_tri": "ModTri",
-  ":fx_replace_nhpf": "FXNormHPF",
+  ":fx_slicer": "FXSlicer",
+  ":fx_mono": "FXMono",
+  ":tech_saws": "TechSaws",
+  ":zawa": "Zawa",
+  ":fx_echo": "FXEcho",
+  ":fx_nbpf": "FXNBPF",
+  ":fx_replace_nlpf": "FXNormLPF",
   ":sound_in_stereo": "SoundInStereo",
-  ":fx_replace_level": "FXLevel"
+  ":fx_pitch_shift": "FXPitchShift",
+  ":fx_reverb": "FXReverb",
+  ":fx_ring_mod": "FXRingMod",
+  ":mod_dsaw": "ModDSaw",
+  ":fx_nrbpf": "FXNRBPF"
 }
 
 fx = {
-  "FXNBPF": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "res_slide": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "mix": 1,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "centre_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "centre": 100,
-      "res_slide_shape": 1,
-      "res": 0.6,
-      "res_slide_curve": 0,
-      "pre_amp": 1,
-      "centre_slide_curve": 0,
-      "centre_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_nbpf",
-    "inherit_arg": true,
-    "inherit_base": "FXBPF",
-    "summary": "Normalised Band Pass Filter",
-    "hiden": true
-  },
-  "FXPitchShift": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "pitch": 0,
-      "pitch_dis_slide": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pitch_dis_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pitch_dis": 0.0,
-      "window_size": 0.2,
-      "pre_mix_slide_shape": 1,
-      "pitch_dis_slide_shape": 1,
-      "pitch_slide": 0,
-      "window_size_slide_curve": 0,
-      "mix": 1,
-      "pre_amp": 1,
-      "time_dis_slide_curve": 0,
-      "time_dis_slide_shape": 1,
-      "time_dis": 0.0,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "time_dis_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "pitch_slide_curve": 0,
-      "amp": 1,
-      "window_size_slide": 0,
-      "pre_amp_slide_curve": 0,
-      "window_size_slide_shape": 1,
-      "pitch_slide_shape": 1
-    },
-    "name": ":fx_pitch_shift",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Pitch shift",
-    "hiden": false
-  },
-  "FXPanSlicer": {
-    "opts": {
-      "pan_max": 1,
-      "phase_slide_shape": 1,
-      "pulse_width_slide_curve": 0,
-      "probability_slide_curve": 0,
-      "invert_wave": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "smooth_down": 0,
-      "amp_min_slide_curve": 0,
-      "amp_min_slide": 0,
-      "smooth_up_slide_curve": 0,
-      "pre_mix_slide_shape": 1,
-      "pulse_width_slide": 0,
-      "mix": 1,
-      "prob_pos_slide": 0,
-      "prob_pos_slide_shape": 1,
-      "phase_slide": 0,
-      "pre_amp": 1,
-      "smooth_slide": 0,
-      "amp_max": 1,
-      "smooth_up_slide_shape": 1,
-      "pulse_width_slide_shape": 1,
-      "phase": 0.25,
-      "smooth_down_slide_shape": 1,
-      "smooth_up_slide": 0,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "prob_pos": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "smooth_slide_shape": 1,
-      "smooth": 0,
-      "phase_offset": 0,
-      "pan_max_slide": 0,
-      "pre_amp_slide": 0,
-      "probability_slide": 0,
-      "smooth_slide_curve": 0,
-      "probability": 0,
-      "amp": 1,
-      "pan_min_slide_curve": 0,
-      "pan_min_slide": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "probability_slide_shape": 1,
-      "smooth_down_slide_curve": 0,
-      "amp_max_slide_shape": 1,
-      "pan_min": -1,
-      "amp_min": 0,
-      "seed": 0,
-      "amp_max_slide_curve": 0,
-      "pan_max_slide_curve": 0,
-      "smooth_down_slide": 0,
-      "smooth_up": 0,
-      "pan_max_slide_shape": 1,
-      "mix_slide": 0,
-      "pan_min_slide_shape": 1,
-      "pre_amp_slide_curve": 0,
-      "wave": 1,
-      "amp_min_slide_shape": 1,
-      "amp_max_slide": 0,
-      "pulse_width": 0.5,
-      "phase_slide_curve": 0,
-      "prob_pos_slide_curve": 0
-    },
-    "name": ":fx_panslicer",
-    "inherit_arg": true,
-    "inherit_base": "FXSlicer",
-    "summary": "Pan Slicer",
-    "hiden": true
-  },
-  "FXChorus": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "phase_slide_shape": 1,
-      "decay": 1e-05,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "mix": 1,
-      "phase_slide": 0,
-      "pre_amp": 1,
-      "decay_slide": 0,
-      "phase_slide_curve": 0,
-      "phase": 0.25,
-      "decay_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "max_phase": 1,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "decay_slide_curve": 0,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_chorus",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Chorus",
-    "hiden": true
-  },
-  "FXPan": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pan_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "pan_slide_shape": 1,
-      "mix": 1,
-      "pan_slide": 0,
-      "pre_amp": 1,
-      "pan": 0,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_pan",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Pan",
-    "hiden": false
-  },
-  "FXHPF": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "cutoff_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "mix": 1,
-      "pre_amp": 1,
-      "cutoff_slide": 0,
-      "cutoff": 100,
-      "cutoff_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_hpf",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "High Pass Filter",
-    "hiden": false
-  },
-  "FXCompressor": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "slope_below_slide_shape": 1,
-      "slope_above_slide_shape": 1,
-      "slope_below_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "clamp_time_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "threshold_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "threshold_slide_curve": 0,
-      "mix": 1,
-      "clamp_time_slide_shape": 1,
-      "slope_below_slide": 0,
-      "pre_amp": 1,
-      "slope_below": 1,
-      "relax_time_slide": 0,
-      "relax_time": 0.01,
-      "clamp_time_slide": 0,
-      "threshold_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "relax_time_slide_curve": 0,
-      "amp_slide": 0,
-      "slope_above_slide_curve": 0,
-      "amp_slide_curve": 0,
-      "slope_above": 0.5,
-      "relax_time_slide_shape": 1,
-      "amp": 1,
-      "clamp_time": 0.01,
-      "pre_amp_slide_curve": 0,
-      "slope_above_slide": 0,
-      "threshold": 0.2
-    },
-    "name": ":fx_compressor",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Compressor",
-    "hiden": false
-  },
-  "FXLPF": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "cutoff_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "mix": 1,
-      "pre_amp": 1,
-      "cutoff_slide": 0,
-      "cutoff": 100,
-      "cutoff_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_lpf",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Low Pass Filter",
-    "hiden": false
-  },
-  "FXRLPF": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "res_slide_shape": 1,
-      "cutoff_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "res": 0.5,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "amp": 1,
-      "mix": 1,
-      "res_slide_curve": 0,
-      "pre_amp": 1,
-      "res_slide": 0,
-      "cutoff_slide": 0,
-      "cutoff": 100,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "cutoff_slide_shape": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_rlpf",
-    "inherit_arg": true,
-    "inherit_base": "FXLPF",
-    "summary": "Resonant Low Pass Filter",
-    "hiden": true
-  },
-  "FXEcho": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "phase_slide_shape": 1,
-      "decay": 2,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "mix": 1,
-      "phase_slide": 0,
-      "pre_amp": 1,
-      "decay_slide": 0,
-      "phase_slide_curve": 0,
-      "phase": 0.25,
-      "decay_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "max_phase": 2,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "decay_slide_curve": 0,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_echo",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Echo",
-    "hiden": false
-  },
-  "FXReverb": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "damp": 0.5,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "room": 0.6,
-      "pre_mix_slide_shape": 1,
-      "mix": 0.4,
-      "room_slide_curve": 0,
-      "pre_amp": 1,
-      "room_slide_shape": 1,
-      "damp_slide": 0,
-      "damp_slide_curve": 0,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "damp_slide_shape": 1,
-      "pre_amp_slide_curve": 0,
-      "room_slide": 0
-    },
-    "name": ":fx_reverb",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Reverb",
-    "hiden": false
-  },
-  "FXWhammy": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "transpose_slide_shape": 1,
-      "pre_mix_slide_shape": 1,
-      "deltime": 0.05,
-      "mix": 1,
-      "pre_amp": 1,
-      "max_delay_time": 1,
-      "transpose_slide": 0,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "grainsize": 0.075,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "transpose": 12,
-      "pre_amp_slide_curve": 0,
-      "transpose_slide_curve": 0
-    },
-    "name": ":fx_whammy",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Whammy",
-    "hiden": false
-  },
-  "FXFlanger": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "decay_slide_shape": 1,
-      "decay": 2,
-      "invert_wave": 0,
-      "phase_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "feedback_slide_curve": 0,
-      "feedback_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "mix": 1,
-      "depth": 5,
-      "decay_slide": 0,
-      "pre_amp": 1,
-      "phase_slide": 0,
-      "delay": 5,
-      "stereo_invert_wave": 0,
-      "depth_slide": 0,
-      "feedback": 0,
-      "feedback_slide_shape": 1,
-      "depth_slide_curve": 0,
-      "phase": 4,
-      "max_delay": 20,
-      "phase_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "phase_offset": 0,
-      "amp_slide": 0,
-      "delay_slide_curve": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "decay_slide_curve": 0,
-      "wave": 4,
-      "delay_slide_shape": 1,
-      "invert_flange": 0,
-      "pre_amp_slide_curve": 0,
-      "delay_slide": 0,
-      "depth_slide_shape": 1
-    },
-    "name": ":fx_flanger",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Flanger",
-    "hiden": false
-  },
-  "FXRingMod": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "freq_slide": 0,
-      "mod_amp_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "freq_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "mix": 1,
-      "mod_amp_slide_shape": 1,
-      "mod_amp_slide": 0,
-      "pre_amp": 1,
-      "mod_amp": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "freq_slide_shape": 1,
-      "pre_amp_slide_curve": 0,
-      "freq": 30
-    },
-    "name": ":fx_ring_mod",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Ring Modulator",
-    "hiden": false
-  },
-  "FXBandEQ": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "freq_slide": 0,
-      "res_slide_shape": 1,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "freq_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "db": 0.6,
-      "res_slide": 0,
-      "mix": 1,
-      "res_slide_curve": 0,
-      "pre_amp": 1,
-      "res": 0.6,
-      "db_slide_shape": 1,
-      "db_slide_curve": 0,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "freq_slide_shape": 1,
-      "db_slide": 0,
-      "pre_amp_slide_curve": 0,
-      "freq": 100
-    },
-    "name": ":fx_band_eq",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Band EQ Filter",
-    "hiden": false
-  },
-  "FXNormHPF": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "cutoff_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "amp": 1,
-      "mix": 1,
-      "pre_amp": 1,
-      "cutoff_slide": 0,
-      "cutoff": 100,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "cutoff_slide_shape": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_nhpf",
-    "inherit_arg": true,
-    "inherit_base": "FXHPF",
-    "summary": "Normalised High Pass Filter",
-    "hiden": true
-  },
-  "FXVowel": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "mix": 1,
-      "pre_amp": 1,
-      "vowel_sound": 1,
-      "voice": 0,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_vowel",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Vowel",
-    "hiden": false
-  },
-  "FXNormRLPF": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "res_slide": 0,
-      "cutoff_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "mix": 1,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "res_slide_shape": 1,
-      "res": 0.5,
-      "res_slide_curve": 0,
-      "pre_amp": 1,
-      "cutoff_slide": 0,
-      "cutoff": 100,
-      "cutoff_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_nrlpf",
-    "inherit_arg": true,
-    "inherit_base": "FXRLPF",
-    "summary": "Normalised Resonant Low Pass Filter",
-    "hiden": true
-  },
-  "FXDistortion": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "mix": 1,
-      "pre_amp": 1,
-      "distort_slide": 0,
-      "distort": 0.5,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "distort_slide_shape": 1,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "distort_slide_curve": 0,
-      "amp": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_distortion",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Distortion",
-    "hiden": false
-  },
-  "FXNRBPF": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "res_slide_shape": 1,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "res": 0.5,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "centre_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "centre": 100,
-      "res_slide": 0,
-      "mix": 1,
-      "res_slide_curve": 0,
-      "pre_amp": 1,
-      "centre_slide_curve": 0,
-      "centre_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_nrbpf",
-    "inherit_arg": true,
-    "inherit_base": "FXRBPF",
-    "summary": "Normalised Resonant Band Pass Filter",
-    "hiden": true
-  },
-  "FXWobble": {
-    "opts": {
-      "cutoff_max_slide_shape": 1,
-      "smooth_up_slide": 0,
-      "cutoff_min": 60,
-      "probability_slide_curve": 0,
-      "invert_wave": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "smooth_down": 0,
-      "prob_pos_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "pulse_width_slide": 0,
-      "res_slide": 0,
-      "mix": 1,
-      "res_slide_curve": 0,
-      "pulse_width_slide_curve": 0,
-      "phase_slide": 0,
-      "pre_amp": 1,
-      "res": 0.8,
-      "smooth_slide": 0,
-      "cutoff_max": 120,
-      "prob_pos": 0,
-      "smooth_up_slide_shape": 1,
-      "pulse_width_slide_shape": 1,
-      "cutoff_min_slide_shape": 1,
-      "smooth_slide_curve": 0,
-      "phase_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "phase_offset": 0,
-      "amp_slide": 0,
-      "smooth_down_slide": 0,
-      "wave": 0,
-      "cutoff_min_slide_curve": 0,
-      "smooth_slide_shape": 1,
-      "smooth": 0,
-      "pre_amp_slide": 0,
-      "probability_slide": 0,
-      "probability": 0,
-      "amp": 1,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "cutoff_min_slide": 0,
-      "cutoff_max_slide_curve": 0,
-      "smooth_down_slide_curve": 0,
-      "res_slide_shape": 1,
-      "probability_slide_shape": 1,
-      "seed": 0,
-      "smooth_up_slide_curve": 0,
-      "phase_slide_curve": 0,
-      "smooth_up": 0,
-      "filter": 0,
-      "mix_slide": 0,
-      "prob_pos_slide_curve": 0,
-      "prob_pos_slide_shape": 1,
-      "amp_slide_curve": 0,
-      "cutoff_max_slide": 0,
-      "phase": 0.5,
-      "pulse_width": 0.5,
-      "pre_amp_slide_curve": 0,
-      "smooth_down_slide_shape": 1
-    },
-    "name": ":fx_wobble",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Wobble",
-    "hiden": false
-  },
   "FXIXITechno": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "cutoff_max_slide_shape": 1,
-      "cutoff_min": 60,
-      "res_slide": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "res": 0.8,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "cutoff_min_slide": 0,
-      "cutoff_max_slide_curve": 0,
-      "pre_mix_slide_shape": 1,
-      "res_slide_shape": 1,
-      "mix": 1,
-      "res_slide_curve": 0,
-      "phase_slide": 0,
-      "pre_amp": 1,
-      "cutoff_max": 120,
-      "phase_slide_curve": 0,
-      "cutoff_min_slide_shape": 1,
-      "phase_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "phase_offset": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "cutoff_max_slide": 0,
-      "amp": 1,
-      "cutoff_min_slide_curve": 0,
-      "phase": 4,
-      "pre_amp_slide_curve": 0
-    },
     "name": ":fx_ixi_techno",
-    "inherit_arg": true,
+    "opts": {
+      "res": 0.8,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "res_slide_shape": 1,
+      "cutoff_max_slide_curve": 0,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "cutoff_min_slide_shape": 1,
+      "cutoff_max": 120,
+      "res_slide": 0,
+      "phase_offset": 0,
+      "cutoff_max_slide_shape": 1,
+      "cutoff_max_slide": 0,
+      "cutoff_min_slide_curve": 0,
+      "mix_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "phase_slide_curve": 0,
+      "phase_slide": 0,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "res_slide_curve": 0,
+      "cutoff_min_slide": 0,
+      "phase_slide_shape": 1,
+      "cutoff_min": 60,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0,
+      "phase": 4
+    },
     "inherit_base": "FXInfo",
+    "inherit_arg": true,
     "summary": "Techno from IXI Lang",
     "hiden": false
   },
-  "FXNormRHPF": {
+  "FXNBPF": {
+    "name": ":fx_nbpf",
     "opts": {
-      "pre_amp_slide": 0,
-      "res_slide": 0,
-      "cutoff_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "mix": 1,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "res_slide_shape": 1,
-      "res": 0.5,
-      "res_slide_curve": 0,
+      "res": 0.6,
       "pre_amp": 1,
-      "cutoff_slide": 0,
-      "cutoff": 100,
-      "cutoff_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
+      "pre_amp_slide_curve": 0,
+      "res_slide_shape": 1,
       "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
+      "mix_slide_curve": 0,
       "amp": 1,
-      "pre_amp_slide_curve": 0
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "centre_slide_curve": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "centre_slide": 0,
+      "mix_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "centre_slide_shape": 1,
+      "res_slide": 0,
+      "amp_slide_shape": 1,
+      "centre": 100,
+      "pre_mix_slide": 0,
+      "pre_mix_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "res_slide_curve": 0
     },
-    "name": ":fx_nrhpf",
+    "inherit_base": "FXBPF",
     "inherit_arg": true,
-    "inherit_base": "FXRHPF",
-    "summary": "Normalised Resonant High Pass Filter",
+    "summary": "Normalised Band Pass Filter",
     "hiden": true
   },
-  "FXBitcrusher": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "cutoff_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "sample_rate_slide_shape": 1,
-      "pre_mix_slide_shape": 1,
-      "bits_slide": 0,
-      "sample_rate": 10000,
-      "sample_rate_slide": 0,
-      "mix": 1,
-      "pre_amp": 1,
-      "cutoff_slide": 0,
-      "sample_rate_slide_curve": 0,
-      "cutoff": 0,
-      "cutoff_slide_shape": 1,
-      "bits_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "bits_slide_curve": 0,
-      "amp_slide": 0,
-      "bits": 8,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_bitcrusher",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Bitcrusher",
-    "hiden": false
-  },
-  "FXLevel": {
-    "opts": {
-      "amp_slide": 0,
-      "amp": 1,
-      "amp_slide_curve": 0,
-      "amp_slide_shape": 1
-    },
-    "name": ":fx_level",
-    "inherit_arg": false,
-    "inherit_base": "FXInfo",
-    "summary": "Level Amplifier",
-    "hiden": false
-  },
-  "FXOctaver": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "super_amp_slide": 0,
-      "sub_amp_slide": 0,
-      "subsub_amp_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "super_amp_slide_curve": 0,
-      "subsub_amp": 1,
-      "mix": 1,
-      "super_amp": 1,
-      "pre_amp": 1,
-      "super_amp_slide_shape": 1,
-      "sub_amp": 1,
-      "sub_amp_slide_shape": 1,
-      "subsub_amp_slide_curve": 0,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "sub_amp_slide_curve": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "pre_amp_slide_curve": 0,
-      "subsub_amp_slide_shape": 1
-    },
-    "name": ":fx_octaver",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Octaver",
-    "hiden": false
-  },
-  "FXMono": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pan_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "pan_slide_shape": 1,
-      "mix": 1,
-      "pan_slide": 0,
-      "pre_amp": 1,
-      "pan": 0,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_mono",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Mono",
-    "hiden": false
-  },
-  "FXInfo": {
-    "inherit_base": "BaseInfo",
-    "hiden": true,
-    "opts": {
-      "pre_amp_slide": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "pre_mix_slide": 0,
-      "amp_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "mix": 1,
-      "pre_amp_slide_shape": 1,
-      "pre_amp": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "inherit_arg": false
-  },
   "FXNormaliser": {
+    "name": ":fx_normaliser",
     "opts": {
-      "level_slide_curve": 0,
-      "pre_amp_slide": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "mix_slide_shape": 1,
       "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
       "pre_mix_slide_shape": 1,
       "mix": 1,
-      "level": 1,
-      "pre_amp": 1,
-      "level_slide": 0,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
       "mix_slide": 0,
-      "amp_slide": 0,
+      "level_slide_curve": 0,
+      "pre_amp_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "level_slide": 0,
+      "level_slide_shape": 1,
+      "level": 1,
       "amp_slide_curve": 0,
-      "amp": 1,
-      "pre_amp_slide_curve": 0,
-      "level_slide_shape": 1
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
     },
-    "name": ":fx_normaliser",
-    "inherit_arg": true,
     "inherit_base": "FXInfo",
+    "inherit_arg": true,
     "summary": "Normaliser",
     "hiden": false
   },
-  "FXTanh": {
+  "FXPanSlicer": {
+    "name": ":fx_panslicer",
     "opts": {
-      "pre_amp_slide": 0,
-      "krunch_slide_curve": 0,
-      "krunch": 5,
-      "krunch_slide": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "mix": 1,
-      "krunch_slide_shape": 1,
-      "pre_amp": 1,
-      "pre_mix_slide_curve": 0,
+      "smooth_down_slide_shape": 1,
+      "smooth_up": 0,
+      "pan_max": 1,
       "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_tanh",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Hyperbolic Tangent",
-    "hiden": false
-  },
-  "FXRBPF": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "res_slide": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
       "mix_slide_curve": 0,
-      "mix": 1,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "centre_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "centre": 100,
-      "res_slide_shape": 1,
-      "res": 0.5,
-      "res_slide_curve": 0,
-      "pre_amp": 1,
-      "centre_slide_curve": 0,
-      "centre_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
       "amp": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_rbpf",
-    "inherit_arg": true,
-    "inherit_base": "FXBPF",
-    "summary": "Resonant Band Pass Filter",
-    "hiden": true
-  },
-  "FXKrush": {
-    "opts": {
       "pre_amp_slide": 0,
-      "res_slide_shape": 1,
-      "cutoff_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "res": 0,
+      "pan_min_slide": 0,
+      "pulse_width": 0.5,
+      "phase": 0.25,
+      "prob_pos_slide_shape": 1,
+      "pulse_width_slide_shape": 1,
+      "seed": 0,
+      "prob_pos": 0,
+      "pan_min_slide_curve": 0,
+      "smooth_up_slide": 0,
       "pre_amp_slide_shape": 1,
+      "amp_min_slide_curve": 0,
+      "probability_slide_shape": 1,
+      "phase_slide": 0,
+      "pan_min": -1,
+      "pan_max_slide_curve": 0,
       "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "gain": 5,
-      "mix": 1,
-      "res_slide_curve": 0,
-      "pre_amp": 1,
-      "res_slide": 0,
-      "cutoff_slide": 0,
-      "gain_slide__curve": 0,
-      "cutoff": 100,
-      "gain_slide": 0,
-      "cutoff_slide_shape": 1,
+      "phase_offset": 0,
+      "amp_min_slide_shape": 1,
+      "smooth_down": 0,
+      "smooth": 0,
       "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "gain_slide_shape": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_krush",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "krush",
-    "hiden": false
-  },
-  "FXRHPF": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "res_slide_shape": 1,
-      "cutoff_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "res": 0.5,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "amp": 1,
-      "mix": 1,
-      "res_slide_curve": 0,
+      "pulse_width_slide": 0,
+      "smooth_up_slide_shape": 1,
       "pre_amp": 1,
-      "res_slide": 0,
-      "cutoff_slide": 0,
-      "cutoff": 100,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "cutoff_slide_shape": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_rhpf",
-    "inherit_arg": true,
-    "inherit_base": "FXHPF",
-    "summary": "Resonant High Pass Filter",
-    "hiden": true
-  },
-  "FXNormLPF": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "cutoff_slide_curve": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "amp": 1,
-      "mix": 1,
-      "pre_amp": 1,
-      "cutoff_slide": 0,
-      "cutoff": 100,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "cutoff_slide_shape": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_nlpf",
-    "inherit_arg": true,
-    "inherit_base": "FXLPF",
-    "summary": "Normalised Low Pass Filter.",
-    "hiden": true
-  },
-  "FXBPF": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "res_slide_shape": 1,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "res": 0.6,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "centre_slide": 0,
-      "pre_mix_slide_shape": 1,
-      "centre": 100,
-      "res_slide": 0,
-      "mix": 1,
-      "res_slide_curve": 0,
-      "pre_amp": 1,
-      "centre_slide_curve": 0,
-      "centre_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "pre_amp_slide_curve": 0
-    },
-    "name": ":fx_bpf",
-    "inherit_arg": true,
-    "inherit_base": "FXInfo",
-    "summary": "Band Pass Filter",
-    "hiden": false
-  },
-  "FXGVerb": {
-    "opts": {
-      "pre_amp_slide": 0,
-      "pre_damp_slide_shape": 1,
-      "damp": 0.5,
-      "tail_level": 0.5,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "room": 10,
-      "release": 3,
-      "dry_slide_shape": 1,
-      "pre_mix_slide_shape": 1,
-      "dry_slide": 0,
-      "spread_slide": 0,
-      "mix": 1,
-      "pre_amp": 1,
-      "spread_slide_shape": 1,
-      "dry_slide_curve": 0,
-      "pre_damp_slide_curve": 0,
-      "spread_slide_curve": 0,
-      "ref_level": 0.7,
-      "pre_damp_slide": 0,
-      "damp_slide": 0,
-      "damp_slide_curve": 0,
-      "spread": 0.5,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "mix_slide": 0,
-      "amp_slide": 0,
-      "amp_slide_curve": 0,
-      "amp": 1,
-      "damp_slide_shape": 1,
-      "dry": 1,
       "pre_amp_slide_curve": 0,
-      "pre_damp": 0.5
+      "pan_max_slide": 0,
+      "amp_slide_shape": 1,
+      "pulse_width_slide_curve": 0,
+      "phase_slide_shape": 1,
+      "pre_mix": 1,
+      "amp_max_slide_shape": 1,
+      "pre_mix_slide_shape": 1,
+      "amp_min_slide": 0,
+      "probability_slide": 0,
+      "probability_slide_curve": 0,
+      "probability": 0,
+      "pan_max_slide_shape": 1,
+      "amp_max": 1,
+      "smooth_down_slide": 0,
+      "mix_slide": 0,
+      "smooth_slide_shape": 1,
+      "smooth_up_slide_curve": 0,
+      "smooth_slide": 0,
+      "amp_min": 0,
+      "wave": 1,
+      "phase_slide_curve": 0,
+      "invert_wave": 0,
+      "prob_pos_slide": 0,
+      "amp_max_slide": 0,
+      "smooth_slide_curve": 0,
+      "pan_min_slide_shape": 1,
+      "smooth_down_slide_curve": 0,
+      "amp_max_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "prob_pos_slide_curve": 0,
+      "mix": 1
     },
-    "name": ":fx_gverb",
+    "inherit_base": "FXSlicer",
     "inherit_arg": true,
+    "summary": "Pan Slicer",
+    "hiden": true
+  },
+  "FXNormRHPF": {
+    "name": ":fx_nrhpf",
+    "opts": {
+      "res": 0.5,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "cutoff": 100,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "cutoff_slide": 0,
+      "res_slide_shape": 1,
+      "mix_slide": 0,
+      "cutoff_slide_shape": 1,
+      "pre_amp_slide_shape": 1,
+      "res_slide": 0,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "pre_mix_slide_curve": 0,
+      "cutoff_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "res_slide_curve": 0
+    },
+    "inherit_base": "FXRHPF",
+    "inherit_arg": true,
+    "summary": "Normalised Resonant High Pass Filter",
+    "hiden": true
+  },
+  "FXFlanger": {
+    "name": ":fx_flanger",
+    "opts": {
+      "decay": 2,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "feedback_slide_shape": 1,
+      "stereo_invert_wave": 0,
+      "wave": 4,
+      "mix_slide_shape": 1,
+      "phase_slide_curve": 0,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "depth_slide_curve": 0,
+      "pre_mix_slide_shape": 1,
+      "decay_slide_curve": 0,
+      "mix": 1,
+      "feedback": 0,
+      "depth": 5,
+      "phase_offset": 0,
+      "depth_slide": 0,
+      "decay_slide": 0,
+      "depth_slide_shape": 1,
+      "invert_flange": 0,
+      "mix_slide": 0,
+      "max_delay": 20,
+      "pre_amp_slide_shape": 1,
+      "delay_slide_shape": 1,
+      "decay_slide_shape": 1,
+      "feedback_slide_curve": 0,
+      "invert_wave": 0,
+      "delay_slide_curve": 0,
+      "phase_slide": 0,
+      "amp_slide_shape": 1,
+      "delay": 5,
+      "pre_mix_slide": 0,
+      "delay_slide": 0,
+      "phase_slide_shape": 1,
+      "feedback_slide": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0,
+      "phase": 4
+    },
     "inherit_base": "FXInfo",
-    "summary": "GVerb",
+    "inherit_arg": true,
+    "summary": "Flanger",
+    "hiden": false
+  },
+  "FXHPF": {
+    "name": ":fx_hpf",
+    "opts": {
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "cutoff": 100,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "cutoff_slide": 0,
+      "mix_slide": 0,
+      "cutoff_slide_shape": 1,
+      "pre_amp_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "cutoff_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "High Pass Filter",
+    "hiden": false
+  },
+  "FXBandEQ": {
+    "name": ":fx_band_eq",
+    "opts": {
+      "freq_slide_shape": 1,
+      "res": 0.6,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "res_slide_shape": 1,
+      "mix_slide_shape": 1,
+      "db": 0.6,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "freq": 100,
+      "freq_slide": 0,
+      "mix_slide": 0,
+      "freq_slide_curve": 0,
+      "pre_amp_slide_shape": 1,
+      "db_slide": 0,
+      "res_slide": 0,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "res_slide_curve": 0,
+      "db_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0,
+      "db_slide_shape": 1
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Band EQ Filter",
+    "hiden": false
+  },
+  "FXDistortion": {
+    "name": ":fx_distortion",
+    "opts": {
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "distort_slide": 0,
+      "mix_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "distort_slide_curve": 0,
+      "distort": 0.5,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0,
+      "distort_slide_shape": 1
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Distortion",
     "hiden": false
   },
   "FXSlicer": {
-    "opts": {
-      "smooth_up_slide": 0,
-      "pulse_width_slide_curve": 0,
-      "probability_slide_curve": 0,
-      "invert_wave": 0,
-      "amp_slide_shape": 1,
-      "pre_mix": 1,
-      "mix_slide_curve": 0,
-      "smooth_down": 0,
-      "probability_slide": 0,
-      "amp_min_slide": 0,
-      "smooth_up_slide_curve": 0,
-      "pre_mix_slide_shape": 1,
-      "pulse_width_slide": 0,
-      "mix": 1,
-      "prob_pos_slide": 0,
-      "prob_pos_slide_shape": 1,
-      "phase_slide": 0,
-      "pre_amp": 1,
-      "smooth_slide": 0,
-      "amp_max": 1,
-      "smooth_up_slide_shape": 1,
-      "pulse_width_slide_shape": 1,
-      "phase": 0.25,
-      "smooth_down_slide_shape": 1,
-      "phase_slide_shape": 1,
-      "pre_mix_slide_curve": 0,
-      "mix_slide_shape": 1,
-      "prob_pos": 0,
-      "amp_slide": 0,
-      "wave": 1,
-      "smooth_slide_shape": 1,
-      "smooth": 0,
-      "phase_offset": 0,
-      "pre_amp_slide": 0,
-      "amp_min_slide_curve": 0,
-      "probability": 0,
-      "amp": 1,
-      "pre_amp_slide_shape": 1,
-      "pre_mix_slide": 0,
-      "probability_slide_shape": 1,
-      "smooth_down_slide_curve": 0,
-      "amp_max_slide_shape": 1,
-      "amp_min": 0,
-      "seed": 0,
-      "amp_max_slide_curve": 0,
-      "phase_slide_curve": 0,
-      "smooth_up": 0,
-      "mix_slide": 0,
-      "prob_pos_slide_curve": 0,
-      "pre_amp_slide_curve": 0,
-      "amp_slide_curve": 0,
-      "amp_min_slide_shape": 1,
-      "amp_max_slide": 0,
-      "pulse_width": 0.5,
-      "smooth_down_slide": 0,
-      "smooth_slide_curve": 0
-    },
     "name": ":fx_slicer",
-    "inherit_arg": true,
+    "opts": {
+      "smooth_down_slide_shape": 1,
+      "smooth_up": 0,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_amp_slide": 0,
+      "pulse_width": 0.5,
+      "phase": 0.25,
+      "prob_pos_slide_shape": 1,
+      "pulse_width_slide_shape": 1,
+      "amp_min_slide": 0,
+      "prob_pos": 0,
+      "smooth_up_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "amp_min_slide_curve": 0,
+      "probability_slide_shape": 1,
+      "phase_slide": 0,
+      "amp_max_slide": 0,
+      "seed": 0,
+      "amp_min_slide_shape": 1,
+      "amp_min": 0,
+      "smooth_down": 0,
+      "smooth": 0,
+      "pre_mix_slide_curve": 0,
+      "pulse_width_slide": 0,
+      "smooth_up_slide_shape": 1,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "amp_slide_shape": 1,
+      "pulse_width_slide_curve": 0,
+      "phase_slide_shape": 1,
+      "pre_mix": 1,
+      "amp_max_slide_shape": 1,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "probability_slide": 0,
+      "amp_max_slide_curve": 0,
+      "probability": 0,
+      "amp_max": 1,
+      "mix_slide": 0,
+      "smooth_down_slide": 0,
+      "smooth_slide_shape": 1,
+      "smooth_up_slide_curve": 0,
+      "smooth_slide": 0,
+      "phase_offset": 0,
+      "wave": 1,
+      "phase_slide_curve": 0,
+      "invert_wave": 0,
+      "amp_slide": 0,
+      "pre_mix_slide": 0,
+      "smooth_slide_curve": 0,
+      "smooth_down_slide_curve": 0,
+      "probability_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "prob_pos_slide": 0,
+      "prob_pos_slide_curve": 0
+    },
     "inherit_base": "FXInfo",
+    "inherit_arg": true,
     "summary": "Slicer",
+    "hiden": false
+  },
+  "FXRingMod": {
+    "name": ":fx_ring_mod",
+    "opts": {
+      "freq_slide_shape": 1,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mod_amp_slide_shape": 1,
+      "mix": 1,
+      "mod_amp_slide_curve": 0,
+      "freq_slide": 0,
+      "mix_slide": 0,
+      "freq_slide_curve": 0,
+      "pre_amp_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "freq": 30,
+      "mod_amp": 1,
+      "mod_amp_slide": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Ring Modulator",
+    "hiden": false
+  },
+  "FXBitcrusher": {
+    "name": ":fx_bitcrusher",
+    "opts": {
+      "bits_slide_curve": 0,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "cutoff": 0,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "bits_slide_shape": 1,
+      "sample_rate": 10000,
+      "cutoff_slide": 0,
+      "mix_slide": 0,
+      "bits": 8,
+      "pre_amp_slide_shape": 1,
+      "cutoff_slide_shape": 1,
+      "sample_rate_slide_curve": 0,
+      "bits_slide": 0,
+      "sample_rate_slide": 0,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "cutoff_slide_curve": 0,
+      "sample_rate_slide_shape": 1,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Bitcrusher",
+    "hiden": false
+  },
+  "FXNormLPF": {
+    "name": ":fx_nlpf",
+    "opts": {
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "cutoff": 100,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "cutoff_slide": 0,
+      "mix_slide": 0,
+      "cutoff_slide_shape": 1,
+      "pre_amp_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "cutoff_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXLPF",
+    "inherit_arg": true,
+    "summary": "Normalised Low Pass Filter.",
+    "hiden": true
+  },
+  "FXPitchShift": {
+    "name": ":fx_pitch_shift",
+    "opts": {
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "time_dis_slide": 0,
+      "mix_slide_shape": 1,
+      "time_dis": 0.0,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "pitch_slide_shape": 1,
+      "pitch_slide_curve": 0,
+      "mix": 1,
+      "pitch_dis_slide_shape": 1,
+      "pitch_dis": 0.0,
+      "pitch": 0,
+      "pitch_slide": 0,
+      "time_dis_slide_curve": 0,
+      "window_size_slide": 0,
+      "mix_slide": 0,
+      "pitch_dis_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "window_size_slide_curve": 0,
+      "time_dis_slide_shape": 1,
+      "pitch_dis_slide_curve": 0,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "window_size": 0.2,
+      "window_size_slide_shape": 1,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Pitch shift",
+    "hiden": false
+  },
+  "FXRHPF": {
+    "name": ":fx_rhpf",
+    "opts": {
+      "res": 0.5,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "cutoff": 100,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "res_slide_shape": 1,
+      "cutoff_slide": 0,
+      "mix_slide": 0,
+      "cutoff_slide_shape": 1,
+      "pre_amp_slide_shape": 1,
+      "res_slide": 0,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "res_slide_curve": 0,
+      "cutoff_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXHPF",
+    "inherit_arg": true,
+    "summary": "Resonant High Pass Filter",
+    "hiden": true
+  },
+  "FXCompressor": {
+    "name": ":fx_compressor",
+    "opts": {
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "threshold": 0.2,
+      "threshold_slide_curve": 0,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "slope_above_slide_curve": 0,
+      "pre_amp_slide": 0,
+      "relax_time": 0.01,
+      "pre_mix_slide_shape": 1,
+      "relax_time_slide": 0,
+      "mix": 1,
+      "relax_time_slide_curve": 0,
+      "threshold_slide": 0,
+      "clamp_time_slide": 0,
+      "relax_time_slide_shape": 1,
+      "threshold_slide_shape": 1,
+      "slope_below_slide": 0,
+      "mix_slide": 0,
+      "clamp_time_slide_curve": 0,
+      "slope_above_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "clamp_time": 0.01,
+      "slope_below": 1,
+      "slope_below_slide_curve": 0,
+      "clamp_time_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "slope_above_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "slope_below_slide_shape": 1,
+      "slope_above": 0.5,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Compressor",
+    "hiden": false
+  },
+  "FXNormRLPF": {
+    "name": ":fx_nrlpf",
+    "opts": {
+      "res": 0.5,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "cutoff": 100,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "cutoff_slide": 0,
+      "res_slide_shape": 1,
+      "mix_slide": 0,
+      "cutoff_slide_shape": 1,
+      "pre_amp_slide_shape": 1,
+      "res_slide": 0,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "pre_mix_slide_curve": 0,
+      "cutoff_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "res_slide_curve": 0
+    },
+    "inherit_base": "FXRLPF",
+    "inherit_arg": true,
+    "summary": "Normalised Resonant Low Pass Filter",
+    "hiden": true
+  },
+  "FXPan": {
+    "name": ":fx_pan",
+    "opts": {
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "pan_slide": 0,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "pan_slide_shape": 1,
+      "mix": 1,
+      "mix_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pan": 0,
+      "pre_mix_slide": 0,
+      "pan_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Pan",
+    "hiden": false
+  },
+  "FXKrush": {
+    "name": ":fx_krush",
+    "opts": {
+      "res": 0,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "cutoff": 100,
+      "mix_slide_shape": 1,
+      "gain_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "res_slide_shape": 1,
+      "cutoff_slide": 0,
+      "gain_slide": 0,
+      "mix_slide": 0,
+      "cutoff_slide_shape": 1,
+      "pre_amp_slide_shape": 1,
+      "gain": 5,
+      "res_slide": 0,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "res_slide_curve": 0,
+      "cutoff_slide_curve": 0,
+      "gain_slide__curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "krush",
+    "hiden": false
+  },
+  "FXTanh": {
+    "name": ":fx_tanh",
+    "opts": {
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "krunch_slide_shape": 1,
+      "krunch_slide_curve": 0,
+      "mix_slide": 0,
+      "krunch": 5,
+      "krunch_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Hyperbolic Tangent",
+    "hiden": false
+  },
+  "FXRLPF": {
+    "name": ":fx_rlpf",
+    "opts": {
+      "res": 0.5,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "cutoff": 100,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "res_slide_shape": 1,
+      "cutoff_slide": 0,
+      "mix_slide": 0,
+      "cutoff_slide_shape": 1,
+      "pre_amp_slide_shape": 1,
+      "res_slide": 0,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "res_slide_curve": 0,
+      "cutoff_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXLPF",
+    "inherit_arg": true,
+    "summary": "Resonant Low Pass Filter",
+    "hiden": true
+  },
+  "FXVowel": {
+    "name": ":fx_vowel",
+    "opts": {
+      "vowel_sound": 1,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "voice": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "mix_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Vowel",
+    "hiden": false
+  },
+  "FXChorus": {
+    "name": ":fx_chorus",
+    "opts": {
+      "decay": 1e-05,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "decay_slide_curve": 0,
+      "mix": 1,
+      "phase_slide": 0,
+      "decay_slide": 0,
+      "mix_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "decay_slide_shape": 1,
+      "phase_slide_curve": 0,
+      "phase_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "max_phase": 1,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0,
+      "phase": 0.25
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Chorus",
+    "hiden": true
+  },
+  "FXMono": {
+    "name": ":fx_mono",
+    "opts": {
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "pan_slide": 0,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "pan_slide_shape": 1,
+      "mix": 1,
+      "mix_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pan": 0,
+      "pre_mix_slide": 0,
+      "pan_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Mono",
+    "hiden": false
+  },
+  "FXBPF": {
+    "name": ":fx_bpf",
+    "opts": {
+      "res": 0.6,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "res_slide_shape": 1,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "centre_slide_curve": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "centre_slide": 0,
+      "mix_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "centre_slide_shape": 1,
+      "res_slide": 0,
+      "amp_slide_shape": 1,
+      "centre": 100,
+      "pre_mix_slide": 0,
+      "res_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Band Pass Filter",
+    "hiden": false
+  },
+  "FXWobble": {
+    "name": ":fx_wobble",
+    "opts": {
+      "res": 0.8,
+      "smooth_up": 0,
+      "smooth_down_slide_shape": 1,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_amp_slide": 0,
+      "pulse_width": 0.5,
+      "phase": 0.5,
+      "prob_pos_slide_shape": 1,
+      "cutoff_max": 120,
+      "cutoff_max_slide_shape": 1,
+      "seed": 0,
+      "prob_pos": 0,
+      "cutoff_max_slide": 0,
+      "cutoff_min_slide_curve": 0,
+      "smooth_up_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "probability_slide_shape": 1,
+      "phase_slide": 0,
+      "phase_offset": 0,
+      "smooth_down": 0,
+      "smooth": 0,
+      "pre_mix_slide_curve": 0,
+      "pulse_width_slide": 0,
+      "smooth_up_slide_shape": 1,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "res_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pulse_width_slide_curve": 0,
+      "phase_slide_shape": 1,
+      "filter": 0,
+      "pre_mix": 1,
+      "cutoff_min_slide_shape": 1,
+      "pulse_width_slide_shape": 1,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "probability_slide": 0,
+      "cutoff_min_slide": 0,
+      "probability": 0,
+      "smooth_down_slide": 0,
+      "mix_slide": 0,
+      "smooth_slide_shape": 1,
+      "smooth_up_slide_curve": 0,
+      "smooth_slide": 0,
+      "wave": 0,
+      "phase_slide_curve": 0,
+      "invert_wave": 0,
+      "cutoff_max_slide_curve": 0,
+      "pre_mix_slide": 0,
+      "smooth_slide_curve": 0,
+      "prob_pos_slide_curve": 0,
+      "res_slide": 0,
+      "prob_pos_slide": 0,
+      "smooth_down_slide_curve": 0,
+      "probability_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "res_slide_curve": 0,
+      "cutoff_min": 60
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Wobble",
+    "hiden": false
+  },
+  "FXNRBPF": {
+    "name": ":fx_nrbpf",
+    "opts": {
+      "res": 0.5,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "res_slide_shape": 1,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "centre_slide_curve": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "centre_slide": 0,
+      "mix_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "centre_slide_shape": 1,
+      "res_slide": 0,
+      "amp_slide_shape": 1,
+      "centre": 100,
+      "pre_mix_slide": 0,
+      "res_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXRBPF",
+    "inherit_arg": true,
+    "summary": "Normalised Resonant Band Pass Filter",
+    "hiden": true
+  },
+  "FXOctaver": {
+    "name": ":fx_octaver",
+    "opts": {
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "subsub_amp_slide_curve": 0,
+      "mix_slide_shape": 1,
+      "sub_amp_slide_curve": 0,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "super_amp_slide_curve": 0,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "subsub_amp_slide": 0,
+      "subsub_amp": 1,
+      "super_amp_slide_shape": 1,
+      "super_amp": 1,
+      "subsub_amp_slide_shape": 1,
+      "super_amp_slide": 0,
+      "mix_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "sub_amp": 1,
+      "sub_amp_slide": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0,
+      "sub_amp_slide_shape": 1
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Octaver",
+    "hiden": false
+  },
+  "FXWhammy": {
+    "name": ":fx_whammy",
+    "opts": {
+      "transpose_slide_shape": 1,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "transpose_slide_curve": 0,
+      "mix": 1,
+      "max_delay_time": 1,
+      "transpose_slide": 0,
+      "deltime": 0.05,
+      "mix_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "grainsize": 0.075,
+      "transpose": 12,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Whammy",
+    "hiden": false
+  },
+  "FXLevel": {
+    "name": ":fx_level",
+    "opts": {
+      "amp_slide_shape": 1,
+      "amp": 1,
+      "amp_slide_curve": 0,
+      "amp_slide": 0
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": false,
+    "summary": "Level Amplifier",
+    "hiden": false
+  },
+  "FXReverb": {
+    "name": ":fx_reverb",
+    "opts": {
+      "damp_slide_shape": 1,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "damp_slide_curve": 0,
+      "room_slide_shape": 1,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 0.4,
+      "damp_slide": 0,
+      "room_slide": 0,
+      "room_slide_curve": 0,
+      "mix_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "room": 0.6,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0,
+      "damp": 0.5
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Reverb",
+    "hiden": false
+  },
+  "FXInfo": {
+    "inherit_arg": false,
+    "opts": {
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "mix_slide": 0,
+      "mix_slide_shape": 1,
+      "pre_amp_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "amp_slide_shape": 1,
+      "pre_mix_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "mix": 1,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "hiden": true,
+    "inherit_base": "BaseInfo"
+  },
+  "FXNormHPF": {
+    "name": ":fx_nhpf",
+    "opts": {
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "cutoff": 100,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "cutoff_slide": 0,
+      "mix_slide": 0,
+      "cutoff_slide_shape": 1,
+      "pre_amp_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "cutoff_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXHPF",
+    "inherit_arg": true,
+    "summary": "Normalised High Pass Filter",
+    "hiden": true
+  },
+  "FXLPF": {
+    "name": ":fx_lpf",
+    "opts": {
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "cutoff": 100,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "cutoff_slide": 0,
+      "mix_slide": 0,
+      "cutoff_slide_shape": 1,
+      "pre_amp_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "cutoff_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Low Pass Filter",
+    "hiden": false
+  },
+  "FXEcho": {
+    "name": ":fx_echo",
+    "opts": {
+      "decay": 2,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "decay_slide_curve": 0,
+      "mix": 1,
+      "phase_slide": 0,
+      "decay_slide": 0,
+      "mix_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "decay_slide_shape": 1,
+      "phase_slide_curve": 0,
+      "phase_slide_shape": 1,
+      "amp_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "max_phase": 2,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0,
+      "phase": 0.25
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "Echo",
+    "hiden": false
+  },
+  "FXRBPF": {
+    "name": ":fx_rbpf",
+    "opts": {
+      "res": 0.5,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "res_slide_shape": 1,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_amp_slide": 0,
+      "centre_slide_curve": 0,
+      "pre_mix_slide_shape": 1,
+      "mix": 1,
+      "centre_slide": 0,
+      "mix_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "centre_slide_shape": 1,
+      "res_slide": 0,
+      "amp_slide_shape": 1,
+      "centre": 100,
+      "pre_mix_slide": 0,
+      "pre_mix_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "res_slide_curve": 0
+    },
+    "inherit_base": "FXBPF",
+    "inherit_arg": true,
+    "summary": "Resonant Band Pass Filter",
+    "hiden": true
+  },
+  "FXGVerb": {
+    "name": ":fx_gverb",
+    "opts": {
+      "damp_slide_shape": 1,
+      "pre_amp": 1,
+      "pre_amp_slide_curve": 0,
+      "damp_slide_curve": 0,
+      "ref_level": 0.7,
+      "mix_slide_shape": 1,
+      "mix_slide_curve": 0,
+      "amp": 1,
+      "pre_mix": 1,
+      "pre_damp_slide": 0,
+      "pre_amp_slide": 0,
+      "dry_slide": 0,
+      "pre_mix_slide_shape": 1,
+      "spread": 0.5,
+      "pre_damp_slide_shape": 1,
+      "mix": 1,
+      "tail_level": 0.5,
+      "damp_slide": 0,
+      "pre_damp_slide_curve": 0,
+      "dry": 1,
+      "dry_slide_shape": 1,
+      "release": 3,
+      "mix_slide": 0,
+      "pre_amp_slide_shape": 1,
+      "spread_slide": 0,
+      "amp_slide_shape": 1,
+      "spread_slide_shape": 1,
+      "pre_mix_slide": 0,
+      "pre_damp": 0.5,
+      "dry_slide_curve": 0,
+      "room": 10,
+      "spread_slide_curve": 0,
+      "amp_slide_curve": 0,
+      "amp_slide": 0,
+      "pre_mix_slide_curve": 0,
+      "damp": 0.5
+    },
+    "inherit_base": "FXInfo",
+    "inherit_arg": true,
+    "summary": "GVerb",
     "hiden": false
   }
 }
 
 samples = {
+  "Electric Sounds": [
+    ":elec_triangle",
+    ":elec_snare",
+    ":elec_lo_snare",
+    ":elec_hi_snare",
+    ":elec_mid_snare",
+    ":elec_cymbal",
+    ":elec_soft_kick",
+    ":elec_filt_snare",
+    ":elec_fuzz_tom",
+    ":elec_chime",
+    ":elec_bong",
+    ":elec_twang",
+    ":elec_wood",
+    ":elec_pop",
+    ":elec_beep",
+    ":elec_blip",
+    ":elec_blip2",
+    ":elec_ping",
+    ":elec_bell",
+    ":elec_flip",
+    ":elec_tick",
+    ":elec_hollow_kick",
+    ":elec_twip",
+    ":elec_plip",
+    ":elec_blup"
+  ],
+  "Sounds for Looping": [
+    ":loop_industrial",
+    ":loop_compus",
+    ":loop_amen",
+    ":loop_amen_full",
+    ":loop_garzul",
+    ":loop_mika",
+    ":loop_breakbeat",
+    ":loop_safari",
+    ":loop_tabla"
+  ],
   "Bass Drums": [
     ":bd_ada",
     ":bd_pure",
@@ -6388,6 +6448,13 @@ samples = {
     ":bd_fat",
     ":bd_tek"
   ],
+  "Percussive Sounds": [
+    ":perc_bell",
+    ":perc_snap",
+    ":perc_snap2",
+    ":perc_swash",
+    ":perc_till"
+  ],
   "Sounds featuring guitars": [
     ":guit_harmonics",
     ":guit_e_fifths",
@@ -6400,12 +6467,15 @@ samples = {
     ":vinyl_scratch",
     ":vinyl_hiss"
   ],
-  "Percussive Sounds": [
-    ":perc_bell",
-    ":perc_snap",
-    ":perc_snap2",
-    ":perc_swash",
-    ":perc_till"
+  "Snare Drums": [
+    ":sn_dub",
+    ":sn_dolf",
+    ":sn_zome"
+  ],
+  "Miscellaneous Sounds": [
+    ":misc_burp",
+    ":misc_crow",
+    ":misc_cineboom"
   ],
   "Sounds of a Tabla Drum": [
     ":tabla_tas1",
@@ -6435,21 +6505,15 @@ samples = {
     ":tabla_na_s",
     ":tabla_re"
   ],
-  "Sounds for Looping": [
-    ":loop_industrial",
-    ":loop_compus",
-    ":loop_amen",
-    ":loop_amen_full",
-    ":loop_garzul",
-    ":loop_mika",
-    ":loop_breakbeat",
-    ":loop_safari",
-    ":loop_tabla"
-  ],
-  "Snare Drums": [
-    ":sn_dub",
-    ":sn_dolf",
-    ":sn_zome"
+  "Bass Sounds": [
+    ":bass_hit_c",
+    ":bass_hard_c",
+    ":bass_thick_c",
+    ":bass_drop_c",
+    ":bass_woodsy_c",
+    ":bass_voxy_c",
+    ":bass_voxy_hit_c",
+    ":bass_dnb_f"
   ],
   "Ambient Sounds": [
     ":ambi_soft_buzz",
@@ -6462,33 +6526,6 @@ samples = {
     ":ambi_lunar_land",
     ":ambi_dark_woosh",
     ":ambi_choir"
-  ],
-  "Electric Sounds": [
-    ":elec_triangle",
-    ":elec_snare",
-    ":elec_lo_snare",
-    ":elec_hi_snare",
-    ":elec_mid_snare",
-    ":elec_cymbal",
-    ":elec_soft_kick",
-    ":elec_filt_snare",
-    ":elec_fuzz_tom",
-    ":elec_chime",
-    ":elec_bong",
-    ":elec_twang",
-    ":elec_wood",
-    ":elec_pop",
-    ":elec_beep",
-    ":elec_blip",
-    ":elec_blip2",
-    ":elec_ping",
-    ":elec_bell",
-    ":elec_flip",
-    ":elec_tick",
-    ":elec_hollow_kick",
-    ":elec_twip",
-    ":elec_plip",
-    ":elec_blup"
   ],
   "Drum Sounds": [
     ":drum_heavy_kick",
@@ -6511,21 +6548,6 @@ samples = {
     ":drum_bass_hard",
     ":drum_cowbell",
     ":drum_roll"
-  ],
-  "Bass Sounds": [
-    ":bass_hit_c",
-    ":bass_hard_c",
-    ":bass_thick_c",
-    ":bass_drop_c",
-    ":bass_woodsy_c",
-    ":bass_voxy_c",
-    ":bass_voxy_hit_c",
-    ":bass_dnb_f"
-  ],
-  "Miscellaneous Sounds": [
-    ":misc_burp",
-    ":misc_crow",
-    ":misc_cineboom"
   ]
 }
 

@@ -1,6 +1,6 @@
 from lang_def import *
-#                0         1      2      3         4          5          6        7       8
-categories = ['common', 'synth', 'fx', 'use', 'functions', 'control', 'buffer', 'env', 'general']
+#                0         1      2       3        4          5          6         7        8        9
+categories = ['common', 'synth', 'fx', 'do_end', 'use', 'functions', 'control', 'buffer', 'env', 'general']
 
 all_lang_ref = list(lang_core.keys()) + list(lang_sound.keys())
 
@@ -130,12 +130,12 @@ fn_embeded = ['bools', 'chord', 'chord_degree', 'chord_invert', 'doubles', 'halv
 # fn_simple dice 2
 fn_simple = ['dice', 'one_in', 'pitch_to_ratio', 'ratio_to_pitch']
 # fn_normal degree(2, :C3, :minor)
-fn_normal = ['degree', 'hz_to_midi', 'midi_to_hz', 'note', 'quantise', 'rand', 'rand_i',
+fn_normal = ['degree', 'hz_to_midi', 'midi_to_hz', 'quantise', 'rand', 'rand_i',
              'rand_i_look', 'rand_look', 'rdist', 'rrand', 'rrand_i', 'rt', 'vt']
 
 is_inline_fn = fn_ringed + fn_embeded + fn_simple + fn_normal
 
-is_just_output = ['all_sample_names', 'assert', 'assert_equal', 'beat', 'bt', 'chord_names', 'current_arg_checks',
+is_just_output = ['all_sample_names', 'beat', 'bt', 'chord_names', 'current_arg_checks',
                'current_beat_duration', 'current_bpm', 'current_cent_tuning', 'current_debug', 'current_octave',
                'current_random_seed', 'current_sample_defaults', 'current_sched_ahead_time', 'current_synth',
                'current_synth_defaults', 'current_transpose', 'current_volume', 'fx_names', 'note_info',
@@ -163,7 +163,7 @@ is_buffer_fn = ['load_buffer', 'load_sample', 'load_samples', 'load_sample_at_pa
 is_control = [ 'clear', 'control', 'cue', 'kill', 'rand_back', 'rand_reset', 'rand_skip',
               'reset', 'sample_free', 'sample_free_all', 'sleep', 'stop', 'sync', 'sync_bpm',
                'tick_reset', 'tick_reset_all', 'tick_set',]
-is_common = ['play', 'play_chord', 'play_pattern', 'play_pattern_timed','live_loop', 'sample', 'synth', 'with_fx']
+is_common = ['play', 'chord', 'note', 'note_list', 'live_loop', 'sample', 'synth']
 # ring_returns = [ret for ret in has_returns if lng(ret)['returns'] == ":ring" ]
 
 is_use_env = [ret for ret in all_lang_ref if ret.startswith('use_') ]
@@ -218,14 +218,20 @@ def sub_list(list_source, *lists_subtract):
 
 
 
+from constant_def import chord_names
 
-
+import json
 if __name__ == '__main__':
-    from gen_constant_def import parse
+    # from gen_constant_def import parse
     # parse()
-
-
-    # print('should be 0')
+    # print(sorted(notes.items(), key=operator.itemgetter(1)))
+    # newd = {}
+    # for k, v in notes.items():
+    #     n = ':'+ k
+    #     newd[n] = v
+    # print(json.dumps(newd))
+    print([':'+c for c in chord_names])
+    print('should be 0')
     # print(sub_list(has_accepts_block_false, has_inline, is_common, is_use_env, is_control, is_buffer_fn))
-    print(sub_list(has_accepts_block, has_requires_block))
+    # print(sub_list(has_accepts_block, has_requires_block))
     # print(sub_list(all_lang_ref, has_accepts_block, has_accepts_block_false, is_to_hide, is_buffer_fn, has_modifies_env))

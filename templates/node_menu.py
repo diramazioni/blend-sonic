@@ -520,18 +520,18 @@ class SonicPI_Menu(bpy.types.Menu):
         layout = self.layout
         {{ insNode('send', 'Send to SonicPI') }}
         {% for fn_name, fn in menu['common']|dictsort %}
-        {{ insNode(fn_name, fn.summary) }}
+        {{ insNode(fn_name, fn.name) }}
         {%- endfor %}
         layout.separator()
 
-        {% for cat in categories %}
+        {% for cat in categories[1:] %}
         layout.menu("an_sp_{{ cat }}_menu", text = "{{ cat|capitalize }}")
         {%- endfor %}
         
 
         #layout.menu("an_sp_synth_menu", text = "Synth")
         #layout.menu("an_sp_fx_menu", text = "FX")
-{% for cat in categories %}
+{% for cat in categories[1:] %}
 
 class SonicPI_{{ cat|capitalize }}_Menu(bpy.types.Menu):
     bl_idname = "an_sp_{{ cat }}_menu"

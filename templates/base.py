@@ -1,10 +1,12 @@
+{% import "includes.py" as ins %}
+
 import bpy
 from bpy.props import *
 
 {% block imports %}
 from {{ menu_levels }} base_types.node import AnimationNode
 {% endblock %}
-import random
+
 
 class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
     bl_idname = "an_sp_{{ fn_name |capitalize }}Node"
@@ -12,7 +14,8 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
     bl_description = "{{ fn.summary }}"
     
     searchTags = ['SP {{ fn_name }}']
-
+    onlySearchTags = True
+    
     infoMessage = StringProperty()
 
 {%- block classMembers %}{%- endblock %}
@@ -45,6 +48,7 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
 {%- if fn.args %} {% set count_args = fn.args | length + 1%}
 {{ newArgInput(fn.args) }}
 {%- endif %}
+
 {%- if fn.alt_args %} 
 {{ newArgInput(fn.alt_args) }}
 {%- endif %}
@@ -66,55 +70,80 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
         for socket in self.inputs[{{ start }}:{{ end }}]:
             socket.hide = True
 {%- endmacro %} 
+
 {%- with %}{% set post_args = '' %}
 {%- block post_create %}
 {{ hideInput(count_args, post_args) }}
 {%- endblock %}
 {%- endwith %}
     def getExecutionCode(self):
+    {%- block exe_decl %}
         #yield "send = []"
-        yield "args_ = []"
-        yield "opts_ = []"        
+        yield "prefix, postfix, list_ = ('','','')"
+        yield "args_ , opts_ = ([],[])"        
         s = self.inputs
-        
-{% macro insFunct(args) -%}
+    {%- endblock %}
+{% macro argCheck(args) -%}
 {% for ar in args %}
-    {%- for arg, val in ar.items() %}
-        {%- if val  == ":array" %}
+    {%- for arg, val in ar.items() %}        
         if s["{{ arg }}"].isUsed: 
-            yield "args_.append(', '.join({{arg+inp }}))" 
+        {%- if arg  == "list" %}
+            yield "list_ = '['+', '.join(listIn)+']'"
+        {%- elif args_types[val] == "String List"  and arg  != "list"%}
+            yield "args_.append(', '.join({{ arg+inp }}))" 
+        {%- elif args_types[val] == "Float" %}
+            yield "args_.append('{0:.3g}'.format({{ arg+inp }}))"
+        {%- elif args_types[val] == "Boolean" %}
+            yield "if {{ arg+inp }} == True: args_.append('true')"
+            yield "else: args_.append('false')"            
         {% else %}
-        if s["{{ arg }}"].isUsed: 
             yield "if len(str({{ arg+inp }})): args_.append(str({{arg+inp }}))" 
         {% endif %}        
     {%- endfor %}
 {%- endfor %}
         yield "if len(args_): args_ = list(filter(None, args_ ))"        
 {%- endmacro %} 
-    {% if fn.args %}
-        #yield "args_ = []"
-        {{ insFunct(fn.args) }}
-    {% endif %}        
-    {% if fn.alt_args %}
-        #yield "args_ = []"
-        {{ insFunct(fn.alt_args) }}
-    {% endif %}        
-    {% if fn.opts %}
-        #yield "opts_ = []"        
-        {%- for opt, val in fn.opts|dictsort %} 
+{% macro optCheck() -%}
+    {%- for opt, val in fn.opts|dictsort  %}
         if s["{{ opt }}"].isUsed: 
-            yield "opts_.append('{{ opt }}: ' + str({{ opt+inp }}) )" 
-    {%- endfor %}{% endif %}        
-        {% block execode -%}
+            yield "pre = '{{ opt }}: '"
+        {%- if opts_types[opt] == "String List" %}
+            yield "opts_.append( pre + ', '.join({{ opt+inp }}))" 
+        {%- elif opts_types[opt] == "Float" %}
+            yield "opts_.append( pre + '{0:.3g}'.format({{ opt+inp }}))"
+        {%- elif opts_types[opt] == "Boolean" %}
+            yield "if {{ opt+inp }} == True: opts_.append('true')"
+            yield "else: opts_.append(pre + 'false')"            
+        {% else %}
+            yield "if len(str({{ opt+inp }})): opts_.append(pre + str({{opt+inp }}))" 
+        {% endif %}        
+    {%- endfor %}
+{%- endmacro %} 
+{%- block includeArgs %}        
+    {%- if fn.args %}
+        {{ argCheck(fn.args) }}
+    {% endif %}        
+    {%- if fn.alt_args %}
+        {{ argCheck(fn.alt_args) }}
+    {% endif %}        
+    {%- if fn.opts %}
+        {{ optCheck() }}
+    {% endif %}
+{%- endblock %}
+{%- block extra_input %}{%- endblock %}
+{%- block execode %}
         yield "opts_ = ', '.join(opts_)"
         yield "if len(opts_): sep=', '"
         yield "else: sep=''"           
-        {%- endblock %}
+{%- endblock %}
         yield '{% block execute -%}{%- endblock %}'
         
-    {%- block code_out %}
+{%- block code_out %}
         yield 'code_out = code_in + send'
-    {%- endblock %}
+{%- endblock %}
+{%- block infoMessage %}
+        yield 'self.infoMessage = code_out' 
+{%- endblock %}
         #str((opts_, args_, code_out))'
     def delete(self):        
         print("Removing node: {{ fn_name }}", self.name)        

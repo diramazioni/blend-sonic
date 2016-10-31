@@ -18,7 +18,7 @@ ext = ".py"
  
 def render_template(template_file, context):
 
-    template_env = Environment( 
+    template_env = Environment(
         autoescape = False, loader = FileSystemLoader(os.path.join(pwd, templates)), extensions=['jinja2.ext.with_'], trim_blocks = False )
     return template_env.get_template(template_file).render(context)
  
@@ -73,24 +73,27 @@ def gen_an_code():
     prep_dir(categories)
     menu = defaultdict(dict)
     ## is_inline_fn
-    for fn_name in all_lang_ref:
+    for fn_name in sub_list(all_lang_ref, is_to_hide):
         menu_levels = '....'
-        if fn_name is is_to_hide: continue
+        # if fn_name is is_to_hide: continue
         if fn_name in is_inline_fn:
-            category = categories[4] # functions
+            category = categories[5] # functions
+
         elif fn_name in is_common:
             category = categories[0] # common
             menu_levels = '...'
+        elif fn_name in has_requires_block:
+            category = categories[3] # do_end
         elif fn_name in is_use_env:
-            category = categories[3] # use
+            category = categories[4] # use
         elif fn_name in is_control:
-            category = categories[5] # control
+            category = categories[6] # control
         elif fn_name in is_buffer_fn:
-            category = categories[6] # buffer
+            category = categories[7] # buffer
         elif fn_name in has_modifies_env:
-            category = categories[7]  # buffer
+            category = categories[8]  # buffer
         else:
-            category = categories[8] # general
+            category = categories[9] # general
 
         if fn_name in fn_simple + fn_embeded:
             templ_name = "fn_simple"
@@ -100,8 +103,11 @@ def gen_an_code():
             templ_name = "fn_ringed"
         elif fn_name in has_requires_block:
             templ_name = "with_block"
-        # elif fn_name in sub_list(has_accepts_block, has_requires_block):  # optional block
-        #     templ_name = "with_opt_block"
+        elif fn_name in has_accepts_block_false:
+            templ_name = "with_no_block"
+        elif fn_name in sub_list(has_accepts_block, has_requires_block):  # optional block
+            # templ_name = "with_no_block"
+            templ_name = "with_opt_block"
         else:
             templ_name = None
         if not templ_name: continue
@@ -112,7 +118,8 @@ def gen_an_code():
             'fn': fn,
             'args_types': args_types_conversion,
             'opts_types': opts_types_conversion,
-            "menu_levels": menu_levels
+            "menu_levels": menu_levels,
+            "category": category
         }
         menu[category][fn_name] = fn
 

@@ -161,10 +161,10 @@ class SonicPiClient(bpy.types.Operator, object):
             context.scene['sp_agent'] = ""
             
             agent = 'Starting BlendSonic'
-            note = 20
+            note = 36
             c2 = 'play {0}{1}'.format(note, '')
             c1 = 'use_synth :{0}'.format('pulse') 
-            code = [c1,c2]
+            code = []
             
             context.scene['sp_queue'][agent] = code
        
