@@ -221,3 +221,160 @@ notes = {":rest": 0, ":Ds3": 51, ":F5": 77, ":Bb2": 46, ":A2": 45, ":Db2": 37, "
 scale_names = [':aeolian', ':ahirbhairav', ':augmented', ':augmented2', ':bartok', ':bhairav', ':chinese', ':chromatic', ':diatonic', ':diminished', ':diminished2', ':dorian', ':egyptian', ':enigmatic', ':gong', ':harmonic_major', ':harmonic_minor', ':hex_aeolian', ':hex_dorian', ':hex_major6', ':hex_major7', ':hex_phrygian', ':hex_sus', ':hindu', ':hirajoshi', ':hungarian_minor', ':indian', ':ionian', ':iwato', ':jiao', ':kumoi', ':leading_whole', ':locrian', ':locrian_major', ':lydian', ':lydian_minor', ':major', ':major_pentatonic', ':marva', ':melodic_major', ':melodic_minor', ':melodic_minor_asc', ':melodic_minor_desc', ':messiaen1', ':messiaen2', ':messiaen3', ':messiaen4', ':messiaen5', ':messiaen6', ':messiaen7', ':minor', ':minor_pentatonic', ':mixolydian', ':neapolitan_major', ':neapolitan_minor', ':octatonic', ':pelog', ':phrygian', ':prometheus', ':purvi', ':ritusen', ':romanian_minor', ':scriabin', ':shang', ':spanish', ':super_locrian', ':todi', ':whole', ':whole_tone', ':yu', ':zhi']
 chord_names = ['+5', '1', '11', '11+', '13', '5', '6', '6*9', '7', '7+5', '7+5-9', '7-10', '7-5', '7-9', '7sus2', '7sus4', '9', '9+5', '9sus4', ':M', ':M7', ':a', ':add11', ':add13', ':add2', ':add4', ':add9', ':augmented', ':dim', ':dim7', ':diminished', ':diminished7', ':dom7', ':i', ':i7', ':m', 'm+5', ':m11', ':m11+', ':m13', ':m6', ':m6*9', ':m7', 'm7+5', 'm7+5-9', 'm7+9', 'm7-5', 'm7-9', ':m9', 'm9+5', ':madd11', ':madd13', ':madd2', ':madd4', ':madd9', ':maj11', ':maj9', ':major', ':major7', ':minor', ':minor7', ':sus2', ':sus4']
 degree_names = ['I','II','III','IV','V', 'VI','VII']
+
+
+samples = {
+  "Electric Sounds": [
+    ":elec_triangle",
+    ":elec_snare",
+    ":elec_lo_snare",
+    ":elec_hi_snare",
+    ":elec_mid_snare",
+    ":elec_cymbal",
+    ":elec_soft_kick",
+    ":elec_filt_snare",
+    ":elec_fuzz_tom",
+    ":elec_chime",
+    ":elec_bong",
+    ":elec_twang",
+    ":elec_wood",
+    ":elec_pop",
+    ":elec_beep",
+    ":elec_blip",
+    ":elec_blip2",
+    ":elec_ping",
+    ":elec_bell",
+    ":elec_flip",
+    ":elec_tick",
+    ":elec_hollow_kick",
+    ":elec_twip",
+    ":elec_plip",
+    ":elec_blup"
+  ],
+  "Sounds for Looping": [
+    ":loop_industrial",
+    ":loop_compus",
+    ":loop_amen",
+    ":loop_amen_full",
+    ":loop_garzul",
+    ":loop_mika",
+    ":loop_breakbeat",
+    ":loop_safari",
+    ":loop_tabla"
+  ],
+  "Bass Drums": [
+    ":bd_ada",
+    ":bd_pure",
+    ":bd_808",
+    ":bd_zum",
+    ":bd_gas",
+    ":bd_sone",
+    ":bd_haus",
+    ":bd_zome",
+    ":bd_boom",
+    ":bd_klub",
+    ":bd_fat",
+    ":bd_tek"
+  ],
+  "Percussive Sounds": [
+    ":perc_bell",
+    ":perc_snap",
+    ":perc_snap2",
+    ":perc_swash",
+    ":perc_till"
+  ],
+  "Sounds featuring guitars": [
+    ":guit_harmonics",
+    ":guit_e_fifths",
+    ":guit_e_slide",
+    ":guit_em9"
+  ],
+  "Vinyl sounds": [
+    ":vinyl_backspin",
+    ":vinyl_rewind",
+    ":vinyl_scratch",
+    ":vinyl_hiss"
+  ],
+  "Snare Drums": [
+    ":sn_dub",
+    ":sn_dolf",
+    ":sn_zome"
+  ],
+  "Miscellaneous Sounds": [
+    ":misc_burp",
+    ":misc_crow",
+    ":misc_cineboom"
+  ],
+  "Sounds of a Tabla Drum": [
+    ":tabla_tas1",
+    ":tabla_tas2",
+    ":tabla_tas3",
+    ":tabla_ke1",
+    ":tabla_ke2",
+    ":tabla_ke3",
+    ":tabla_na",
+    ":tabla_na_o",
+    ":tabla_tun1",
+    ":tabla_tun2",
+    ":tabla_tun3",
+    ":tabla_te1",
+    ":tabla_te2",
+    ":tabla_te_ne",
+    ":tabla_te_m",
+    ":tabla_ghe1",
+    ":tabla_ghe2",
+    ":tabla_ghe3",
+    ":tabla_ghe4",
+    ":tabla_ghe5",
+    ":tabla_ghe6",
+    ":tabla_ghe7",
+    ":tabla_ghe8",
+    ":tabla_dhec",
+    ":tabla_na_s",
+    ":tabla_re"
+  ],
+  "Bass Sounds": [
+    ":bass_hit_c",
+    ":bass_hard_c",
+    ":bass_thick_c",
+    ":bass_drop_c",
+    ":bass_woodsy_c",
+    ":bass_voxy_c",
+    ":bass_voxy_hit_c",
+    ":bass_dnb_f"
+  ],
+  "Ambient Sounds": [
+    ":ambi_soft_buzz",
+    ":ambi_swoosh",
+    ":ambi_drone",
+    ":ambi_glass_hum",
+    ":ambi_glass_rub",
+    ":ambi_haunted_hum",
+    ":ambi_piano",
+    ":ambi_lunar_land",
+    ":ambi_dark_woosh",
+    ":ambi_choir"
+  ],
+  "Drum Sounds": [
+    ":drum_heavy_kick",
+    ":drum_tom_mid_soft",
+    ":drum_tom_mid_hard",
+    ":drum_tom_lo_soft",
+    ":drum_tom_lo_hard",
+    ":drum_tom_hi_soft",
+    ":drum_tom_hi_hard",
+    ":drum_splash_soft",
+    ":drum_splash_hard",
+    ":drum_snare_soft",
+    ":drum_snare_hard",
+    ":drum_cymbal_soft",
+    ":drum_cymbal_hard",
+    ":drum_cymbal_open",
+    ":drum_cymbal_closed",
+    ":drum_cymbal_pedal",
+    ":drum_bass_soft",
+    ":drum_bass_hard",
+    ":drum_cowbell",
+    ":drum_roll"
+  ]
+}

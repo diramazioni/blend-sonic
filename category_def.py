@@ -1,4 +1,6 @@
 from lang_def import *
+from constant_def import samples
+
 #                0         1      2       3        4          5          6         7        8        9
 categories = ['common', 'synth', 'fx', 'do_end', 'use', 'functions', 'control', 'buffer', 'env', 'general']
 
@@ -18,13 +20,13 @@ def all_fx_names():
 
 all_fx = [ fx[synth_nodes[s]] for s in all_fx_names()]
 
-def all_sample_names():
+def predef_sample_names():
     all = []
     for key, value in samples.items():
         yield all
         all += value
 
-all_sample = [ s for s in all_sample_names()][0]
+predef_samples = [ s for s in predef_sample_names()][0]
 
 def lng(ref):
     if ref in lang_core:
@@ -123,7 +125,7 @@ here spark_graph, range, shuffle are inline
 
 
 # fn_ringed are function like tick, shuffle (ring).fn(arg)
-fn_ringed = ['pick', 'tick', 'look', 'shuffle', 'choose', 'stretch',]
+fn_ringed = ['pick', 'tick', 'look', 'shuffle', 'choose', 'stretch', ]
 # fn_embeded are functions surrounded by () like (knit 1, 5)
 fn_embeded = ['bools', 'chord', 'chord_degree', 'chord_invert', 'doubles', 'halves', 'knit', 'line', 'midi_notes',
               'note_range', 'octs', 'ramp', 'range', 'ring', 'scale', 'scale',  'spread', 'vector']
@@ -218,7 +220,7 @@ def sub_list(list_source, *lists_subtract):
 
 
 
-from constant_def import chord_names
+from constant_def import samples
 
 import json
 if __name__ == '__main__':
@@ -230,8 +232,11 @@ if __name__ == '__main__':
     #     n = ':'+ k
     #     newd[n] = v
     # print(json.dumps(newd))
-    print([':'+c for c in chord_names])
-    print('should be 0')
+    # all_sample
+    s_name = [sn for sk in samples.keys() for sn in samples[sk] ]
+    print(s_name)
+    # print([':'+c for c in chord_names])
+    # print('should be 0')
     # print(sub_list(has_accepts_block_false, has_inline, is_common, is_use_env, is_control, is_buffer_fn))
     # print(sub_list(has_accepts_block, has_requires_block))
     # print(sub_list(all_lang_ref, has_accepts_block, has_accepts_block_false, is_to_hide, is_buffer_fn, has_modifies_env))

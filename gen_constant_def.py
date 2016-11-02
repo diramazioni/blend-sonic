@@ -687,7 +687,6 @@ def parseSound():
                 break
 
     ########
-    addMetaData(ps.consts)
 
 
     print("="*80)
@@ -714,14 +713,115 @@ def parseCore():
                 break
 
     ########
-    find_optional_args(ps.consts)
-    addMetaData(ps.consts)
+
 
     print("="*80)
     print("TOT lang_core", len(ps.consts))
     print("TOT funct_doc", len(ps.func_doc))
 
     return ps
+
+
+def find_optional_args(consts):
+    print('+'*30)
+    print('find_optional_args')
+    for fn, v in consts.items():
+        if not 'alt_args' in v or not 'args' in v: continue
+        print('\n'+fn)
+
+        args = min(v['args'], v['alt_args'], key=len)
+        alt_args = max(v['args'], v['alt_args'], key=len)
+        print('args ', args)
+        print('alt_args ', alt_args)
+        v['args'] = args
+        v['alt_args'] = alt_args
+
+def printDone():
+    print(' ==> OK')
+
+def printWarning(ps):
+    # for k in ps.consts.keys():
+    # if k not in ps.funct_doc: print("no DOC", k)
+    if len(ps.warn):
+        print("---WARN---" * 16)
+        for k, v in sorted(ps.warn.items()):
+            print(k, v)
+
+
+def dump_dict(dict_def, out_file_name, out_mode, helper_func):
+
+    def dict2var(dictionary):
+        text = []
+        for k, v in dictionary.items():   #  sort_keys = True,
+            d = json.dumps(v, ensure_ascii = False, indent = 2)
+            text.append(k+" = " + d + "\n\n")
+            print("writing %s in %s" % (k,out_file_name))
+        return ('\n').join(text)
+    
+    with open(out_file_name, out_mode) as outfile:
+        
+        if out_mode == "w":
+            outfile.write('null = None; true = True; false = False;\n')
+        outfile.write("#\#/"*10+'\n\n')
+        for const in dict_def:
+            outfile.write(dict2var(const))
+        outfile.write(helper_func)
+
+    '''
+    with open('synths.json', 'w') as outfile:
+        json.dump(const, outfile, sort_keys = True, indent = 2) )
+    '''
+
+def parse():
+    pC = parseCore()
+    pS = parseSound()
+    pSy = parseSynth()
+
+    find_optional_args(pC.consts)
+    addMetaData(pC.consts)
+    addMetaData(pS.consts)
+
+    ## core
+    dump_dict([{"lang_core":pC.consts },
+               ],'lang_def.py', 'w', "" )
+    # {"core_args_types_conversion": pC.new_arg},
+    # {"core_opts_types_conversion": pC.new_opt}
+    func_doc = pC.func_doc
+    opts_doc = pC.opts_doc
+    ## sound
+    dump_dict([
+        {"lang_sound":pS.consts },
+        {"sound_args_types_conversion":pS.new_arg },
+        {"sound_opts_types_conversion": pS.new_opt}
+    ],'lang_def.py', 'a', "" )
+    func_doc.update(pS.func_doc)
+    opts_doc.update(pS.opts_doc)
+    ## synth
+    dump_dict([{"synths":pSy.consts },
+               {"synth_nodes": pSy.active},
+               {"fx": pSy.fx},
+               {"samples": pSy.samples},
+               ],'lang_def.py', 'a', "" )
+    synth_doc = pSy.func_doc
+    synth_opts_doc = pSy.opts_doc
+    ## doc
+    dump_dict([
+        {"funct_doc": func_doc},
+        {"opts_doc": opts_doc},
+        {"synth_doc": synth_doc},
+        {"synth_opts_doc": synth_opts_doc}
+    ],'lang_doc.py', 'w', "" )
+
+    printWarning(pC)
+    printWarning(pS)
+    printWarning(pSy)
+
+    print("DONE")
+
+    '''
+    from gen_template import *
+    do_jinja(ps.consts)
+    '''
 
 
 def addMetaData(consts):
@@ -802,6 +902,15 @@ def addMetaData(consts):
                                 "alt_args": [{"degree": ":symbol"},
                                              {"tonic": ":symbol"},
                                              {"scale": ":symbol"}]},
+                            'sample': {  # override
+                                "args": [],
+                                "alt_args": [{"name_or_path": ":symbol_or_string"}]},
+                            'use_sample_bpm': {  # override
+                                "args": [],
+                                "alt_args": [{"string_or_number": ":sample_name_or_duration"}]},
+                            'sleep': {  # override
+                                "args": [],
+                                "alt_args": [{"beats": ":number"}]},
     }
     new_functions = {
         "note_list": {
@@ -814,8 +923,20 @@ def addMetaData(consts):
             "name": "note_list",
             "introduced": "blend-sonic"
         },
+        "time_now": {
+            "accepts_block": False,
+            "summary": "return a number based on current time",
+            "opts": {},
+            "signature": {},
+            "hiden": False,
+            "args": [],
+            "name": "time_now",
+            "introduced": "blend-sonic"
+        },
     }
     consts.update(new_functions)
+
+    if 'use_sample_defaults' in consts: consts['use_sample_defaults']['opts'] = consts['sample']['opts']
     #for fn, val in new_functions.items():
 
     # using the list in category_def
@@ -837,103 +958,6 @@ def addMetaData(consts):
             # val.update(remove_mandatory_arg[fn])
             for k, v in arg_fixes[fn].items():
                 val[k] = v
-
-def find_optional_args(consts):
-    print('+'*30)
-    print('find_optional_args')
-    for fn, v in consts.items():
-        if not 'alt_args' in v or not 'args' in v: continue
-        print('\n'+fn)
-
-        args = min(v['args'], v['alt_args'], key=len)
-        alt_args = max(v['args'], v['alt_args'], key=len)
-        print('args ', args)
-        print('alt_args ', alt_args)
-        v['args'] = args
-        v['alt_args'] = alt_args
-
-def printDone():
-    print(' ==> OK')
-
-def printWarning(ps):
-    # for k in ps.consts.keys():
-    # if k not in ps.funct_doc: print("no DOC", k)
-    if len(ps.warn):
-        print("---WARN---" * 16)
-        for k, v in sorted(ps.warn.items()):
-            print(k, v)
-
-
-def dump_dict(dict_def, out_file_name, out_mode, helper_func):
-
-    def dict2var(dictionary):
-        text = []
-        for k, v in dictionary.items():   #  sort_keys = True,
-            d = json.dumps(v, ensure_ascii = False, indent = 2)
-            text.append(k+" = " + d + "\n\n")
-            print("writing %s in %s" % (k,out_file_name))
-        return ('\n').join(text)
-    
-    with open(out_file_name, out_mode) as outfile:
-        
-        if out_mode == "w":
-            outfile.write('null = None; true = True; false = False;\n')
-        outfile.write("#\#/"*10+'\n\n')
-        for const in dict_def:
-            outfile.write(dict2var(const))
-        outfile.write(helper_func)
-
-    '''
-    with open('synths.json', 'w') as outfile:
-        json.dump(const, outfile, sort_keys = True, indent = 2) )
-    '''
-
-def parse():
-    pC = parseCore()
-    pS = parseSound()
-    pSy = parseSynth()
-    ## core
-    dump_dict([{"lang_core":pC.consts },
-               ],'lang_def.py', 'w', "" )
-    # {"core_args_types_conversion": pC.new_arg},
-    # {"core_opts_types_conversion": pC.new_opt}
-    func_doc = pC.func_doc
-    opts_doc = pC.opts_doc
-    ## sound
-    dump_dict([
-        {"lang_sound":pS.consts },
-        {"sound_args_types_conversion":pS.new_arg },
-        {"sound_opts_types_conversion": pS.new_opt}
-    ],'lang_def.py', 'a', "" )
-    func_doc.update(pS.func_doc)
-    opts_doc.update(pS.opts_doc)
-    ## synth
-    dump_dict([{"synths":pSy.consts },
-               {"synth_nodes": pSy.active},
-               {"fx": pSy.fx},
-               {"samples": pSy.samples},
-               ],'lang_def.py', 'a', "" )
-    synth_doc = pSy.func_doc
-    synth_opts_doc = pSy.opts_doc
-    ## doc
-    dump_dict([
-        {"funct_doc": func_doc},
-        {"opts_doc": opts_doc},
-        {"synth_doc": synth_doc},
-        {"synth_opts_doc": synth_opts_doc}
-    ],'lang_doc.py', 'w', "" )
-
-    printWarning(pC)
-    printWarning(pS)
-    printWarning(pSy)
-
-    print("DONE")
-
-    '''
-    from gen_template import *
-    do_jinja(ps.consts)
-    '''
-
 
 
 def gen_helper_func():

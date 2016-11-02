@@ -34,7 +34,7 @@ notes_items = [(k[0],k[0],'') for k in notes_k ]
         socket = self.newInput("String", "Element")
         socket.dataIsModified = True
         socket.display.text = True
-        socket.value = ':'+self.noteList
+        socket.value = self.noteList
         socket.text = socket.value 
         socket.removeable = True
         socket.moveable = True
@@ -70,4 +70,7 @@ notes_items = [(k[0],k[0],'') for k in notes_k ]
 {%- block code_out %}
         yield 'code_out =  send'
 {%- endblock -%}
+{%- block infoMessage %}
+        yield 'self.infoMessage = ", ".join(code_out)' 
+{%- endblock %}
         

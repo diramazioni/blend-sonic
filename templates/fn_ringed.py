@@ -7,10 +7,12 @@ from {{ menu_levels }} events import propertyChanged
 {%- block classMembers %}        
     dot = BoolProperty(name = "Add dot", default = False, update = propertyChanged)
 {%- endblock %}
+
 {%- block draw %}
         col = layout.column(align = True)
         col.prop(self, "dot", text = "", icon = "RADIOBUT_ON")
 {%- endblock %}
+
 {%- block execode -%}
         {{ super() }}
         yield "args_ = ', '.join(args_) if len(args_ ) else ''"

@@ -1,6 +1,6 @@
 {% extends "note.py" %}
 
-{% import "includes.py" as ins %}
+
 
 {% block imports %}
 {{ super() }}
@@ -21,15 +21,15 @@ scale_items = [(k,k,'') for k in scale_names ]
 {%- block extra_input %}{% endblock %}
 
 {%- block post_create %}
-{{ ins.hideInput(count_args, post_args ) }} 
+{{ macro.hideInput(count_args, post_args ) }} 
 {{ super() }}
 {%- endblock %}
-
-{%- block execode %}
+{%- block checkEnum %}
         if not s["tonic"].isUsed:
             yield "args_.append(str(self.noteList))"
         if not s["scale"].isUsed:
             yield "args_.append(str(self.scaleList ))"
-
-    {{ ins.inline_send( fn.name ) }} 
+{%- endblock %}
+{%- block execode %}
+    {{ macro.inline_send( fn.name ) }} 
 {%- endblock -%}

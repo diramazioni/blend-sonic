@@ -1,6 +1,5 @@
 {% extends "note.py" %}
 
-{% import "includes.py" as ins %}
 
 {% block imports %}
 {{ super() }}
@@ -19,19 +18,15 @@ chord_items = [(k,k,'') for k in chord_names ]
 {%- endblock %}
 {%- block extra_input %}{% endblock %}
 
-{%- block post_create %}
-{{ ins.hideInput(count_args, post_args ) }} 
-{{ super() }}
-{%- endblock %}
-
-{%- block execode %}
+{%- block checkEnum %}
         if not s["tonic"].isUsed:
-            yield "args_= [str(self.noteList)]"
+            yield "args_.append(str(self.noteList))"
         if not s["chord"].isUsed:
             yield "chord = str(self.chordList) if \
             self.chordList.startswith(':') else \
             '\"'+str(self.chordList)+'\"'"
             yield "args_.append(chord)"
-
-    {{ ins.inline_send( fn.name ) }} 
+{%- endblock %}
+{%- block execode %}
+    {{ macro.inline_send( fn.name ) }} 
 {%- endblock -%}

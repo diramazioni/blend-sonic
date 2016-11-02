@@ -15,9 +15,8 @@ degree_items = [(':'+k.lower(),k,'') for k in degree_names ]
         layout.prop(self, "degreeList")
 {{ super() }}
 {%- endblock %}
-
-{%- block execode %}
+{%- block checkEnum %}
+{{ super() }}
         if not s["degree"].isUsed:
             yield "args_.append(str(self.degreeList))"
-{{ super() }}
-{%- endblock -%}
+{%- endblock %}

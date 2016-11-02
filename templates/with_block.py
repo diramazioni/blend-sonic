@@ -7,16 +7,19 @@
 
 {%- block create %}{%- endblock -%}
 
-{% block post_create %}
-{%- if fn.intro_fn %}
+{%- block extra_create %}
+    {%- if fn.intro_fn %}
         self.newInput("String", "intro var", "intro_fn", value = "foo = ")
-{%- endif %}
-{%- if fn.async_block %}
+    {%- endif %}
+    {%- if fn.async_block %}
         self.newInput("String", "async block", "async_block", value = "|bar|")
-{%- endif %}
-{% set post_args = -1 %}
+    {%- endif %}
         self.newInput("String List", "do_end lines", "do_end")
-{{ hideInput(count_args, post_args ) }}        
+{%- endblock %}
+
+{% set post_args = -1 %}
+{% block post_create %}
+{{ macro.hideInput(count_args, post_args ) }}        
 {%- endblock %}
 
 {%- block extra_input %}
@@ -35,5 +38,5 @@
         yield 'code_out = code_in + send'
 {%- endblock %}
 {%- block infoMessage %}
-        yield 'self.infoMessage = f_call[0]' 
+        yield 'if len(f_call): self.infoMessage = f_call[0]' 
 {%- endblock %}

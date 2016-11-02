@@ -4,7 +4,7 @@
 
 {%- block execode -%}
 {{ super() }}          
-        yield "if args_ == '(true)': send = ['stop']"
+        yield "if args_ == 'true': send = ['stop']"
         yield "else: send = []"
 {%- endblock %}
 
