@@ -507,7 +507,7 @@ class SoundMenu(bpy.types.Menu):
         insertNode(layout, "an_SoundBakeNode", "Bake Sound")
         insertNode(layout, "an_EvaluateSoundNode", "Evaluate Sound")
         insertNode(layout, "an_SoundFromSequencesNode", "Sound from Sequences")
-
+########################################
 {% macro insNode(synth_name, synth_descr) -%}
         insertNode(layout, "an_sp_{{ synth_name|capitalize }}Node", "{{synth_descr}}")
 {%- endmacro %} 
@@ -545,7 +545,7 @@ class SonicPI_{{ cat|capitalize }}_Menu(bpy.types.Menu):
 {%- endfor %}     
 {% endblock -%}    
 
-
+########################################
 class SequenceMenu(bpy.types.Menu):
     bl_idname = "an_sequence_menu"
     bl_label = "Sequence Menu"

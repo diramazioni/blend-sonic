@@ -14,13 +14,12 @@ from {{ menu_levels }} events import propertyChanged
 {%- endblock %}
 
 {%- block execode -%}
-        {{ super() }}
-        yield "args_ = ', '.join(args_) if len(args_ ) else ''"
-
+{{ macro.opt_join() }} 
+{{ macro.arg_join() }} 
         yield "if self.dot: send = list_+'.'+'{{ fn.name }}' +args_ +sep +opts_"
         yield "else: send = '{{ fn.name }}' + '(' + list_ +args_ +sep +opts_+')'"        
 
-        #yield "send = dot_ +'{{ fn.name }}' + args_ + sep+ opts_"
+{{ macro.add_fix() }} 
 {%- endblock -%}
 
 

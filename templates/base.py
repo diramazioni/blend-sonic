@@ -85,9 +85,8 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
 {%- block extra_input %}{%- endblock %}
 
 {%- block execode %}
-        yield "opts_ = ', '.join(opts_)"
-        yield "if len(opts_): sep=', '"
-        yield "else: sep=''"           
+{{ macro.opt_join() }} 
+{{ macro.arg_join() }} 
 {%- endblock %}
 
         

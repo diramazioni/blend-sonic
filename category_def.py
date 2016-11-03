@@ -6,19 +6,19 @@ categories = ['common', 'synth', 'fx', 'do_end', 'use', 'functions', 'control', 
 
 all_lang_ref = list(lang_core.keys()) + list(lang_sound.keys())
 
-def all_synth_names():
-    for key, value in synths.items():
-        if value['hiden'] != True and key != 'SoundIn' and value['name'] in synth_nodes:
-            yield value['name']
+# def all_synth_names():
+#     for key, value in synths.items():
+#         if value['hiden'] != True and key != 'SoundIn' and value['name'] in synth_nodes:
+#             yield value['name']
+#
+# all_synth = {s: synths[synth_nodes[s]] for s in all_synth_names()}
 
-all_synth = [ synths[synth_nodes[s]] for s in all_synth_names()]
+# def all_fx_names():
+#     for key, value in fx.items():
+#         if value['hiden'] != True and value['name'] in synth_nodes:
+#             yield value['name']
 
-def all_fx_names():
-    for key, value in fx.items():
-        if value['hiden'] != True and value['name'] in synth_nodes:
-            yield value['name']
-
-all_fx = [ fx[synth_nodes[s]] for s in all_fx_names()]
+# all_fx = {s: fx[synth_nodes[s]] for s in all_fx_names()}
 
 def predef_sample_names():
     all = []
@@ -143,29 +143,33 @@ is_just_output = ['all_sample_names', 'beat', 'bt', 'chord_names', 'current_arg_
                'current_synth_defaults', 'current_transpose', 'current_volume', 'fx_names', 'note_info',
                'sample_duration', 'sample_groups', 'sample_info', 'sample_names', 'sample_paths', 'scale_names',
                'synth_names', 'version', 'spark', 'status']
+
+is_synth = ['with_fx', 'synth', 'with_synth', 'use_synth', 'use_synth_defaults','with_synth_defaults']
+
 # set hide to false if not set and hide the one we are not going to use
 is_rec = ['recording_delete', 'recording_save', 'recording_start', 'recording_stop']
 is_dups = ['wait','with_afx', 'use_fx', 'use_timing_warnings', 'invert_chord', 'pitch_ratio', 'print', 'sample_buffer',
-           'with_tempo', 'pitch_ratio']
+           'with_tempo', 'pitch_ratio', 'load_sample', 'load_sample_at_path',]
+
 is_to_hide = [ 'dec', 'inc', 'puts',
                'load_synthdefs', 'load_example', 'comment', 'uncomment','resolve_sample_paths', 'resolve_sample_path',
                'use_osc', 'osc','with_timing_warnings','use_timing_warnings', 'use_external_synths',
                'start_amp_monitor', 'current_amp', 'sample_split_filts_and_opts','ndefine', 'spark_graph',
-           ] + is_just_output + is_dups + is_rec
+           ] + is_just_output + is_dups + is_rec + is_synth
 
 
 #####################################
 # other static category
-all_lang_def = list(set(all_lang_ref) - set(set(all_lang_ref) - set(has_accepts_block) - set(has_accepts_block_false))
-                                        - set(has_modifies_env) )
-is_buffer_fn = ['load_buffer', 'load_sample', 'load_samples', 'load_sample_at_path',
+# all_lang_def = list(set(all_lang_ref) - set(set(all_lang_ref) - set(has_accepts_block) - set(has_accepts_block_false)) set(has_modifies_env) )
+
+is_buffer_fn = ['load_buffer', 'load_samples',
                 'run_code', 'run_file',
                 ]
 
 is_control = [ 'clear', 'control', 'cue', 'kill', 'rand_back', 'rand_reset', 'rand_skip',
               'reset', 'sample_free', 'sample_free_all', 'sleep', 'stop', 'sync', 'sync_bpm',
                'tick_reset', 'tick_reset_all', 'tick_set',]
-is_common = ['play', 'chord', 'note', 'note_list', 'live_loop', 'sample', 'synth']
+is_common = ['play', 'chord', 'note', 'note_list', 'live_loop', 'sample']
 # ring_returns = [ret for ret in has_returns if lng(ret)['returns'] == ":ring" ]
 
 is_use_env = [ret for ret in all_lang_ref if ret.startswith('use_') ]
@@ -231,10 +235,11 @@ if __name__ == '__main__':
     # for k, v in notes.items():
     #     n = ':'+ k
     #     newd[n] = v
-    # print(json.dumps(newd))
+    # print(json.dumps(all_fx, indent = 2))
     # all_sample
-    s_name = [sn for sk in samples.keys() for sn in samples[sk] ]
-    print(s_name)
+    # s_name = [sn for sk in samples.keys() for sn in samples[sk] ]
+    print()
+
     # print([':'+c for c in chord_names])
     # print('should be 0')
     # print(sub_list(has_accepts_block_false, has_inline, is_common, is_use_env, is_control, is_buffer_fn))

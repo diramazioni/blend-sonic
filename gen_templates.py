@@ -72,6 +72,10 @@ def gen_an_code():
 
     prep_dir(categories)
     menu = defaultdict(dict)
+    context = {
+        'args_types': args_types_conversion,
+        'opts_types': opts_types_conversion,
+    }
     ## is_inline_fn
     for fn_name in sub_list(all_lang_ref, is_to_hide):
         menu_levels = '....'
@@ -113,18 +117,55 @@ def gen_an_code():
         if not templ_name: continue
         fn = lng(fn_name )
 
-        context = {
+        context.update({
             'fn_name': fn_name,
             'fn': fn,
-            'args_types': args_types_conversion,
-            'opts_types': opts_types_conversion,
             "menu_levels": menu_levels,
             "category": category
-        }
+        })
         menu[category][fn_name] = fn
 
         write_template(category, context, fn_name, templ_name)
+    ## fx
+    for synth_name, synth in fx.items():
+        if synth['hiden']: continue
+        menu_levels = '....'
+        # fn_name =  synth['name'][1:]
+        synth_name = synth_name[2:]
+        templ_name = 'with_fx'
+        category = categories[2]
 
+        fn = lng('with_fx')
+        fn.update(synth)
+
+        context.update({
+            'fn_name': synth_name,
+            'fn': fn,
+            "menu_levels": menu_levels,
+            "category": category
+        })
+        menu[category][synth_name] = fn
+        write_template("fx", context, synth_name, templ_name)
+
+    for synth_name, synth in synths.items():
+        if synth['hiden']: continue
+        menu_levels = '....'
+        # fn_name =  synth['name'][1:]
+        synth_name = synth_name[2:]
+        templ_name = 'with_fx'
+        category = categories[2]
+
+        fn = lng('with_fx')
+        fn.update(synth)
+
+        context.update({
+            'fn_name': synth_name,
+            'fn': fn,
+            "menu_levels": menu_levels,
+            "category": category
+        })
+        menu[category][synth_name] = fn
+        write_template("fx", context, synth_name, templ_name)
     '''
     ## synths
     for synth_name, synth in all_synth.items():
@@ -138,17 +179,6 @@ def gen_an_code():
         }
         write_node("synth", context, synth_name, templ_name)
 
-    ## fx
-    for synth_name, synth in all_fx.items():
-        synth_name = synth_name[1:]
-        templ_name = 'fx.py'
-        
-        context = {
-            'synth_name': synth_name,
-            'arg_defaults': synth['arg_defaults'],
-            'synth': synth,
-        }
-        write_node("fx", context, synth_name, templ_name)
     
     '''
     write_menu(menu)

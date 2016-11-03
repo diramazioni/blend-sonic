@@ -1,6 +1,5 @@
 {% extends "note.py" %}
 
-
 {% block imports %}
 {{ super() }}
 from {{ menu_levels[2:] }} constant_def import chord_names
@@ -8,10 +7,12 @@ from {{ menu_levels[2:] }} constant_def import chord_names
 chord_items = [(k,k,'') for k in chord_names ]
 
 {% endblock %}
+
 {%- block classMembers %}
 {{ super() }}
     chordList = EnumProperty(name="Chord", items = chord_items, default = ':major', update=propertyChanged)
 {%- endblock %}
+
 {%- block draw %}
 {{ super() }}
         layout.prop(self, "chordList")
@@ -27,6 +28,8 @@ chord_items = [(k,k,'') for k in chord_names ]
             '\"'+str(self.chordList)+'\"'"
             yield "args_.append(chord)"
 {%- endblock %}
+
 {%- block execode %}
-    {{ macro.inline_send( fn.name ) }} 
+    {{ macro.arg_join() }} {{ macro.opt_join() }} 
+    {{ macro.inline_send() }} 
 {%- endblock -%}

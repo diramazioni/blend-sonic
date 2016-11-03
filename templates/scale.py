@@ -24,12 +24,15 @@ scale_items = [(k,k,'') for k in scale_names ]
 {{ macro.hideInput(count_args, post_args ) }} 
 {{ super() }}
 {%- endblock %}
+
 {%- block checkEnum %}
         if not s["tonic"].isUsed:
             yield "args_.append(str(self.noteList))"
         if not s["scale"].isUsed:
             yield "args_.append(str(self.scaleList ))"
 {%- endblock %}
+
 {%- block execode %}
-    {{ macro.inline_send( fn.name ) }} 
+{{ macro.arg_join() }} 
+    {{ macro.inline_send() }} 
 {%- endblock -%}

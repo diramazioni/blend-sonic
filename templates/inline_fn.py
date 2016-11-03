@@ -27,12 +27,13 @@
         if s["postfix"].isUsed: yield "postfix = postfix_ "
 {%- endblock %}
 
-{%- block execode %}        
-{{ super() }}     
+{%- block execode %}
+{{ macro.opt_join() }} 
+{{ macro.inline_send() }} 
 {%- endblock -%}
 
 {%- block code_out %}
-        yield 'code_out = code_in + prefix + send + postfix'
+        yield 'code_out = code_in + send'
 {%- endblock %}
 
       

@@ -8,13 +8,7 @@
 {%- block create %}{%- endblock -%}
 
 {%- block extra_create %}
-{%- if fn.intro_fn %}
-        self.newInput("String", "intro var", "intro_fn", value = "foo = ")
-{%- endif %}
-{%- if fn.async_block %}
-        self.newInput("String", "async block", "async_block", value = "|bar|")
-{%- endif %}
-        self.newInput("String List", "do_end lines", "do_end")
+{{ macro.block_extra_create() }}  
 {%- endblock %}
 
 {% block post_create %}
@@ -22,19 +16,13 @@
 {%- endblock %}
 
 {%- block extra_input %}
-        if s["intro var"].isUsed: yield "prefix = intro_fn +' '"
-        if s["async block"].isUsed: yield "async = ' ' + async_block"
-        else: yield "async = ''"
+{{ macro.block_extra_input() }}     
 {%- endblock %}
+
+
 {%- block execode -%}
 {{ super() }}  
-        yield "args_ = ' '+', '.join(args_)"
-        yield "f_call = prefix + '{{ fn.name }}' + args_ + sep+ opts_ "
-        if s["do_end lines"].isUsed: 
-            yield "f_call = [f_call + ' do ' + async]"
-            yield "send = f_call + do_end + ['end']"        
-        else:
-            yield "send = [f_call + async]"
+{{ macro.opt_block_send() }}
 {%- endblock %}
 
 {%- block code_out %}

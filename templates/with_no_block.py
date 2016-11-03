@@ -20,8 +20,7 @@
 
 {%- block execode -%}
 {{ super() }}  
-        yield "args_ = ', '.join(args_) if len(args_) else ''"
-        yield "send = [prefix + '{{ fn_name }} ' + args_ + sep+ opts_ + postfix]"
+{{ macro.no_block_send() }}         
 {%- endblock %}
 
 {%- block infoMessage %}

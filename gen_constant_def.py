@@ -571,6 +571,8 @@ class ParseConst(object):
             "inherit_arg": super_merge,
         }
         if len(synth_name):
+            if 'FX' in c_name:
+                synth_name = synth_name.split('fx_')[1]
             synth['name'] = ":"+synth_name
             hiden = False
         else: hiden = True
@@ -580,6 +582,11 @@ class ParseConst(object):
         if 'FX' in c_name:
             self.fx[c_name] = synth
         else:   self.consts[c_name] = synth
+
+        for opt in arg_def:
+            if not opt in opts_types_conversion:
+                self.warn["new opt %s" % opt].append(c_name)
+                self.new_opt[opt] = "Float"
         self.goNext()
 
         return True
@@ -664,6 +671,7 @@ def parseSynth():
     print("TOT fx", len(ps.fx))
     print("TOT samples", sum(len(sam) for sam in ps.samples))
     print("TOT funct_doc", len(ps.func_doc))
+    print("new opt ", ps.new_opt)
     return ps
 
 def parseSound():
@@ -791,7 +799,7 @@ def parse():
     ## sound
     dump_dict([
         {"lang_sound":pS.consts },
-        {"sound_args_types_conversion":pS.new_arg },
+        {"sound_args_types_conversion": pS.new_arg },
         {"sound_opts_types_conversion": pS.new_opt}
     ],'lang_def.py', 'a', "" )
     func_doc.update(pS.func_doc)
@@ -801,6 +809,8 @@ def parse():
                {"synth_nodes": pSy.active},
                {"fx": pSy.fx},
                {"samples": pSy.samples},
+               {"synth_args_types_conversion": pSy.new_arg},
+               {"synth_opts_types_conversion": pSy.new_opt}
                ],'lang_def.py', 'a', "" )
     synth_doc = pSy.func_doc
     synth_opts_doc = pSy.opts_doc
@@ -817,7 +827,7 @@ def parse():
     printWarning(pSy)
 
     print("DONE")
-
+    print(pS.new_opt)
     '''
     from gen_template import *
     do_jinja(ps.consts)
@@ -911,6 +921,9 @@ def addMetaData(consts):
                             'sleep': {  # override
                                 "args": [],
                                 "alt_args": [{"beats": ":number"}]},
+                            'with_fx': {  # override
+                                "args": [],
+                                "alt_args": [{"fx_name": ":symbol"}]},
     }
     new_functions = {
         "note_list": {

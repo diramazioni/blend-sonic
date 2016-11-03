@@ -18,6 +18,17 @@
  {%- endfor %}
 {%- endmacro %} 
 
+{%- macro block_extra_create() %}
+    {%- if fn.intro_fn %}
+        self.newInput("String", "intro var", "intro_fn", value = "foo = ")
+    {%- endif %}
+    {%- if fn.async_block %}
+        self.newInput("String", "async block", "async_block", value = "synth")
+    {%- endif %}
+        self.newInput("String List", "do_end lines", "do_end")
+{%- endmacro %} 
+
+
 {%- macro hideInput(start, end) %}
         for socket in self.inputs[{{ start }}:{{ end }}]:
             socket.useIsUsedProperty = True
@@ -72,7 +83,7 @@
         {% endif %}        
     {%- endfor %}
 {%- endfor %}
-        yield "if len(args_): args_ = list(filter(None, args_ ))"        
+        #yield "if len(args_): args_ = list(filter(None, args_ ))"        
 {%- endmacro %} 
 
 {% macro optCheck() -%}
@@ -92,14 +103,52 @@
     {%- endfor %}
 {%- endmacro %} 
 
-{%- macro inline_send(fn_name) %}
+{%- macro block_extra_input() %}
+    {%- if fn.intro_fn %}
+        if s["intro var"].isUsed: yield "intro_fn_ = intro_fn +' '"
+        else: yield "intro_fn_ = ''"
+    {%- endif %}{%- if fn.async_block %}
+        if s["async block"].isUsed: yield "async_ = ' |'+ async_block + '|'" 
+        else: yield "async_ = ''"
+    {%- endif %}   
+{%- endmacro %} 
+
+{%- macro opt_join() %}
         yield "opts_ = ', '.join(opts_)"
         yield "sep=', ' if len(opts_) else '' "
-        yield "args_ = ', '.join(args_)"
+{%- endmacro %} 
+
+{%- macro arg_join() %}
+        yield "args_ = ', '.join(args_) if len(args_) else ''"        
+{%- endmacro %} 
+
+{%- macro inline_send() %}
         yield "send = '({{ fn_name }} ' + args_ +sep+ opts_ + ')'"
 {%- endmacro -%}
 
+{%- macro fn_simple_send() %}
+        yield "send = '({{ fn.name }} ' + list_ + args_ +sep+ opts_ + ')'"
+{%- endmacro -%}
 
+{%- macro add_fix() %}
+        yield "send = prefix + send + postfix"
+{%- endmacro -%}
 
+{%- macro block_send(blk) %}
+        yield "f_call = intro_fn_ + '{{blk}}{{fn.name}}' + args_ + sep+ opts_ "        
+        yield "f_call = [f_call + ' do ' + async_]"
+        yield "send = f_call + do_end + ['end']"    
+{%- endmacro -%}
 
+{%- macro no_block_send() %}
+        yield "send = [prefix + '{{ fn_name }} ' + args_ + sep+ opts_ + postfix]"
+{%- endmacro -%}
 
+{%- macro opt_block_send() %}
+        yield "f_call = intro_fn_ + '{{ fn.name }}' + args_ + sep+ opts_ "
+        if s["do_end lines"].isUsed: 
+            yield "f_call = [f_call + ' do ' + async_]"
+            yield "send = f_call + do_end + ['end']"        
+        else:
+            yield "send = [f_call + async_]"
+{%- endmacro -%}

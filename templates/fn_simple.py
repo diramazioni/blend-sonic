@@ -1,9 +1,9 @@
 {% extends "inline_fn.py" %}
 
 {%- block execode -%} 
-{{ super() }}
-        yield "args_ = ', '.join(args_)"
-        yield "send = '({{ fn.name }} ' + list_ + args_ +sep+ opts_ + ')'"
+{{ macro.opt_join() }} {{ macro.arg_join() }} 
+{{ macro.fn_simple_send() }}
+{{ macro.add_fix() }} 
 {%- endblock -%}
 
 
