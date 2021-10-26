@@ -7,6 +7,7 @@ from bpy.props import *
 
 {% block imports %}
 from {{ menu_levels }} base_types.node import AnimationNode
+from {{ menu_levels }} tree_info import keepNodeState
 {% endblock %}
 
 
@@ -49,16 +50,24 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
 {{ macro.newArgInput(fn.alt_args) }}
 {%- endif %}
 
+        self.recreateInputs()
+
 {%- if fn.opts %}
 {{ macro.newOptInput() }}
 {%- endif %}
-
+        
 {%- block extra_create %}{%- endblock %}
 
 {%- with %}{% set post_args = '' %}
 {%- block post_create %}
 {{ macro.hideInput(count_args, post_args) }}
 {%- endblock %}{%- endwith %}
+    
+    @keepNodeState    
+    def recreateInputs(self):
+{%- block recreateInputs %}
+        pass
+{%- endblock %}
 
     def getExecutionCode(self):
     {%- block exe_decl %}
@@ -100,5 +109,7 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
 
     def delete(self):        
         print("Removing node: {{ fn_name }}", self.name)        
-        
+
+{%- block used_module %}
+{%- endblock %}        
     

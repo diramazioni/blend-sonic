@@ -108,7 +108,9 @@
         if s["intro var"].isUsed: yield "intro_fn_ = intro_fn +' '"
         else: yield "intro_fn_ = ''"
     {%- endif %}{%- if fn.async_block %}
-        if s["async block"].isUsed: yield "async_ = ' |'+ async_block + '|'" 
+        if s["async block"].isUsed: 
+            yield "async_ = ' |'+ async_block + '|'" 
+            yield "if len(async_block): bpy.context.scene['sp_var'][async_block] = opts_"
         else: yield "async_ = ''"
     {%- endif %}   
 {%- endmacro %} 
@@ -135,7 +137,7 @@
 {%- endmacro -%}
 
 {%- macro block_send(blk) %}
-        yield "f_call = intro_fn_ + '{{blk}}{{fn.name}}' + args_ + sep+ opts_ "        
+        yield "f_call = intro_fn_ + '{{blk}}{{fn.name}} ' + args_ + sep+ opts_ "        
         yield "f_call = [f_call + ' do ' + async_]"
         yield "send = f_call + do_end + ['end']"    
 {%- endmacro -%}
@@ -145,7 +147,7 @@
 {%- endmacro -%}
 
 {%- macro opt_block_send() %}
-        yield "f_call = intro_fn_ + '{{ fn.name }}' + args_ + sep+ opts_ "
+        yield "f_call = intro_fn_ + '{{ fn.name }} ' + args_ + sep+ opts_ "
         if s["do_end lines"].isUsed: 
             yield "f_call = [f_call + ' do ' + async_]"
             yield "send = f_call + do_end + ['end']"        

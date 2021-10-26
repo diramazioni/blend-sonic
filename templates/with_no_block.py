@@ -2,8 +2,6 @@
 
 
 
-{%- block create %}{%- endblock -%}
-
 {% block extra_create %}
         self.newInput("String", "prefix", "prefix_")
         self.newInput("String", "postfix", "postfix_")
@@ -14,8 +12,8 @@
 {%- endblock %}
 
 {%- block extra_input %}
-        if s["prefix"].isUsed: yield "prefix = prefix_ +' '"
-        if s["postfix"].isUsed: yield "postfix = ' ' + postfix_ "
+        if s["prefix"].isUsed: yield "prefix = prefix_ "
+        if s["postfix"].isUsed: yield "postfix = postfix_ "
 {%- endblock %}
 
 {%- block execode -%}

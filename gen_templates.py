@@ -146,7 +146,7 @@ def gen_an_code():
         })
         menu[category][synth_name] = fn
         write_template("fx", context, synth_name, templ_name)
-
+    '''
     for synth_name, synth in synths.items():
         if synth['hiden']: continue
         menu_levels = '....'
@@ -166,20 +166,6 @@ def gen_an_code():
         })
         menu[category][synth_name] = fn
         write_template("fx", context, synth_name, templ_name)
-    '''
-    ## synths
-    for synth_name, synth in all_synth.items():
-        synth_name = synth_name[1:]
-        templ_name = 'synth.py'
-        
-        context = {
-            'synth_name': synth_name,
-            'arg_defaults': synth['arg_defaults'],
-            'synth': synth,
-        }
-        write_node("synth", context, synth_name, templ_name)
-
-    
     '''
     write_menu(menu)
 

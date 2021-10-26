@@ -144,7 +144,7 @@ is_just_output = ['all_sample_names', 'beat', 'bt', 'chord_names', 'current_arg_
                'sample_duration', 'sample_groups', 'sample_info', 'sample_names', 'sample_paths', 'scale_names',
                'synth_names', 'version', 'spark', 'status']
 
-is_synth = ['with_fx', 'synth', 'with_synth', 'use_synth', 'use_synth_defaults','with_synth_defaults']
+is_synth = ['with_fx', 'synth', 'with_synth', 'use_synth', 'use_synth_defaults','with_synth_defaults', 'with_merged_synth_defaults']
 
 # set hide to false if not set and hide the one we are not going to use
 is_rec = ['recording_delete', 'recording_save', 'recording_start', 'recording_stop']

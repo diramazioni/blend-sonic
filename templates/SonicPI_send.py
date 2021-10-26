@@ -16,7 +16,7 @@ class SonicSendNode(bpy.types.Node, AnimationNode):
         self.newInput("Boolean", "signal", "run", value = True)
         self.newInput("Integer", "skip run", "skip_run")
         self.newInput("String List", "code lines", "code")
-        
+        bpy.context.scene['sp_var'] = {}
         bpy.context.scene['sp_skip'] = {self.identifier: 0}
 
     def draw(self, layout):
@@ -39,7 +39,7 @@ class SonicSendNode(bpy.types.Node, AnimationNode):
                 bpy.context.scene['sp_queue'][self.identifier] = code
                 #self.send = False
                 counter += 1
-        else:     # increment       
+        else:     # increment
             counter += 1
         bpy.context.scene['sp_skip'][self.identifier] = counter
             

@@ -5,7 +5,7 @@
 {{ super() }}
 {% endblock -%}
 
-{%- block create %}{%- endblock -%}
+
 {% block newInput%}
         self.newInput("String", "line in", "code_in")
 {%- endblock -%}

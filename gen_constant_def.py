@@ -888,7 +888,7 @@ def addMetaData(consts):
                                 "args": [{"is_true": ":boolean"}],
                                 "alt_args": []},
                             'stop': { # override
-                                "args": [{"true_stops": ":boolean"}],
+                                "args": [{"signal": ":boolean"}],
                                 "alt_args": []},
                             'note': { # override
                                 "args": [],
