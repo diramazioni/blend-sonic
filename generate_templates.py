@@ -12,6 +12,7 @@ from constant_def import opts_default_val, opts_types_conversion, args_types_con
 
 
 pwd = os.path.dirname(os.path.abspath(__file__))
+nodes = os.path.join(pwd, 'build', 'nodes')
 written = defaultdict(list)
 templates = 'templates'
 ext = ".py"
@@ -26,18 +27,18 @@ def render_template(template_file, context):
 def gen_an_code():
     def prep_dir(categories):
         print("preparing nodes directory")
-        dst = os.path.join(pwd, 'nodes')
+        dst = nodes
         sh.rmtree(dst)        
         os.makedirs(dst)
         src = os.path.join(pwd, templates, '__init__.py')
-        dst = os.path.join(pwd, 'nodes', '__init__.py')
+        dst = os.path.join(nodes, '__init__.py')
         sh.copy2(src,  dst)
 
         for cat in categories:
             if cat == 'common': continue
-            dst = os.path.join(pwd, 'nodes', cat)
+            dst = os.path.join(nodes, cat)
             os.makedirs(dst)
-            dst = os.path.join(pwd, 'nodes', cat, '__init__.py')
+            dst = os.path.join(nodes, cat, '__init__.py')
             sh.copy2(src,  dst)
 
     def write_template(cat, context, fn_name, templ_name):
@@ -48,8 +49,8 @@ def gen_an_code():
         if os.path.exists(override_template): templ_name = fn_name + ext
         elif os.path.exists(in_template): templ_name = templ_name + ext
         else: raise Exception('template not found %s %s' % (fn_name, templ_name+ext))
-        if cat == categories[0]: fname = os.path.join(pwd, 'nodes', dest_name)
-        else: fname = os.path.join(pwd, 'nodes', cat, dest_name)
+        if cat == categories[0]: fname = os.path.join(nodes, dest_name)
+        else: fname = os.path.join(nodes, cat, dest_name)
         with open(fname, 'w') as f:
             template_out = render_template(templ_name, context)
             f.write(template_out)
@@ -174,7 +175,7 @@ def copy_in_an():
     print("copy in Animation Nodes addon")
     dst = os.path.join(pwd, 'build', 'animation_nodes', 'nodes','sonic_pi')
     if os.path.exists(dst): sh.rmtree(dst)
-    src = os.path.join(pwd, 'nodes')
+    src = nodes
     sh.copytree(src, dst, symlinks=True)
     src = os.path.join(pwd, 'constant_def.py')
     dst2 = os.path.join(dst, 'constant_def.py')
@@ -183,7 +184,7 @@ def copy_in_an():
     dst2 = os.path.join(dst, 'SonicPI_send.py')
     sh.copy2(src,  dst2)
     src = os.path.join(pwd, 'ui', 'node_menu.py')
-    dst2 = os.path.join(pwd, 'animation_nodes-master', 'ui', 'node_menu.py')
+    dst2 = os.path.join(pwd, 'build', 'animation_nodes', 'ui', 'node_menu.py')
     sh.copy2(src,  dst2)
 
 
