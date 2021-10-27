@@ -2,7 +2,7 @@
 #
 # ***** BEGIN GPL LICENSE BLOCK *****
 #
-#    Copyright (C) 2015  JPfeP <http://www.jpfep.net/>
+#    Copyright (C) 2021  
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -20,10 +20,10 @@
 # ***** END GPL LICENCE BLOCK *****
 
 bl_info = {
-    "name": "BlendSonicPI",
+    "name": "BlendSonic",
     "author": "Eli Spizzichino",
     "version": (0, 1),
-    "blender": (2, 7, 7),
+    "blender": (2, 90, 3),
     "location": "",
     "description": "Realtime control of Sonic PI using OSC protocol",
     "warning": "",
@@ -39,37 +39,75 @@ from bpy.props import (
     IntProperty, PointerProperty, CollectionProperty
 )
 
-add = bpy.utils.register_class
-remove = bpy.utils.unregister_class
 
 NOT_FOUND = 0
 FOUND = 1
 STOPPED = 2
 RUNNING = 3
 
+import sys, os, site
 
+def get_oscport():
+    from pathlib import Path
+    server_log_f = os.path.join(str(Path.home()), ".sonic-pi","log", "server-output.log")
+    with open(server_log_f) as f:
+        server_log = f.readlines()
+    port = 0
+    to_search = "Listen port: "
+    for line in server_log:
+        if to_search in line: 
+            port = int(line.replace(to_search, ""))
+    return port
 
-try:
-    STATUS = FOUND
-    if ('pythonosc' in locals()): pass
-        #print('sonic server : reload event. handled')
-    else:
+def verify_user_sitepackages():
+    usersitepackagespath = site.getusersitepackages()
+
+    if os.path.exists(usersitepackagespath) and usersitepackagespath not in sys.path:
+        sys.path.append(usersitepackagespath)
+        print('sonic-pi: appending user packages')
+
+def verify_pythonosc():
+    try:
         import pythonosc
-        from pythonosc import osc_message_builder
-        from pythonosc import udp_client
-        #print('sonic-pi: loaded pythonosc')
+        if ('pythonosc' in locals()): 
+            return True
+        else: return False
+    except:
+        return False
+    
 
-except:
+verify_user_sitepackages()
+if verify_pythonosc():
+
+    from pythonosc import osc_message_builder
+    from pythonosc import udp_client
+    STATUS = FOUND
+    print('sonic-pi: loaded pythonosc')
+else:
     STATUS = NOT_FOUND
+    import subprocess
+    import ensurepip
+    ensurepip.bootstrap()
+    os.environ.pop("PIP_REQ_TRACKER", None)
+
+    py_exec = bpy.app.binary_path_python
+    #py_exec = sys.executable
+    # ensure pip is installed & update
+    #subprocess.call([str(py_exec), "-m", "ensurepip", "--user"])
+    #subprocess.call([str(py_exec), "-m", "pip", "install", "--upgrade", "pip"])
+    # install dependencies using pip
+    subprocess.check_call([str(py_exec),"-m", "pip", "install", "python-osc"])
+
     print('python osc not found!, or failed to reimport')
+
 
 osc_statemachine = {'status': STATUS}    
 
-class SonicPI_UI_Panel(bpy.types.Panel):
-    bl_idname = "wm.sonic_pi_panel"
+class SPI_UI_panel(bpy.types.Panel):
+    bl_idname = "SPI_PT_panel"
     bl_label = "BlendSonicPI Settings"
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "TOOLS"
+    bl_space_type = "NODE_EDITOR"
+    bl_region_type = "UI"
     bl_category = "SonicPI"
  
     def draw(self, context):
@@ -82,7 +120,7 @@ class SonicPI_UI_Panel(bpy.types.Panel):
         row = col.row(align=True)
         
         if state == NOT_FOUND:
-            col.label('failed to (re)import pythonosc - see console')
+            col.label(text='failed to (re)import pythonosc - see console')
             return
         
         if state in {FOUND, STOPPED}:
@@ -107,12 +145,12 @@ class SonicPI_UI_Panel(bpy.types.Panel):
         
 
 
-class SonicPiProps(bpy.types.PropertyGroup):
-    ip = StringProperty(default='127.0.0.1')
-    port = IntProperty(default=4557)
-    up_timer = FloatProperty(min=0.001, max=60, default=0.1)
+class SPI_props(bpy.types.PropertyGroup):
+    ip: StringProperty(default='127.0.0.1')
+    port: IntProperty(default=get_oscport())
+    up_timer: FloatProperty(min=0.001, max=60, default=0.1)
     
-class SonicPiClient(bpy.types.Operator, object):
+class SPI_client(bpy.types.Operator, object):
 
     bl_idname = "wm.sonic_pi_client"
     bl_label = "start and stop Sonic-Pi Client "
@@ -120,8 +158,8 @@ class SonicPiClient(bpy.types.Operator, object):
     _timer = None
     client = None
     
-    speed = FloatProperty(default=0.1)
-    mode = StringProperty()
+    speed: FloatProperty(default=0.1)
+    mode: StringProperty()
     
     
     def modal(self, context, event):
@@ -152,7 +190,7 @@ class SonicPiClient(bpy.types.Operator, object):
             self.speed = props.up_timer 
             
             wm = context.window_manager
-            self._timer = wm.event_timer_add(self.speed, context.window)
+            self._timer = wm.event_timer_add(self.speed, window=context.window)
             wm.modal_handler_add(self)
 
             osc_statemachine['status'] = RUNNING            
@@ -202,7 +240,7 @@ class SonicPiClient(bpy.types.Operator, object):
         wm = context.window_manager
         wm.event_timer_remove(self._timer)
         
-class SonicPi_txt(bpy.types.Operator, object):
+class SPI_txt(bpy.types.Operator, object):
 
     bl_idname = "wm.sonic_pi_txt"
     bl_label = "run sonic-pi code from text buffers starting with 'sp_'"
@@ -216,22 +254,21 @@ class SonicPi_txt(bpy.types.Operator, object):
                 context.scene['sp_queue'][tname] = code
         return {'FINISHED'}
     
-        
-def register():
-    add(SonicPiProps)
-    bpy.types.Scene.sp_prop = PointerProperty(name="properties", type=SonicPiProps)
-    add(SonicPI_UI_Panel)
-    add(SonicPiClient)
-    
-    add(SonicPi_txt)
+classes = (SPI_props, SPI_client, SPI_UI_panel, SPI_txt)
 
+def register():
+    from bpy.utils import register_class
+    for cls in classes:
+        register_class(cls)
+
+    bpy.types.Scene.sp_prop = PointerProperty(name="properties", type=SPI_props)
 
 
 def unregister():
-    remove(SonicPiProps)    
-    remove(SonicPI_UI_Panel)
-    remove(SonicPiClient)
+    from bpy.utils import unregister_class
+    for cls in reversed(classes):
+        unregister_class(cls)
 
     del bpy.types.Scene.sp_prop
     
-    remove(SonicPi_txt)
+
