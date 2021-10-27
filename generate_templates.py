@@ -170,8 +170,9 @@ def gen_an_code():
     write_menu(menu)
 
 def copy_in_an():
+
     print("copy in Animation Nodes addon")
-    dst = os.path.join(pwd, 'animation_nodes-master', 'nodes','sonic_pi')
+    dst = os.path.join(pwd, 'build', 'animation_nodes', 'nodes','sonic_pi')
     if os.path.exists(dst): sh.rmtree(dst)
     src = os.path.join(pwd, 'nodes')
     sh.copytree(src, dst, symlinks=True)
@@ -186,13 +187,12 @@ def copy_in_an():
     sh.copy2(src,  dst2)
 
 
-
-def restore_orig():    
-    src = os.path.join(pwd, 'templates', 'node_menu.orig.py')    
-    dst = os.path.join(pwd, 'animation_nodes-master', 'ui', 'node_menu.py')
-    sh.copy2(src,  dst)
-    dst = os.path.join(pwd, 'animation_nodes-master', 'nodes','sonic_pi')
+def restore_orig():
+    src = os.path.join(pwd, 'sub', 'animation_nodes', 'animation_nodes')
+    dst = os.path.join(pwd, 'build', 'animation_nodes')
     if os.path.exists(dst): sh.rmtree(dst)
+    sh.copytree(src, dst)
+
     
 if __name__ == '__main__':
     import sys
@@ -201,7 +201,7 @@ if __name__ == '__main__':
         copy_in_an()
         for k,v in written.items():
             print(k , sorted(v))
-        print("DONE")
+        print("Template Generation finished!")
     else:            
         restore_orig()
-        print("original restored")
+        print("original animation_nodes restored")
