@@ -1,3 +1,9 @@
+import os
+sonicpi = os.path.join("sub", "sonic-pi", "app", "server", "ruby", "lib", "sonicpi")
+core = sonicpi + os.path.join("lang", "core.rb")
+sounds = sonicpi + os.path.join("lang", "sound.rb")
+synths = sonicpi + os.path.join("synths", "synthinfo.rb")
+
 from constant_def import *
 from category_def import is_to_hide, is_inline_fn
 
@@ -629,8 +635,10 @@ class ParseConst(object):
 
 
 ####################### class end
+
+
 def parseSynth():
-    with open('sonicpi/synths/synthinfo.rb') as infile:
+    with open(synths) as infile:
         const_file = infile.readlines()
 
     '''
@@ -675,7 +683,7 @@ def parseSynth():
     return ps
 
 def parseSound():
-    with open('sonicpi/lang/sound.rb') as infile:
+    with open(sounds) as infile:
         const_file = infile.readlines()
     stop_class_line = '      private'
     ps = ParseConst(const_file)
@@ -703,7 +711,7 @@ def parseSound():
     return ps
 
 def parseCore():
-    with open('sonicpi/lang/core.rb') as infile:
+    with open(core) as infile:
         const_file = infile.readlines()
     stop_class_line = '      def __on_thread_death'
     ps = ParseConst(const_file)
