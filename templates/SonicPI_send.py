@@ -1,6 +1,6 @@
 import bpy
 from bpy.props import *
-from ... base_types.node import AnimationNode
+from ... base_types import AnimationNode, VectorizedSocket
 from ... events import propertyChanged
 
 
@@ -10,12 +10,12 @@ class SonicSendNode(bpy.types.Node, AnimationNode):
     bl_label = "Send to Sonic-PI"
 
     #send = BoolProperty(name = "send", default = False)
-    stop = BoolProperty(name = "Add stop", default = False, update = propertyChanged)
+    stop: BoolProperty(name = "Add stop", default = False, update = propertyChanged)
   
     def create(self):        
         self.newInput("Boolean", "signal", "run", value = True)
         self.newInput("Integer", "skip run", "skip_run")
-        self.newInput("String List", "code lines", "code")
+        self.newInput("Text List", "code lines", "code")
         bpy.context.scene['sp_var'] = {}
         bpy.context.scene['sp_skip'] = {self.identifier: 0}
 

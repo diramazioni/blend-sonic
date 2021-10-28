@@ -1,7 +1,7 @@
 {% extends "base.py" %}
 
 {%- block imports %}
-from ... base_types.node import AnimationNode
+from ... base_types import AnimationNode
 {% endblock %}
 
 {%- block draw %}

@@ -13,6 +13,8 @@ from constant_def import opts_default_val, opts_types_conversion, args_types_con
 
 pwd = os.path.dirname(os.path.abspath(__file__))
 nodes = os.path.join(pwd, 'build', 'nodes')
+ui = os.path.join(pwd, 'build', 'ui')
+
 written = defaultdict(list)
 templates = 'templates'
 ext = ".py"
@@ -27,12 +29,13 @@ def render_template(template_file, context):
 def gen_an_code():
     def prep_dir(categories):
         print("preparing nodes directory")
-        dst = nodes
-        sh.rmtree(dst)        
-        os.makedirs(dst)
-        src = os.path.join(pwd, templates, '__init__.py')
-        dst = os.path.join(nodes, '__init__.py')
-        sh.copy2(src,  dst)
+        for dst in [nodes, ui]:
+            if os.path.exists(dst):
+                sh.rmtree(dst)
+            os.makedirs(dst)
+            src = os.path.join(pwd, templates, '__init__.py')
+            dst = os.path.join(nodes, '__init__.py')
+            sh.copy2(src,  dst)
 
         for cat in categories:
             if cat == 'common': continue
@@ -56,13 +59,80 @@ def gen_an_code():
             f.write(template_out)
         written[templ_name].append(fn_name)
 
+    def insert_in_file(file_path, search, insert):
+        import fileinput
+        for line in fileinput.FileInput(file_path, inplace=1):
+            if search in line:
+                line = line.replace(line, line + insert)
+                print(line, end='')
+            else:
+                print(line, end='')
+
+    def write_menu_template(dest_name):
+        # copy original
+        src = os.path.join(pwd, 'sub', 'animation_nodes', 'animation_nodes', 'ui', 'node_menu.py')
+        dst = os.path.join(pwd, templates, 'node_menu.py')
+        sh.copy2(src, dst)
+        search = 'layout.menu("AN_MT_sound_menu"'
+        insert = '''{% block layout_main %}
+    layout.menu("SP_MT_menu", text = "Sonic-PI", icon = "SOUND")
+{% endblock %}
+'''
+        insert_in_file(file_path=dst, search=search, insert=insert)
+        search = 'bpy.context.space_data.node_tree'
+        insert = '''
+{% macro insNode(synth_name, synth_descr) -%}
+        insertNode(layout, "an_sp_{{ synth_name|capitalize }}Node", "{{synth_descr}}")
+{%- endmacro %}
+
+{% block new_menu %}
+class SonicPI_Menu(bpy.types.Menu):
+    bl_idname = "SP_MT_menu"
+    bl_label = "Sonic-PI Menu"
+
+    def draw(self, context):
+        layout = self.layout
+        {{ insNode('send', 'Send to SonicPI') }}
+        {% for fn_name, fn in menu['common']|dictsort %}
+        {{ insNode(fn_name, fn.name) }}
+        {%- endfor %}
+        layout.separator()
+
+        {% for cat in categories[1:] %}
+        layout.menu("SP_MT_{{ cat }}_menu", text = "{{ cat|capitalize }}")
+        {%- endfor %}
+        
+
+        #layout.menu("SP_MT_synth_menu", text = "Synth")
+        #layout.menu("SP_MT_fx_menu", text = "FX")
+{% for cat in categories[1:] %}
+
+class SonicPI_{{ cat|capitalize }}_Menu(bpy.types.Menu):
+    bl_idname = "SP_MT_{{ cat }}_menu"
+    bl_label = "{{ cat|capitalize }} Menu"
+
+    def draw(self, context):
+        layout = self.layout
+        {% for synth_name, synth in menu[cat]|dictsort %}
+        {{ insNode(synth_name, synth_name) }}
+        {%- endfor %}
+{%- endfor %}     
+{% endblock -%}    
+
+'''
+        insert_in_file(file_path=dst, search=search, insert=insert)
+
     def write_menu(menu):
+        dest_name = "node_menu.py"
+        write_menu_template(dest_name)
         context = {
             'menu': menu,
             'categories': categories
         }
-        dest_name = "node_menu.py"
-        fname = os.path.join(pwd, 'ui', dest_name)
+
+
+        fname = os.path.join(ui, dest_name)
+
         with open(fname, 'w') as f:
             template = render_template(dest_name, context)
             f.write(template)
@@ -183,7 +253,8 @@ def copy_in_an():
     src = os.path.join(pwd, 'templates', 'SonicPI_send.py')
     dst2 = os.path.join(dst, 'SonicPI_send.py')
     sh.copy2(src,  dst2)
-    src = os.path.join(pwd, 'ui', 'node_menu.py')
+    ### node_menu
+    src = os.path.join(ui, 'node_menu.py')
     dst2 = os.path.join(pwd, 'build', 'animation_nodes', 'ui', 'node_menu.py')
     sh.copy2(src,  dst2)
 

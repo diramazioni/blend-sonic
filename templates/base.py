@@ -6,8 +6,8 @@ import bpy
 from bpy.props import *
 
 {% block imports %}
-from {{ menu_levels }} base_types.node import AnimationNode
-from {{ menu_levels }} tree_info import keepNodeState
+from {{ menu_levels }} base_types import AnimationNode
+#from {{ menu_levels }} tree_info import keepNodeState
 {% endblock %}
 
 
@@ -63,7 +63,7 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
 {{ macro.hideInput(count_args, post_args) }}
 {%- endblock %}{%- endwith %}
     
-    @keepNodeState    
+    #@keepNodeState
     def recreateInputs(self):
 {%- block recreateInputs %}
         pass

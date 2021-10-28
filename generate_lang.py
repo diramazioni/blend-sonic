@@ -1,8 +1,8 @@
 import os
 sonicpi = os.path.join("sub", "sonic-pi", "app", "server", "ruby", "lib", "sonicpi")
-core = sonicpi + os.path.join("lang", "core.rb")
-sounds = sonicpi + os.path.join("lang", "sound.rb")
-synths = sonicpi + os.path.join("synths", "synthinfo.rb")
+core = os.path.join(sonicpi, "lang", "core.rb")
+sounds = os.path.join(sonicpi, "lang", "sound.rb")
+synths = os.path.join(sonicpi, "synths", "synthinfo.rb")
 
 from constant_def import *
 from category_def import is_to_hide, is_inline_fn
@@ -85,6 +85,8 @@ class ParseConst(object):
         for i in range(times):
             self.l = self.l + 1
             self.line = self.lines[self.l]
+        if self.line.strip().startswith('#'):
+            self.next_line()
 
     def skip_to(self, match):
         while match not in self.line:
@@ -517,10 +519,20 @@ class ParseConst(object):
                     if not l:
                         self.next_line()
                         continue
-                    arg, v = l.split('=>')
-                    v = v.strip(',').strip()
-                    arg = arg.strip()[1:] # remove :
-                    arg_def[arg.strip()] = v
+                    arg = ""
+                    v = ""
+                    if('=>' in l):
+                        arg, v = l.split('=>')
+                        v = v.strip(',').strip()
+                        arg = arg.strip()[1:] # remove :
+                    elif ":" in l:
+                        arg, v = l.split(':')
+                        v = v.strip(',').strip()
+                    else:
+                        raise Exception("bailout arg_defaults not found", (self.line, self.l))
+
+                    if len(arg) > 0 and len(v) > 0:
+                        arg_def[arg.strip()] = v
                     self.next_line()
                 for k, v in arg_def.items():  # fix value reference
                     if v[0] == ":":
@@ -689,7 +701,7 @@ def parseSound():
     ps = ParseConst(const_file)
     defaults_opts = ps.parse_play_opts()
     #dump_dict([{"opts_default_val":defaults_opts }],'lang_def.py', 'w', "" )
-    ps.skip_to("def octs(")
+    ps.skip_to("def use_timing_guarantees(v, &block)")
     f_name = ""
     while not ps.line.startswith(stop_class_line):
         if ps.line.startswith(stop_class_line): break
@@ -715,8 +727,8 @@ def parseCore():
         const_file = infile.readlines()
     stop_class_line = '      def __on_thread_death'
     ps = ParseConst(const_file)
-    ps.skip_to("THREAD_RAND_SEED_MAX")
-    ps.next_line(2)
+    ps.skip_to("def set(k, val)")
+    #ps.next_line(2)
     f_name = ""
     while not ps.line.startswith(stop_class_line):
         if ps.line.startswith(stop_class_line): break
