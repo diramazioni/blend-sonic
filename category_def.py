@@ -2,7 +2,7 @@ from lang_def import *
 from constant_def import samples
 
 #                0         1      2       3        4          5          6         7        8        9
-categories = ['common', 'synth', 'fx', 'do_end', 'use', 'functions', 'control', 'buffer', 'env', 'general']
+categories = ['common', 'synth', 'fx', 'block', 'use', 'functions', 'control', 'buffer', 'env', 'general']
 
 all_lang_ref = list(lang_core.keys()) + list(lang_sound.keys())
 

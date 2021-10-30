@@ -158,7 +158,7 @@ class SonicPI_{{ cat|capitalize }}_Menu(bpy.types.Menu):
             category = categories[0] # common
             menu_levels = '...'
         elif fn_name in has_requires_block:
-            category = categories[3] # do_end
+            category = categories[3] # block
         elif fn_name in is_use_env:
             category = categories[4] # use
         elif fn_name in is_control:

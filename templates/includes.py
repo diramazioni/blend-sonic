@@ -69,10 +69,12 @@
 {% for ar in args %}
     {%- for arg, val in ar.items() %}        
         if s["{{ arg }}"].isUsed: 
-        {%- if arg  == "list" %}
-            yield "list_ = '['+', '.join(listIn)+']'"
-        {%- elif args_types[val] == "Text List"  and arg  != "list"%}
-            yield "args_.append(', '.join({{ arg+inp }}))" 
+        {%- if args_types[val] == "Text List" %} # sometimes lists are used with [] and sometimes not:/Y
+            {%- if arg  in ["list", "notes"] %}
+            yield "args_.append( '[' + ', '.join({{ arg+inp }}) + ']' )"
+            {% else %}
+            yield "args_.append(', '.join({{ arg+inp }}))"
+            {% endif %}
         {%- elif args_types[val] == "Float" %}
             yield "args_.append('{0:.3g}'.format({{ arg+inp }}))"
         {%- elif args_types[val] == "Boolean" %}
@@ -104,10 +106,13 @@
 {%- endmacro %} 
 
 {%- macro block_extra_input() %}
+        yield "intro_fn_ = ''"
     {%- if fn.intro_fn %}
         if s["intro var"].isUsed: yield "intro_fn_ = intro_fn +' '"
-        else: yield "intro_fn_ = ''"
-    {%- endif %}{%- if fn.async_block %}
+
+
+    {%- endif %}
+    {%- if fn.async_block %}
         if s["async block"].isUsed: 
             yield "async_ = ' |'+ async_block + '|'" 
             yield "if len(async_block): bpy.context.scene['sp_var'][async_block] = opts_"
