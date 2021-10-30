@@ -7,15 +7,15 @@
 
 
 {% block newInput%}
-        self.newInput("String", "line in", "code_in")
+        self.newInput("Text", "line in", "code_in")
 {%- endblock -%}
 {%- block newOutput %}
         self.newOutput("String", "line out", "code_out")
 {%- endblock -%}
 
 {% block extra_create %}
-        self.newInput("String", "prefix", "prefix_")
-        self.newInput("String", "postfix", "postfix_")
+        self.newInput("Text", "prefix", "prefix_")
+        self.newInput("Text", "postfix", "postfix_")
 {%- endblock %}
 
 {% block post_create %}

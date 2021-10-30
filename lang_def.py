@@ -36,7 +36,7 @@ lang_core = {
     ],
     "opts": {
       "your_key": ":bar",
-      "another_key": "foo: 64",
+      "another_key": "",
       "key": "foo: 64"
     },
     "accepts_block": false,
@@ -1603,15 +1603,14 @@ lang_core = {
     "name": "sleep",
     "introduced": "2,0,0",
     "summary": "Wait for beat duration",
-    "args": [],
-    "accepts_block": false,
-    "advances_time": true,
-    "hiden": false,
-    "alt_args": [
+    "args": [
       {
         "beats": ":number"
       }
-    ]
+    ],
+    "accepts_block": false,
+    "advances_time": true,
+    "hiden": false
   },
   "wait": {
     "signature": {

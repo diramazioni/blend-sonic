@@ -10,7 +10,7 @@ scale_items = [(k,k,'') for k in scale_names ]
 
 {%- block classMembers %}
 {{ super() }}
-    scaleList = EnumProperty(name="Scale", items = scale_items, default = ':major',  update=propertyChanged)
+    scaleList : EnumProperty(name="Scale", items = scale_items, default = ':major',  update=propertyChanged)
 {%- endblock %}
 
 {%- block draw %}

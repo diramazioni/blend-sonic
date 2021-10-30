@@ -7,7 +7,7 @@ degree_items = [(':'+k.lower(),k,'') for k in degree_names ]
 {% endblock %}
 
 {%- block classMembers %}
-    degreeList = EnumProperty(name="Degree", items = degree_items, update=propertyChanged)
+    degreeList : EnumProperty(name="Degree", items = degree_items, update=propertyChanged)
 {{ super() }}
 {%- endblock %}
 

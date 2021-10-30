@@ -10,7 +10,7 @@
 
 {%- macro newOptInput() %}
  {%- for opt, val in fn.opts|dictsort %}
-  {%- if opts_types[opt] == "String" %}        
+  {%- if opts_types[opt] == "Text" %}
         self.newInput("{{ opts_types[opt] }}", "{{ opt }}", "{{opt +inp}}", value = "{{ val }}")  
   {%- else %}
         self.newInput("{{ opts_types[opt] }}", "{{ opt }}", "{{opt +inp}}", value = {{ val }})     
@@ -20,12 +20,12 @@
 
 {%- macro block_extra_create() %}
     {%- if fn.intro_fn %}
-        self.newInput("String", "intro var", "intro_fn", value = "foo = ")
+        self.newInput("Text", "intro var", "intro_fn", value = "foo = ")
     {%- endif %}
     {%- if fn.async_block %}
-        self.newInput("String", "async block", "async_block", value = "synth")
+        self.newInput("Text", "async block", "async_block", value = "synth")
     {%- endif %}
-        self.newInput("String List", "do_end lines", "do_end")
+        self.newInput("Text List", "do_end lines", "do_end")
 {%- endmacro %} 
 
 
@@ -39,7 +39,7 @@
 {%- endmacro %}
 
 {%- macro enum_member(enumList, ename, items) %}
-    {{enumList}} = EnumProperty(name="{{ename}}", items = {{items}}, update=propertyChanged)
+    {{enumList}} : EnumProperty(name="{{ename}}", items = {{items}}, update=propertyChanged)
 {%- endmacro %}
  
 {%- macro next_prev_buttons(enumList) %}
@@ -71,7 +71,7 @@
         if s["{{ arg }}"].isUsed: 
         {%- if arg  == "list" %}
             yield "list_ = '['+', '.join(listIn)+']'"
-        {%- elif args_types[val] == "String List"  and arg  != "list"%}
+        {%- elif args_types[val] == "Text List"  and arg  != "list"%}
             yield "args_.append(', '.join({{ arg+inp }}))" 
         {%- elif args_types[val] == "Float" %}
             yield "args_.append('{0:.3g}'.format({{ arg+inp }}))"
@@ -90,7 +90,7 @@
     {%- for opt, val in fn.opts|dictsort  %}
         if s["{{ opt }}"].isUsed: 
             yield "pre = '{{ opt }}: '"
-        {%- if opts_types[opt] == "String List" %}
+        {%- if opts_types[opt] == "Text List" %}
             yield "opts_.append( pre + ', '.join({{ opt+inp }}))" 
         {%- elif opts_types[opt] == "Float" %}
             yield "opts_.append( pre + '{0:.3g}'.format({{ opt+inp }}))"
@@ -137,13 +137,13 @@
 {%- endmacro -%}
 
 {%- macro block_send(blk) %}
-        yield "f_call = intro_fn_ + '{{blk}}{{fn.name}} ' + args_ + sep+ opts_ "        
+        yield "f_call = intro_fn_ + '{{blk}}{{fn.name}} ' + args_ + sep + opts_ "
         yield "f_call = [f_call + ' do ' + async_]"
         yield "send = f_call + do_end + ['end']"    
 {%- endmacro -%}
 
 {%- macro no_block_send() %}
-        yield "send = [prefix + '{{ fn_name }} ' + args_ + sep+ opts_ + postfix]"
+        yield "send = [prefix + '{{ fn_name }} ' + args_ + sep + opts_ + postfix]"
 {%- endmacro -%}
 
 {%- macro opt_block_send() %}

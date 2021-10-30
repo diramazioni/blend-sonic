@@ -19,22 +19,22 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
     searchTags = ['SP {{ fn_name }}']
     onlySearchTags = True
     
-    infoMessage = StringProperty()
+    infoMessage: StringProperty()
 
 {%- block classMembers %}{%- endblock %}
             
     def draw(self, layout):
 {%- block draw %}
         if self.infoMessage != "":
-            layout.label(self.infoMessage, icon = "TRIA_RIGHT")
+            layout.label(text = self.infoMessage, icon = "TRIA_RIGHT")
 {%- endblock %}
 
-    def create(self):   
+    def setup(self):
 {%- block newInput%}
-        self.newInput("String List", "code in", "code_in")                  
+        self.newInput("Text List", "code in", "code_in")                  
 {%- endblock -%}
 {%- block newOutput %}
-        self.newOutput("String List", "code out", "code_out")
+        self.newOutput("Text List", "code out", "code_out")
 {%- endblock -%}        
 
 {%- block create %}{%- endblock -%}
@@ -50,7 +50,6 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
 {{ macro.newArgInput(fn.alt_args) }}
 {%- endif %}
 
-        self.recreateInputs()
 
 {%- if fn.opts %}
 {{ macro.newOptInput() }}
@@ -63,13 +62,9 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
 {{ macro.hideInput(count_args, post_args) }}
 {%- endblock %}{%- endwith %}
     
-    #@keepNodeState
-    def recreateInputs(self):
-{%- block recreateInputs %}
-        pass
-{%- endblock %}
 
-    def getExecutionCode(self):
+
+    def getExecutionCode(self, required):
     {%- block exe_decl %}
         #yield "send = []"
         yield "prefix, postfix, list_ = ('','','')"

@@ -18,7 +18,7 @@
 
 {#
 {% block create %}
-        self.newInput("String List", "opt in", "opt_in")
+        self.newInput("Text List", "opt in", "opt_in")
 {%- endblock %}
 {% block post_create %}
 {{ macro.hideInput(2, post_args ) }}       

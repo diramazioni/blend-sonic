@@ -10,7 +10,7 @@ notes_items = [(k[0],k[0],'') for k in notes_k ]
 {% endblock %}
 
 {%- block classMembers %}
-    noteList = EnumProperty(name="Note", items = notes_items)
+    noteList : EnumProperty(name="Note", items = notes_items)
 {%- endblock %}
 {%- block draw %}
         layout.prop(self, "noteList")
@@ -26,12 +26,12 @@ notes_items = [(k[0],k[0],'') for k in notes_k ]
         #self.newInputSocket()    
 {%- endblock -%}
 {%- block post_create %}
-    @property
-    def inputVariables(self):
-        return { socket.identifier : "element_" + str(i) for i, socket in enumerate(self.inputs) }
+
+    def getInputSocketVariables(self):
+        return {socket.identifier: "element_" + str(i) for i, socket in enumerate(self.inputs)}
     
     def newInputSocket(self):
-        socket = self.newInput("String", "Element")
+        socket = self.newInput("Text", "Element")
         socket.dataIsModified = True
         socket.display.text = True
         socket.value = self.noteList
@@ -64,13 +64,11 @@ notes_items = [(k[0],k[0],'') for k in notes_k ]
 {%- block exe_decl %}{%- endblock -%}
 
 {%- block execode %}
-        yield "send = [" + ", ".join(["element_" + str(i) for i, socket in enumerate(self.inputs) if socket.dataType != "Node Control"]) + "]"
-        
+        variableNames = ["element_" + str(i) for i, socket in enumerate(self.inputs) if socket.dataType != "Node Control"]
+        createPyListExpression = "[" + ", ".join(variableNames) + "]"
+        createListExpression = self.outputs[0].getFromValuesCode().replace("value", createPyListExpression)
+        return "code_out = " + createListExpression
 {%- endblock -%}
-{%- block code_out %}
-        yield 'code_out =  send'
-{%- endblock -%}
-{%- block infoMessage %}
-        yield 'self.infoMessage = ", ".join(code_out)' 
-{%- endblock %}
+{%- block code_out %}{%- endblock -%}
+{%- block infoMessage %}{%- endblock %}
         

@@ -12,7 +12,7 @@ class SonicSendNode(bpy.types.Node, AnimationNode):
     #send = BoolProperty(name = "send", default = False)
     stop: BoolProperty(name = "Add stop", default = False, update = propertyChanged)
   
-    def create(self):        
+    def setup(self):
         self.newInput("Boolean", "signal", "run", value = True)
         self.newInput("Integer", "skip run", "skip_run")
         self.newInput("Text List", "code lines", "code")

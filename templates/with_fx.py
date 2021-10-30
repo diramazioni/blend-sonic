@@ -2,7 +2,7 @@
 
 {%- block newOutput %}
 {{ super() }}
-        self.newOutput("String List", "opt out", "opt_out")
+        self.newOutput("Text List", "opt out", "opt_out")
 {%- endblock -%} 
 
 {%- block execode %}

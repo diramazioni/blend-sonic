@@ -5,7 +5,7 @@ from {{ menu_levels }} events import propertyChanged
 {% endblock %}
 
 {%- block classMembers %}        
-    dot = BoolProperty(name = "Add dot", default = False, update = propertyChanged)
+    dot : BoolProperty(name = "Add dot", default = False, update = propertyChanged)
 {%- endblock %}
 
 {%- block draw %}

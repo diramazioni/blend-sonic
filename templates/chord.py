@@ -10,7 +10,7 @@ chord_items = [(k,k,'') for k in chord_names ]
 
 {%- block classMembers %}
 {{ super() }}
-    chordList = EnumProperty(name="Chord", items = chord_items, default = ':major', update=propertyChanged)
+    chordList : EnumProperty(name="Chord", items = chord_items, default = ':major', update=propertyChanged)
 {%- endblock %}
 
 {%- block draw %}

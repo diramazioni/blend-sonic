@@ -3,7 +3,7 @@ null = None
 
 
 opts_default_val = {
-  "another_key": "foo: 64",  #only used in cue accepts: Numbers, Symbols, Booleans and Nil, or Vectors/Rings of immutable types"
+  "another_key": "",  #only used in cue accepts: Numbers, Symbols, Booleans and Nil, or Vectors/Rings of immutable types"
   "amp": 1, 
   "amp_slide": 1,  
   "attack": 0,  
@@ -93,7 +93,7 @@ opts_default_val = {
 }
 
 opts_types_conversion = {
-  "another_key": "String",  # immutable  
+  "another_key": "Text",  # immutable  
   "amp": "Float",
   "amp_slide": "Float",
   "attack": "Float", 
@@ -113,12 +113,12 @@ opts_types_conversion = {
   "sustain": "Float",
   "sustain_level": "Float",    
   "inclusive": "Boolean",
-  "init": "String", # ? there are no examples...
+  "init": "Text", # ? there are no examples...
   "invert": "Integer",  
   "num_beats": "Integer",
   "num_octaves": "Integer",
   "octave": "Integer", 
-  "pitches": "String List", # notes [ :A, :B4, :C4 ]
+  "pitches": "Text List", # notes [ :A, :B4, :C4 ]
   "pre_amp": "Float",
   "reps": "Integer",
   "kill_delay": "Float",
@@ -134,7 +134,7 @@ opts_types_conversion = {
   "start": "Float",
   "clamp_time": "Float", # ?
   "compress": "Boolean",
-  "key": "String", # notes etc immutable
+  "key": "Text", # notes etc immutable
   "hpf": "Float",
   "hpf_bypass": "Boolean",
   "hpf_attack": "Float",
@@ -159,7 +159,7 @@ opts_types_conversion = {
   "lpf_release_level": "Float",
   "lpf_sustain": "Float",
   "lpf_sustain_level": "Float",
-  "name": "String",  
+  "name": "Text",  
   "norm": "Float", #?
   "onset": "Integer", 
   "offset": "Integer",  
@@ -169,10 +169,10 @@ opts_types_conversion = {
   "skip": "Integer",
   "step": "Float",
   "steps": "Integer", # positive
-  "sync": "String", # symbol
-  "sync_bpm": "String", # symbol
-  "your_key": "String",  # symbol
-  "path": "String",
+  "sync": "Text", # symbol
+  "sync_bpm": "Text", # symbol
+  "your_key": "Text",  # symbol
+  "path": "Text",
   "pitch_dis": "Float",
   "relax_time": "Float", # ?
   "slope_above": "Float",
@@ -481,33 +481,33 @@ opts_types_conversion = {
 }
 
 args_types_conversion = {
-  ":anything": "String", 
-  ":array": "String List", # notes (ring) :A3, :B4, :C4 
+  ":anything": "Text", 
+  ":array": "Text List", # notes (ring) :A3, :B4, :C4 
   ":boolean": "Boolean", 
   ":density": "Integer",  # positive Int 
   ":int": "Integer",  
-  ":list": "String List", # notes [ :A, :B4, :C4 ]
-  ":list_or_number": "String List", # notes AND int_List [ :A, :B4, :C4 ], [ 1,2,3 ]
+  ":list": "Text List", # notes [ :A, :B4, :C4 ]
+  ":list_or_number": "Text List", # notes AND int_List [ :A, :B4, :C4 ], [ 1,2,3 ]
   ":midi_number": "Integer", # note (only used in pitch_to_ratio)
   ":note": "Integer", # note (ring) # :A3 or 60
   ":number": "Float",
   ":number_or_nil": "Integer", # posiyive int, can be null
-  ":number_or_range": "String", # int or (range 1, 5)  
+  ":number_or_range": "Text", # int or (range 1, 5)  
   ":number_symbol_or_map": "Integer", # note (only used in :rest?)
-  ":path": "String",  # escaped with \"
+  ":path": "Text",  # escaped with \"
   ":pos_int": "Integer", # note (ring)
   ":positive_number": "Float",  
   ":ramp": "Integer",  # only used in ramp as return value
-  ":sample_name_or_duration": "String", # string_or_number (only used in :use_sample_bpm :with_sample_bpm)
-  ":source_and_filter_types": "String", # same as symbol_or_string sample (only used in :sample_paths)
-  ":string": "String",
-  ":symbol": "String", # note/reference with :
-  ":symbol_or_number": "String", # note/reference: :A or 60
-  ":symbol_or_string": "String", # note/reference: :A or 60
-  ":synth_node": "String", # reference to var = 
+  ":sample_name_or_duration": "Text", # string_or_number (only used in :use_sample_bpm :with_sample_bpm)
+  ":source_and_filter_types": "Text", # same as symbol_or_string sample (only used in :sample_paths)
+  ":string": "Text",
+  ":symbol": "Text", # note/reference with :
+  ":symbol_or_number": "Text", # note/reference: :A or 60
+  ":symbol_or_string": "Text", # note/reference: :A or 60
+  ":synth_node": "Text", # reference to var = 
   ":truthy": "Boolean", # true except for: false, nil and 0
-  ":true_or_false": "String", # true or false (lowercase)
-  ":ring": "String List", # only used as return value for array of notes (ring)
+  ":true_or_false": "Text", # true or false (lowercase)
+  ":ring": "Text List", # only used as return value for array of notes (ring)
   ":vector": "Integer List" # only used as return value for vector
 }
 '''

@@ -11,7 +11,7 @@ notes_items = [(k[0],k[0][1:],'') for k in notes_k ]
 {% endblock %}
 
 {%- block classMembers %}
-    noteList = EnumProperty(name="Note", items = notes_items, update=propertyChanged)
+    noteList : EnumProperty(name="Note", items = notes_items, update=propertyChanged)
 {%- endblock %}
 {%- block draw %}
         layout.prop(self, "noteList")

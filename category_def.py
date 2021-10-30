@@ -153,7 +153,7 @@ is_dups = ['wait','with_afx', 'use_fx', 'use_timing_warnings', 'invert_chord', '
 
 is_to_hide = [ 'dec', 'inc', 'puts',
                'load_synthdefs', 'load_example', 'comment', 'uncomment','resolve_sample_paths', 'resolve_sample_path',
-               'use_osc', 'osc','with_timing_warnings','use_timing_warnings', 'use_external_synths',
+               'use_osc', 'osc', 'osc_send', 'with_timing_warnings','use_timing_warnings', 'use_external_synths',
                'start_amp_monitor', 'current_amp', 'sample_split_filts_and_opts','ndefine', 'spark_graph',
            ] + is_just_output + is_dups + is_rec + is_synth
 

@@ -524,8 +524,8 @@ class ParseConst(object):
                     if('=>' in l):
                         arg, v = l.split('=>')
                         v = v.strip(',').strip()
-                        arg = arg.strip()[1:] # remove :
-                    elif ":" in l:
+                        arg = arg.strip()[1:]
+                    elif ":" in l: # found also this variant prop: val in un case
                         arg, v = l.split(':')
                         v = v.strip(',').strip()
                     else:
@@ -938,9 +938,9 @@ def addMetaData(consts):
                             'use_sample_bpm': {  # override
                                 "args": [],
                                 "alt_args": [{"string_or_number": ":sample_name_or_duration"}]},
-                            'sleep': {  # override
-                                "args": [],
-                                "alt_args": [{"beats": ":number"}]},
+                            # 'sleep': {  # override
+                            #     "args": [],
+                            #     "alt_args": [{"beats": ":number"}]},
                             'with_fx': {  # override
                                 "args": [],
                                 "alt_args": [{"fx_name": ":symbol"}]},

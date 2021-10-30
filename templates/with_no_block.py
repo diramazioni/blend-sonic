@@ -3,8 +3,8 @@
 
 
 {% block extra_create %}
-        self.newInput("String", "prefix", "prefix_")
-        self.newInput("String", "postfix", "postfix_")
+        self.newInput("Text", "prefix", "prefix_")
+        self.newInput("Text", "postfix", "postfix_")
 {%- endblock %}
 
 {% block post_create %}
