@@ -30,13 +30,20 @@ class SonicSendNode(bpy.types.Node, AnimationNode):
             #print("%s > %s " % (self.identifier, counter))
         else:
             bpy.context.scene['sp_skip'][self.identifier] = 0
-            counter = 0        
+            counter = 0
+        if self.identifier in bpy.context.scene['sp_queue']:
+            _last_code = bpy.context.scene['sp_queue'][self.identifier]
+        else:
+            _last_code = ""
+
         if counter > skip_run:  # reset
             counter = 0
+            old_code = ""
         if counter == skip_run:  # run !!!
             if not self.stop: code = ['stop']+code
             if run == True:
-                bpy.context.scene['sp_queue'][self.identifier] = code
+                if code != _last_code:
+                    bpy.context.scene['sp_queue'][self.identifier] = code
                 #self.send = False
                 counter += 1
         else:     # increment

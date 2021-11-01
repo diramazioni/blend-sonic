@@ -157,6 +157,8 @@ class SPI_client(bpy.types.Operator, object):
 
     _timer = None
     client = None
+    _last_code = []
+    _debug = True
     
     speed: FloatProperty(default=0.1)
     mode: StringProperty()
@@ -202,7 +204,7 @@ class SPI_client(bpy.types.Operator, object):
             note = 36
             c2 = 'play {0}{1}'.format(note, '')
             c1 = 'use_synth :{0}'.format('pulse') 
-            code = []
+            self._last_code, code = [], []
             
             context.scene['sp_queue'][agent] = code
        
@@ -213,7 +215,9 @@ class SPI_client(bpy.types.Operator, object):
             #osc_statemachine['server'].shutdown()
             #osc_statemachine['server'].server_close()
             osc_statemachine['status'] = STOPPED
-    
+            self._last_code, code = [], []
+
+
     def stop_all(self):
         msg = osc_message_builder.OscMessageBuilder(address="/stop-all-jobs")
         msg = msg.build()
@@ -223,12 +227,16 @@ class SPI_client(bpy.types.Operator, object):
         
 
     def run_code(self, agent='', code=[]):
-        print("AGENT:", (agent, code))
-        msg = osc_message_builder.OscMessageBuilder(address="/run-code")
-        msg.add_arg(agent)
-        msg.add_arg('\n'.join(code))
-        msg = msg.build()
-        self.client.send(msg)
+        if self._last_code != code:
+            if self._debug: print("AGENT:", (agent, code))
+            msg = osc_message_builder.OscMessageBuilder(address="/run-code")
+            msg.add_arg(agent)
+            msg.add_arg('\n'.join(code))
+            msg = msg.build()
+            self.client.send(msg)
+            self._last_code = code
+        else:
+            if self._debug: print("skipping same run")
         
     def execute(self, context):
 

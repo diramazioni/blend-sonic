@@ -147,11 +147,13 @@ class SonicPI_{{ cat|capitalize }}_Menu(bpy.types.Menu):
         'args_types': args_types_conversion,
         'opts_types': opts_types_conversion,
     }
-    ## is_inline_fn
+
     for fn_name in sub_list(all_lang_ref, is_to_hide):
+        ########################
+        #   menu assignment
         menu_levels = '....'
         # if fn_name is is_to_hide: continue
-        if fn_name in is_inline_fn:
+        if fn_name in is_fn:
             category = categories[5] # functions
 
         elif fn_name in is_common:
@@ -166,10 +168,11 @@ class SonicPI_{{ cat|capitalize }}_Menu(bpy.types.Menu):
         elif fn_name in is_buffer_fn:
             category = categories[7] # buffer
         elif fn_name in has_modifies_env:
-            category = categories[8]  # buffer
+            category = categories[8]  # env
         else:
             category = categories[9] # general
-
+        ########################
+        #   template assignment
         if fn_name in fn_simple + fn_embeded:
             templ_name = "fn_simple"
         elif fn_name in fn_normal:

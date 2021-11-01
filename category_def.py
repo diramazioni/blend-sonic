@@ -19,6 +19,13 @@ all_lang_ref = list(lang_core.keys()) + list(lang_sound.keys())
 #             yield value['name']
 
 # all_fx = {s: fx[synth_nodes[s]] for s in all_fx_names()}
+def sub_list(list_source, *lists_subtract):
+    final = []
+    for key in lists_subtract:
+        final += key
+    sub = list(set(list_source) - set(final))
+    return sorted(sub)
+
 
 def predef_sample_names():
     all = []
@@ -124,8 +131,10 @@ here spark_graph, range, shuffle are inline
 '''
 
 
-# fn_ringed are function like tick, shuffle (ring).fn(arg)
+# fn_ringed are function like tick, shuffle
+# format: (ring).fn(arg)
 fn_ringed = ['pick', 'tick', 'look', 'shuffle', 'choose', 'stretch', ]
+
 # fn_embeded are functions surrounded by () like (knit 1, 5)
 fn_embeded = ['bools', 'chord', 'chord_degree', 'chord_invert', 'doubles', 'halves', 'knit', 'line', 'midi_notes',
               'note_range', 'octs', 'ramp', 'range', 'ring', 'scale', 'scale',  'spread', 'vector']
@@ -135,8 +144,12 @@ fn_simple = ['dice', 'one_in', 'pitch_to_ratio', 'ratio_to_pitch']
 fn_normal = ['degree', 'hz_to_midi', 'midi_to_hz', 'quantise', 'rand', 'rand_i',
              'rand_i_look', 'rand_look', 'rdist', 'rrand', 'rrand_i', 'rt', 'vt']
 
-is_inline_fn = fn_ringed + fn_embeded + fn_simple + fn_normal
+is_fn = fn_ringed + fn_embeded + fn_simple + fn_normal
 
+
+
+### hide these functions
+# set hide to false if not set and hide the one we are not going to use
 is_just_output = ['all_sample_names', 'beat', 'bt', 'chord_names', 'current_arg_checks',
                'current_beat_duration', 'current_bpm', 'current_cent_tuning', 'current_debug', 'current_octave',
                'current_random_seed', 'current_sample_defaults', 'current_sched_ahead_time', 'current_synth',
@@ -146,13 +159,13 @@ is_just_output = ['all_sample_names', 'beat', 'bt', 'chord_names', 'current_arg_
 
 is_synth = ['with_fx', 'synth', 'with_synth', 'use_synth', 'use_synth_defaults','with_synth_defaults', 'with_merged_synth_defaults']
 
-# set hide to false if not set and hide the one we are not going to use
 is_rec = ['recording_delete', 'recording_save', 'recording_start', 'recording_stop']
 is_dups = ['wait','with_afx', 'use_fx', 'use_timing_warnings', 'invert_chord', 'pitch_ratio', 'print', 'sample_buffer',
            'with_tempo', 'pitch_ratio', 'load_sample', 'load_sample_at_path',]
 
 is_to_hide = [ 'dec', 'inc', 'puts',
                'load_synthdefs', 'load_example', 'comment', 'uncomment','resolve_sample_paths', 'resolve_sample_path',
+               'with_debug', 'use_debug',
                'use_osc', 'osc', 'osc_send', 'with_timing_warnings','use_timing_warnings', 'use_external_synths',
                'start_amp_monitor', 'current_amp', 'sample_split_filts_and_opts','ndefine', 'spark_graph',
            ] + is_just_output + is_dups + is_rec + is_synth
@@ -167,9 +180,9 @@ is_buffer_fn = ['load_buffer', 'load_samples',
                 ]
 
 is_control = [ 'clear', 'control', 'cue', 'kill', 'rand_back', 'rand_reset', 'rand_skip',
-              'reset', 'sample_free', 'sample_free_all', 'sleep', 'stop', 'sync', 'sync_bpm',
+              'reset', 'sample_free', 'sample_free_all', 'stop', 'sync', 'sync_bpm',
                'tick_reset', 'tick_reset_all', 'tick_set',]
-is_common = ['play', 'chord', 'note', 'note_list', 'live_loop', 'sample']
+is_common = ['play', 'sleep', 'chord', 'note', 'note_list', 'live_loop', 'sample']
 # ring_returns = [ret for ret in has_returns if lng(ret)['returns'] == ":ring" ]
 
 is_use_env = [ret for ret in all_lang_ref if ret.startswith('use_') ]
@@ -215,12 +228,7 @@ def report():
 
 
 # print(sub_list([1,2,3,4,5], [1,2], [3,4]))
-def sub_list(list_source, *lists_subtract):
-    final = []
-    for key in lists_subtract:
-        final += key
-    sub = list(set(list_source) - set(final))
-    return sorted(sub)
+
 
 
 

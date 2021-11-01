@@ -89,7 +89,8 @@ opts_default_val = {
   "slope_below": 1,
   "threshold": 0, #?
   "time_dis": 0, #?
-  "window_size": 0 #?
+  "window_size": 0, #?
+  "num_sides": 6
 }
 
 opts_types_conversion = {

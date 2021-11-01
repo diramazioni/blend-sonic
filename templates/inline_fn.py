@@ -10,7 +10,7 @@
         self.newInput("Text", "line in", "code_in")
 {%- endblock -%}
 {%- block newOutput %}
-        self.newOutput("String", "line out", "code_out")
+        self.newOutput("Text", "line out", "code_out")
 {%- endblock -%}
 
 {% block extra_create %}

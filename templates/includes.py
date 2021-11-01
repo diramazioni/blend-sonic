@@ -66,10 +66,14 @@
 {%- endmacro %}
 
 {% macro argCheck(args) -%}
+### note
+# args comes from lang_def.py
+# args_types comes from constant_def.py
+
 {% for ar in args %}
     {%- for arg, val in ar.items() %}        
-        if s["{{ arg }}"].isUsed: 
-        {%- if args_types[val] == "Text List" %} # sometimes lists are used with [] and sometimes not:/Y
+        if s["{{ arg }}"].isUsed:
+        {%- if args_types[val] == "Text List" %}
             {%- if arg  in ["list", "notes"] %}
             yield "args_.append( '[' + ', '.join({{ arg+inp }}) + ']' )"
             {% else %}
@@ -112,12 +116,13 @@
 
 
     {%- endif %}
+
+        yield "async_ = ''"
     {%- if fn.async_block %}
         if s["async block"].isUsed: 
             yield "async_ = ' |'+ async_block + '|'" 
             yield "if len(async_block): bpy.context.scene['sp_var'][async_block] = opts_"
-        else: yield "async_ = ''"
-    {%- endif %}   
+    {%- endif %}
 {%- endmacro %} 
 
 {%- macro opt_join() %}

@@ -1,0 +1,64 @@
+functions requires code in out
+
+
+
+
+ERROR
+
+FXAutotuner
+    KeyError: 'bpy_prop_collection[key]: key "formant_ratio" not found'
+
+
+NOT WORKING
+################
+# functions
+
+remove [] from input list
+    bools ramp ring
+
+remove surrounding ()
+    dice tick one_in quantise rand rand_i rand_look rand_i_look
+-> fn_normal + fn_simple are also fn_embeded ?
+
+list of buolean not list of strings
+    bools
+
+ovveride mandatory/default options
+    knit
+        count should be optional
+    range
+        step_size should be optional
+
+## support this kind of construct
+
+s = play 70, release: 8, note_slide: 8
+control s, note: 82
+
+
+
+
+
+
+
+########## an note ########## 
+
+    def operationChanged(self, context):
+        self.recreateInputSockets()
+
+    operation = EnumProperty(name = "Operation", default = "MULTIPLY",
+        items = operationItems, update = operationChanged)
+    
+    @keepNodeState
+    def recreateInputSockets(self):
+        self.inputs.clear()
+
+        self.newInput("Float", "A", "a")
+        if self.operation in secondInputOperations:
+            self.newInput("Float", "B", "b").value = 1
+########## an TO ASK ########## 
+
+def edit(self): ? seems to deal with operation made on node to change the output type
+
+# sometimes lists are used with [] and sometimes not
+
+
