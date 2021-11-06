@@ -26,15 +26,16 @@ import random
 
 {%- block create %}
         self.auto_name = self.name_generator()
-        bpy.context.scene['sp_loop'] = {self.identifier: ''}
+        if 'sp_loop' in bpy.context.scene:
+            bpy.context.scene['sp_loop'][self.identifier] = ''
+        else:
+            bpy.context.scene['sp_loop'] = {self.identifier: ''}
+
 {%- endblock -%}
 
 
 {%- block execode %}
-
-        # if self.identifier in bpy.context.scene['sp_loop']:
-        # else:
-        #     yield "old_name = '' ; print('new session')"
+        if not self.identifier in bpy.context.scene['sp_loop']: bpy.context.scene['sp_loop'][self.identifier] = ''
         yield "old_name = bpy.context.scene['sp_loop'][self.identifier]"
         yield "play = self.play;  name_ = self.auto_name;"
         yield "if not play and old_name == name_:" \
@@ -47,11 +48,6 @@ import random
               "self.infoMessage = 'new ' + self.auto_name;"
         yield "elif not play and old_name != name_: self.infoMessage = 'stop'"
         yield "else : self.infoMessage = 'play ' + name_"
-
-#       "bpy.context.scene['sp_loop'][self.auto_name] = False;"
-        #         # "self.infoMessage = '[stop]';" \
-        #
-        # yield "if not bpy.context.scene['sp_loop'][self.auto_name]:" \
 
 
 {{ macro.opt_join() }}
