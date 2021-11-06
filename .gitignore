@@ -5,3 +5,4 @@ nodes/
 build/*
 .idea/
 
+*.blend1
