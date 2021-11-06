@@ -19,12 +19,7 @@ written = defaultdict(list)
 templates = 'templates'
 ext = ".py"
  
-def render_template(template_file, context):
 
-    template_env = Environment(
-        autoescape = False, loader = FileSystemLoader(os.path.join(pwd, templates)), extensions=['jinja2.ext.with_'], trim_blocks = False )
-    return template_env.get_template(template_file).render(context)
- 
  
 def gen_an_code():
     def prep_dir(categories):
@@ -43,6 +38,13 @@ def gen_an_code():
             os.makedirs(dst)
             dst = os.path.join(nodes, cat, '__init__.py')
             sh.copy2(src,  dst)
+
+    def render_template(template_file, context):
+
+        template_env = Environment(
+            autoescape=False, loader=FileSystemLoader(os.path.join(pwd, templates)), extensions=['jinja2.ext.with_'],
+            trim_blocks=False)
+        return template_env.get_template(template_file).render(context)
 
     def write_template(cat, context, fn_name, templ_name):
         print("w: %s %s %s " % (cat, templ_name, fn_name))
@@ -150,7 +152,7 @@ class SonicPI_{{ cat|capitalize }}_Menu(bpy.types.Menu):
 
     for fn_name in sub_list(all_lang_ref, is_to_hide):
         ########################
-        #   menu assignment
+        #   menu category assignment
         menu_levels = '....'
         # if fn_name is is_to_hide: continue
         if fn_name in is_fn:
@@ -184,7 +186,6 @@ class SonicPI_{{ cat|capitalize }}_Menu(bpy.types.Menu):
         elif fn_name in has_accepts_block_false:
             templ_name = "with_no_block"
         elif fn_name in sub_list(has_accepts_block, has_requires_block):  # optional block
-            # templ_name = "with_no_block"
             templ_name = "with_opt_block"
         else:
             templ_name = None

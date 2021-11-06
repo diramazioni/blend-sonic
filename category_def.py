@@ -163,7 +163,7 @@ is_rec = ['recording_delete', 'recording_save', 'recording_start', 'recording_st
 is_dups = ['wait','with_afx', 'use_fx', 'use_timing_warnings', 'invert_chord', 'pitch_ratio', 'print', 'sample_buffer',
            'with_tempo', 'pitch_ratio', 'load_sample', 'load_sample_at_path',]
 
-is_to_hide = [ 'dec', 'inc', 'puts',
+is_to_hide = [ 'dec', 'inc', 'puts', 'loop',
                'load_synthdefs', 'load_example', 'comment', 'uncomment','resolve_sample_paths', 'resolve_sample_path',
                'with_debug', 'use_debug',
                'use_osc', 'osc', 'osc_send', 'with_timing_warnings','use_timing_warnings', 'use_external_synths',

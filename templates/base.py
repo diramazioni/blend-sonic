@@ -22,7 +22,9 @@ class Sonic{{ fn_name |capitalize }}Node(bpy.types.Node, AnimationNode):
     infoMessage: StringProperty()
 
 {%- block classMembers %}{%- endblock %}
-            
+
+{%- block util_func %}{%- endblock %}
+
     def draw(self, layout):
 {%- block draw %}
         if self.infoMessage != "":

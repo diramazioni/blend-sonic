@@ -9,5 +9,5 @@
         yield "opt_out = opts_"
 {{ macro.opt_join() }} 
 {{ macro.arg_join() }} 
-{{ macro.block_send('with_fx ') }}
+{{ macro.block_send('with_fx ','') }}
 {%- endblock %}

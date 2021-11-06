@@ -22,7 +22,7 @@
 
 {%- block execode %}
 {{ super() }}
-{{ macro.block_send('') }}     
+{{ macro.block_send('','') }}
 {%- endblock %}
 
 {%- block code_out %}

@@ -1,3 +1,5 @@
+
+
 functions requires code in out
 
 
@@ -10,6 +12,11 @@ FXAutotuner
 
 
 NOT WORKING
+
+stop
+    when it stops the live_loop the loop is dead forever and doesn't restart
+        implement a button that put stop and reset the name
+
 ################
 # functions
 

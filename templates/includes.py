@@ -64,11 +64,11 @@
                 self.{{enumList}} = {{items}}[idx]
                 return        
 {%- endmacro %}
-
-{% macro argCheck(args) -%}
 ### note
 # args comes from lang_def.py
 # args_types comes from constant_def.py
+
+{% macro argCheck(args) -%}
 
 {% for ar in args %}
     {%- for arg, val in ar.items() %}        
@@ -146,10 +146,10 @@
         yield "send = prefix + send + postfix"
 {%- endmacro -%}
 
-{%- macro block_send(blk) %}
-        yield "f_call = intro_fn_ + '{{blk}}{{fn.name}} ' + args_ + sep + opts_ "
+{%- macro block_send(with_name, loop_name) %}
+        yield "f_call = intro_fn_ + '{{with_name}}{{fn.name}} ' + {{loop_name}} + args_ + sep + opts_ "
         yield "f_call = [f_call + ' do ' + async_]"
-        yield "send = f_call + do_end + ['end']"    
+        yield "send = f_call + do_end + ['end']"
 {%- endmacro -%}
 
 {%- macro no_block_send() %}

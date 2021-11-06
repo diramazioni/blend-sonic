@@ -5,7 +5,7 @@ sounds = os.path.join(sonicpi, "lang", "sound.rb")
 synths = os.path.join(sonicpi, "synths", "synthinfo.rb")
 
 from constant_def import *
-from category_def import is_to_hide, is_inline_fn
+from category_def import is_to_hide, is_fn
 
 #opts_default_val, opts_types_conversion, args_types_conversion, \
 # is_inline, is_buffer_fn, missing_intro_fn, missing_async_block, wrong_accepts_block, is_to_hide
@@ -878,72 +878,77 @@ def addMetaData(consts):
         'use_timing_guarantees': {"accepts_block": False, "requires_block": False},
     }
     #{'tick': 0}, {'shuffle': 0}, {'choose': 0}, {'stretch': 0}, {'stretch': 1}
-    arg_fixes = {           'pick': {
-                                "args": [{"n": ":number_or_nil" }],
-                                "alt_args":[{"list": ":array" }
-                                            ]},
-                            'tick': {
-                                "args": [],
-                                "alt_args": [{"list": ":array"},
-                                             { "key": ":symbol"},
-                                             { "value": ":number"}
-                                             ]},
-                            'look': {
-                                "alt_args": [{"list": ":array"},
-                                             { "key": ":symbol"}
-                                             ]},
-                            'shuffle': {
-                                "args": [],
-                                "alt_args": [{"list": ":array"}
-                                             ]},
-                            'choose': {
-                                "args": [],
-                                "alt_args": [{"list": ":array"}
-                                             ]},
-                            'stretch': {
-                                "args": [{"count": ":int"}],
-                                "alt_args": [{"list": ":array"}
-                                             ]},
-                            'assert': { # override
-                                "args": [{"is_true": ":boolean"}],
-                                "alt_args": []},
-                            'stop': { # override
-                                "args": [{"signal": ":boolean"}],
-                                "alt_args": []},
-                            'note': { # override
-                                "args": [],
-                                "alt_args": [{ "note": ":symbol"},],
-                                "opts": {}},
-                            'chord': { # override
-                                "args": [],
-                                "alt_args": [{"tonic": ":symbol" },
-                                         {"chord": ":symbol"}]},
-                            'scale': {  # override
-                                "args": [],
-                                "alt_args": [{"tonic": ":symbol"},
-                                             {"scale": ":symbol"}]},
-                            'degree': {  # override
-                                "args": [],
-                                "alt_args": [{"degree": ":symbol"},
-                                             {"tonic": ":symbol"},
-                                             {"scale": ":symbol"}]},
-                            'chord_degree': {  # override
-                                "args": [{"number_of_notes": ":int"}],
-                                "alt_args": [{"degree": ":symbol"},
-                                             {"tonic": ":symbol"},
-                                             {"scale": ":symbol"}]},
-                            'sample': {  # override
-                                "args": [],
-                                "alt_args": [{"name_or_path": ":symbol_or_string"}]},
-                            'use_sample_bpm': {  # override
-                                "args": [],
-                                "alt_args": [{"string_or_number": ":sample_name_or_duration"}]},
-                            # 'sleep': {  # override
-                            #     "args": [],
-                            #     "alt_args": [{"beats": ":number"}]},
-                            'with_fx': {  # override
-                                "args": [],
-                                "alt_args": [{"fx_name": ":symbol"}]},
+    arg_fixes = {
+                'live_loop': {
+                    "args": [],
+                    "alt_args": [{"name": ":symbol"}
+                                 ]},
+                'pick': {
+                    "args": [{"n": ":number_or_nil" }],
+                    "alt_args":[{"list": ":array" }
+                                ]},
+                'tick': {
+                    "args": [],
+                    "alt_args": [{"list": ":array"},
+                                 { "key": ":symbol"},
+                                 { "value": ":number"}
+                                 ]},
+                'look': {
+                    "alt_args": [{"list": ":array"},
+                                 { "key": ":symbol"}
+                                 ]},
+                'shuffle': {
+                    "args": [],
+                    "alt_args": [{"list": ":array"}
+                                 ]},
+                'choose': {
+                    "args": [],
+                    "alt_args": [{"list": ":array"}
+                                 ]},
+                'stretch': {
+                    "args": [{"count": ":int"}],
+                    "alt_args": [{"list": ":array"}
+                                 ]},
+                'assert': { # override
+                    "args": [{"is_true": ":boolean"}],
+                    "alt_args": []},
+                'stop': { # override
+                    "args": [{"signal": ":boolean"}],
+                    "alt_args": []},
+                'note': { # override
+                    "args": [],
+                    "alt_args": [{ "note": ":symbol"},],
+                    "opts": {}},
+                'chord': { # override
+                    "args": [],
+                    "alt_args": [{"tonic": ":symbol" },
+                             {"chord": ":symbol"}]},
+                'scale': {  # override
+                    "args": [],
+                    "alt_args": [{"tonic": ":symbol"},
+                                 {"scale": ":symbol"}]},
+                'degree': {  # override
+                    "args": [],
+                    "alt_args": [{"degree": ":symbol"},
+                                 {"tonic": ":symbol"},
+                                 {"scale": ":symbol"}]},
+                'chord_degree': {  # override
+                    "args": [{"number_of_notes": ":int"}],
+                    "alt_args": [{"degree": ":symbol"},
+                                 {"tonic": ":symbol"},
+                                 {"scale": ":symbol"}]},
+                'sample': {  # override
+                    "args": [],
+                    "alt_args": [{"name_or_path": ":symbol_or_string"}]},
+                'use_sample_bpm': {  # override
+                    "args": [],
+                    "alt_args": [{"string_or_number": ":sample_name_or_duration"}]},
+                # 'sleep': {  # override
+                #     "args": [],
+                #     "alt_args": [{"beats": ":number"}]},
+                'with_fx': {  # override
+                    "args": [],
+                    "alt_args": [{"fx_name": ":symbol"}]},
     }
     new_functions = {
         "note_list": {
@@ -982,7 +987,7 @@ def addMetaData(consts):
             val['async_block'] = True
         if fn in missing_intro_fn:
             val['intro_fn'] = True
-        if fn in is_inline_fn:
+        if fn in is_fn:
             val['inline'] = True
         if fn in wrong_block.keys():
             for k, v in wrong_block[fn].items():

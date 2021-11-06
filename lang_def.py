@@ -263,7 +263,7 @@ lang_core = {
     ],
     "returns": null,
     "accepts_block": true,
-    "hiden": false
+    "hiden": true
   },
   "osc": {
     "signature": {
@@ -771,7 +771,7 @@ lang_core = {
     "accepts_block": true,
     "requires_block": true,
     "async_block": false,
-    "hiden": false
+    "hiden": true
   },
   "live_loop": {
     "signature": {
@@ -782,11 +782,7 @@ lang_core = {
     "name": "live_loop",
     "introduced": "2,1,0",
     "summary": "A loop for live coding",
-    "args": [
-      {
-        "name": ":symbol"
-      }
-    ],
+    "args": [],
     "opts": {
       "init": "",
       "auto_cue": true,
@@ -799,7 +795,12 @@ lang_core = {
     "requires_block": true,
     "async_block": true,
     "intro_fn": true,
-    "hiden": false
+    "hiden": false,
+    "alt_args": [
+      {
+        "name": ":symbol"
+      }
+    ]
   },
   "block_duration": {
     "signature": {
@@ -2093,7 +2094,7 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hiden": true
   },
   "with_debug": {
     "signature": {
@@ -2110,7 +2111,7 @@ lang_sound = {
     ],
     "accepts_block": true,
     "requires_block": true,
-    "hiden": false
+    "hiden": true
   },
   "use_arg_checks": {
     "signature": {
