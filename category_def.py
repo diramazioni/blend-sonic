@@ -146,6 +146,22 @@ fn_normal = ['degree', 'hz_to_midi', 'midi_to_hz', 'quantise', 'rand', 'rand_i',
 
 is_fn = fn_ringed + fn_embeded + fn_simple + fn_normal
 
+#####################################
+# other static category
+# all_lang_def = list(set(all_lang_ref) - set(set(all_lang_ref) - set(has_accepts_block) - set(has_accepts_block_false)) set(has_modifies_env) )
+
+is_buffer_fn = ['load_buffer', 'load_samples',
+                'run_code', 'run_file',
+                ]
+
+is_control = [ 'clear', 'control', 'cue', 'kill', 'rand_back', 'rand_reset', 'rand_skip',
+              'reset', 'sample_free', 'sample_free_all', 'stop', 'sync', 'sync_bpm',
+               'tick_reset', 'tick_reset_all', 'tick_set',]
+is_common = ['play', 'sleep', 'chord', 'note', 'note_list', 'live_loop', 'sample']
+# ring_returns = [ret for ret in has_returns if lng(ret)['returns'] == ":ring" ]
+
+is_use_env = [ret for ret in all_lang_ref if ret.startswith('use_') ]
+
 
 
 ### hide these functions
@@ -170,22 +186,6 @@ is_to_hide = [ 'dec', 'inc', 'puts', 'loop',
                'start_amp_monitor', 'current_amp', 'sample_split_filts_and_opts','ndefine', 'spark_graph',
            ] + is_just_output + is_dups + is_rec + is_synth
 
-
-#####################################
-# other static category
-# all_lang_def = list(set(all_lang_ref) - set(set(all_lang_ref) - set(has_accepts_block) - set(has_accepts_block_false)) set(has_modifies_env) )
-
-is_buffer_fn = ['load_buffer', 'load_samples',
-                'run_code', 'run_file',
-                ]
-
-is_control = [ 'clear', 'control', 'cue', 'kill', 'rand_back', 'rand_reset', 'rand_skip',
-              'reset', 'sample_free', 'sample_free_all', 'stop', 'sync', 'sync_bpm',
-               'tick_reset', 'tick_reset_all', 'tick_set',]
-is_common = ['play', 'sleep', 'chord', 'note', 'note_list', 'live_loop', 'sample']
-# ring_returns = [ret for ret in has_returns if lng(ret)['returns'] == ":ring" ]
-
-is_use_env = [ret for ret in all_lang_ref if ret.startswith('use_') ]
 
 
 

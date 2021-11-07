@@ -84,13 +84,18 @@ opts_default_val = {
   "your_key": ":bar",
   "path": "/path/to/file",
   "pitch_dis": 0,
+  "pulse": 4,
+  "shift": 0.1,
+  "tick": ":a",
   "relax_time": 0, # ?
   "slope_above": 1,
   "slope_below": 1,
   "threshold": 0, #?
   "time_dis": 0, #?
   "window_size": 0, #?
-  "num_sides": 6
+  "num_sides": 6,
+  "slice": 16,
+  "num_slices": 16,
 }
 
 opts_types_conversion = {
@@ -478,17 +483,91 @@ opts_types_conversion = {
     "clamp_time_slide": "Float",
     "krunch": "Float",
     "relax_time_slide": "Float",
-    "range_slide": "Float"
+    "range_slide": "Float",
+    "buffer": "Text",
+    "clickiness": "Float",
+    "formant_ratio": "Float",
+    "formant_ratio_slide": "Float",
+    "formant_ratio_slide_curve": "Float",
+    "formant_ratio_slide_shape": "Float",
+    "high": "Float",
+    "high_note": "Float",
+    "high_note_slide": "Float",
+    "high_note_slide_curve": "Float",
+    "high_note_slide_shape": "Float",
+    "high_q": "Float",
+    "high_q_slide": "Float",
+    "high_q_slide_curve": "Float",
+    "high_q_slide_shape": "Float",
+    "high_shelf": "Float",
+    "high_shelf_note": "Float",
+    "high_shelf_note_slide": "Float",
+    "high_shelf_note_slide_curve": "Float",
+    "high_shelf_note_slide_shape": "Float",
+    "high_shelf_slide": "Float",
+    "high_shelf_slide_curve": "Float",
+    "high_shelf_slide_shape": "Float",
+    "high_shelf_slope": "Float",
+    "high_shelf_slope_slide": "Float",
+    "high_shelf_slope_slide_curve": "Float",
+    "high_shelf_slope_slide_shape": "Float",
+    "high_slide": "Float",
+    "high_slide_curve": "Float",
+    "high_slide_shape": "Float",
+    "low": "Float",
+    "low_note": "Float",
+    "low_note_slide": "Float",
+    "low_note_slide_curve": "Float",
+    "low_note_slide_shape": "Float",
+    "low_q": "Float",
+    "low_q_slide": "Float",
+    "low_q_slide_curve": "Float",
+    "low_q_slide_shape": "Float",
+    "low_shelf": "Float",
+    "low_shelf_note": "Float",
+    "low_shelf_note_slide": "Float",
+    "low_shelf_note_slide_curve": "Float",
+    "low_shelf_note_slide_shape": "Float",
+    "low_shelf_slide": "Float",
+    "low_shelf_slide_curve": "Float",
+    "low_shelf_slide_shape": "Float",
+    "low_shelf_slope": "Float",
+    "low_shelf_slope_slide": "Float",
+    "low_shelf_slope_slide_curve": "Float",
+    "low_shelf_slope_slide_shape": "Float",
+    "low_slide": "Float",
+    "low_slide_curve": "Float",
+    "low_slide_shape": "Float",
+    "mid": "Float",
+    "mid_note": "Float",
+    "mid_note_slide": "Float",
+    "mid_note_slide_curve": "Float",
+    "mid_note_slide_shape": "Float",
+    "mid_q": "Float",
+    "mid_q_slide": "Float",
+    "mid_q_slide_curve": "Float",
+    "mid_q_slide_shape": "Float",
+    "mid_slide": "Float",
+    "mid_slide_curve": "Float",
+    "mid_slide_shape": "Float",
+    "mode": "Integer",
+    "output": "Float",
+    "pan_start": "Float", # between -1 and 1
+    "use_chorus": "Boolean",
+    "use_compressor": "Boolean"
 }
 
 args_types_conversion = {
   ":anything": "Text", 
   ":array": "Text List", # notes (ring) :A3, :B4, :C4 
-  ":boolean": "Boolean", 
+  ":boolean": "Boolean",
+  ":beats": "Float",
   ":density": "Integer",  # positive Int 
-  ":int": "Integer",  
+  ":default": "Text",  # positive Int
+  ":int": "Integer",
   ":list": "Text List", # notes [ :A, :B4, :C4 ]
   ":list_or_number": "Text List", # notes AND int_List [ :A, :B4, :C4 ], [ 1,2,3 ]
+  ":map": "Text",
   ":midi_number": "Integer", # note (only used in pitch_to_ratio)
   ":note": "Integer", # note (ring) # :A3 or 60
   ":number": "Float",

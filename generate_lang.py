@@ -363,7 +363,7 @@ class ParseConst(object):
                         arg_dict.append({arg_ref: arg_type})
 
                         if arg_type not in args_types_conversion:
-                            self.warn["new arg %s" % arg_type].append(f_name)
+                            self.warn["missing args_types %s" % arg_type].append(f_name)
                             self.new_arg[arg_type] = "__to_do__"
                     return arg_dict
 
@@ -435,7 +435,7 @@ class ParseConst(object):
                 if "nil" in val:
                     val = None
                 if val and val not in args_types_conversion:
-                    self.warn["new returns %s" % val].append(f_name)
+                    self.warn["missing returns %s" % val].append(f_name)
                     self.new_arg[val] = "__to_do__"                    
 
                 self.consts[f_name][key[:-1]] = val
@@ -603,7 +603,7 @@ class ParseConst(object):
 
         for opt in arg_def:
             if not opt in opts_types_conversion:
-                self.warn["new opt %s" % opt].append(c_name)
+                self.warn["missing opts_types %s" % opt].append(c_name)
                 self.new_opt[opt] = "Float"
         self.goNext()
 
@@ -879,7 +879,7 @@ def addMetaData(consts):
     }
     #{'tick': 0}, {'shuffle': 0}, {'choose': 0}, {'stretch': 0}, {'stretch': 1}
     arg_fixes = {
-                'live_loop': {
+                'live_loop': { # name is automatically generated
                     "args": [],
                     "alt_args": [{"name": ":symbol"}
                                  ]},

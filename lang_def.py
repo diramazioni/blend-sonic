@@ -94,6 +94,9 @@ lang_core = {
     ],
     "returns": null,
     "opts": {
+      "shift": 0.1,
+      "pulse": 4,
+      "tick": ":a",
       "offset": 0
     },
     "accepts_block": false,
@@ -2481,6 +2484,8 @@ lang_sound = {
       "pre_amp": 1,
       "onset": 0,
       "on": 1,
+      "slice": 16,
+      "num_slices": 16,
       "norm": 0,
       "lpf": 131,
       "lpf_init_level": 30,
@@ -2839,6 +2844,8 @@ lang_sound = {
       "pre_amp": 1,
       "onset": 0,
       "on": 1,
+      "slice": 16,
+      "num_slices": 16,
       "norm": 0,
       "lpf": 131,
       "lpf_init_level": 30,
@@ -3016,10 +3023,7 @@ lang_sound = {
 
 sound_args_types_conversion = {}
 
-sound_opts_types_conversion = {
-  "slice": "__to_do__",
-  "num_slices": "__to_do__"
-}
+sound_opts_types_conversion = {}
 
 #\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/#\#/
 
@@ -6914,77 +6918,5 @@ samples = {
 
 synth_args_types_conversion = {}
 
-synth_opts_types_conversion = {
-  "clickiness": "Float",
-  "use_chorus": "Float",
-  "use_compressor": "Float",
-  "buffer": "Float",
-  "output": "Float",
-  "mode": "Float",
-  "low_shelf": "Float",
-  "low_shelf_slide": "Float",
-  "low_shelf_slide_shape": "Float",
-  "low_shelf_slide_curve": "Float",
-  "low_shelf_note": "Float",
-  "low_shelf_note_slide": "Float",
-  "low_shelf_note_slide_shape": "Float",
-  "low_shelf_note_slide_curve": "Float",
-  "low_shelf_slope": "Float",
-  "low_shelf_slope_slide": "Float",
-  "low_shelf_slope_slide_shape": "Float",
-  "low_shelf_slope_slide_curve": "Float",
-  "low": "Float",
-  "low_slide": "Float",
-  "low_slide_shape": "Float",
-  "low_slide_curve": "Float",
-  "low_note": "Float",
-  "low_note_slide": "Float",
-  "low_note_slide_shape": "Float",
-  "low_note_slide_curve": "Float",
-  "low_q": "Float",
-  "low_q_slide": "Float",
-  "low_q_slide_shape": "Float",
-  "low_q_slide_curve": "Float",
-  "mid": "Float",
-  "mid_slide": "Float",
-  "mid_slide_shape": "Float",
-  "mid_slide_curve": "Float",
-  "mid_note": "Float",
-  "mid_note_slide": "Float",
-  "mid_note_slide_shape": "Float",
-  "mid_note_slide_curve": "Float",
-  "mid_q": "Float",
-  "mid_q_slide": "Float",
-  "mid_q_slide_shape": "Float",
-  "mid_q_slide_curve": "Float",
-  "high": "Float",
-  "high_slide": "Float",
-  "high_slide_shape": "Float",
-  "high_slide_curve": "Float",
-  "high_note": "Float",
-  "high_note_slide": "Float",
-  "high_note_slide_shape": "Float",
-  "high_note_slide_curve": "Float",
-  "high_q": "Float",
-  "high_q_slide": "Float",
-  "high_q_slide_shape": "Float",
-  "high_q_slide_curve": "Float",
-  "high_shelf": "Float",
-  "high_shelf_slide": "Float",
-  "high_shelf_slide_shape": "Float",
-  "high_shelf_slide_curve": "Float",
-  "high_shelf_note": "Float",
-  "high_shelf_note_slide": "Float",
-  "high_shelf_note_slide_shape": "Float",
-  "high_shelf_note_slide_curve": "Float",
-  "high_shelf_slope": "Float",
-  "high_shelf_slope_slide": "Float",
-  "high_shelf_slope_slide_shape": "Float",
-  "high_shelf_slope_slide_curve": "Float",
-  "formant_ratio": "Float",
-  "formant_ratio_slide": "Float",
-  "formant_ratio_slide_shape": "Float",
-  "formant_ratio_slide_curve": "Float",
-  "pan_start": "Float"
-}
+synth_opts_types_conversion = {}
 
