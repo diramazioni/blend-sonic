@@ -1,14 +1,11 @@
+Parse western_theory.rb!!!!
 
-
-functions requires code in out
+certain functions requires code in out
 
 
 
 
 ERROR
-
-FXAutotuner
-    KeyError: 'bpy_prop_collection[key]: key "formant_ratio" not found'
 
 
 NOT WORKING
@@ -24,7 +21,7 @@ remove [] from input list
 remove surrounding ()
     dice tick one_in quantise rand rand_i rand_look rand_i_look
 
-    -> fn_normal + fn_simple are also fn_embeded ?
+    -> fn_normal + fn_simple + fn_ringed have (fn) ?
 
 list of buolean not list of strings
     bools

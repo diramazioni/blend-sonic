@@ -949,6 +949,15 @@ def addMetaData(consts):
                 'with_fx': {  # override
                     "args": [],
                     "alt_args": [{"fx_name": ":symbol"}]},
+                'with_swing': {  # override
+                    "args": [{"shift": ":beats"}],
+                    "alt_args": [{"pulse": ":number"},
+                                 {"tick": ":symbol"},
+                                 {"offset": ":number"}],
+                    "opts": {} },
+                'knit': {  # override
+                    "args": [{"value": ":anything"}],
+                    "alt_args": [{"count": ":number"}]},
     }
     new_functions = {
         "note_list": {

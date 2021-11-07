@@ -84,23 +84,23 @@ lang_core = {
     "args": [
       {
         "shift": ":beats"
-      },
+      }
+    ],
+    "returns": null,
+    "opts": {},
+    "accepts_block": false,
+    "hiden": false,
+    "alt_args": [
       {
         "pulse": ":number"
       },
       {
         "tick": ":symbol"
+      },
+      {
+        "offset": ":number"
       }
-    ],
-    "returns": null,
-    "opts": {
-      "shift": 0.1,
-      "pulse": 4,
-      "tick": ":a",
-      "offset": 0
-    },
-    "accepts_block": false,
-    "hiden": false
+    ]
   },
   "run_file": {
     "signature": {
@@ -501,15 +501,17 @@ lang_core = {
     "args": [
       {
         "value": ":anything"
-      },
-      {
-        "count": ":number"
       }
     ],
     "returns": ":ring",
     "accepts_block": false,
     "hiden": false,
-    "inline": true
+    "inline": true,
+    "alt_args": [
+      {
+        "count": ":number"
+      }
+    ]
   },
   "redistribute": {
     "signature": {

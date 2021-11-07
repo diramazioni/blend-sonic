@@ -247,7 +247,7 @@ if __name__ == '__main__':
     # all_sample
     # s_name = [sn for sk in samples.keys() for sn in samples[sk] ]
     print()
-
+    report()
     # print([':'+c for c in chord_names])
     # print('should be 0')
     # print(sub_list(has_accepts_block_false, has_inline, is_common, is_use_env, is_control, is_buffer_fn))

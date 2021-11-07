@@ -96,7 +96,7 @@ opts_default_val = {
   "num_sides": 6,
   "slice": 16,
   "num_slices": 16,
-}
+} #options with default values needs also a opts_types_conversion to be defined
 
 opts_types_conversion = {
   "another_key": "Text",  # immutable  
@@ -185,6 +185,12 @@ opts_types_conversion = {
   "slope_below": "Float",
   "threshold": "Float",
   "time_dis": "Float",
+  "pulse": "Float",
+  "shift": "Float",
+  "tick": "Text",
+  "num_sides": "Float",
+  "slice": "Float",
+  "num_slices": "Float",
   "window_size": "Float", #### synth starts here
     "centre_slide": "Float",
     "divisor_slide": "Float",

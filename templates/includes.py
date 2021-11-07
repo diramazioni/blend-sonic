@@ -139,6 +139,10 @@
 {%- endmacro -%}
 
 {%- macro fn_simple_send() %}
+        yield "send = '{{ fn.name }} ' + list_ + args_ +sep+ opts_ "
+{%- endmacro -%}
+
+{%- macro fn_embeded_send() %}
         yield "send = '({{ fn.name }} ' + list_ + args_ +sep+ opts_ + ')'"
 {%- endmacro -%}
 
