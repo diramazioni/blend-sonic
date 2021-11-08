@@ -74,7 +74,7 @@
     {%- for arg, val in ar.items() %}        
         if s["{{ arg }}"].isUsed:
         {%- if args_types[val] == "Text List" %}
-            {%- if arg  in ["list", "notes"] %}
+            {%- if arg  in ["notes"] %}
             yield "args_.append( '[' + ', '.join({{ arg+inp }}) + ']' )"
             {% else %}
             yield "args_.append(', '.join({{ arg+inp }}))"

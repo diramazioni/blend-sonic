@@ -1,4 +1,4 @@
-{% extends "fn_simple.py" %}
+{% extends "fn_embeded.py" %}
 
 {%- block execode %} 
         yield "list_ = list_[1:-1]"
