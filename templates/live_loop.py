@@ -52,7 +52,10 @@ import random
 
 {{ macro.opt_join() }}
 {{ macro.arg_join() }}
-{{ macro.block_send('', 'self.auto_name') }}
+
+        yield "f_call = intro_fn_ + '{{fn.name}} ' + self.auto_name + args_ + sep + opts_ "
+        yield "f_call = [f_call + ' do ' + async_]"
+        yield "send = f_call + do_end + ['end']"
 
         yield "if not play: " \
               "send = f_call + ['stop']+ do_end + ['end'];"

@@ -150,8 +150,8 @@
         yield "send = prefix + send + postfix"
 {%- endmacro -%}
 
-{%- macro block_send(with_name, loop_name) %}
-        yield "f_call = intro_fn_ + '{{with_name}}{{fn.name}} ' + {{loop_name}} + args_ + sep + opts_ "
+{%- macro block_send(with_name) %}
+        yield "f_call = intro_fn_ + '{{with_name}}{{fn.name}} ' + args_ + sep + opts_ "
         yield "f_call = [f_call + ' do ' + async_]"
         yield "send = f_call + do_end + ['end']"
 {%- endmacro -%}

@@ -224,16 +224,17 @@ class SonicPI_{{ cat|capitalize }}_Menu(bpy.types.Menu):
         })
         menu[category][synth_name] = fn
         write_template("fx", context, synth_name, templ_name)
-    '''
+    ## synth
     for synth_name, synth in synths.items():
         if synth['hiden']: continue
         menu_levels = '....'
+        print('@@@ ' + synth_name)
         # fn_name =  synth['name'][1:]
-        synth_name = synth_name[2:]
-        templ_name = 'with_fx'
-        category = categories[2]
+        # synth_name = synth_name[2:]
+        templ_name = 'with_synth'
+        category = categories[1]
 
-        fn = lng('with_fx')
+        fn = lng('with_synth')
         fn.update(synth)
 
         context.update({
@@ -243,8 +244,8 @@ class SonicPI_{{ cat|capitalize }}_Menu(bpy.types.Menu):
             "category": category
         })
         menu[category][synth_name] = fn
-        write_template("fx", context, synth_name, templ_name)
-    '''
+        write_template("synth", context, synth_name, templ_name)
+
     write_menu(menu)
 
 def copy_in_an():
