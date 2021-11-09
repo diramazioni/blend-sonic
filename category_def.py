@@ -157,7 +157,7 @@ is_buffer_fn = ['load_buffer', 'load_samples',
 is_control = [ 'clear', 'control', 'cue', 'kill', 'rand_back', 'rand_reset', 'rand_skip',
               'reset', 'sample_free', 'sample_free_all', 'stop', 'sync', 'sync_bpm',
                'tick_reset', 'tick_reset_all', 'tick_set',]
-is_common = ['play', 'sleep', 'chord', 'note', 'note_list', 'live_loop', 'sample']
+is_common = ['play', 'sleep', 'chord', 'note', 'note_list', 'live_loop', 'use_synth', 'sample']
 # ring_returns = [ret for ret in has_returns if lng(ret)['returns'] == ":ring" ]
 
 is_use_env = [ret for ret in all_lang_ref if ret.startswith('use_') ]

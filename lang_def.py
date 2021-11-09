@@ -2160,14 +2160,15 @@ lang_sound = {
     "name": "use_synth",
     "introduced": "2,0,0",
     "summary": "Switch current synth",
-    "args": [
+    "args": [],
+    "accepts_block": false,
+    "intro_fn": true,
+    "hiden": false,
+    "alt_args": [
       {
         "synth_name": ":symbol"
       }
-    ],
-    "accepts_block": false,
-    "intro_fn": true,
-    "hiden": true
+    ]
   },
   "with_synth": {
     "signature": {

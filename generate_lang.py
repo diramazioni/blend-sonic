@@ -834,6 +834,11 @@ def parse():
                ],'lang_def.py', 'a', "" )
     synth_doc = pSy.func_doc
     synth_opts_doc = pSy.opts_doc
+
+    ## constant_def
+    synths_names = {fn: val for fn, val in pSy.active.items() if ':fx_' not in fn}
+    dump_dict([{"synths_names": synths_names}], "constant_gen.py", "w","")
+
     ## doc
     dump_dict([
         {"funct_doc": func_doc},
@@ -879,6 +884,10 @@ def addMetaData(consts):
     }
     #{'tick': 0}, {'shuffle': 0}, {'choose': 0}, {'stretch': 0}, {'stretch': 1}
     arg_fixes = {
+                'use_synth': {  # name is automatically generated
+                    "args": [],
+                    "alt_args": [{"synth_name": ":symbol"}
+                                 ]},
                 'live_loop': { # name is automatically generated
                     "args": [],
                     "alt_args": [{"name": ":symbol"}

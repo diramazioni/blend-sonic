@@ -228,8 +228,6 @@ class SonicPI_{{ cat|capitalize }}_Menu(bpy.types.Menu):
     for synth_name, synth in synths.items():
         if synth['hiden']: continue
         menu_levels = '....'
-        print('@@@ ' + synth_name)
-        # fn_name =  synth['name'][1:]
         # synth_name = synth_name[2:]
         templ_name = 'with_synth'
         category = categories[1]
@@ -257,6 +255,9 @@ def copy_in_an():
     sh.copytree(src, dst, symlinks=True)
     src = os.path.join(pwd, 'constant_def.py')
     dst2 = os.path.join(dst, 'constant_def.py')
+    sh.copy2(src,  dst2)
+    src = os.path.join(pwd, 'constant_gen.py')
+    dst2 = os.path.join(dst, 'constant_gen.py')
     sh.copy2(src,  dst2)
     src = os.path.join(pwd, 'templates', 'SonicPI_send.py')
     dst2 = os.path.join(dst, 'SonicPI_send.py')

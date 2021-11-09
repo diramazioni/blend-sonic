@@ -1,6 +1,5 @@
+# from constant_gen import *
 null = None
-
-
 
 opts_default_val = {
   "another_key": "",  #only used in cue accepts: Numbers, Symbols, Booleans and Nil, or Vectors/Rings of immutable types"
@@ -762,3 +761,4 @@ samples = {
     ":drum_roll"
   ]
 }
+
