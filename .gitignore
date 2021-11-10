@@ -6,3 +6,4 @@ build/*
 .idea/
 
 *.blend1
+addon/animation_nodes

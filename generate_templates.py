@@ -1,15 +1,12 @@
-
 import os
 import shutil as sh
 from jinja2 import Environment, FileSystemLoader
-
 
 from collections import defaultdict, OrderedDict
 
 from category_def import *
 
 from constant_def import opts_default_val, opts_types_conversion, args_types_conversion
-
 
 pwd = os.path.dirname(os.path.abspath(__file__))
 nodes = os.path.join(pwd, 'build', 'nodes')
@@ -18,9 +15,8 @@ ui = os.path.join(pwd, 'build', 'ui')
 written = defaultdict(list)
 templates = 'templates'
 ext = ".py"
- 
 
- 
+
 def gen_an_code():
     def prep_dir(categories):
         print("preparing nodes directory")
@@ -28,19 +24,18 @@ def gen_an_code():
             if os.path.exists(dst):
                 sh.rmtree(dst)
             os.makedirs(dst)
-            src = os.path.join(pwd, templates, '__init__.py')
-            dst = os.path.join(nodes, '__init__.py')
-            sh.copy2(src,  dst)
+        src = os.path.join(pwd, templates, '__init__.py')
+        dst = os.path.join(nodes, '__init__.py')
+        sh.copy2(src, dst)
 
         for cat in categories:
             if cat == 'common': continue
             dst = os.path.join(nodes, cat)
             os.makedirs(dst)
             dst = os.path.join(nodes, cat, '__init__.py')
-            sh.copy2(src,  dst)
+            sh.copy2(src, dst)
 
     def render_template(template_file, context):
-
         template_env = Environment(
             autoescape=False, loader=FileSystemLoader(os.path.join(pwd, templates)), extensions=['jinja2.ext.with_'],
             trim_blocks=False)
@@ -51,11 +46,16 @@ def gen_an_code():
         dest_name = 'sp_' + fn_name + ext
         override_template = os.path.join(pwd, templates, fn_name + ext)
         in_template = os.path.join(pwd, templates, templ_name + ext)
-        if os.path.exists(override_template): templ_name = fn_name + ext
-        elif os.path.exists(in_template): templ_name = templ_name + ext
-        else: raise Exception('template not found %s %s' % (fn_name, templ_name+ext))
-        if cat == categories[0]: fname = os.path.join(nodes, dest_name)
-        else: fname = os.path.join(nodes, cat, dest_name)
+        if os.path.exists(override_template):
+            templ_name = fn_name + ext
+        elif os.path.exists(in_template):
+            templ_name = templ_name + ext
+        else:
+            raise Exception('template not found %s %s' % (fn_name, templ_name + ext))
+        if cat == categories[0]:
+            fname = os.path.join(nodes, dest_name)
+        else:
+            fname = os.path.join(nodes, cat, dest_name)
         with open(fname, 'w') as f:
             template_out = render_template(templ_name, context)
             f.write(template_out)
@@ -71,10 +71,12 @@ def gen_an_code():
                 print(line, end='')
 
     def write_menu_template(dest_name):
-        # copy original
         src = os.path.join(pwd, 'sub', 'animation_nodes', 'animation_nodes', 'ui', 'node_menu.py')
         dst = os.path.join(pwd, templates, 'node_menu.py')
+        #if os.path.exists(dst): return  # avoid writing the template again if present!!!! This is potentially dangerous
+        # copy original
         sh.copy2(src, dst)
+
         search = 'layout.menu("AN_MT_sound_menu"'
         insert = '''{% block layout_main %}
     layout.menu("SP_MT_menu", text = "Sonic-PI", icon = "SOUND")
@@ -132,157 +134,173 @@ class SonicPI_{{ cat|capitalize }}_Menu(bpy.types.Menu):
             'categories': categories
         }
 
-
         fname = os.path.join(ui, dest_name)
+        print('menu-> ' + fname)
 
         with open(fname, 'w') as f:
             template = render_template(dest_name, context)
             f.write(template)
         written[dest_name].append('menu')
 
-    # categories
+    def write_all():
+        # categories
+
+        prep_dir(categories)
+        menu = defaultdict(dict)
+        context = {
+            'args_types': args_types_conversion,
+            'opts_types': opts_types_conversion,
+        }
+
+        for fn_name in sub_list(all_lang_ref, is_to_hide):
+            ########################
+            #   menu category assignment
+            menu_levels = '....'
+            # if fn_name is is_to_hide: continue
+
+            if fn_name in is_common:
+                category = categories[0]  # common
+                menu_levels = '...'
+
+            elif fn_name in has_requires_block:
+                category = categories[3]  # block
+            elif fn_name in is_use_env:
+                category = categories[4]  # use
+            elif fn_name in has_inline:
+                category = categories[5]  # functions
+            elif fn_name in is_control:
+                category = categories[6]  # control
+            elif fn_name in is_buffer_fn:
+                category = categories[7]  # buffer
+            elif fn_name in has_modifies_env:
+                category = categories[8]  # env
+            else:
+                category = categories[9]  # general
+            ########################
+            #   template assignment
+            if fn_name in fn_simple:
+                templ_name = "fn_simple"
+            elif fn_name in fn_embeded:
+                templ_name = "fn_embeded"
+            elif fn_name in fn_normal:
+                templ_name = "fn_normal"
+            elif fn_name in fn_ringed:
+                templ_name = "fn_ringed"
+            elif fn_name in has_requires_block:
+                templ_name = "with_block"
+            elif fn_name in has_accepts_block_false:
+                templ_name = "with_no_block"
+            elif fn_name in sub_list(has_accepts_block, has_requires_block):  # optional block
+                templ_name = "with_opt_block"
+            else:
+                templ_name = None
+            if not templ_name: continue
+            fn = lng(fn_name)
+
+            context.update({
+                'fn_name': fn_name,
+                'fn': fn,
+                "menu_levels": menu_levels,
+                "category": category
+            })
+            menu[category][fn_name] = fn
+
+            write_template(category, context, fn_name, templ_name)
+        ## fx
+        for synth_name, synth in fx.items():
+            if synth['hiden']: continue
+            menu_levels = '....'
+            # fn_name =  synth['name'][1:]
+            synth_name = synth_name[2:]
+            templ_name = 'with_fx'
+            category = categories[2]
+
+            fn = lng('with_fx')
+            fn.update(synth)
+
+            context.update({
+                'fn_name': synth_name,
+                'fn': fn,
+                "menu_levels": menu_levels,
+                "category": category
+            })
+            menu[category][synth_name] = fn
+            write_template("fx", context, synth_name, templ_name)
+        ## synth
+        for synth_name, synth in synths.items():
+            if synth['hiden']: continue
+            menu_levels = '....'
+            # synth_name = synth_name[2:]
+            templ_name = 'with_synth'
+            category = categories[1]
+
+            fn = lng('with_synth')
+            fn.update(synth)
+
+            context.update({
+                'fn_name': synth_name,
+                'fn': fn,
+                "menu_levels": menu_levels,
+                "category": category
+            })
+            menu[category][synth_name] = fn
+            write_template("synth", context, synth_name, templ_name)
+        return menu
 
 
-    prep_dir(categories)
-    menu = defaultdict(dict)
-    context = {
-        'args_types': args_types_conversion,
-        'opts_types': opts_types_conversion,
-    }
-
-    for fn_name in sub_list(all_lang_ref, is_to_hide):
-        ########################
-        #   menu category assignment
-        menu_levels = '....'
-        # if fn_name is is_to_hide: continue
-
-        if fn_name in is_common:
-            category = categories[0] # common
-            menu_levels = '...'
-
-        elif fn_name in has_requires_block:
-            category = categories[3] # block
-        elif fn_name in is_use_env:
-            category = categories[4] # use
-        elif fn_name in has_inline:
-            category = categories[5] # functions
-        elif fn_name in is_control:
-            category = categories[6] # control
-        elif fn_name in is_buffer_fn:
-            category = categories[7] # buffer
-        elif fn_name in has_modifies_env:
-            category = categories[8]  # env
-        else:
-            category = categories[9] # general
-        ########################
-        #   template assignment
-        if fn_name in fn_simple:
-            templ_name = "fn_simple"
-        elif fn_name in fn_embeded:
-            templ_name = "fn_embeded"
-        elif fn_name in fn_normal:
-            templ_name = "fn_normal"
-        elif fn_name in fn_ringed:
-            templ_name = "fn_ringed"
-        elif fn_name in has_requires_block:
-            templ_name = "with_block"
-        elif fn_name in has_accepts_block_false:
-            templ_name = "with_no_block"
-        elif fn_name in sub_list(has_accepts_block, has_requires_block):  # optional block
-            templ_name = "with_opt_block"
-        else:
-            templ_name = None
-        if not templ_name: continue
-        fn = lng(fn_name )
-
-        context.update({
-            'fn_name': fn_name,
-            'fn': fn,
-            "menu_levels": menu_levels,
-            "category": category
-        })
-        menu[category][fn_name] = fn
-
-        write_template(category, context, fn_name, templ_name)
-    ## fx
-    for synth_name, synth in fx.items():
-        if synth['hiden']: continue
-        menu_levels = '....'
-        # fn_name =  synth['name'][1:]
-        synth_name = synth_name[2:]
-        templ_name = 'with_fx'
-        category = categories[2]
-
-        fn = lng('with_fx')
-        fn.update(synth)
-
-        context.update({
-            'fn_name': synth_name,
-            'fn': fn,
-            "menu_levels": menu_levels,
-            "category": category
-        })
-        menu[category][synth_name] = fn
-        write_template("fx", context, synth_name, templ_name)
-    ## synth
-    for synth_name, synth in synths.items():
-        if synth['hiden']: continue
-        menu_levels = '....'
-        # synth_name = synth_name[2:]
-        templ_name = 'with_synth'
-        category = categories[1]
-
-        fn = lng('with_synth')
-        fn.update(synth)
-
-        context.update({
-            'fn_name': synth_name,
-            'fn': fn,
-            "menu_levels": menu_levels,
-            "category": category
-        })
-        menu[category][synth_name] = fn
-        write_template("synth", context, synth_name, templ_name)
-
+    menu = write_all()
     write_menu(menu)
 
-def copy_in_an():
 
+def copy_in_an():
     print("copy in Animation Nodes addon")
-    dst = os.path.join(pwd, 'build', 'animation_nodes', 'nodes','sonic_pi')
+    addon = os.path.join(pwd, 'addon', 'animation_nodes')
+    if not os.path.exists(addon):
+        src = os.path.join(os.path.expanduser('~'), '.config', 'blender', '2.93', 'scripts', 'addons', 'animation_nodes')
+        if not os.path.exists(src):
+            print(src + "\n doesn't exists, so animation nodes is not installed in blender yet\n"
+                        "INSTALL IT FIRST THEN RUN AGAIN")
+            src2 = os.path.join(pwd, 'sub', 'animation_nodes', 'animation_nodes')
+            #sh.copytree(src2, src)
+        print("creating symbolic links %s %s" % (src, addon))
+        os.symlink(src, addon)
+    ## copying blend-sonic into animation nodes's nodes :)
+    dst = os.path.join(addon, 'animation_nodes', 'nodes', 'sonic_pi')
     if os.path.exists(dst): sh.rmtree(dst)
     src = nodes
     sh.copytree(src, dst, symlinks=True)
     src = os.path.join(pwd, 'constant_def.py')
     dst2 = os.path.join(dst, 'constant_def.py')
-    sh.copy2(src,  dst2)
+    sh.copy2(src, dst2)
     src = os.path.join(pwd, 'constant_gen.py')
     dst2 = os.path.join(dst, 'constant_gen.py')
-    sh.copy2(src,  dst2)
+    sh.copy2(src, dst2)
     src = os.path.join(pwd, 'templates', 'SonicPI_send.py')
     dst2 = os.path.join(dst, 'SonicPI_send.py')
-    sh.copy2(src,  dst2)
+    sh.copy2(src, dst2)
     ### node_menu
     src = os.path.join(ui, 'node_menu.py')
-    dst2 = os.path.join(pwd, 'build', 'animation_nodes', 'ui', 'node_menu.py')
-    sh.copy2(src,  dst2)
+    dst2 = os.path.join(addon, 'ui', 'node_menu.py')
+    print(src, dst2)
+    sh.copy2(src, dst2)
 
 
 def restore_orig():
     src = os.path.join(pwd, 'sub', 'animation_nodes', 'animation_nodes')
-    dst = os.path.join(pwd, 'build', 'animation_nodes')
+    dst = os.path.join(pwd, 'addon', 'animation_nodes')
     if os.path.exists(dst): sh.rmtree(dst)
     sh.copytree(src, dst)
 
-    
+
 if __name__ == '__main__':
     import sys
+
     if not len(sys.argv[1:]):
         gen_an_code()
         copy_in_an()
-        for k,v in written.items():
-            print(k , sorted(v))
+        for k, v in written.items():
+            print(k, sorted(v))
         print("Template Generation finished!")
-    else:            
+    else:
         restore_orig()
         print("original animation_nodes restored")
