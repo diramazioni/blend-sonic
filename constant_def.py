@@ -95,6 +95,7 @@ opts_default_val = {
   "num_sides": 6,
   "slice": 16,
   "num_slices": 16,
+  "note_num": 77
 } #options with default values needs also a opts_types_conversion to be defined
 
 opts_types_conversion = {
@@ -285,7 +286,8 @@ opts_types_conversion = {
     "smooth_slide": "Float",
     "detune2": "Float",
     "hpf_slide_curve": "Float",
-    "note": "Float",
+    "note": "Text",
+    "note_num": "Float",
     "hpf_slide_shape": "Float",
     "vibrato_delay": "Float",
     "mod_amp": "Float",

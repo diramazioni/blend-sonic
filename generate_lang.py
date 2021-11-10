@@ -888,6 +888,30 @@ def addMetaData(consts):
                     "args": [],
                     "alt_args": [{"synth_name": ":symbol"}
                                  ]},
+                'synth': {  # name is automatically generated, note option is missing
+                    "args": [],
+                    "alt_args": [{"synth_name": ":symbol"}],
+                    "opts": {
+                      "note": ":e1",
+                      "note_num": 77,
+                      "cutoff": 0,
+                      "amp": 1,
+                      "amp_slide": 1,
+                      "pan": 0,
+                      "pan_slide": 1,
+                      "attack": 0,
+                      "decay": 0,
+                      "sustain": 1,
+                      "release": 0,
+                      "attack_level": 1,
+                      "decay_level": 1,
+                      "sustain_level": 1,
+                      "env_curve": 1,
+                      "slide": 0,
+                      "pitch": 0,
+                      "on": 1
+                    },
+                },
                 'live_loop': { # name is automatically generated
                     "args": [],
                     "alt_args": [{"name": ":symbol"}

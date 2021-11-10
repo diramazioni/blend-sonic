@@ -260,12 +260,13 @@ def copy_in_an():
         if not os.path.exists(src):
             print(src + "\n doesn't exists, so animation nodes is not installed in blender yet\n"
                         "INSTALL IT FIRST THEN RUN AGAIN")
+            return
             src2 = os.path.join(pwd, 'sub', 'animation_nodes', 'animation_nodes')
             #sh.copytree(src2, src)
         print("creating symbolic links %s %s" % (src, addon))
         os.symlink(src, addon)
     ## copying blend-sonic into animation nodes's nodes :)
-    dst = os.path.join(addon, 'animation_nodes', 'nodes', 'sonic_pi')
+    dst = os.path.join(addon, 'nodes', 'sonic_pi')
     if os.path.exists(dst): sh.rmtree(dst)
     src = nodes
     sh.copytree(src, dst, symlinks=True)

@@ -45,10 +45,18 @@ Blend-sonic is a new way to use Sonic Pi and sync to the 3D Blender scene.
 Blend-sonic has been designed with the aim to make Sonic Pi easy to write and play with.
 This let you connect sound events(Sonic PI programs) to 3D object actions/animations in Blender.
 
+### Motivations
+Livecoding music is cool, but I got tired of the "coding" part and write and remember all the options
+
+Moreover controlling the music/sounds inside blender it's very useful because you can use all the 
+3D enviroment variables to control when and how this applies to the sound
+
+
 Blend-sonic is made out of 
 * a small [Blender](https://blender.org). plugin/addon that take care of the OSC comuication with Sonic PI
-* visual nodes that use the  [Animation Nodes](https://github.com/JacquesLucke/animation_nodes) addon to build 
-a [Sonic Pi](https://github.com/sonic-pi-net/sonic-pi) program
+* hundreds of nodes (reflecting sonic-pi language) inside  [Animation Nodes](https://github.com/JacquesLucke/animation_nodes) addon 
+that let you build a [Sonic Pi](https://github.com/sonic-pi-net/sonic-pi) program. 
+This program is sent live via osc to sonic-pi for every small change. The entire operation usually takes place in few ms (depending on the node-tree) 
 
 ### what is Sonic PI?
 
@@ -67,7 +75,6 @@ more on [Blender](https://blender.org)
 
 [Animation Nodes](https://github.com/JacquesLucke/animation_nodes) is a node based visual scripting system designed for motion graphics in [Blender](https://blender.org).
 
-more on https://sonic-pi.net/
 
 ![screenshoot1](doc/screen1.png)
 

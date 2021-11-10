@@ -39,7 +39,8 @@ control s, note: 82
 
 
 
-
+synth
+    cutoff opt ios not declared
 
 
 

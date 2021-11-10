@@ -2276,12 +2276,11 @@ lang_sound = {
     "name": "synth",
     "introduced": "2,0,0",
     "summary": "Trigger specific synth",
-    "args": [
-      {
-        "synth_name": ":symbol"
-      }
-    ],
+    "args": [],
     "opts": {
+      "note": ":e1",
+      "note_num": 77,
+      "cutoff": 0,
       "amp": 1,
       "amp_slide": 1,
       "pan": 0,
@@ -2299,10 +2298,15 @@ lang_sound = {
       "on": 1
     },
     "accepts_block": true,
-    "hiden": true,
+    "hiden": false,
     "async_block": true,
     "intro_fn": true,
-    "requires_block": false
+    "requires_block": false,
+    "alt_args": [
+      {
+        "synth_name": ":symbol"
+      }
+    ]
   },
   "play": {
     "signature": {
