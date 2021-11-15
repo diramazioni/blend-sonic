@@ -8,7 +8,7 @@
 {%- block create %}{%- endblock -%}
 
 {%- block extra_create %}
-{{ macro.block_extra_create() }}  
+{{ macro.block_extra_create() }}
 {%- endblock %}
 
 {% block post_create %}

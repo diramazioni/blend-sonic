@@ -19,7 +19,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "cue": {
     "signature": {
@@ -40,20 +40,20 @@ lang_core = {
       "key": "foo: 64"
     },
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "__osc_match": {
     "signature": {
       "matcher_path": null,
       "osc_path": null
     },
-    "hiden": false
+    "hidden": false
   },
   "get_event": {
     "signature": {
       "*args": null
     },
-    "hiden": false
+    "hidden": false
   },
   "get": {
     "signature": {
@@ -68,10 +68,10 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "current_beat": {
-    "hiden": false
+    "hidden": false
   },
   "with_swing": {
     "signature": {
@@ -89,7 +89,7 @@ lang_core = {
     "returns": null,
     "opts": {},
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "alt_args": [
       {
         "pulse": ":number"
@@ -116,7 +116,7 @@ lang_core = {
     ],
     "returns": null,
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "run_code": {
     "signature": {
@@ -132,7 +132,7 @@ lang_core = {
     ],
     "returns": null,
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "eval_file": {
     "signature": {
@@ -148,7 +148,7 @@ lang_core = {
     ],
     "returns": null,
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "use_osc_logging": {
     "signature": {
@@ -164,7 +164,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "with_osc_logging": {
     "signature": {
@@ -181,7 +181,7 @@ lang_core = {
     ],
     "accepts_block": true,
     "requires_block": true,
-    "hiden": false
+    "hidden": false
   },
   "use_osc": {
     "signature": {
@@ -201,7 +201,7 @@ lang_core = {
     ],
     "returns": null,
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "with_osc": {
     "signature": {
@@ -222,14 +222,14 @@ lang_core = {
     ],
     "returns": null,
     "accepts_block": true,
-    "hiden": false
+    "hidden": false
   },
   "__osc_send_api": {
     "signature": {
       "path": null,
       "*args": null
     },
-    "hiden": false
+    "hidden": false
   },
   "__osc_send": {
     "signature": {
@@ -238,7 +238,7 @@ lang_core = {
       "path": null,
       "*args": null
     },
-    "hiden": false
+    "hidden": false
   },
   "osc_send": {
     "signature": {
@@ -266,7 +266,7 @@ lang_core = {
     ],
     "returns": null,
     "accepts_block": true,
-    "hiden": true
+    "hidden": true
   },
   "osc": {
     "signature": {
@@ -283,7 +283,7 @@ lang_core = {
     ],
     "returns": null,
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "reset": {
     "name": "reset",
@@ -292,7 +292,7 @@ lang_core = {
     "args": [],
     "returns": null,
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "clear": {
     "name": "clear",
@@ -301,7 +301,7 @@ lang_core = {
     "args": [],
     "returns": null,
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "time_warp": {
     "signature": {
@@ -319,7 +319,7 @@ lang_core = {
     ],
     "returns": null,
     "accepts_block": true,
-    "hiden": false
+    "hidden": false
   },
   "tick_set": {
     "signature": {
@@ -343,7 +343,7 @@ lang_core = {
     ],
     "returns": ":number",
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "tick_reset": {
     "signature": {
@@ -359,7 +359,7 @@ lang_core = {
     ],
     "returns": ":number",
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "tick_reset_all": {
     "name": "tick_reset_all",
@@ -367,7 +367,7 @@ lang_core = {
     "summary": "Reset all ticks",
     "returns": null,
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "tick": {
     "signature": {
@@ -394,7 +394,7 @@ lang_core = {
       "offset": 0
     },
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "look": {
@@ -417,7 +417,7 @@ lang_core = {
       "offset": 0
     },
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "stop": {
@@ -426,7 +426,7 @@ lang_core = {
     "summary": "Stop current thread or run",
     "returns": null,
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "args": [
       {
         "signal": ":boolean"
@@ -449,7 +449,7 @@ lang_core = {
     ],
     "returns": null,
     "accepts_block": true,
-    "hiden": false,
+    "hidden": false,
     "requires_block": true
   },
   "bools": {
@@ -466,7 +466,7 @@ lang_core = {
     ],
     "returns": ":ring",
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "stretch": {
@@ -483,7 +483,7 @@ lang_core = {
     ],
     "returns": ":ring",
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true,
     "alt_args": [
       {
@@ -505,7 +505,7 @@ lang_core = {
     ],
     "returns": ":ring",
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true,
     "alt_args": [
       {
@@ -518,7 +518,7 @@ lang_core = {
       "v1": null,
       "v2": null
     },
-    "hiden": false
+    "hidden": false
   },
   "spread": {
     "signature": {
@@ -542,7 +542,7 @@ lang_core = {
       "rotate": false
     },
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "range": {
@@ -572,7 +572,7 @@ lang_core = {
     },
     "accepts_block": false,
     "memoize": true,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "line": {
@@ -599,7 +599,7 @@ lang_core = {
     },
     "accepts_block": false,
     "memoize": true,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "halves": {
@@ -621,7 +621,7 @@ lang_core = {
     "returns": ":ring",
     "accepts_block": false,
     "memoize": true,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "doubles": {
@@ -643,7 +643,7 @@ lang_core = {
     "returns": ":ring",
     "accepts_block": false,
     "memoize": true,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "vector": {
@@ -660,7 +660,7 @@ lang_core = {
     ],
     "returns": ":vector",
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "ring": {
@@ -677,7 +677,7 @@ lang_core = {
     ],
     "returns": ":ring",
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "map": {
@@ -694,7 +694,7 @@ lang_core = {
     ],
     "returns": ":map",
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "ramp": {
     "signature": {
@@ -710,7 +710,7 @@ lang_core = {
     ],
     "returns": ":ramp",
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "choose": {
@@ -725,7 +725,7 @@ lang_core = {
     "opts": {
       "skip": 0
     },
-    "hiden": false,
+    "hidden": false,
     "inline": true,
     "alt_args": [
       {
@@ -747,7 +747,7 @@ lang_core = {
     ],
     "opts": {},
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "dec": {
     "signature": {
@@ -763,7 +763,7 @@ lang_core = {
     ],
     "opts": {},
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "loop": {
     "signature": {
@@ -776,7 +776,7 @@ lang_core = {
     "accepts_block": true,
     "requires_block": true,
     "async_block": false,
-    "hiden": true
+    "hidden": true
   },
   "live_loop": {
     "signature": {
@@ -800,7 +800,7 @@ lang_core = {
     "requires_block": true,
     "async_block": true,
     "intro_fn": true,
-    "hiden": false,
+    "hidden": false,
     "alt_args": [
       {
         "name": ":symbol"
@@ -818,7 +818,7 @@ lang_core = {
     "accepts_block": true,
     "requires_block": true,
     "async_block": false,
-    "hiden": false
+    "hidden": false
   },
   "block_slept": {
     "signature": {
@@ -831,7 +831,7 @@ lang_core = {
     "accepts_block": true,
     "requires_block": true,
     "async_block": false,
-    "hiden": false
+    "hidden": false
   },
   "at": {
     "signature": {
@@ -853,14 +853,14 @@ lang_core = {
     "accepts_block": true,
     "requires_block": true,
     "async_block": true,
-    "hiden": false
+    "hidden": false
   },
   "version": {
     "name": "version",
     "introduced": "2,0,0",
     "summary": "Get current version information",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "spark_graph": {
     "signature": {
@@ -870,14 +870,14 @@ lang_core = {
     "introduced": "2,5,0",
     "summary": "Returns a string representing a list of numeric values as a spark graph/bar chart",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "spark": {
     "signature": {
       "*values": null
     },
     "name": "spark",
-    "hiden": true,
+    "hidden": true,
     "introduced": "2,5,0",
     "summary": "Print a string representing a list of numeric values as a spark graph/bar chart",
     "accepts_block": false
@@ -901,7 +901,7 @@ lang_core = {
     },
     "accepts_block": true,
     "requires_block": true,
-    "hiden": false
+    "hidden": false
   },
   "ndefine": {
     "signature": {
@@ -918,7 +918,7 @@ lang_core = {
     ],
     "accepts_block": true,
     "requires_block": true,
-    "hiden": true
+    "hidden": true
   },
   "define": {
     "signature": {
@@ -936,7 +936,7 @@ lang_core = {
     "accepts_block": true,
     "requires_block": true,
     "intro_fn": true,
-    "hiden": false
+    "hidden": false
   },
   "comment": {
     "signature": {
@@ -948,7 +948,7 @@ lang_core = {
     "summary": "Block level commenting",
     "accepts_block": true,
     "requires_block": true,
-    "hiden": true
+    "hidden": true
   },
   "uncomment": {
     "signature": {
@@ -960,7 +960,7 @@ lang_core = {
     "summary": "Block level comment ignoring",
     "accepts_block": true,
     "requires_block": true,
-    "hiden": true
+    "hidden": true
   },
   "print": {
     "signature": {
@@ -976,7 +976,7 @@ lang_core = {
     ],
     "accepts_block": false,
     "intro_fn": true,
-    "hiden": true
+    "hidden": true
   },
   "puts": {
     "signature": {
@@ -992,14 +992,14 @@ lang_core = {
     ],
     "accepts_block": false,
     "intro_fn": true,
-    "hiden": true
+    "hidden": true
   },
   "vt": {
     "name": "vt",
     "introduced": "2,1,0",
     "summary": "Get virtual time",
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "factor": {
@@ -1019,7 +1019,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "quantise": {
     "signature": {
@@ -1038,7 +1038,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "dice": {
@@ -1054,7 +1054,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "one_in": {
@@ -1070,7 +1070,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "rdist": {
@@ -1099,7 +1099,7 @@ lang_core = {
       "step": 1
     },
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "rrand": {
@@ -1124,7 +1124,7 @@ lang_core = {
     },
     "accepts_block": false,
     "intro_fn": true,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "rrand_i": {
@@ -1144,7 +1144,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "rand": {
@@ -1161,7 +1161,7 @@ lang_core = {
     ],
     "accepts_block": false,
     "intro_fn": true,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "rand_i": {
@@ -1177,7 +1177,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "rand_look": {
@@ -1193,7 +1193,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "rand_i_look": {
@@ -1209,7 +1209,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "rand_back": {
@@ -1225,7 +1225,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "rand_skip": {
     "signature": {
@@ -1240,7 +1240,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "rand_reset": {
     "name": "rand_reset",
@@ -1248,7 +1248,7 @@ lang_core = {
     "summary": "Reset rand generator to last seed",
     "args": [],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "shuffle": {
     "signature": {
@@ -1259,7 +1259,7 @@ lang_core = {
     "summary": "Randomise order of a list",
     "args": [],
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true,
     "alt_args": [
       {
@@ -1281,7 +1281,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "with_random_seed": {
     "signature": {
@@ -1298,7 +1298,7 @@ lang_core = {
     ],
     "accepts_block": true,
     "requires_block": true,
-    "hiden": false
+    "hidden": false
   },
   "use_random_source": {
     "signature": {
@@ -1314,7 +1314,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "with_random_source": {
     "signature": {
@@ -1331,14 +1331,14 @@ lang_core = {
     ],
     "accepts_block": true,
     "requires_block": true,
-    "hiden": false
+    "hidden": false
   },
   "with_tempo": {
     "signature": {
       "*args": null,
       "&block": null
     },
-    "hiden": true
+    "hidden": true
   },
   "use_cue_logging": {
     "signature": {
@@ -1354,7 +1354,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "with_cue_logging": {
     "signature": {
@@ -1371,7 +1371,7 @@ lang_core = {
     ],
     "accepts_block": true,
     "requires_block": true,
-    "hiden": false
+    "hidden": false
   },
   "use_bpm": {
     "signature": {
@@ -1388,7 +1388,7 @@ lang_core = {
     ],
     "accepts_block": false,
     "intro_fn": true,
-    "hiden": false
+    "hidden": false
   },
   "with_bpm": {
     "signature": {
@@ -1405,7 +1405,7 @@ lang_core = {
     ],
     "accepts_block": true,
     "requires_block": true,
-    "hiden": false
+    "hidden": false
   },
   "with_bpm_mul": {
     "signature": {
@@ -1422,7 +1422,7 @@ lang_core = {
     ],
     "accepts_block": true,
     "requires_block": true,
-    "hiden": false
+    "hidden": false
   },
   "use_bpm_mul": {
     "signature": {
@@ -1438,7 +1438,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "density": {
     "signature": {
@@ -1454,7 +1454,7 @@ lang_core = {
       }
     ],
     "accepts_block": true,
-    "hiden": false,
+    "hidden": false,
     "async_block": true,
     "requires_block": true
   },
@@ -1463,14 +1463,14 @@ lang_core = {
     "introduced": "3,0,0",
     "summary": "Get current (logically quantized) time",
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "current_random_seed": {
     "name": "current_random_seed",
     "introduced": "2,10,0",
     "summary": "Get current random seed",
     "accepts_block": false,
-    "hiden": true,
+    "hidden": true,
     "intro_fn": true
   },
   "current_bpm": {
@@ -1478,14 +1478,14 @@ lang_core = {
     "introduced": "2,0,0",
     "summary": "Get current tempo",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "current_beat_duration": {
     "name": "current_beat_duration",
     "introduced": "2,6,0",
     "summary": "Duration of current beat",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "beat": {
     "name": "beat",
@@ -1493,7 +1493,7 @@ lang_core = {
     "summary": "Get current beat",
     "args": [],
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "rt": {
     "signature": {
@@ -1508,7 +1508,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "inline": true
   },
   "bt": {
@@ -1524,7 +1524,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "set_sched_ahead_time": {
     "signature": {
@@ -1540,7 +1540,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "use_sched_ahead_time": {
     "name": "use_sched_ahead_time",
@@ -1553,7 +1553,7 @@ lang_core = {
     ],
     "modifies_env": true,
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "use_real_time": {
     "name": "use_real_time",
@@ -1562,7 +1562,7 @@ lang_core = {
     "args": [],
     "modifies_env": true,
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "with_real_time": {
     "signature": {
@@ -1574,7 +1574,7 @@ lang_core = {
     "args": [],
     "modifies_env": true,
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "with_sched_ahead_time": {
     "name": "with_sched_ahead_time",
@@ -1587,20 +1587,20 @@ lang_core = {
     ],
     "modifies_env": true,
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "current_sched_ahead_time": {
     "name": "current_sched_ahead_time",
     "introduced": "2,0,0",
     "summary": "Get current sched ahead time",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "__change_time": {
     "signature": {
       "new_vt": null
     },
-    "hiden": false
+    "hidden": false
   },
   "sleep": {
     "signature": {
@@ -1616,7 +1616,7 @@ lang_core = {
     ],
     "accepts_block": false,
     "advances_time": true,
-    "hiden": false
+    "hidden": false
   },
   "wait": {
     "signature": {
@@ -1632,13 +1632,13 @@ lang_core = {
     ],
     "accepts_block": false,
     "advances_time": true,
-    "hiden": true
+    "hidden": true
   },
   "__live_loop_cue": {
     "signature": {
       "id": null
     },
-    "hiden": false
+    "hidden": false
   },
   "sync_bpm": {
     "signature": {
@@ -1655,13 +1655,13 @@ lang_core = {
     "opts": {},
     "accepts_block": false,
     "advances_time": true,
-    "hiden": false
+    "hidden": false
   },
   "sync_event": {
     "signature": {
       "*args": null
     },
-    "hiden": false
+    "hidden": false
   },
   "sync": {
     "signature": {
@@ -1680,7 +1680,7 @@ lang_core = {
     },
     "accepts_block": false,
     "advances_time": true,
-    "hiden": false
+    "hidden": false
   },
   "in_thread": {
     "signature": {
@@ -1699,14 +1699,14 @@ lang_core = {
     "accepts_block": true,
     "requires_block": true,
     "async_block": true,
-    "hiden": false
+    "hidden": false
   },
   "assert_inherited": {
     "signature": {
       "arg": null,
       "klass": "Object"
     },
-    "hiden": false
+    "hidden": false
   },
   "assert_error": {
     "signature": {
@@ -1722,7 +1722,7 @@ lang_core = {
       }
     ],
     "accepts_block": true,
-    "hiden": false
+    "hidden": false
   },
   "assert_not": {
     "signature": {
@@ -1746,7 +1746,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "assert": {
     "signature": {
@@ -1763,7 +1763,7 @@ lang_core = {
     ],
     "alt_args": [],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "assert_not_equal": {
     "signature": {
@@ -1794,7 +1794,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "assert_equal": {
     "signature": {
@@ -1825,7 +1825,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "assert_similar": {
     "signature": {
@@ -1856,7 +1856,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "load_buffer": {
     "signature": {
@@ -1871,7 +1871,7 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "load_example": {
     "signature": {
@@ -1886,14 +1886,14 @@ lang_core = {
       }
     ],
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "note_list": {
     "accepts_block": false,
     "summary": "Make a list of notes",
     "opts": {},
     "signature": {},
-    "hiden": false,
+    "hidden": false,
     "args": [],
     "name": "note_list",
     "introduced": "blend-sonic"
@@ -1903,7 +1903,7 @@ lang_core = {
     "summary": "return a number based on current time",
     "opts": {},
     "signature": {},
-    "hiden": false,
+    "hidden": false,
     "args": [],
     "name": "time_now",
     "introduced": "blend-sonic"
@@ -1927,7 +1927,7 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "requires_block": false
   },
   "with_timing_guarantees": {
@@ -1944,7 +1944,7 @@ lang_sound = {
       }
     ],
     "accepts_block": true,
-    "hiden": false,
+    "hidden": false,
     "requires_block": true
   },
   "use_external_synths": {
@@ -1952,21 +1952,21 @@ lang_sound = {
       "v": null,
       "&block": null
     },
-    "hiden": true
+    "hidden": true
   },
   "use_timing_warnings": {
     "signature": {
       "v": null,
       "&block": null
     },
-    "hiden": true
+    "hidden": true
   },
   "with_timing_warnings": {
     "signature": {
       "v": null,
       "&block": null
     },
-    "hiden": true
+    "hidden": true
   },
   "use_sample_bpm": {
     "signature": {
@@ -1981,7 +1981,7 @@ lang_sound = {
       "num_beats": 1
     },
     "accepts_block": false,
-    "hiden": false,
+    "hidden": false,
     "alt_args": [
       {
         "string_or_number": ":sample_name_or_duration"
@@ -2007,7 +2007,7 @@ lang_sound = {
     },
     "accepts_block": true,
     "requires_block": true,
-    "hiden": false
+    "hidden": false
   },
   "use_arg_bpm_scaling": {
     "signature": {
@@ -2023,7 +2023,7 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "with_arg_bpm_scaling": {
     "signature": {
@@ -2035,7 +2035,7 @@ lang_sound = {
     "summary": "Block-level enable and disable BPM scaling",
     "accepts_block": true,
     "requires_block": true,
-    "hiden": false
+    "hidden": false
   },
   "set_audio_latency": {
     "signature": {
@@ -2051,7 +2051,7 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "set_recording_bit_depth": {
     "signature": {
@@ -2067,7 +2067,7 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "set_control_delta": {
     "signature": {
@@ -2083,7 +2083,7 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "use_debug": {
     "signature": {
@@ -2099,7 +2099,7 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": true
+    "hidden": false
   },
   "with_debug": {
     "signature": {
@@ -2116,7 +2116,7 @@ lang_sound = {
     ],
     "accepts_block": true,
     "requires_block": true,
-    "hiden": true
+    "hidden": true
   },
   "use_arg_checks": {
     "signature": {
@@ -2132,7 +2132,7 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "with_arg_checks": {
     "signature": {
@@ -2149,7 +2149,7 @@ lang_sound = {
     ],
     "accepts_block": true,
     "requires_block": true,
-    "hiden": false
+    "hidden": false
   },
   "use_synth": {
     "signature": {
@@ -2163,7 +2163,7 @@ lang_sound = {
     "args": [],
     "accepts_block": false,
     "intro_fn": true,
-    "hiden": false,
+    "hidden": false,
     "alt_args": [
       {
         "synth_name": ":symbol"
@@ -2186,21 +2186,21 @@ lang_sound = {
     ],
     "accepts_block": true,
     "requires_block": true,
-    "hiden": true
+    "hidden": true
   },
   "recording_start": {
     "name": "recording_start",
     "introduced": "2,0,0",
     "summary": "Start recording",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "recording_stop": {
     "name": "recording_stop",
     "introduced": "2,0,0",
     "summary": "Stop recording",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "recording_save": {
     "signature": {
@@ -2215,12 +2215,12 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "recording_delete": {
     "name": "recording_delete",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "reset_mixer": {
     "signature": {
@@ -2232,7 +2232,7 @@ lang_sound = {
     "summary": "Reset main mixer",
     "opts": {},
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "set_mixer_control": {
     "signature": {
@@ -2253,19 +2253,19 @@ lang_sound = {
       "leak_dc_bypass": 0
     },
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "set_mixer_invert_stereo!": {
-    "hiden": false
+    "hidden": false
   },
   "set_mixer_standard_stereo!": {
-    "hiden": false
+    "hidden": false
   },
   "set_mixer_stereo_mode!": {
-    "hiden": false
+    "hidden": false
   },
   "set_mixer_mono_mode!": {
-    "hiden": false
+    "hidden": false
   },
   "synth": {
     "signature": {
@@ -2281,6 +2281,8 @@ lang_sound = {
       "note": ":e1",
       "note_num": 77,
       "cutoff": 0,
+      "wave": 0,
+      "phase": 0,
       "amp": 1,
       "amp_slide": 1,
       "pan": 0,
@@ -2298,7 +2300,7 @@ lang_sound = {
       "on": 1
     },
     "accepts_block": true,
-    "hiden": false,
+    "hidden": false,
     "async_block": true,
     "intro_fn": true,
     "requires_block": false,
@@ -2341,7 +2343,7 @@ lang_sound = {
     },
     "accepts_block": true,
     "intro_fn": true,
-    "hiden": false,
+    "hidden": false,
     "async_block": true,
     "requires_block": false
   },
@@ -2360,7 +2362,7 @@ lang_sound = {
     ],
     "opts": {},
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "play_pattern_timed": {
     "signature": {
@@ -2397,7 +2399,7 @@ lang_sound = {
       "on": 1
     },
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "play_chord": {
     "signature": {
@@ -2430,7 +2432,7 @@ lang_sound = {
       "on": 1
     },
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "use_merged_synth_defaults": {
     "signature": {
@@ -2442,7 +2444,7 @@ lang_sound = {
     "summary": "Merge synth defaults",
     "opts": {},
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "with_merged_synth_defaults": {
     "signature": {
@@ -2455,7 +2457,7 @@ lang_sound = {
     "opts": {},
     "accepts_block": true,
     "requires_block": true,
-    "hiden": true
+    "hidden": true
   },
   "use_synth_defaults": {
     "signature": {
@@ -2467,7 +2469,7 @@ lang_sound = {
     "summary": "Use new synth defaults",
     "opts": {},
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "use_sample_defaults": {
     "signature": {
@@ -2533,7 +2535,7 @@ lang_sound = {
       "path": "/path/to/file"
     },
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "use_merged_sample_defaults": {
     "signature": {
@@ -2545,7 +2547,7 @@ lang_sound = {
     "summary": "Merge new sample defaults",
     "opts": {},
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "with_sample_defaults": {
     "signature": {
@@ -2558,7 +2560,7 @@ lang_sound = {
     "opts": {},
     "accepts_block": true,
     "requires_block": true,
-    "hiden": false
+    "hidden": false
   },
   "with_merged_sample_defaults": {
     "signature": {
@@ -2571,7 +2573,7 @@ lang_sound = {
     "opts": {},
     "accepts_block": true,
     "requires_block": true,
-    "hiden": false
+    "hidden": false
   },
   "with_synth_defaults": {
     "signature": {
@@ -2584,14 +2586,14 @@ lang_sound = {
     "opts": {},
     "accepts_block": true,
     "requires_block": true,
-    "hiden": true
+    "hidden": true
   },
   "use_fx": {
     "signature": {
       "*args": null,
       "&block": null
     },
-    "hiden": true
+    "hidden": true
   },
   "with_afx": {
     "signature": {
@@ -2599,7 +2601,7 @@ lang_sound = {
       "*args": null,
       "&block": null
     },
-    "hiden": true
+    "hidden": true
   },
   "with_fx": {
     "signature": {
@@ -2618,7 +2620,7 @@ lang_sound = {
     "accepts_block": true,
     "requires_block": true,
     "intro_fn": true,
-    "hiden": true,
+    "hidden": true,
     "async_block": true,
     "alt_args": [
       {
@@ -2631,42 +2633,42 @@ lang_sound = {
     "introduced": "2,0,0",
     "summary": "Get current synth",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "current_synth_defaults": {
     "name": "current_synth_defaults",
     "introduced": "2,0,0",
     "summary": "Get current synth defaults",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "current_sample_defaults": {
     "name": "current_sample_defaults",
     "introduced": "2,5,0",
     "summary": "Get current sample defaults",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "current_volume": {
     "name": "current_volume",
     "introduced": "2,0,0",
     "summary": "Get current volume",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "current_debug": {
     "name": "current_debug",
     "introduced": "2,0,0",
     "summary": "Get current debug status",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "current_arg_checks": {
     "name": "current_arg_checks",
     "introduced": "2,0,0",
     "summary": "Get current arg checking status",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "set_volume": {
     "signature": {
@@ -2684,7 +2686,7 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "sample_loaded": {
     "signature": {
@@ -2699,7 +2701,7 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "load_sample": {
     "signature": {
@@ -2714,7 +2716,7 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "load_samples": {
     "signature": {
@@ -2729,13 +2731,13 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "load_sample_at_path": {
     "signature": {
       "path": null
     },
-    "hiden": true
+    "hidden": true
   },
   "sample_info": {
     "signature": {
@@ -2750,7 +2752,7 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "sample_buffer": {
     "signature": {
@@ -2765,7 +2767,7 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "sample_duration": {
     "signature": {
@@ -2792,25 +2794,25 @@ lang_sound = {
       "rpitch": 0
     },
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "sample_split_filts_and_opts": {
     "signature": {
       "args": null
     },
-    "hiden": true
+    "hidden": true
   },
   "resolve_sample_paths": {
     "signature": {
       "filts_and_sources": null
     },
-    "hiden": true
+    "hidden": true
   },
   "resolve_sample_path": {
     "signature": {
       "filts_and_sources": null
     },
-    "hiden": true
+    "hidden": true
   },
   "sample_paths": {
     "signature": {
@@ -2826,7 +2828,7 @@ lang_sound = {
     ],
     "returns": ":ring",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "sample": {
     "signature": {
@@ -2894,7 +2896,7 @@ lang_sound = {
     },
     "accepts_block": true,
     "intro_fn": true,
-    "hiden": false,
+    "hidden": false,
     "async_block": true,
     "requires_block": false,
     "alt_args": [
@@ -2908,7 +2910,7 @@ lang_sound = {
     "introduced": "2,0,0",
     "summary": "Get server status",
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "control": {
     "signature": {
@@ -2924,7 +2926,7 @@ lang_sound = {
     ],
     "opts": {},
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "kill": {
     "signature": {
@@ -2940,7 +2942,7 @@ lang_sound = {
     ],
     "opts": {},
     "accepts_block": false,
-    "hiden": false
+    "hidden": false
   },
   "sample_names": {
     "signature": {
@@ -2957,7 +2959,7 @@ lang_sound = {
     "returns": ":ring",
     "accepts_block": false,
     "memoize": true,
-    "hiden": true
+    "hidden": true
   },
   "all_sample_names": {
     "name": "all_sample_names",
@@ -2965,7 +2967,7 @@ lang_sound = {
     "summary": "Get all sample names",
     "accepts_block": false,
     "memoize": true,
-    "hiden": true
+    "hidden": true
   },
   "sample_groups": {
     "name": "sample_groups",
@@ -2973,7 +2975,7 @@ lang_sound = {
     "summary": "Get all sample groups",
     "accepts_block": false,
     "memoize": true,
-    "hiden": true
+    "hidden": true
   },
   "synth_names": {
     "name": "synth_names",
@@ -2981,7 +2983,7 @@ lang_sound = {
     "summary": "Get all synth names",
     "accepts_block": false,
     "memoize": true,
-    "hiden": true
+    "hidden": true
   },
   "fx_names": {
     "name": "fx_names",
@@ -2989,7 +2991,7 @@ lang_sound = {
     "summary": "Get all FX names",
     "accepts_block": false,
     "memoize": true,
-    "hiden": true
+    "hidden": true
   },
   "load_synthdefs": {
     "signature": {
@@ -3004,14 +3006,14 @@ lang_sound = {
       }
     ],
     "accepts_block": false,
-    "hiden": true
+    "hidden": true
   },
   "note_list": {
     "accepts_block": false,
     "summary": "Make a list of notes",
     "opts": {},
     "signature": {},
-    "hiden": false,
+    "hidden": false,
     "args": [],
     "name": "note_list",
     "introduced": "blend-sonic"
@@ -3021,7 +3023,7 @@ lang_sound = {
     "summary": "return a number based on current time",
     "opts": {},
     "signature": {},
-    "hiden": false,
+    "hidden": false,
     "args": [],
     "name": "time_now",
     "introduced": "blend-sonic"
@@ -3039,13 +3041,13 @@ synths = {
     "opts": {},
     "inherit_base": "BaseInfo",
     "inherit_arg": true,
-    "hiden": true
+    "hidden": true
   },
   "SonicPiSynth": {
     "opts": {},
     "inherit_base": "SynthInfo",
     "inherit_arg": true,
-    "hiden": true
+    "hidden": true
   },
   "SoundIn": {
     "opts": {
@@ -3071,7 +3073,7 @@ synths = {
     "inherit_arg": false,
     "name": ":sound_in",
     "summary": "Sound In",
-    "hiden": false
+    "hidden": false
   },
   "SoundInStereo": {
     "opts": {
@@ -3097,7 +3099,7 @@ synths = {
     "inherit_arg": true,
     "name": ":sound_in_stereo",
     "summary": "Sound In Stereo",
-    "hiden": true
+    "hidden": true
   },
   "DullBell": {
     "opts": {
@@ -3126,7 +3128,7 @@ synths = {
     "inherit_arg": false,
     "name": ":dull_bell",
     "summary": "Dull Bell",
-    "hiden": false
+    "hidden": false
   },
   "PrettyBell": {
     "opts": {
@@ -3155,7 +3157,7 @@ synths = {
     "inherit_arg": true,
     "name": ":pretty_bell",
     "summary": "Pretty Bell",
-    "hiden": true
+    "hidden": true
   },
   "Beep": {
     "opts": {
@@ -3184,7 +3186,7 @@ synths = {
     "inherit_arg": false,
     "name": ":beep",
     "summary": "Sine Wave",
-    "hiden": false
+    "hidden": false
   },
   "Saw": {
     "opts": {
@@ -3217,7 +3219,7 @@ synths = {
     "inherit_arg": true,
     "name": ":saw",
     "summary": "Saw Wave",
-    "hiden": true
+    "hidden": true
   },
   "Square": {
     "opts": {
@@ -3250,7 +3252,7 @@ synths = {
     "inherit_arg": false,
     "name": ":square",
     "summary": "Square Wave",
-    "hiden": false
+    "hidden": false
   },
   "Pulse": {
     "opts": {
@@ -3286,7 +3288,7 @@ synths = {
     "inherit_arg": true,
     "name": ":pulse",
     "summary": "Pulse Wave",
-    "hiden": true
+    "hidden": true
   },
   "SubPulse": {
     "opts": {
@@ -3329,7 +3331,7 @@ synths = {
     "inherit_arg": true,
     "name": ":subpulse",
     "summary": "Pulse Wave with sub",
-    "hiden": true
+    "hidden": true
   },
   "Tri": {
     "opts": {
@@ -3365,7 +3367,7 @@ synths = {
     "inherit_arg": true,
     "name": ":tri",
     "summary": "Triangle Wave",
-    "hiden": true
+    "hidden": true
   },
   "DSaw": {
     "opts": {
@@ -3402,7 +3404,7 @@ synths = {
     "inherit_arg": false,
     "name": ":dsaw",
     "summary": "Detuned Saw wave",
-    "hiden": false
+    "hidden": false
   },
   "DTri": {
     "opts": {
@@ -3439,7 +3441,7 @@ synths = {
     "inherit_arg": true,
     "name": ":dtri",
     "summary": "Detuned Triangle Wave",
-    "hiden": true
+    "hidden": true
   },
   "DPulse": {
     "opts": {
@@ -3483,7 +3485,7 @@ synths = {
     "inherit_arg": true,
     "name": ":dpulse",
     "summary": "Detuned Pulse Wave",
-    "hiden": true
+    "hidden": true
   },
   "FM": {
     "opts": {
@@ -3524,7 +3526,7 @@ synths = {
     "inherit_arg": false,
     "name": ":fm",
     "summary": "Basic FM synthesis",
-    "hiden": false
+    "hidden": false
   },
   "ModFM": {
     "opts": {
@@ -3571,7 +3573,7 @@ synths = {
     "inherit_arg": true,
     "name": ":mod_fm",
     "summary": "Basic FM synthesis with frequency modulation.",
-    "hiden": true
+    "hidden": true
   },
   "ModSaw": {
     "opts": {
@@ -3619,7 +3621,7 @@ synths = {
     "inherit_arg": false,
     "name": ":mod_saw",
     "summary": "Modulated Saw Wave",
-    "hiden": false
+    "hidden": false
   },
   "ModDSaw": {
     "opts": {
@@ -3671,7 +3673,7 @@ synths = {
     "inherit_arg": false,
     "name": ":mod_dsaw",
     "summary": "Modulated Detuned Saw Waves",
-    "hiden": false
+    "hidden": false
   },
   "ModSine": {
     "opts": {
@@ -3719,7 +3721,7 @@ synths = {
     "inherit_arg": false,
     "name": ":mod_sine",
     "summary": "Modulated Sine Wave",
-    "hiden": false
+    "hidden": false
   },
   "ModTri": {
     "opts": {
@@ -3767,7 +3769,7 @@ synths = {
     "inherit_arg": false,
     "name": ":mod_tri",
     "summary": "Modulated Triangle Wave",
-    "hiden": false
+    "hidden": false
   },
   "ModPulse": {
     "opts": {
@@ -3819,7 +3821,7 @@ synths = {
     "inherit_arg": false,
     "name": ":mod_pulse",
     "summary": "Modulated Pulse",
-    "hiden": false
+    "hidden": false
   },
   "TB303": {
     "opts": {
@@ -3872,7 +3874,7 @@ synths = {
     "inherit_arg": false,
     "name": ":tb303",
     "summary": "TB-303 Emulation",
-    "hiden": false
+    "hidden": false
   },
   "Supersaw": {
     "opts": {
@@ -3909,7 +3911,7 @@ synths = {
     "inherit_arg": false,
     "name": ":supersaw",
     "summary": "Supersaw",
-    "hiden": false
+    "hidden": false
   },
   "Hoover": {
     "opts": {
@@ -3946,7 +3948,7 @@ synths = {
     "inherit_arg": false,
     "name": ":hoover",
     "summary": "Hoover",
-    "hiden": false
+    "hidden": false
   },
   "SynthViolin": {
     "opts": {
@@ -3987,7 +3989,7 @@ synths = {
     "inherit_arg": false,
     "name": ":blade",
     "summary": "Blade Runner style strings",
-    "hiden": false
+    "hidden": false
   },
   "SynthPluck": {
     "opts": {
@@ -4019,7 +4021,7 @@ synths = {
     "inherit_arg": false,
     "name": ":pluck",
     "summary": "SynthPluck",
-    "hiden": false
+    "hidden": false
   },
   "SynthKalimba": {
     "opts": {
@@ -4048,7 +4050,7 @@ synths = {
     "inherit_arg": false,
     "name": ":kalimba",
     "summary": "SynthKalimba",
-    "hiden": false
+    "hidden": false
   },
   "SynthRodeo": {
     "opts": {
@@ -4082,7 +4084,7 @@ synths = {
     "inherit_arg": false,
     "name": ":rodeo",
     "summary": "SynthRodeo",
-    "hiden": false
+    "hidden": false
   },
   "SynthPiano": {
     "opts": {
@@ -4113,7 +4115,7 @@ synths = {
     "inherit_arg": false,
     "name": ":piano",
     "summary": "SynthPiano",
-    "hiden": false
+    "hidden": false
   },
   "Growl": {
     "opts": {
@@ -4150,7 +4152,7 @@ synths = {
     "inherit_arg": false,
     "name": ":growl",
     "summary": "Growl",
-    "hiden": false
+    "hidden": false
   },
   "DarkAmbience": {
     "opts": {
@@ -4199,7 +4201,7 @@ synths = {
     "inherit_arg": false,
     "name": ":dark_ambience",
     "summary": "Dark Ambience",
-    "hiden": false
+    "hidden": false
   },
   "DarkSeaHorn": {
     "opts": {
@@ -4228,7 +4230,7 @@ synths = {
     "inherit_arg": false,
     "name": ":dark_sea_horn",
     "summary": "Dark Sea Horn",
-    "hiden": true
+    "hidden": true
   },
   "Singer": {
     "opts": {
@@ -4257,7 +4259,7 @@ synths = {
     "inherit_arg": false,
     "name": ":singer",
     "summary": "Singer",
-    "hiden": true
+    "hidden": true
   },
   "Hollow": {
     "opts": {
@@ -4296,7 +4298,7 @@ synths = {
     "inherit_arg": false,
     "name": ":hollow",
     "summary": "Hollow",
-    "hiden": false
+    "hidden": false
   },
   "Zawa": {
     "opts": {
@@ -4348,7 +4350,7 @@ synths = {
     "inherit_arg": false,
     "name": ":zawa",
     "summary": "Zawa",
-    "hiden": false
+    "hidden": false
   },
   "Prophet": {
     "opts": {
@@ -4385,7 +4387,7 @@ synths = {
     "inherit_arg": false,
     "name": ":prophet",
     "summary": "The Prophet",
-    "hiden": false
+    "hidden": false
   },
   "ChipLead": {
     "opts": {
@@ -4416,7 +4418,7 @@ synths = {
     "inherit_arg": false,
     "name": ":chiplead",
     "summary": "Chip Lead",
-    "hiden": false
+    "hidden": false
   },
   "ChipBass": {
     "opts": {
@@ -4446,13 +4448,13 @@ synths = {
     "inherit_arg": false,
     "name": ":chipbass",
     "summary": "Chip Bass",
-    "hiden": false
+    "hidden": false
   },
   "Pitchless": {
     "opts": {},
     "inherit_base": "SonicPiSynth",
     "inherit_arg": true,
-    "hiden": true
+    "hidden": true
   },
   "Noise": {
     "opts": {
@@ -4485,7 +4487,7 @@ synths = {
     "inherit_arg": false,
     "name": ":noise",
     "summary": "Noise",
-    "hiden": false
+    "hidden": false
   },
   "GNoise": {
     "opts": {
@@ -4518,7 +4520,7 @@ synths = {
     "inherit_arg": true,
     "name": ":gnoise",
     "summary": "Grey Noise",
-    "hiden": true
+    "hidden": true
   },
   "BNoise": {
     "opts": {
@@ -4551,7 +4553,7 @@ synths = {
     "inherit_arg": true,
     "name": ":bnoise",
     "summary": "Brown Noise",
-    "hiden": true
+    "hidden": true
   },
   "PNoise": {
     "opts": {
@@ -4584,7 +4586,7 @@ synths = {
     "inherit_arg": true,
     "name": ":pnoise",
     "summary": "Pink Noise",
-    "hiden": true
+    "hidden": true
   },
   "CNoise": {
     "opts": {
@@ -4617,7 +4619,7 @@ synths = {
     "inherit_arg": true,
     "name": ":cnoise",
     "summary": "Clip Noise",
-    "hiden": true
+    "hidden": true
   },
   "ChipNoise": {
     "opts": {
@@ -4646,7 +4648,7 @@ synths = {
     "inherit_arg": false,
     "name": ":chipnoise",
     "summary": "Chip Noise",
-    "hiden": true
+    "hidden": true
   },
   "TechSaws": {
     "opts": {
@@ -4683,13 +4685,13 @@ synths = {
     "inherit_arg": false,
     "name": ":tech_saws",
     "summary": "TechSaws",
-    "hiden": false
+    "hidden": false
   },
   "StudioInfo": {
     "opts": {},
     "inherit_base": "SonicPiSynth",
     "inherit_arg": true,
-    "hiden": true
+    "hidden": true
   },
   "BasicMonoPlayer": {
     "opts": {
@@ -4715,7 +4717,7 @@ synths = {
     "inherit_arg": false,
     "name": ":basic_mono_player",
     "summary": "Basic Mono Sample Player (no env)",
-    "hiden": true
+    "hidden": true
   },
   "BasicStereoPlayer": {
     "opts": {
@@ -4741,7 +4743,7 @@ synths = {
     "inherit_arg": true,
     "name": ":basic_stereo_player",
     "summary": "Basic Stereo Sample Player (no env)",
-    "hiden": true
+    "hidden": true
   },
   "MonoPlayer": {
     "opts": {
@@ -4847,7 +4849,7 @@ synths = {
     "inherit_arg": false,
     "name": ":mono_player",
     "summary": "Mono Sample Player",
-    "hiden": true
+    "hidden": true
   },
   "StereoPlayer": {
     "opts": {
@@ -4953,13 +4955,13 @@ synths = {
     "inherit_arg": true,
     "name": ":stereo_player",
     "summary": "Stereo Sample Player",
-    "hiden": true
+    "hidden": true
   },
   "BaseMixer": {
     "opts": {},
     "inherit_base": "StudioInfo",
     "inherit_arg": true,
-    "hiden": true
+    "hidden": true
   },
   "BasicMixer": {
     "opts": {
@@ -4972,7 +4974,7 @@ synths = {
     "inherit_arg": false,
     "name": ":basic_mixer",
     "summary": "Basic Mixer",
-    "hiden": true
+    "hidden": true
   },
   "MainMixer": {
     "opts": {
@@ -5002,7 +5004,7 @@ synths = {
     "inherit_arg": false,
     "name": ":mixer",
     "summary": "Main Mixer",
-    "hiden": true
+    "hidden": true
   }
 }
 
@@ -5141,7 +5143,7 @@ fx = {
     },
     "inherit_base": "BaseInfo",
     "inherit_arg": false,
-    "hiden": true
+    "hidden": true
   },
   "FXRecord": {
     "opts": {
@@ -5167,7 +5169,7 @@ fx = {
     "inherit_arg": false,
     "name": ":record",
     "summary": "Record",
-    "hiden": false
+    "hidden": false
   },
   "FXSoundOut": {
     "opts": {
@@ -5194,7 +5196,7 @@ fx = {
     "inherit_arg": true,
     "name": ":sound_out",
     "summary": "Sound Out",
-    "hiden": false
+    "hidden": false
   },
   "FXSoundOutStereo": {
     "opts": {
@@ -5221,7 +5223,7 @@ fx = {
     "inherit_arg": true,
     "name": ":sound_out_stereo",
     "summary": "Sound Out Stereo",
-    "hiden": false
+    "hidden": false
   },
   "FXEQ": {
     "opts": {
@@ -5306,7 +5308,7 @@ fx = {
     "inherit_arg": true,
     "name": ":eq",
     "summary": "EQ",
-    "hiden": false
+    "hidden": false
   },
   "FXGVerb": {
     "opts": {
@@ -5351,7 +5353,7 @@ fx = {
     "inherit_arg": true,
     "name": ":gverb",
     "summary": "GVerb",
-    "hiden": false
+    "hidden": false
   },
   "FXReverb": {
     "opts": {
@@ -5384,7 +5386,7 @@ fx = {
     "inherit_arg": true,
     "name": ":reverb",
     "summary": "Reverb",
-    "hiden": false
+    "hidden": false
   },
   "FXKrush": {
     "opts": {
@@ -5421,7 +5423,7 @@ fx = {
     "inherit_arg": true,
     "name": ":krush",
     "summary": "krush",
-    "hiden": false
+    "hidden": false
   },
   "FXBitcrusher": {
     "opts": {
@@ -5458,7 +5460,7 @@ fx = {
     "inherit_arg": true,
     "name": ":bitcrusher",
     "summary": "Bitcrusher",
-    "hiden": false
+    "hidden": false
   },
   "FXLevel": {
     "opts": {
@@ -5471,7 +5473,7 @@ fx = {
     "inherit_arg": false,
     "name": ":level",
     "summary": "Level Amplifier",
-    "hiden": false
+    "hidden": false
   },
   "FXAutotuner": {
     "opts": {
@@ -5504,7 +5506,7 @@ fx = {
     "inherit_arg": true,
     "name": ":autotuner",
     "summary": "Autotuner",
-    "hiden": false
+    "hidden": false
   },
   "FXMono": {
     "opts": {
@@ -5533,7 +5535,7 @@ fx = {
     "inherit_arg": true,
     "name": ":mono",
     "summary": "Mono",
-    "hiden": false
+    "hidden": false
   },
   "FXEcho": {
     "opts": {
@@ -5567,7 +5569,7 @@ fx = {
     "inherit_arg": true,
     "name": ":echo",
     "summary": "Echo",
-    "hiden": false
+    "hidden": false
   },
   "FXSlicer": {
     "opts": {
@@ -5632,7 +5634,7 @@ fx = {
     "inherit_arg": true,
     "name": ":slicer",
     "summary": "Slicer",
-    "hiden": false
+    "hidden": false
   },
   "FXWobble": {
     "opts": {
@@ -5702,7 +5704,7 @@ fx = {
     "inherit_arg": true,
     "name": ":wobble",
     "summary": "Wobble",
-    "hiden": false
+    "hidden": false
   },
   "FXPanSlicer": {
     "opts": {
@@ -5775,7 +5777,7 @@ fx = {
     "inherit_arg": true,
     "name": ":panslicer",
     "summary": "Pan Slicer",
-    "hiden": true
+    "hidden": true
   },
   "FXIXITechno": {
     "opts": {
@@ -5817,7 +5819,7 @@ fx = {
     "inherit_arg": true,
     "name": ":ixi_techno",
     "summary": "Techno from IXI Lang",
-    "hiden": false
+    "hidden": false
   },
   "FXWhammy": {
     "opts": {
@@ -5849,7 +5851,7 @@ fx = {
     "inherit_arg": true,
     "name": ":whammy",
     "summary": "Whammy",
-    "hiden": false
+    "hidden": false
   },
   "FXCompressor": {
     "opts": {
@@ -5894,7 +5896,7 @@ fx = {
     "inherit_arg": true,
     "name": ":compressor",
     "summary": "Compressor",
-    "hiden": false
+    "hidden": false
   },
   "FXVowel": {
     "opts": {
@@ -5921,7 +5923,7 @@ fx = {
     "inherit_arg": true,
     "name": ":vowel",
     "summary": "Vowel",
-    "hiden": false
+    "hidden": false
   },
   "FXOctaver": {
     "opts": {
@@ -5958,7 +5960,7 @@ fx = {
     "inherit_arg": true,
     "name": ":octaver",
     "summary": "Octaver",
-    "hiden": false
+    "hidden": false
   },
   "FXChorus": {
     "opts": {
@@ -5992,7 +5994,7 @@ fx = {
     "inherit_arg": true,
     "name": ":chorus",
     "summary": "Chorus",
-    "hiden": true
+    "hidden": true
   },
   "FXRingMod": {
     "opts": {
@@ -6025,7 +6027,7 @@ fx = {
     "inherit_arg": true,
     "name": ":ring_mod",
     "summary": "Ring Modulator",
-    "hiden": false
+    "hidden": false
   },
   "FXBPF": {
     "opts": {
@@ -6058,7 +6060,7 @@ fx = {
     "inherit_arg": true,
     "name": ":bpf",
     "summary": "Band Pass Filter",
-    "hiden": false
+    "hidden": false
   },
   "FXRBPF": {
     "opts": {
@@ -6091,7 +6093,7 @@ fx = {
     "inherit_arg": true,
     "name": ":rbpf",
     "summary": "Resonant Band Pass Filter",
-    "hiden": true
+    "hidden": true
   },
   "FXNBPF": {
     "opts": {
@@ -6124,7 +6126,7 @@ fx = {
     "inherit_arg": true,
     "name": ":nbpf",
     "summary": "Normalised Band Pass Filter",
-    "hiden": true
+    "hidden": true
   },
   "FXNRBPF": {
     "opts": {
@@ -6157,7 +6159,7 @@ fx = {
     "inherit_arg": true,
     "name": ":nrbpf",
     "summary": "Normalised Resonant Band Pass Filter",
-    "hiden": true
+    "hidden": true
   },
   "FXLPF": {
     "opts": {
@@ -6186,7 +6188,7 @@ fx = {
     "inherit_arg": true,
     "name": ":lpf",
     "summary": "Low Pass Filter",
-    "hiden": false
+    "hidden": false
   },
   "FXRLPF": {
     "opts": {
@@ -6219,7 +6221,7 @@ fx = {
     "inherit_arg": true,
     "name": ":rlpf",
     "summary": "Resonant Low Pass Filter",
-    "hiden": true
+    "hidden": true
   },
   "FXNormRLPF": {
     "opts": {
@@ -6252,7 +6254,7 @@ fx = {
     "inherit_arg": true,
     "name": ":nrlpf",
     "summary": "Normalised Resonant Low Pass Filter",
-    "hiden": true
+    "hidden": true
   },
   "FXHPF": {
     "opts": {
@@ -6281,7 +6283,7 @@ fx = {
     "inherit_arg": true,
     "name": ":hpf",
     "summary": "High Pass Filter",
-    "hiden": false
+    "hidden": false
   },
   "FXRHPF": {
     "opts": {
@@ -6314,7 +6316,7 @@ fx = {
     "inherit_arg": true,
     "name": ":rhpf",
     "summary": "Resonant High Pass Filter",
-    "hiden": true
+    "hidden": true
   },
   "FXNormRHPF": {
     "opts": {
@@ -6347,7 +6349,7 @@ fx = {
     "inherit_arg": true,
     "name": ":nrhpf",
     "summary": "Normalised Resonant High Pass Filter",
-    "hiden": true
+    "hidden": true
   },
   "FXBandEQ": {
     "opts": {
@@ -6384,7 +6386,7 @@ fx = {
     "inherit_arg": true,
     "name": ":band_eq",
     "summary": "Band EQ Filter",
-    "hiden": false
+    "hidden": false
   },
   "FXNormLPF": {
     "opts": {
@@ -6413,7 +6415,7 @@ fx = {
     "inherit_arg": true,
     "name": ":nlpf",
     "summary": "Normalised Low Pass Filter.",
-    "hiden": true
+    "hidden": true
   },
   "FXNormHPF": {
     "opts": {
@@ -6442,7 +6444,7 @@ fx = {
     "inherit_arg": true,
     "name": ":nhpf",
     "summary": "Normalised High Pass Filter",
-    "hiden": true
+    "hidden": true
   },
   "FXNormaliser": {
     "opts": {
@@ -6471,7 +6473,7 @@ fx = {
     "inherit_arg": true,
     "name": ":normaliser",
     "summary": "Normaliser",
-    "hiden": false
+    "hidden": false
   },
   "FXTanh": {
     "opts": {
@@ -6500,7 +6502,7 @@ fx = {
     "inherit_arg": true,
     "name": ":tanh",
     "summary": "Hyperbolic Tangent",
-    "hiden": false
+    "hidden": false
   },
   "FXPitchShift": {
     "opts": {
@@ -6541,7 +6543,7 @@ fx = {
     "inherit_arg": true,
     "name": ":pitch_shift",
     "summary": "Pitch shift",
-    "hiden": false
+    "hidden": false
   },
   "FXDistortion": {
     "opts": {
@@ -6570,7 +6572,7 @@ fx = {
     "inherit_arg": true,
     "name": ":distortion",
     "summary": "Distortion",
-    "hiden": false
+    "hidden": false
   },
   "FXPan": {
     "opts": {
@@ -6599,7 +6601,7 @@ fx = {
     "inherit_arg": true,
     "name": ":pan",
     "summary": "Pan",
-    "hiden": false
+    "hidden": false
   },
   "FXFlanger": {
     "opts": {
@@ -6650,7 +6652,7 @@ fx = {
     "inherit_arg": true,
     "name": ":flanger",
     "summary": "Flanger",
-    "hiden": false
+    "hidden": false
   },
   "FXTremolo": {
     "opts": {
@@ -6686,7 +6688,7 @@ fx = {
     "inherit_arg": true,
     "name": ":tremolo",
     "summary": "Tremolo",
-    "hiden": false
+    "hidden": false
   },
   "FXPingPong": {
     "opts": {
@@ -6721,7 +6723,7 @@ fx = {
     "inherit_arg": true,
     "name": ":ping_pong",
     "summary": "Ping Pong Echo",
-    "hiden": false
+    "hidden": false
   }
 }
 

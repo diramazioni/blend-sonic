@@ -10,18 +10,15 @@ ERROR
 
 NOT WORKING
 
+there are more default options!!!
+    use_sample_defaults consts['sample']['opts'] need updating
 
+FXRLPF and others are hidden but should not be!
 
 ################
 # functions
 
-remove [] from input list
-    bools ramp ring
 
-remove surrounding ()
-    dice tick one_in quantise rand rand_i rand_look rand_i_look
-
-    -> fn_normal + fn_simple + fn_ringed have (fn) ?
 
 list of buolean not list of strings
     bools

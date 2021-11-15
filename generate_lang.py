@@ -426,9 +426,14 @@ class ParseConst(object):
                 self.consts[f_name][key[:-1]] = val
                 printDone()
             elif key == 'hide:':
+                ######## why RLPF is hidden?
+                if 'RLPF' in f_name.upper():
+                    print("ecco")
                 val = catch_val1(key)
+                if val == "true":
+                    print("here we go")
                 val = True if val == "true" else False
-                self.consts[f_name]['hiden'] = val
+                self.consts[f_name]['hidden'] = val
                 printDone()
             elif key == 'returns:':
                 val = catch_val(key)
@@ -570,8 +575,7 @@ class ParseConst(object):
 
             # parent_synt_name = self.tmp_dict[parent]  # take the ref by class
 
-        if c_name == 'FXInfo':
-            print('d')
+
         if super_merge is None: super_merge = True
         if super_merge and c_parent not in baseClass[1:]:
             # arg_def = inherit_super(super_c, arg_def)
@@ -592,11 +596,11 @@ class ParseConst(object):
             if 'FX' in c_name:
                 synth_name = synth_name.split('fx_')[1]
             synth['name'] = ":"+synth_name
-            hiden = False
-        else: hiden = True
+            hidden = False
+        else: hidden = True
         if len(synth_descr):    synth['summary'] = synth_descr
-        if c_parent not in user_facing:  hiden = True
-        synth['hiden'] = hiden
+        if c_parent not in user_facing:  hidden = True
+        synth['hidden'] = hidden
         if 'FX' in c_name:
             self.fx[c_name] = synth
         else:   self.consts[c_name] = synth
@@ -676,13 +680,15 @@ def parseSynth():
     ## hide not active synth
     for synth_name, val in ps.consts.items():
         if synth_name not in ps.active.values():
-            if not val['hiden']:
-                val['hiden'] = True
+            if not val['hidden']:
+                val['hidden'] = True
                 ps.warn["hiding synth" ].append(synth_name)
     for synth_name, val in ps.fx.items():
+        #if 'RLPF' in synth_name:
+        #    ps.warn["RLPF fx"].append(synth_name)
         if synth_name not in ps.active.values():
-            if not val['hiden']:
-                val['hiden'] = True
+            if not val['hidden']:
+                val['hidden'] = True
                 ps.warn["hiding fx" ].append(synth_name)
 
 
@@ -895,6 +901,8 @@ def addMetaData(consts):
                       "note": ":e1",
                       "note_num": 77,
                       "cutoff": 0,
+                      "wave": 0,
+                      "phase": 0,
                       "amp": 1,
                       "amp_slide": 1,
                       "pan": 0,
@@ -998,7 +1006,7 @@ def addMetaData(consts):
             "summary": "Make a list of notes",
             "opts": {},
             "signature": {},
-            "hiden": False,
+            "hidden": False,
             "args": [],
             "name": "note_list",
             "introduced": "blend-sonic"
@@ -1008,7 +1016,7 @@ def addMetaData(consts):
             "summary": "return a number based on current time",
             "opts": {},
             "signature": {},
-            "hiden": False,
+            "hidden": False,
             "args": [],
             "name": "time_now",
             "introduced": "blend-sonic"
@@ -1021,10 +1029,10 @@ def addMetaData(consts):
 
     # using the list in category_def
     for fn, val in consts.items():
-        if 'hiden' not in val and fn not in is_to_hide:
-            val['hiden'] = False
+        if 'hidden' not in val and fn not in is_to_hide:
+            val['hidden'] = False
         elif fn in is_to_hide:
-            val['hiden'] = True
+            val['hidden'] = True
         if fn in missing_async_block:
             val['async_block'] = True
         if fn in missing_intro_fn:

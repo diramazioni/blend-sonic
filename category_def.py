@@ -8,14 +8,14 @@ all_lang_ref = list(lang_core.keys()) + list(lang_sound.keys())
 
 # def all_synth_names():
 #     for key, value in synths.items():
-#         if value['hiden'] != True and key != 'SoundIn' and value['name'] in synth_nodes:
+#         if value['hidden'] != True and key != 'SoundIn' and value['name'] in synth_nodes:
 #             yield value['name']
 #
 # all_synth = {s: synths[synth_nodes[s]] for s in all_synth_names()}
 
 # def all_fx_names():
 #     for key, value in fx.items():
-#         if value['hiden'] != True and value['name'] in synth_nodes:
+#         if value['hidden'] != True and value['name'] in synth_nodes:
 #             yield value['name']
 
 # all_fx = {s: fx[synth_nodes[s]] for s in all_fx_names()}
@@ -104,20 +104,20 @@ has_inline = [key for key, value in lang_core.items()
 
 
 # advances_time_c = {key: value for key, value in lang_core.items()
-#                   if value['hiden'] is False
+#                   if value['hidden'] is False
 #                   if 'advances_time' in value and value['advances_time'] is not False
 #                   }
 # advances_time_s = {key: value for key, value in lang_sound.items()
-#                   if value['hiden'] is False
+#                   if value['hidden'] is False
 #                   if 'advances_time' in value and value['advances_time'] is not False
 #                   }
 
 # accepts_block_sign_c = {key: value for key, value in lang_core.items()
-#                    if value['hiden'] is False
+#                    if value['hidden'] is False
 #                    if 'accepts_block' in value and value['accepts_block'] is not False and '&block' in value['signature']
 #                    }
 # accepts_block_sign_s = {key: value for key, value in lang_sound.items()
-#                    if value['hiden'] is False
+#                    if value['hidden'] is False
 #                    if 'accepts_block' in value and value['accepts_block'] is not False and '&block' in value['signature']
 #                    }
 
@@ -181,7 +181,7 @@ is_dups = ['wait','with_afx', 'use_fx', 'use_timing_warnings', 'invert_chord', '
 
 is_to_hide = [ 'dec', 'inc', 'puts', 'loop',
                'load_synthdefs', 'load_example', 'comment', 'uncomment','resolve_sample_paths', 'resolve_sample_path',
-               'with_debug', 'use_debug',
+               'with_debug',
                'use_osc', 'osc', 'osc_send', 'with_timing_warnings','use_timing_warnings', 'use_external_synths',
                'start_amp_monitor', 'current_amp', 'sample_split_filts_and_opts','ndefine', 'spark_graph',
            ] + is_just_output + is_dups + is_rec + is_synth

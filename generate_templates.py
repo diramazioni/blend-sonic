@@ -208,7 +208,7 @@ class SonicPI_{{ cat|capitalize }}_Menu(bpy.types.Menu):
             write_template(category, context, fn_name, templ_name)
         ## fx
         for synth_name, synth in fx.items():
-            if synth['hiden']: continue
+            if synth['hidden']: continue
             menu_levels = '....'
             # fn_name =  synth['name'][1:]
             synth_name = synth_name[2:]
@@ -228,7 +228,7 @@ class SonicPI_{{ cat|capitalize }}_Menu(bpy.types.Menu):
             write_template("fx", context, synth_name, templ_name)
         ## synth
         for synth_name, synth in synths.items():
-            if synth['hiden']: continue
+            if synth['hidden']: continue
             menu_levels = '....'
             # synth_name = synth_name[2:]
             templ_name = 'with_synth'

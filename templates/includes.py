@@ -19,6 +19,7 @@
 {%- endmacro %} 
 
 {%- macro block_extra_create() %}
+        self.newInput("Text", "postfix", "postfix_")
     {%- if fn.intro_fn %}
         self.newInput("Text", "intro var", "intro_fn", value = "foo = ")
     {%- endif %}
@@ -110,6 +111,7 @@
 {%- endmacro %} 
 
 {%- macro block_extra_input() %}
+        if s["postfix"].isUsed: yield "postfix = postfix_ "
         yield "intro_fn_ = ''"
     {%- if fn.intro_fn %}
         if s["intro var"].isUsed: yield "intro_fn_ = intro_fn +' '"
@@ -157,11 +159,11 @@
 {%- endmacro -%}
 
 {%- macro no_block_send() %}
-        yield "send = [prefix + '{{ fn_name }} ' + args_ + sep + opts_ + postfix]"
+        yield "send = [prefix + '{{ fn_name }} ' + args_ + sep + opts_ + ' ' + postfix]"
 {%- endmacro -%}
 
 {%- macro opt_block_send() %}
-        yield "f_call = intro_fn_ + '{{ fn.name }} ' + args_ + sep+ opts_ "
+        yield "f_call = intro_fn_ + '{{ fn.name }} ' + args_ + sep + opts_ + ' ' + postfix"
         if s["do_end lines"].isUsed: 
             yield "f_call = [f_call + ' do ' + async_]"
             yield "send = f_call + do_end + ['end']"        
