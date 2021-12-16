@@ -89,12 +89,15 @@ else:
     import ensurepip
     ensurepip.bootstrap()
     os.environ.pop("PIP_REQ_TRACKER", None)
+    from pathlib import Path
+    try:
+        py_exec = Path(bpy.app.binary_path_python)
+    except AttributeError:
+        import sys
+        py_exec = Path(sys.executable)
 
-    py_exec = bpy.app.binary_path_python
-    #py_exec = sys.executable
-    # ensure pip is installed & update
-    #subprocess.call([str(py_exec), "-m", "ensurepip", "--user"])
-    #subprocess.call([str(py_exec), "-m", "pip", "install", "--upgrade", "pip"])
+    #py_exec = bpy.app.binary_path_python
+
     # install dependencies using pip
     subprocess.check_call([str(py_exec),"-m", "pip", "install", "python-osc"])
 
